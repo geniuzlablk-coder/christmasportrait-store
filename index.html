@@ -954,8 +954,8 @@
           img:IMG+"328e0b89-7923-4020-b227-c63aae640402", alt:"A Christmas tote bag printed with a family portrait"},
         {id:"santaset", name:"Santa Letter + Portrait Gift Set", price:49, fit:"cover", best:"Kids 4–9 — the Christmas-morning moment", cutoff:"Dec 13", cats:["kids"], note:"A portrait of them in Snow Globe style plus a personal letter from Santa. The Christmas-morning moment, handled.",
           img:IMG+"25bc2b2d-9646-409a-bc6d-e4cb1c0e63a4", alt:"Santa letter and portrait gift set with a certificate and festive packaging"},
-        {id:"pettee", name:"Pet Christmas Portrait Tee", price:29, fit:"cover", best:"Pet parents — dogs and cats in Santa hats", cutoff:"Dec 15", cats:["pets"], note:"Your dog or cat, in a Santa hat, on a tee. The real head of the family finally gets top billing.",
-          img:IMG+"cf4be324-d5d1-4084-8eab-1028d648c098", alt:"A tee printed with a pet's Christmas portrait — a dog wearing a Santa hat"},
+        {id:"pettee", name:"Pet Christmas Portrait Tee", price:29, fit:"cover", best:"Pet parents — dogs and cats in Santa hats", cutoff:"Dec 15", cats:["pets"], note:"Your photo — pet, family, whoever runs the house — printed large on the chest of a deep-green tee.",
+          img:IMG+"512bd95c-5e81-4995-b165-ad7326715faa", alt:"A folded deep-green tee with a family Christmas portrait printed on the chest"},
         {id:"phonecase", name:"Christmas Phone Case", price:24, fit:"cover", best:"Teens, stocking stuffers, last-minute gifts", cutoff:"Dec 16", cats:["her","him","kids"], note:"Your portrait on a protective phone case — a stocking stuffer they'll actually use every day.",
           img:IMG+"3bd2e3a2-3ba8-46ce-88ab-f9e8bdd98480", alt:"A phone case printed with a family Christmas portrait"}
       ];
@@ -1276,17 +1276,27 @@
          offscreen canvas — it works in every browser and never depends on
          the canvas filter property (older Safari/Chrome silently ignore it on canvas).
          Layer 2 is visible seasonal treatment drawn on top, clipped to the
-         print window: colour wash, vignette, glow, snowfall, sparkle, bokeh.
-         Washes stay at moderate alpha (0.08–0.30) so faces stay natural.
+         print window: colour wash, vignette, glow, snowfall, sparkle, bokeh,
+         letterbox bars (Golden), glass-globe rim (Snow Globe).
+         Washes stay at moderate alpha (0.08–0.38) so faces stay natural.
+         SIGNATURES (each pair differs in at least two dimensions, so no two
+         styles can be confused at a glance):
+         Classic Santa Snow = coldest grade + DENSE large snowfall, no sparkle.
+         Golden Movie Poster = cinematic amber + highest contrast + letterbox bars.
+         Cozy Fireplace = amber glow from the hearth corner.
+         Snow Globe = blue-white glass globe rim + sparkle, light snowfall only.
+         Colombo Christmas = tropical green-gold tint + dense fairy-light bokeh.
+         Winter Royal = near-neutral silver + STRONG gold wash + deep royal
+         vignette + large gold sparkles, no snow at all.
          Honest label: this is a grade preview, not an AI restyle — the full
          AI portrait is the $39 product, art-directed and delivered in 24h. --- */
       var PV_STYLE_GRADE = {
-        "Classic Santa Snow":{temp:-16, tint:3, bright:8, contrast:12, sat:1.05, wash:"rgba(165,200,240,0.16)", vig:"rgba(255,255,255,0.30)", glow:null, flakes:46, sparkle:0, bokeh:0},
-        "Golden Christmas Movie Poster":{temp:22, tint:-2, bright:6, contrast:22, sat:1.22, wash:"rgba(255,190,80,0.13)", vig:"rgba(180,130,20,0.30)", glow:null, flakes:0, sparkle:10, bokeh:0},
-        "Cozy Fireplace":{temp:26, tint:2, bright:4, contrast:10, sat:1.12, wash:"rgba(255,150,60,0.10)", vig:"rgba(120,50,10,0.28)", glow:{x:0.12, y:0.88, r:0.95, color:"rgba(255,150,50,0.30)"}, flakes:0, sparkle:6, bokeh:0},
-        "Snow Globe":{temp:-18, tint:5, bright:10, contrast:8, sat:0.92, wash:"rgba(170,205,245,0.18)", vig:"rgba(210,230,255,0.32)", glow:null, flakes:34, sparkle:22, bokeh:0},
-        "Colombo Christmas":{temp:14, tint:2, bright:7, contrast:12, sat:1.25, wash:"rgba(255,170,90,0.12)", vig:"rgba(60,20,60,0.16)", glow:null, flakes:0, sparkle:8, bokeh:16},
-        "Winter Royal":{temp:-12, tint:2, bright:8, contrast:14, sat:1.00, wash:"rgba(180,195,230,0.15)", wash2:"rgba(212,175,55,0.08)", vig:"rgba(20,30,60,0.22)", glow:null, flakes:0, sparkle:18, bokeh:0}
+        "Classic Santa Snow":{temp:-22, tint:3, bright:12, contrast:14, sat:1.02, wash:"rgba(150,195,245,0.20)", vig:"rgba(255,255,255,0.38)", glow:null, flakes:90, flakeSize:1.6, sparkle:0, bokeh:0},
+        "Golden Christmas Movie Poster":{temp:22, tint:-2, bright:6, contrast:24, sat:1.24, wash:"rgba(255,175,60,0.18)", vig:"rgba(120,80,10,0.38)", glow:null, flakes:0, sparkle:14, bokeh:0, bars:0.09},
+        "Cozy Fireplace":{temp:26, tint:2, bright:4, contrast:10, sat:1.12, wash:"rgba(255,150,60,0.10)", vig:"rgba(120,50,10,0.28)", glow:{x:0.12, y:0.88, r:0.95, color:"rgba(255,150,50,0.36)"}, flakes:0, sparkle:6, bokeh:0},
+        "Snow Globe":{temp:-14, tint:5, bright:10, contrast:8, sat:0.95, wash:"rgba(190,220,255,0.20)", vig:"rgba(210,230,255,0.28)", glow:null, flakes:12, sparkle:30, bokeh:0, globe:true},
+        "Colombo Christmas":{temp:10, tint:6, bright:7, contrast:10, sat:1.30, wash:"rgba(255,180,90,0.10)", wash2:"rgba(90,160,80,0.10)", vig:"rgba(60,20,60,0.16)", glow:null, flakes:0, sparkle:6, bokeh:26},
+        "Winter Royal":{temp:-6, tint:2, bright:8, contrast:18, sat:0.95, wash:"rgba(200,210,235,0.10)", wash2:"rgba(212,175,55,0.16)", vig:"rgba(15,20,45,0.30)", glow:null, flakes:0, sparkle:26, bokeh:0}
       };
       function pvGradeDef(){ return PV_STYLE_GRADE[pvStyle] || PV_STYLE_GRADE["Classic Santa Snow"]; }
       function pvSeededRand(seed){ var s = seed % 2147483647; if(s <= 0) s += 2147483646; return function(){ s = s * 16807 % 2147483647; return (s - 1) / 2147483646; }; }
@@ -1328,7 +1338,7 @@
         {id:"stocking", name:"Christmas Portrait Stocking", price:34.99, fit:"contain", base:STOCK + "1530/christmas-portrait-stocking-personalized-family-portrait.jpg?camera_label=front", alt:"Soft white plush Christmas stocking printed with a family portrait in a gold oval frame", wins:[{x:26,y:24,w:47,h:28,shape:"ellipse",frame:"oval",shading:"radial"}]},
         {id:"canvas", name:"Christmas Portrait Canvas", price:49, fit:"cover", base:IMG + "eea881b6-90fd-4485-aeef-f507eba96989", alt:"A Christmas portrait printed on a gallery canvas hanging above a sofa", wins:[{x:28,y:5,w:47,h:52,shape:"rect",frame:"none",shading:"inner"}]},
         {id:"ornament", name:"Personalized Ornament", price:24, fit:"cover", base:IMG + "aa89a37e-3415-4d9e-a242-5067327454d9", alt:"A personalized Christmas ornament with a family portrait hanging on a tree", wins:[{x:35.2,y:33.8,w:31.7,h:47.5,shape:"circle",frame:"ring",shading:"screen"}]},
-        {id:"pettee", name:"Pet Christmas Portrait Tee", price:29, fit:"cover", base:IMG + "cf4be324-d5d1-4084-8eab-1028d648c098", alt:"A tee printed with a pet's Christmas portrait — a dog wearing a Santa hat", wins:[{x:27,y:56,w:22,h:34,shape:"ellipse",frame:"oval",shading:"folds"}]},
+        {id:"pettee", name:"Pet Christmas Portrait Tee", price:29, fit:"cover", base:IMG + "512bd95c-5e81-4995-b165-ad7326715faa", alt:"A folded deep-green tee with your photo printed large on the chest", wins:[{x:16,y:46,w:44,h:38,shape:"rect",frame:"rect",shading:"folds"}]},
         {id:"tote", name:"Christmas Tote", price:24, fit:"cover", base:IMG + "328e0b89-7923-4020-b227-c63aae640402", alt:"A Christmas tote bag printed with a family portrait", wins:[{x:28,y:38,w:39,h:50,shape:"rect",frame:"rect",shading:"folds"}]},
         {id:"santaset", name:"Santa Letter + Portrait Gift Set", price:49, fit:"cover", base:IMG + "25bc2b2d-9646-409a-bc6d-e4cb1c0e63a4", alt:"Santa letter and portrait gift set with a certificate and festive packaging", wins:[{x:19,y:43,w:29,h:45,shape:"arc",frame:"none",shading:"cylinder"},{x:59,y:33,w:21,h:30,shape:"rect",frame:"rect",shading:"radial"}]},
         {id:"phonecase", name:"Christmas Phone Case", price:24, fit:"cover", base:IMG + "3bd2e3a2-3ba8-46ce-88ab-f9e8bdd98480", alt:"A phone case printed with a family Christmas portrait", wins:[{x:29,y:30,w:34,h:58,shape:"ellipse",frame:"oval",shading:"gloss",rot:-8}]},
@@ -1440,7 +1450,7 @@
         var rnd = pvSeededRand(seed), k, px, py, pr, pa;
         if(g.flakes){
           for(k = 0; k < g.flakes; k++){
-            px = rnd() * W; py = rnd() * H; pr = (0.9 + rnd() * 2.6) * (W / 440); pa = 0.25 + rnd() * 0.55;
+            px = rnd() * W; py = rnd() * H; pr = (0.9 + rnd() * 2.6) * (W / 440) * (g.flakeSize || 1); pa = 0.25 + rnd() * 0.55;
             t.globalAlpha = pa; t.fillStyle = "#ffffff";
             t.beginPath(); t.arc(px, py, pr, 0, Math.PI * 2); t.fill();
           }
@@ -1463,6 +1473,26 @@
             t.fillStyle = "#ffffff"; t.beginPath(); t.arc(px, py, pr * 0.28, 0, Math.PI * 2); t.fill();
           }
           t.globalAlpha = 1;
+        }
+        if(g.globe){
+          /* glass-globe rim: clear centre, deepening blue rim, bright glass highlight top-left */
+          var gg = t.createRadialGradient(W/2, H/2, Math.min(W,H)*0.52, W/2, H/2, Math.max(W,H)*0.78);
+          gg.addColorStop(0, "rgba(140,180,230,0)");
+          gg.addColorStop(0.72, "rgba(140,180,230,0.08)");
+          gg.addColorStop(1, "rgba(90,130,190,0.38)");
+          t.fillStyle = gg; t.fillRect(0, 0, W, H);
+          t.globalCompositeOperation = "screen";
+          t.fillStyle = "rgba(255,255,255,0.16)";
+          t.beginPath(); t.ellipse(W*0.30, H*0.22, W*0.20, H*0.10, -0.5, 0, Math.PI*2); t.fill();
+          t.globalCompositeOperation = "source-over";
+        }
+        if(g.bars){
+          /* cinematic letterbox bars with a thin gold rule at the inner edge */
+          var bh = H * g.bars;
+          t.fillStyle = "#0a0a0a";
+          t.fillRect(0, 0, W, bh); t.fillRect(0, H - bh, W, bh);
+          t.fillStyle = "rgba(212,175,55,0.9)";
+          t.fillRect(0, bh - 2, W, 2); t.fillRect(0, H - bh, W, 2);
         }
       }
       function pvApplyShading(ctx, win, W, H){
