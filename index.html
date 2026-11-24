@@ -259,6 +259,54 @@
       .jingle-btn{ background:linear-gradient(135deg,var(--red-bright),var(--red)); color:#FFF6EA; border:0; border-radius:999px; font-family:inherit; font-weight:700; font-size:.95rem; padding:.6rem 1.1rem; cursor:pointer; min-height:44px; }
       .jingle-bar label{ color:#DCD2B2; font-size:.8rem; font-weight:600; }
       .jingle-bar input[type=range]{ width:84px; accent-color:var(--gold); min-height:32px; }
+      /* Live Preview Studio */
+      .pv-controls{ display:grid; gap:14px; }
+      .pv-row{ display:flex; flex-wrap:wrap; gap:10px; align-items:center; }
+      .pv-row .lbl{ font-weight:700; font-size:.95rem; }
+      .pv-tabs{ display:flex; flex-wrap:wrap; gap:10px; }
+      .pv-tab{ display:flex; align-items:center; gap:8px; border:1.5px solid var(--line); background:var(--surface); border-radius:999px; padding:.35rem .45rem .35rem .9rem; }
+      .pv-tab.active{ border-color:var(--gold); box-shadow:0 0 0 2px rgba(212,175,55,.35); }
+      .pv-tab button{ border:0; background:none; font-family:inherit; font-weight:700; font-size:.95rem; cursor:pointer; color:var(--ink); padding:.3rem .2rem; min-height:36px; }
+      .pv-tab input{ border:1px solid var(--line); border-radius:999px; padding:.3rem .6rem; font-family:inherit; font-size:.88rem; width:96px; background:var(--surface2); color:var(--ink); }
+      .pv-chips{ display:flex; flex-wrap:wrap; gap:8px; }
+      .pv-chip{ border:1.5px solid var(--line); background:var(--surface); color:var(--ink); border-radius:999px; padding:.5rem 1rem; font-family:inherit; font-weight:600; cursor:pointer; font-size:.92rem; min-height:44px; }
+      .pv-chip.active{ background:var(--green); color:var(--gold); border-color:var(--green); }
+      .pv-zoom{ display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+      .pv-zoom input[type=range]{ width:200px; accent-color:var(--gold-deep); min-height:32px; }
+      .pv-switcher{ display:flex; flex-wrap:wrap; gap:8px; margin:18px 0 12px; }
+      .pv-switch{ border:1.5px solid var(--line); background:var(--surface); color:var(--ink); border-radius:999px; padding:.45rem .95rem; font-family:inherit; font-weight:600; cursor:pointer; font-size:.9rem; min-height:40px; }
+      .pv-switch.active{ background:var(--gold); border-color:var(--gold); color:#23180A; }
+      .pv-stage{ position:relative; overflow:hidden; border-radius:12px; background:#FFF; border:1px solid var(--line); }
+      .pv-stage .pv-base{ width:100%; height:auto; display:block; }
+      .pv-wins{ position:absolute; inset:0; }
+      .pv-wins canvas{ position:absolute; display:block; }
+      .pv-empty{ position:absolute; left:50%; bottom:12px; transform:translateX(-50%); background:rgba(4,16,10,.78); color:#FFF; font-size:.85rem; font-weight:600; padding:.4rem .9rem; border-radius:999px; white-space:nowrap; max-width:92%; text-align:center; }
+      .pv-featured-stage{ cursor:grab; touch-action:none; }
+      .pv-featured-stage:active{ cursor:grabbing; }
+      .pv-note{ font-size:.85rem; margin:.45rem 0 0; }
+      .pv-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin-top:20px; }
+      @media (max-width:880px){ .pv-grid{ grid-template-columns:repeat(2,1fr); } }
+      @media (max-width:520px){ .pv-grid{ grid-template-columns:1fr; } }
+      .pv-tile{ background:var(--surface); border:1px solid var(--line); border-radius:var(--radius); overflow:hidden; display:flex; flex-direction:column; }
+      .pv-tile .pv-stage{ border:0; border-radius:0; }
+      .pv-tile-body{ padding:14px 16px 16px; display:flex; flex-direction:column; gap:8px; flex:1; }
+      .pv-tile-head{ display:flex; align-items:flex-start; justify-content:space-between; gap:10px; }
+      .pv-tile-head h3{ font-size:1.05rem; line-height:1.25; margin:0; }
+      .pv-heart{ flex:none; width:42px; height:42px; border-radius:50%; border:1.5px solid var(--line); background:var(--surface); cursor:pointer; display:flex; align-items:center; justify-content:center; padding:0; }
+      .pv-heart svg{ width:20px; height:20px; fill:none; stroke:var(--red); stroke-width:2; }
+      .pv-heart.on{ border-color:var(--red); background:#FDECEA; }
+      .pv-heart.on svg{ fill:var(--red); }
+      .pv-tile select{ padding:.45rem .6rem; border:1.5px solid var(--line); border-radius:9px; background:var(--surface); color:var(--ink); font-family:inherit; font-size:.93rem; }
+      .pv-favbar{ display:flex; flex-wrap:wrap; gap:10px; align-items:center; justify-content:space-between; margin-top:18px; background:var(--surface2); border:1px solid var(--line); border-radius:var(--radius); padding:12px 16px; }
+      .pv-designs{ display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:12px; }
+      @media (max-width:880px){ .pv-designs{ grid-template-columns:repeat(2,1fr); } }
+      @media (max-width:520px){ .pv-designs{ grid-template-columns:1fr; } }
+      .pv-design{ border:1px solid var(--line); border-radius:12px; padding:12px; background:var(--surface); }
+      .pv-design img{ width:100%; height:auto; border-radius:8px; display:block; background:var(--surface2); }
+      .pv-design b{ display:block; margin:8px 0 2px; font-size:.95rem; line-height:1.3; }
+      .pv-design .pv-dbtns{ display:flex; flex-wrap:wrap; gap:6px; margin-top:8px; }
+      .pv-design .pv-dbtns button{ border:1.5px solid var(--line); background:var(--surface); color:var(--ink); border-radius:999px; padding:.35rem .8rem; font-family:inherit; font-weight:600; font-size:.85rem; cursor:pointer; min-height:38px; }
+      .pv-design .pv-dbtns button:hover{ border-color:var(--gold); }
     </style>
   </head>
   <body>
@@ -276,6 +324,7 @@
           <a href="#styles">Styles</a>
           <a href="#pricing">Pricing</a>
           <a href="#order">Order</a>
+          <a href="#preview-studio">Preview Studio</a>
           <a href="#products">Products</a>
           <a href="#bundles">Bundles</a>
           <a href="#faq">FAQ</a>
@@ -443,6 +492,62 @@
             <div class="row total"><span>Total</span><span id="sumTotal">$39.00</span></div>
             <p style="font-size:.9rem;color:#DCD2B2;margin-top:12px">Covered by the Love-It Guarantee: if you don't love your portraits, we re-make them in a new style or refund you — no forms, no fuss.</p>
           </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 4b · LIVE PREVIEW STUDIO ============ -->
+    <section id="preview-studio" style="padding-top:0">
+      <div class="wrap">
+        <h2>Live Preview Studio — see your photo on every gift</h2>
+        <p class="soft" style="max-width:46rem">Upload your photo once, pick a style, and see it on all nine gifts instantly. What you see is what gets printed — a print preview, not a finished portrait. Your final portrait is art-directed by our studio in your chosen style.</p>
+        <p class="soft" style="max-width:46rem">Your photo stays in your browser until you order. Delete it anytime — we never share or sell it.</p>
+        <p class="soft" style="max-width:46rem">Saved designs live on this device only for now — sign in (coming soon) will sync them to your account.</p>
+
+        <div class="card pv-controls" style="margin-top:20px">
+          <div class="pv-row">
+            <button class="btn btn-gold" type="button" id="pvUploadBtn">Upload your photo</button>
+            <button class="btn btn-ghost" type="button" id="pvAddBtn">Add another photo</button>
+            <button class="btn btn-ghost" type="button" id="pvRemoveBtn" style="display:none">Remove photo</button>
+            <input type="file" id="pvFile" accept="image/*" style="display:none" />
+            <span class="soft" style="font-size:.9rem">Up to 3 photos — family, kids, pets.</span>
+          </div>
+          <div class="pv-tabs" id="pvTabs" aria-label="Your photos"></div>
+          <div>
+            <p class="lbl" style="margin:0 0 8px">Style — applies to every preview</p>
+            <div class="pv-chips" id="pvChips" role="group" aria-label="Preview style"></div>
+            <p class="pv-note soft">Style grade preview — your finished portrait is art-directed in this style.</p>
+          </div>
+          <div class="pv-zoom">
+            <label class="lbl" for="pvZoom">Zoom</label>
+            <input type="range" id="pvZoom" min="1" max="2" step="0.01" value="1" aria-label="Preview zoom" />
+            <span class="soft" style="font-size:.92rem">Drag the big preview to reposition your photo</span>
+          </div>
+        </div>
+
+        <div class="pv-switcher" id="pvSwitcher" role="group" aria-label="Featured preview product"></div>
+        <div class="pv-stage pv-featured-stage" id="pvFeatStage">
+          <img class="pv-base fit-contain" id="pvFeatImg" alt="Featured gift preview" />
+          <div class="pv-wins" id="pvFeatWins"></div>
+          <div class="pv-empty" id="pvFeatEmpty">Upload a photo to see it here</div>
+        </div>
+        <p class="pv-note"><b>Preview — your photo, print preview</b> <span class="soft">· Style grade preview — your finished portrait is art-directed in this style.</span></p>
+
+        <div class="pv-favbar">
+          <b id="pvFavCount">Favourites: 0/3</b>
+          <div style="display:flex;gap:10px;flex-wrap:wrap">
+            <button class="btn btn-green btn-small" type="button" id="pvFavAdd">Add my favourites to cart</button>
+            <button class="btn btn-gold btn-small" type="button" id="pvSave">Save this design</button>
+          </div>
+        </div>
+
+        <div class="pv-grid" id="pvGallery"></div>
+
+        <div class="card" style="margin-top:22px">
+          <h3>My Designs — saved on this device</h3>
+          <p class="soft" style="margin:0">Reopen a design to keep editing it, duplicate it for another gift, or reorder its products in one tap. Up to 20 designs are kept here.</p>
+          <div class="pv-designs" id="pvDesigns"></div>
+          <p class="soft" id="pvDesignsEmpty" style="margin:12px 0 0">No saved designs yet — build a preview above and tap “Save this design”.</p>
         </div>
       </div>
     </section>
@@ -1011,6 +1116,7 @@
         var img = document.getElementById("photoPreview");
         img.src = URL.createObjectURL(f);
         img.style.display = "block";
+        if(typeof pvHandleFile === "function") pvHandleFile(f);
       });
       document.getElementById("orderForm").addEventListener("submit", function(e){
         e.preventDefault();
@@ -1106,6 +1212,398 @@
         html += "</div>";
         document.getElementById("finderResult").innerHTML = html;
       });
+
+      /* ---------- Live Preview Studio (Phase 1 — client-side only) ---------- */
+      var PV_GRADES = {
+        "Classic Santa Snow":"brightness(1.06) contrast(1.05) saturate(1.06)",
+        "Golden Christmas Movie Poster":"sepia(0.35) contrast(1.15) saturate(1.2) brightness(1.02)",
+        "Cozy Fireplace":"sepia(0.28) saturate(1.15) brightness(1.04) hue-rotate(-8deg)",
+        "Snow Globe":"brightness(1.08) saturate(0.9) hue-rotate(12deg) contrast(1.03)",
+        "Colombo Christmas":"saturate(1.28) contrast(1.08) brightness(1.03)",
+        "Winter Royal":"sepia(0.15) contrast(1.1) saturate(0.95)"
+      };
+      var HOOD_GREEN = HOOD + "33419/98424/christmas-portrait-hoodie-personalized-family-portrait.jpg?camera_label=front";
+      var HOOD_BLACK = HOOD + "32920/98424/christmas-portrait-hoodie-personalized-family-portrait.jpg?camera_label=front";
+      var HOOD_HEATHER = HOOD + "32880/98424/christmas-portrait-hoodie-personalized-family-portrait.jpg?camera_label=front";
+      var PV_PRODUCTS = [
+        {id:"mug", name:"Christmas Portrait Mug 11oz", price:29, fit:"contain", base:MUG + "front", alt:"White 11oz mug printed with a family Christmas portrait", wins:[{x:28,y:22,w:44,h:66,shape:"arc",frame:"none",shading:"cylinder"}]},
+        {id:"hoodie", name:"Christmas Portrait Hoodie", price:54, fit:"contain", base:HOOD_GREEN, alt:"Hoodie with a family Christmas portrait in a gold circular frame printed on the chest", wins:[{x:39.5,y:28.5,w:23,h:23,shape:"circle",frame:"ring",shading:"radial"}]},
+        {id:"stocking", name:"Christmas Portrait Stocking", price:34.99, fit:"contain", base:STOCK + "1530/christmas-portrait-stocking-personalized-family-portrait.jpg?camera_label=front", alt:"Soft white plush Christmas stocking printed with a family portrait in a gold oval frame", wins:[{x:26,y:24,w:47,h:28,shape:"ellipse",frame:"oval",shading:"radial"}]},
+        {id:"canvas", name:"Christmas Portrait Canvas", price:49, fit:"cover", base:IMG + "eea881b6-90fd-4485-aeef-f507eba96989", alt:"A Christmas portrait printed on a gallery canvas hanging above a sofa", wins:[{x:28,y:5,w:47,h:52,shape:"rect",frame:"none",shading:"inner"}]},
+        {id:"ornament", name:"Personalized Ornament", price:24, fit:"cover", base:IMG + "aa89a37e-3415-4d9e-a242-5067327454d9", alt:"A personalized Christmas ornament with a family portrait hanging on a tree", wins:[{x:35.2,y:33.8,w:31.7,h:47.5,shape:"circle",frame:"ring",shading:"screen"}]},
+        {id:"pettee", name:"Pet Christmas Portrait Tee", price:29, fit:"cover", base:IMG + "cf4be324-d5d1-4084-8eab-1028d648c098", alt:"A tee printed with a pet's Christmas portrait — a dog wearing a Santa hat", wins:[{x:27,y:56,w:22,h:34,shape:"ellipse",frame:"oval",shading:"radial"}]},
+        {id:"tote", name:"Christmas Tote", price:24, fit:"cover", base:IMG + "328e0b89-7923-4020-b227-c63aae640402", alt:"A Christmas tote bag printed with a family portrait", wins:[{x:28,y:38,w:39,h:50,shape:"rect",frame:"rect",shading:"radial"}]},
+        {id:"santaset", name:"Santa Letter + Portrait Gift Set", price:49, fit:"cover", base:IMG + "25bc2b2d-9646-409a-bc6d-e4cb1c0e63a4", alt:"Santa letter and portrait gift set with a certificate and festive packaging", wins:[{x:19,y:43,w:29,h:45,shape:"arc",frame:"none",shading:"cylinder"},{x:59,y:33,w:21,h:30,shape:"rect",frame:"rect",shading:"radial"}]},
+        {id:"phonecase", name:"Christmas Phone Case", price:24, fit:"cover", base:IMG + "3bd2e3a2-3ba8-46ce-88ab-f9e8bdd98480", alt:"A phone case printed with a family Christmas portrait", wins:[{x:29,y:30,w:34,h:58,shape:"ellipse",frame:"oval",shading:"radial",rot:-8}]}
+      ];
+      var PV_LABELS = ["Family","Kids","Pet"];
+      var pvPhotos = [], pvActive = -1, pvZoom = 1, pvOx = 0, pvOy = 0, pvFeatured = "mug", pvFavs = {};
+      var pvStyle = (document.querySelector('input[name="style"]:checked') || {}).value || STYLES[0].name;
+      function pvProd(id){ for(var i=0;i<PV_PRODUCTS.length;i++) if(PV_PRODUCTS[i].id===id) return PV_PRODUCTS[i]; return null; }
+      function pvActivePhoto(){ return pvActive >= 0 ? pvPhotos[pvActive] : null; }
+
+      /* --- shared photo loading path (order form + studio) --- */
+      function pvHandleFile(f){
+        if(!f) return;
+        var url = URL.createObjectURL(f);
+        var im = new Image();
+        im.onload = function(){
+          var entry = { img:im, url:url, fileName:f.name, label: PV_LABELS[Math.min(pvPhotos.length,2)] };
+          if(pvPhotos.length >= 3){ pvPhotos[pvActive < 0 ? 0 : pvActive] = entry; pvActive = pvActive < 0 ? 0 : pvActive; toast("Photo replaced — you can keep up to 3 photos"); }
+          else { pvPhotos.push(entry); pvActive = pvPhotos.length - 1; }
+          pvRenderTabs(); pvRenderAll();
+        };
+        im.src = url;
+      }
+      var pvFile = document.getElementById("pvFile");
+      document.getElementById("pvUploadBtn").addEventListener("click", function(){ pvFile.click(); });
+      document.getElementById("pvAddBtn").addEventListener("click", function(){
+        if(pvPhotos.length >= 3){ toast("You can keep up to 3 photos — remove one to add another"); return; }
+        pvFile.click();
+      });
+      pvFile.addEventListener("change", function(){
+        if(!this.files || !this.files[0]) return;
+        var f = this.files[0];
+        document.getElementById("photoName").textContent = "Selected: " + f.name;
+        var prev = document.getElementById("photoPreview");
+        prev.src = URL.createObjectURL(f); prev.style.display = "block";
+        pvHandleFile(f);
+        this.value = "";
+      });
+      document.getElementById("pvRemoveBtn").addEventListener("click", function(){
+        if(pvActive < 0) return;
+        pvPhotos.splice(pvActive, 1);
+        pvActive = pvPhotos.length ? 0 : -1;
+        pvRenderTabs(); pvRenderAll();
+        toast("Photo removed from this browser");
+      });
+
+      /* --- photo tabs --- */
+      function pvRenderTabs(){
+        var box = document.getElementById("pvTabs");
+        box.innerHTML = "";
+        document.getElementById("pvRemoveBtn").style.display = pvPhotos.length ? "" : "none";
+        if(!pvPhotos.length){ box.innerHTML = '<span class="soft" style="font-size:.92rem">No photo yet — upload one and every gift below updates instantly.</span>'; return; }
+        pvPhotos.forEach(function(p, i){
+          var tab = document.createElement("span");
+          tab.className = "pv-tab" + (i === pvActive ? " active" : "");
+          tab.innerHTML = '<button type="button">Photo ' + (i+1) + '</button>';
+          var inp = document.createElement("input");
+          inp.type = "text"; inp.value = p.label; inp.setAttribute("aria-label", "Label for photo " + (i+1));
+          inp.addEventListener("input", function(){ p.label = inp.value; });
+          tab.querySelector("button").addEventListener("click", function(){ pvActive = i; pvRenderTabs(); pvRenderAll(); });
+          tab.appendChild(inp);
+          box.appendChild(tab);
+        });
+      }
+
+      /* --- style chips, synced both ways with #stylePick --- */
+      var pvChipsBox = document.getElementById("pvChips");
+      STYLES.forEach(function(s){
+        var b = document.createElement("button");
+        b.type = "button"; b.className = "pv-chip"; b.textContent = s.name; b.setAttribute("data-style", s.name);
+        b.addEventListener("click", function(){ pvSetStyle(s.name, true); });
+        pvChipsBox.appendChild(b);
+      });
+      function pvPaintChips(){ pvChipsBox.querySelectorAll(".pv-chip").forEach(function(c){ c.classList.toggle("active", c.getAttribute("data-style") === pvStyle); }); }
+      function pvSetStyle(name, fromChip){
+        pvStyle = name; pvPaintChips(); pvRenderAll();
+        if(fromChip){
+          var r = document.querySelector('input[name="style"][value="' + name + '"]');
+          if(r && !r.checked){ r.checked = true; syncSummary(); }
+        }
+      }
+      stylePick.addEventListener("change", function(){
+        var r = document.querySelector('input[name="style"]:checked');
+        if(r && r.value !== pvStyle){ pvStyle = r.value; pvPaintChips(); pvRenderAll(); }
+      });
+      pvPaintChips();
+
+      /* --- zoom --- */
+      document.getElementById("pvZoom").addEventListener("input", function(){ pvZoom = parseFloat(this.value); pvRenderAll(); });
+
+      /* --- render engine --- */
+      function pvClipPath(ctx, win, W, H){
+        ctx.beginPath();
+        if(win.shape === "circle"){ ctx.arc(W/2, H/2, Math.min(W,H)/2, 0, Math.PI*2); }
+        else if(win.shape === "ellipse"){ ctx.ellipse(W/2, H/2, W/2, H/2, 0, 0, Math.PI*2); }
+        else { ctx.rect(0, 0, W, H); }
+      }
+      function pvDrawWindow(cv, win, baseImg){
+        var ctx = cv.getContext("2d");
+        var natW = baseImg && baseImg.naturalWidth ? baseImg.naturalWidth : 0;
+        var natH = baseImg && baseImg.naturalHeight ? baseImg.naturalHeight : 0;
+        var aspect = (natW && natH) ? (win.h/100*natH) / (win.w/100*natW) : (win.h / win.w);
+        cv.width = 440; cv.height = Math.max(40, Math.round(440 * aspect));
+        var W = cv.width, H = cv.height;
+        ctx.clearRect(0, 0, W, H);
+        var ph = pvActivePhoto();
+        if(!ph || !ph.img.naturalWidth) return;
+        ctx.save();
+        pvClipPath(ctx, win, W, H); ctx.clip();
+        try { ctx.filter = PV_GRADES[pvStyle] || "none"; } catch(e){}
+        var iw = ph.img.naturalWidth, ih = ph.img.naturalHeight;
+        var scale = Math.max(W/iw, H/ih) * pvZoom;
+        var dw = iw*scale, dh = ih*scale;
+        var dx = (W - dw)/2 + pvOx * W, dy = (H - dh)/2 + pvOy * H;
+        ctx.drawImage(ph.img, dx, dy, dw, dh);
+        try { ctx.filter = "none"; } catch(e){}
+        /* shading pass — multiply / screen, never a flat overlay */
+        if(win.shading === "cylinder"){
+          var g1 = ctx.createLinearGradient(0, 0, W, 0);
+          g1.addColorStop(0, "#cfcfcf"); g1.addColorStop(0.28, "#ffffff"); g1.addColorStop(0.72, "#ffffff"); g1.addColorStop(1, "#cfcfcf");
+          ctx.globalCompositeOperation = "multiply"; ctx.fillStyle = g1; ctx.fillRect(0, 0, W, H); ctx.globalCompositeOperation = "source-over";
+        } else if(win.shading === "screen"){
+          var g2 = ctx.createRadialGradient(W*0.25, H*0.2, 4, W*0.25, H*0.2, Math.max(W,H)*0.9);
+          g2.addColorStop(0, "rgba(255,255,255,0.55)"); g2.addColorStop(1, "rgba(255,255,255,0)");
+          ctx.globalCompositeOperation = "screen"; ctx.fillStyle = g2; ctx.fillRect(0, 0, W, H); ctx.globalCompositeOperation = "source-over";
+        } else if(win.shading === "inner"){
+          ctx.shadowColor = "rgba(0,0,0,0.38)"; ctx.shadowBlur = Math.max(10, W*0.07); ctx.shadowOffsetX = 0; ctx.shadowOffsetY = 0;
+          ctx.strokeStyle = "rgba(0,0,0,0.55)"; ctx.lineWidth = 3;
+          ctx.strokeRect(-2, -2, W+4, H+4);
+          ctx.shadowColor = "transparent"; ctx.shadowBlur = 0;
+        } else {
+          var g3 = ctx.createRadialGradient(W/2, H/2, Math.min(W,H)*0.3, W/2, H/2, Math.max(W,H)*0.75);
+          g3.addColorStop(0, "#ffffff"); g3.addColorStop(1, "#d8d8d8");
+          ctx.globalCompositeOperation = "multiply"; ctx.fillStyle = g3; ctx.fillRect(0, 0, W, H); ctx.globalCompositeOperation = "source-over";
+        }
+        ctx.restore();
+        /* gold frame */
+        ctx.strokeStyle = "#D4AF37";
+        if(win.frame === "ring"){ ctx.lineWidth = Math.max(3, W*0.022); ctx.beginPath(); ctx.arc(W/2, H/2, Math.min(W,H)/2 - ctx.lineWidth/2, 0, Math.PI*2); ctx.stroke(); }
+        else if(win.frame === "oval"){ ctx.lineWidth = Math.max(3, W*0.022); ctx.beginPath(); ctx.ellipse(W/2, H/2, W/2 - ctx.lineWidth/2, H/2 - ctx.lineWidth/2, 0, 0, Math.PI*2); ctx.stroke(); }
+        else if(win.frame === "rect"){ ctx.lineWidth = Math.max(2, W*0.014); ctx.strokeRect(ctx.lineWidth, ctx.lineWidth, W - ctx.lineWidth*2, H - ctx.lineWidth*2); var o = Math.max(6, W*0.035); ctx.strokeRect(o, o, W - o*2, H - o*2); }
+      }
+      function pvBuildWins(container, prod, baseImg){
+        container.innerHTML = "";
+        var list = [];
+        prod.wins.forEach(function(win){
+          var cv = document.createElement("canvas");
+          cv.style.left = win.x + "%"; cv.style.top = win.y + "%"; cv.style.width = win.w + "%"; cv.style.height = win.h + "%";
+          if(win.rot) cv.style.transform = "rotate(" + win.rot + "deg)";
+          container.appendChild(cv);
+          list.push({cv:cv, win:win});
+        });
+        list.forEach(function(it){ pvDrawWindow(it.cv, it.win, baseImg); });
+        return list;
+      }
+
+      /* --- featured preview + switcher --- */
+      var pvFeatImg = document.getElementById("pvFeatImg"), pvFeatWins = document.getElementById("pvFeatWins"), pvFeatList = [];
+      var pvSwitcher = document.getElementById("pvSwitcher");
+      PV_PRODUCTS.forEach(function(p){
+        var b = document.createElement("button");
+        b.type = "button"; b.className = "pv-switch" + (p.id === pvFeatured ? " active" : ""); b.textContent = p.name.replace("Christmas Portrait ", "").replace("Christmas ", ""); b.setAttribute("data-pv-switch", p.id);
+        b.addEventListener("click", function(){
+          pvFeatured = p.id;
+          pvSwitcher.querySelectorAll(".pv-switch").forEach(function(x){ x.classList.toggle("active", x.getAttribute("data-pv-switch") === pvFeatured); });
+          pvRenderFeatured();
+        });
+        pvSwitcher.appendChild(b);
+      });
+      function pvRenderFeatured(){
+        var p = pvProd(pvFeatured);
+        if(pvFeatImg.getAttribute("src") !== p.base) pvFeatImg.src = p.base;
+        pvFeatImg.alt = p.alt;
+        pvFeatImg.className = "pv-base fit-" + p.fit;
+        document.getElementById("pvFeatEmpty").style.display = pvPhotos.length ? "none" : "";
+        pvFeatList = pvBuildWins(pvFeatWins, p, pvFeatImg);
+      }
+      pvFeatImg.addEventListener("load", function(){ pvRenderFeatured(); });
+      /* drag to pan on the featured preview */
+      (function(){
+        var stage = document.getElementById("pvFeatStage"), drag = null;
+        stage.addEventListener("pointerdown", function(e){ if(pvActive < 0) return; drag = {x:e.clientX, y:e.clientY, ox:pvOx, oy:pvOy}; stage.setPointerCapture(e.pointerId); });
+        stage.addEventListener("pointermove", function(e){
+          if(!drag) return;
+          var r = stage.getBoundingClientRect();
+          pvOx = Math.max(-0.6, Math.min(0.6, drag.ox + (e.clientX - drag.x) / r.width));
+          pvOy = Math.max(-0.6, Math.min(0.6, drag.oy + (e.clientY - drag.y) / r.height));
+          pvRenderAll();
+        });
+        stage.addEventListener("pointerup", function(){ drag = null; });
+        stage.addEventListener("pointercancel", function(){ drag = null; });
+      })();
+
+      /* --- gallery tiles --- */
+      var pvGallery = document.getElementById("pvGallery"), pvTileState = {};
+      function pvHoodieId(){
+        var sizeSel = document.getElementById("pvHoodSize"), colSel = document.getElementById("pvHoodColour");
+        var size = sizeSel ? sizeSel.value : "S", colour = colSel ? colSel.value : "Forest Green";
+        var cmap = { "Forest Green":"green", "Black":"black", "Dark Heather":"heather" };
+        return (size === "2XL" ? "hoodie2xl-" : "hoodie-") + (cmap[colour] || "green");
+      }
+      function pvHoodieBase(){
+        var colSel = document.getElementById("pvHoodColour");
+        var colour = colSel ? colSel.value : "Forest Green";
+        return colour === "Black" ? HOOD_BLACK : (colour === "Dark Heather" ? HOOD_HEATHER : HOOD_GREEN);
+      }
+      function pvFavCount(){ return Object.keys(pvFavs).filter(function(k){ return pvFavs[k]; }).length; }
+      function pvPaintFavs(){
+        document.getElementById("pvFavCount").textContent = "Favourites: " + pvFavCount() + "/3";
+        pvGallery.querySelectorAll("[data-pv-fav]").forEach(function(b){ b.classList.toggle("on", !!pvFavs[b.getAttribute("data-pv-fav")]); });
+      }
+      PV_PRODUCTS.forEach(function(p){
+        var tile = document.createElement("article");
+        tile.className = "pv-tile";
+        var extra = "";
+        if(p.id === "hoodie"){
+          extra = '<div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center"><label style="font-weight:600;font-size:.9rem">Size <select id="pvHoodSize"><option>S</option><option>M</option><option>L</option><option>XL</option><option>2XL</option></select></label>' +
+            '<label style="font-weight:600;font-size:.9rem">Colour <select id="pvHoodColour"><option>Forest Green</option><option>Black</option><option>Dark Heather</option></select></label><span class="soft" style="font-size:.85rem">2XL is $57</span></div>';
+        }
+        tile.innerHTML = '<div class="pv-stage"><img class="pv-base fit-' + p.fit + '" src="' + p.base + '" alt="' + p.alt + '" loading="lazy" /><div class="pv-wins"></div><div class="pv-empty">Upload a photo to see it here</div></div>' +
+          '<div class="pv-tile-body"><div class="pv-tile-head"><h3>' + p.name + '</h3>' +
+          '<button class="pv-heart" type="button" data-pv-fav="' + p.id + '" aria-label="Favourite ' + p.name + '"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20.7C6.4 17 3 13.6 3 9.9 3 7.2 5 5 7.6 5c1.7 0 3.4.9 4.4 2.4C13 5.9 14.7 5 16.4 5 19 5 21 7.2 21 9.9c0 3.7-3.4 7.1-9 10.8z"/></svg></button></div>' +
+          '<div><span class="serif" style="font-size:1.45rem;font-weight:800" data-pv-price>' + money(p.price) + '</span></div>' + extra +
+          '<p class="pv-note soft" style="margin:0">Preview — your photo, print preview</p>' +
+          '<button class="btn btn-green" type="button" data-pv-add="' + p.id + '">Add to Cart — ' + money(p.price) + '</button></div>';
+        pvGallery.appendChild(tile);
+        var img = tile.querySelector(".pv-base"), winsBox = tile.querySelector(".pv-wins");
+        pvTileState[p.id] = { img:img, winsBox:winsBox, empty:tile.querySelector(".pv-empty"), prod:p };
+        img.addEventListener("load", function(){ pvRenderAll(); });
+      });
+      pvGallery.addEventListener("click", function(e){
+        var fav = e.target.closest("[data-pv-fav]");
+        if(fav){
+          var fid = fav.getAttribute("data-pv-fav");
+          if(pvFavs[fid]){ delete pvFavs[fid]; }
+          else {
+            if(pvFavCount() >= 3){ toast("You can favourite up to 3 products"); return; }
+            pvFavs[fid] = true;
+          }
+          pvPaintFavs(); return;
+        }
+        var add = e.target.closest("[data-pv-add]");
+        if(add){
+          var id = add.getAttribute("data-pv-add");
+          addToCart(id === "hoodie" ? pvHoodieId() : id);
+        }
+      });
+      pvGallery.addEventListener("change", function(e){
+        if(e.target.id === "pvHoodSize" || e.target.id === "pvHoodColour"){
+          var st = pvTileState.hoodie;
+          if(e.target.id === "pvHoodColour" && st) st.img.src = pvHoodieBase();
+          var price = (document.getElementById("pvHoodSize").value === "2XL") ? 57 : 54;
+          var tile = e.target.closest(".pv-tile");
+          tile.querySelector("[data-pv-price]").textContent = money(price);
+          tile.querySelector("[data-pv-add]").textContent = "Add to Cart — " + money(price);
+          pvRenderAll();
+        }
+      });
+      document.getElementById("pvFavAdd").addEventListener("click", function(){
+        var ids = Object.keys(pvFavs).filter(function(k){ return pvFavs[k]; });
+        if(!ids.length){ toast("Tap the heart on up to 3 products first"); return; }
+        ids.forEach(function(id){ addToCart(id === "hoodie" ? pvHoodieId() : id, true); });
+        toast("Your favourites are in the cart");
+        openCart();
+      });
+      function pvRenderAll(){
+        Object.keys(pvTileState).forEach(function(id){
+          var st = pvTileState[id];
+          st.empty.style.display = pvPhotos.length ? "none" : "";
+          pvBuildWins(st.winsBox, st.prod, st.img);
+        });
+        document.getElementById("pvFeatEmpty").style.display = pvPhotos.length ? "none" : "";
+        pvFeatList = pvBuildWins(pvFeatWins, pvProd(pvFeatured), pvFeatImg);
+      }
+
+      /* --- My Designs (localStorage, guest) --- */
+      var PV_LS = "cps_designs_v1";
+      function pvLoadDesigns(){ try { return JSON.parse(localStorage.getItem(PV_LS) || "[]"); } catch(e){ return []; } }
+      function pvStoreDesigns(list){ localStorage.setItem(PV_LS, JSON.stringify(list)); }
+      function pvPhotoDataURL(){
+        var ph = pvActivePhoto(); if(!ph) return "";
+        var iw = ph.img.naturalWidth, ih = ph.img.naturalHeight, sc = Math.min(1, 1200 / Math.max(iw, ih));
+        var c = document.createElement("canvas"); c.width = Math.round(iw*sc); c.height = Math.round(ih*sc);
+        c.getContext("2d").drawImage(ph.img, 0, 0, c.width, c.height);
+        return c.toDataURL("image/jpeg", 0.82);
+      }
+      function pvThumbURL(){
+        if(!pvFeatList.length) return "";
+        var src = pvFeatList[0].cv, sc = 320 / src.width;
+        var c = document.createElement("canvas"); c.width = 320; c.height = Math.max(20, Math.round(src.height * sc));
+        c.getContext("2d").drawImage(src, 0, 0, c.width, c.height);
+        return c.toDataURL("image/jpeg", 0.82);
+      }
+      function pvResolvedFavs(){
+        return Object.keys(pvFavs).filter(function(k){ return pvFavs[k]; }).map(function(id){ return id === "hoodie" ? pvHoodieId() : id; });
+      }
+      document.getElementById("pvSave").addEventListener("click", function(){
+        var ph = pvActivePhoto();
+        if(!ph){ toast("Upload a photo first, then save your design"); return; }
+        var list = pvLoadDesigns();
+        var design = {
+          id: "d" + Date.now(), name: pvStyle + " · " + (ph.label || "Photo") + " · " + new Date().toLocaleDateString(),
+          photo: pvPhotoDataURL(), photoLabel: ph.label || "Family", style: pvStyle,
+          zoom: pvZoom, ox: pvOx, oy: pvOy, products: pvResolvedFavs(), thumb: pvThumbURL(), createdAt: Date.now()
+        };
+        list.push(design);
+        var removed = null;
+        if(list.length > 20){ removed = list.shift(); }
+        try { pvStoreDesigns(list); }
+        catch(err){
+          list.shift();
+          try { pvStoreDesigns(list); }
+          catch(err2){ toast("Storage is full — delete an old design first"); return; }
+        }
+        pvRenderDesigns();
+        toast(removed ? ("Design saved — oldest design removed: " + removed.name) : "Design saved on this device");
+      });
+      function pvRenderDesigns(){
+        var list = pvLoadDesigns(), box = document.getElementById("pvDesigns");
+        document.getElementById("pvDesignsEmpty").style.display = list.length ? "none" : "";
+        box.innerHTML = "";
+        list.slice().reverse().forEach(function(d){
+          var el = document.createElement("div");
+          el.className = "pv-design";
+          el.innerHTML = (d.thumb ? '<img src="' + d.thumb + '" alt="Saved design preview" />' : "") + "<b></b>" +
+            '<span class="soft" style="font-size:.85rem">' + (d.products && d.products.length ? d.products.length + " product(s) favourited" : "No favourites saved") + '</span>' +
+            '<div class="pv-dbtns"><button type="button" data-dact="open">Open</button><button type="button" data-dact="dup">Duplicate</button><button type="button" data-dact="del">Delete</button><button type="button" data-dact="reorder">Reorder</button></div>';
+          el.querySelector("b").textContent = d.name;
+          el.querySelectorAll("[data-dact]").forEach(function(b){
+            b.addEventListener("click", function(){ pvDesignAction(d.id, b.getAttribute("data-dact")); });
+          });
+          box.appendChild(el);
+        });
+      }
+      function pvDesignAction(id, act){
+        var list = pvLoadDesigns(), idx = -1;
+        list.forEach(function(d, i){ if(d.id === id) idx = i; });
+        if(idx < 0) return;
+        var d = list[idx];
+        if(act === "del"){ list.splice(idx, 1); pvStoreDesigns(list); pvRenderDesigns(); toast("Design deleted"); return; }
+        if(act === "dup"){
+          var copy = JSON.parse(JSON.stringify(d)); copy.id = "d" + Date.now(); copy.name = d.name + " (copy)"; copy.createdAt = Date.now();
+          list.push(copy); if(list.length > 20) list.shift();
+          try { pvStoreDesigns(list); } catch(e){ toast("Storage is full — delete an old design first"); return; }
+          pvRenderDesigns(); toast("Design duplicated"); return;
+        }
+        if(act === "reorder"){
+          if(!d.products || !d.products.length){ toast("This design has no favourited products to reorder"); return; }
+          d.products.forEach(function(pid){ if(PRODUCTS[pid]) addToCart(pid, true); });
+          toast("Design products added to your cart"); openCart(); return;
+        }
+        if(act === "open"){
+          var im = new Image();
+          im.onload = function(){
+            var entry = { img:im, url:d.photo, fileName:"saved-design", label:d.photoLabel || "Family" };
+            if(pvPhotos.length >= 3){ pvPhotos[pvActive < 0 ? 0 : pvActive] = entry; pvActive = pvActive < 0 ? 0 : pvActive; }
+            else { pvPhotos.push(entry); pvActive = pvPhotos.length - 1; }
+            pvZoom = d.zoom || 1; pvOx = d.ox || 0; pvOy = d.oy || 0;
+            document.getElementById("pvZoom").value = pvZoom;
+            pvFavs = {};
+            (d.products || []).forEach(function(pid){ pvFavs[pid.indexOf("hoodie") === 0 ? "hoodie" : pid] = true; });
+            var r = document.querySelector('input[name="style"][value="' + d.style + '"]');
+            if(r){ r.checked = true; syncSummary(); }
+            pvStyle = d.style; pvPaintChips(); pvPaintFavs(); pvRenderTabs(); pvRenderAll();
+            document.getElementById("preview-studio").scrollIntoView({ behavior:"smooth" });
+            toast("Design opened: " + d.name);
+          };
+          im.src = d.photo;
+        }
+      }
+      pvRenderTabs(); pvRenderDesigns(); pvRenderFeatured(); pvRenderAll(); pvPaintFavs();
+      if(photoInput.files && photoInput.files[0]) pvHandleFile(photoInput.files[0]);
 
       /* ---------- Jingle Bells — Web Audio bell synth (public-domain melody), starts only on tap ---------- */
       (function(){
