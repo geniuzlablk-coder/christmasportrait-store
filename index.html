@@ -4,15 +4,15 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="color-scheme" content="light" />
-    <meta name="description" content="AI Christmas Design Studio — upload your family photo and watch AI transform it into a real Christmas portrait in 6 signature styles. Personalized portraits from $39, delivered in 24h." />
+    <meta name="description" content="Christmas Portrait Studio — your photo, turned into a Christmas gift. Portraits from $39, ready in 24 hours, on mugs, canvas, cards and gifts." />
     <link rel="icon" type="image/png" href="https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/29159649/4bf22131-edfb-435b-8148-2e7ad045bd5b" />
     <link rel="apple-touch-icon" href="https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/29159649/4bf22131-edfb-435b-8148-2e7ad045bd5b" />
-    <title>Christmas Portrait Studio — AI Christmas Design Studio | Personalized Portraits from $39</title>
+    <title>Christmas Portrait Studio — Your photo, turned into a Christmas gift | Portraits from $39</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;1,500&family=Jost:wght@400;500;600;700&display=swap" rel="stylesheet" />
     <style>
-      button, [role="button"], select, summary, input:not([type="checkbox"], [type="radio"]) { min-height: 2.25rem; }
+      button, [role="button"], select, summary, input:not([type="checkbox"], [type="radio"]) { min-height: 2.75rem; }
       * { box-sizing: border-box; }
       :root{
         --bg:#FBF5E9; --surface:#FFFDF7; --surface2:#F3EAD6; --ink:#16241B; --ink-soft:#4A5A4E;
@@ -22,23 +22,23 @@
         --radius:14px;
       }
       html{ scroll-behavior:smooth; }
-      body{ margin:0; background:var(--bg); color:var(--ink); font-family:"Jost",system-ui,sans-serif; font-size:17px; line-height:1.55; }
+      body{ margin:0; background:var(--bg); color:var(--ink); font-family:"Jost",system-ui,sans-serif; font-size:18px; line-height:1.6; }
       h1,h2,h3,.serif{ font-family:"Playfair Display",Georgia,serif; }
       h1{ font-size:clamp(2.1rem,6vw,3.6rem); line-height:1.08; margin:0 0 .5rem; font-weight:800; }
-      h2{ font-size:clamp(1.6rem,4vw,2.3rem); line-height:1.15; margin:0 0 .5rem; font-weight:700; }
+      h2{ font-size:clamp(1.75rem,4vw,2.3rem); line-height:1.15; margin:0 0 .5rem; font-weight:700; }
       h3{ font-size:1.2rem; margin:0 0 .35rem; }
       p{ margin:0 0 .8rem; }
       .soft{ color:var(--ink-soft); }
       .wrap{ max-width:1180px; margin:0 auto; padding:0 18px; }
       section{ padding:64px 0; }
       .kicker{ text-transform:uppercase; letter-spacing:.18em; font-size:.78rem; font-weight:700; color:var(--gold-deep); margin:0 0 .5rem; }
-      .btn{ display:inline-flex; align-items:center; justify-content:center; gap:.5rem; border:0; cursor:pointer; font-family:inherit; font-weight:700; font-size:1rem; padding:.8rem 1.5rem; border-radius:999px; text-decoration:none; transition:transform .15s ease, box-shadow .15s ease; min-height:48px; }
+      .btn{ display:inline-flex; align-items:center; justify-content:center; gap:.5rem; border:0; cursor:pointer; font-family:inherit; font-weight:700; font-size:1.1rem; padding:.8rem 1.5rem; border-radius:999px; text-decoration:none; transition:transform .15s ease, box-shadow .15s ease; min-height:56px; }
       .btn:active{ transform:scale(.98); }
       .btn-gold{ background:linear-gradient(135deg,#E9CD6B,var(--gold) 55%,#B8912C); color:#23180A; box-shadow:0 8px 22px rgba(212,175,55,.35); }
       .btn-red{ background:linear-gradient(135deg,var(--red-bright),var(--red)); color:#FFF6EA; box-shadow:0 8px 22px rgba(179,39,30,.3); }
       .btn-ghost{ background:transparent; color:inherit; border:1.5px solid var(--line); }
       .btn-green{ background:var(--green3); color:var(--cream); }
-      .btn-small{ padding:.5rem 1rem; min-height:40px; font-size:.92rem; }
+      .btn-small{ padding:.5rem 1rem; min-height:48px; font-size:.95rem; }
       /* Announcement + nav */
       .announce{ background:var(--red); color:#FFF3E2; text-align:center; padding:.55rem 14px; font-size:.95rem; font-weight:600; }
       .announce b{ color:#FFE9A8; }
@@ -270,7 +270,8 @@
       .pv-tab button{ border:0; background:none; font-family:inherit; font-weight:700; font-size:.95rem; cursor:pointer; color:var(--ink); padding:.3rem .2rem; min-height:36px; }
       .pv-tab input{ border:1px solid var(--line); border-radius:999px; padding:.3rem .6rem; font-family:inherit; font-size:.88rem; width:96px; background:var(--surface2); color:var(--ink); }
       .pv-chips{ display:flex; flex-wrap:wrap; gap:8px; }
-      .pv-chip{ border:1.5px solid var(--line); background:var(--surface); color:var(--ink); border-radius:999px; padding:.5rem 1rem; font-family:inherit; font-weight:600; cursor:pointer; font-size:.92rem; min-height:44px; }
+      .pv-chip{ border:1.5px solid var(--line); background:var(--surface); color:var(--ink); border-radius:14px; padding:.45rem .9rem .45rem .45rem; font-family:inherit; font-weight:600; cursor:pointer; font-size:1rem; min-height:64px; display:inline-flex; align-items:center; gap:10px; text-align:left; }
+      .pv-chip img{ width:56px; height:56px; object-fit:cover; object-position:center 25%; border-radius:8px; display:block; flex:none; }
       .pv-chip.active{ background:var(--green); color:var(--gold); border-color:var(--green); }
       .pv-zoom{ display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
       .pv-zoom input[type=range]{ width:200px; accent-color:var(--gold-deep); min-height:32px; }
@@ -293,7 +294,7 @@
       .pv-scene-btn{ border:1.5px solid var(--line); background:var(--surface); color:var(--ink); border-radius:999px; padding:.5rem 1rem; font-family:inherit; font-weight:700; cursor:pointer; font-size:.92rem; min-height:42px; }
       .pv-scene-btn.active{ background:var(--green); color:var(--gold); border-color:var(--green); }
       .pv-scene-canvas{ position:absolute; inset:0; width:100%; height:100%; z-index:2; display:none; }
-      .pv-scene-glow{ position:absolute; inset:0; width:100%; height:100%; z-index:2; pointer-events:none; display:none; background:radial-gradient(ellipse at 50% 35%, rgba(255,190,90,0) 0%, rgba(255,190,90,0) 38%, rgba(255,190,90,0.20) 55%, rgba(255,190,90,0) 85%); }
+      .pv-scene-glow{ position:absolute; inset:0; width:100%; height:100%; z-index:3; pointer-events:none; display:none; background:radial-gradient(ellipse 95% 75% at 50% 35%, rgba(255,190,90,0) 0%, rgba(255,190,90,0) 30%, rgba(255,196,100,0.50) 48%, rgba(255,180,70,0.35) 62%, rgba(255,190,90,0) 82%); }
       .pv-sticker-canvas{ position:absolute; inset:0; width:100%; height:100%; z-index:3; pointer-events:none; }
       .pv-live-canvas{ position:absolute; inset:0; width:100%; height:100%; z-index:4; pointer-events:none; }
       .pv-sticker-tools{ display:flex; flex-wrap:wrap; gap:8px; align-items:center; margin-top:10px; }
@@ -301,6 +302,12 @@
       .pv-sticker-tools .pv-tool-btn:hover{ border-color:var(--gold); }
       .pv-note{ font-size:.85rem; margin:.45rem 0 0; }
       .hidden-for-now{ display:none !important; }
+      .card-design img{ width:100%; height:auto; display:block; border-radius:10px; }
+      .card-design .pack-btns{ display:grid; gap:8px; margin-top:12px; }
+      .card-design .pack-btns .btn{ width:100%; }
+      .msg-pick{ display:flex; flex-wrap:wrap; gap:8px; margin:10px 0; }
+      .msg-pick button{ border:1.5px solid var(--line); background:var(--surface); border-radius:999px; padding:.6rem 1rem; font-family:inherit; font-weight:600; cursor:pointer; font-size:.95rem; min-height:48px; }
+      .msg-pick button:hover{ border-color:var(--gold); }
       .kids-compact .samples, .kids-compact .sample-label{ display:none; }
       .digi-compact .samples{ display:none; }
       .pv-badge{ position:absolute; top:10px; left:10px; z-index:3; background:var(--gold); color:#23180A; font-size:.72rem; font-weight:700; letter-spacing:.12em; text-transform:uppercase; padding:.3rem .65rem; border-radius:999px; pointer-events:none; box-shadow:0 2px 8px rgba(0,0,0,.25); }
@@ -345,13 +352,11 @@
         </a>
         <div class="links">
           <a href="#styles">Styles</a>
-          <a href="#pricing">Pricing</a>
-          <a href="#order">Order</a>
-          <a href="#preview-studio">AI Design Studio</a>
+          <a href="#preview-studio">Your photo</a>
+          <a href="#cards">Cards</a>
+          <a href="#packs">Packs</a>
           <a href="#certificate-studio">Certificate</a>
-          <a href="#products">Products</a>
-          <a href="#bundles">Bundles</a>
-          <a href="#faq">FAQ</a>
+          <a href="#faq">Questions</a>
           <button class="cart-btn" id="cartOpen" type="button">Cart · <span id="cartCount">0</span> · $<span id="cartMiniTotal">0.00</span></button>
         </div>
       </div>
@@ -362,23 +367,19 @@
       <div class="snow" id="snow" aria-hidden="true"></div>
       <div class="wrap hero-grid">
         <div>
-          <p class="kicker">AI Christmas Design Studio</p>
-          <h1>Your photo, transformed by AI into a <em>Christmas masterpiece</em> in 24 hours.</h1>
-          <p class="hero-sub">Upload one photo, pick a style, and watch AI turn your family into a real Christmas scene — Santa hats, matching sweaters, firelight, snow. You get <b>3 print-ready portraits</b>, plus your portrait on canvas, mugs and gifts they'll keep forever.</p>
+          <p class="kicker">Christmas Portrait Studio</p>
+          <h1>Your photo, turned into a <em>Christmas gift</em></h1>
+          <p class="hero-sub">Add one photo. Pick a style. We make your Christmas portrait.</p>
           <div class="hero-price">
             <span class="big">$39</span>
-            <span>· 3 portraits · digital + print-ready files</span>
-          </div>
-          <div class="chips">
-            <span class="chip">Classic Santa Snow</span><span class="chip">Golden Movie Poster</span><span class="chip">Cozy Fireplace</span><span class="chip">Snow Globe</span><span class="chip">Colombo Christmas</span><span class="chip">Winter Royal</span>
+            <span>· 3 portraits · ready in 24 hours</span>
           </div>
           <div style="display:flex;gap:12px;flex-wrap:wrap">
-            <a class="btn btn-gold" href="#order">Create My Portrait — $39</a>
-            <button class="btn btn-ghost" style="color:var(--cream);border-color:rgba(212,175,55,.6)" type="button" data-add="portrait">Add to Cart</button>
+            <a class="btn btn-gold" href="#preview-studio" style="width:100%;max-width:340px">Add your photo</a>
           </div>
           <div class="cd-duo">
             <div class="cd-box">
-              <p class="cd-label">Printed gifts <span>— order by Dec 20</span></p>
+              <p class="cd-label">Order by Dec 20</p>
               <div class="countdown" role="timer" aria-label="Countdown to December 20 2026 printed-gift order cutoff">
                 <div class="cd-cell"><b id="cdD">–</b><span>Days</span></div>
                 <div class="cd-cell"><b id="cdH">–</b><span>Hours</span></div>
@@ -387,7 +388,7 @@
               </div>
             </div>
             <div class="cd-box">
-              <p class="cd-label">Digital gifts <span>— instant until Dec 25</span></p>
+              <p class="cd-label">Ready until Dec 25</p>
               <div class="countdown" role="timer" aria-label="Countdown to Christmas Day, December 25 2026">
                 <div class="cd-cell"><b id="c25D">–</b><span>Days</span></div>
                 <div class="cd-cell"><b id="c25H">–</b><span>Hours</span></div>
@@ -396,7 +397,7 @@
             </div>
           </div>
           <div class="trust-row">
-            <span>24h delivery</span><span>FREE Santa Letter with every portrait</span>
+            <span>Ready in 24 hours</span>
           </div>
         </div>
         <figure class="ba" style="margin:0">
@@ -410,67 +411,375 @@
             <div class="ba-divider" id="baDivider" style="left:55%"></div>
           </div>
           <input type="range" id="baRange" min="5" max="95" value="55" aria-label="Slide to compare before and after portrait" />
-          <figcaption>Drag the slider — from an everyday snapshot to an AI-transformed Christmas portrait, finished and print-ready within 24 hours.</figcaption>
+          <figcaption>Drag the slider to compare.</figcaption>
         </figure>
       </div>
     </header>
-
     <!-- ============ 2 · SIX SIGNATURE STYLES ============ -->
     <section id="styles">
       <div class="wrap">
         <p class="kicker">How It Works</p>
         <h2>Three steps. One photo. Christmas handled.</h2>
         <div class="grid grid-3" style="margin-top:22px">
-          <div class="card"><div class="step-num">1</div><h3>Upload your photo</h3><p class="soft" style="margin:0">Any clear family, couple, or pet photo — phone photos are perfect. Faces visible, good light, that's all we need.</p></div>
-          <div class="card"><div class="step-num">2</div><h3>Pick your style</h3><p class="soft" style="margin:0">Choose 1 of the 6 signature looks below. AI transforms your photo into that Christmas world — new scene, new outfits, same faces.</p></div>
-          <div class="card"><div class="step-num">3</div><h3>Get portraits in 24h</h3><p class="soft" style="margin:0">Three print-ready, human-checked portraits land in your inbox within 24 hours — ready for cards, canvas, mugs, and gifts.</p></div>
+          <div class="card"><div class="step-num">1</div><h3>Step 1 of 3 — Add your photo</h3><p class="soft" style="margin:0">Any clear family photo. Phone photos are perfect.</p></div>
+          <div class="card"><div class="step-num">2</div><h3>Step 2 of 3 — Pick a style</h3><p class="soft" style="margin:0">Choose one of the 6 looks below. Same faces, new Christmas scene.</p></div>
+          <div class="card"><div class="step-num">3</div><h3>Step 3 of 3 — Choose what to buy</h3><p class="soft" style="margin:0">See it on a mug, canvas, card or gift. Add it to your order.</p></div>
         </div>
 
         <p class="kicker" style="margin-top:44px">Six Signature Styles</p>
         <h2>Pick the Christmas you want to live in</h2>
         <div class="style-grid" style="margin-top:22px">
-          <div class="style-card"><div class="style-art"><img src="https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/29159649/c37783b5-b945-449c-bcf3-30405e0e64c0" alt="Classic Santa Snow style example — a family in Santa hats laughing in falling snow" loading="lazy" /></div><div class="style-body"><h3>01 · Classic Santa Snow</h3><p>Snowfall, Santa hats, deep red and pine green. The timeless family-card look.</p><span class="style-example">AI-transformed example — your family in this look</span></div></div>
-          <div class="style-card"><div class="style-art"><img src="https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/29159649/3178fe7a-559f-4fb0-9814-4b8256bd3756" alt="Golden Movie Poster style example — a family posed like a cinematic Christmas film poster in golden light" loading="lazy" /></div><div class="style-body"><h3>02 · Golden Movie Poster</h3><p>Cinematic gold, dramatic light, your names in the credits. Pure Hollywood Christmas.</p><span class="style-example">AI-transformed example — your family in this look</span></div></div>
-          <div class="style-card"><div class="style-art"><img src="https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/29159649/2849d8ab-100f-46ae-ad86-f05fe42aaea5" alt="Cozy Fireplace style example — a family gathered by a glowing fireplace with cocoa and blankets" loading="lazy" /></div><div class="style-body"><h3>03 · Cozy Fireplace</h3><p>Warm firelight, knit blankets, cocoa in hand. The hug-you-can-frame style.</p><span class="style-example">AI-transformed example — your family in this look</span></div></div>
-          <div class="style-card"><div class="style-art"><img src="https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/29159649/d4a9e7ac-8b88-45f4-bc5b-b5b3201c0ae3" alt="Snow Globe style example — a family inside a magical snow globe scene" loading="lazy" /></div><div class="style-body"><h3>04 · Snow Globe</h3><p>Your family inside a magical snow globe. Kids and grandparents adore this one.</p><span class="style-example">AI-transformed example — your family in this look</span></div></div>
-          <div class="style-card"><div class="style-art"><img src="https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/29159649/6f3badf2-d062-42d0-a216-970f9447bf49" alt="Colombo Christmas style example — a Sri Lankan family celebrating under Galle Face lights and palms" loading="lazy" /></div><div class="style-body"><h3>05 · Colombo Christmas</h3><p>Galle Face lights, tropical December warmth, Sri Lankan Christmas soul — for home and the diaspora.</p><span class="style-example">AI-transformed example — your family in this look</span></div></div>
-          <div class="style-card"><div class="style-art"><img src="https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/29159649/4354480c-966b-4d65-9e2c-cc0955b148f7" alt="Winter Royal style example — a family in velvet and crowns in an elegant snowy palace setting" loading="lazy" /></div><div class="style-body"><h3>06 · Winter Royal</h3><p>Velvet, crowns, and palace-snow elegance. Regal portraits that look painted, not generated.</p><span class="style-example">AI-transformed example — your family in this look</span></div></div>
+          <div class="style-card"><div class="style-art"><img src="https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/29159649/c37783b5-b945-449c-bcf3-30405e0e64c0" alt="Classic Santa Snow style example — a family in Santa hats laughing in falling snow" loading="lazy" /></div><div class="style-body"><h3>01 · Classic Santa Snow</h3><p>Snowfall, Santa hats, deep red and pine green. The timeless family-card look.</p><span class="style-example">Your family in this look</span></div></div>
+          <div class="style-card"><div class="style-art"><img src="https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/29159649/3178fe7a-559f-4fb0-9814-4b8256bd3756" alt="Golden Movie Poster style example — a family posed like a cinematic Christmas film poster in golden light" loading="lazy" /></div><div class="style-body"><h3>02 · Golden Movie Poster</h3><p>Cinematic gold light. Like a Christmas film poster.</p><span class="style-example">Your family in this look</span></div></div>
+          <div class="style-card"><div class="style-art"><img src="https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/29159649/2849d8ab-100f-46ae-ad86-f05fe42aaea5" alt="Cozy Fireplace style example — a family gathered by a glowing fireplace with cocoa and blankets" loading="lazy" /></div><div class="style-body"><h3>03 · Cozy Fireplace</h3><p>Warm firelight, knit blankets, cocoa in hand.</p><span class="style-example">Your family in this look</span></div></div>
+          <div class="style-card"><div class="style-art"><img src="https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/29159649/d4a9e7ac-8b88-45f4-bc5b-b5b3201c0ae3" alt="Snow Globe style example — a family inside a magical snow globe scene" loading="lazy" /></div><div class="style-body"><h3>04 · Snow Globe</h3><p>Your family inside a magical snow globe.</p><span class="style-example">Your family in this look</span></div></div>
+          <div class="style-card"><div class="style-art"><img src="https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/29159649/6f3badf2-d062-42d0-a216-970f9447bf49" alt="Colombo Christmas style example — a Sri Lankan family celebrating under Galle Face lights and palms" loading="lazy" /></div><div class="style-body"><h3>05 · Colombo Christmas</h3><p>Galle Face lights, tropical December warmth, Sri Lankan Christmas soul.</p><span class="style-example">Your family in this look</span></div></div>
+          <div class="style-card"><div class="style-art"><img src="https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/29159649/4354480c-966b-4d65-9e2c-cc0955b148f7" alt="Winter Royal style example — a family in velvet and crowns in an elegant snowy palace setting" loading="lazy" /></div><div class="style-body"><h3>06 · Winter Royal</h3><p>Velvet and palace snow. A formal portrait for the wall.</p><span class="style-example">Your family in this look</span></div></div>
+        </div>
+      </div>
+    </section>
+    <!-- ============ 4b · LIVE PREVIEW STUDIO ============ -->
+    <section id="preview-studio" style="padding-top:0">
+      <div class="wrap">
+        <p class="kicker">Step 1 of 3 — Add your photo</p>
+        <h2>Your photo, on every gift</h2>
+        <p class="soft" style="max-width:46rem">Add your photo below. Pick a style. See it on a mug, canvas, tee, stocking, ornament and card — right here, before you pay anything. A clear, well-lit photo works best — faces facing the camera.</p>
+        <p class="soft" style="max-width:46rem">Your photo stays in your browser until you order — we never share or sell it.</p>
+
+        <div class="card pv-controls" style="margin-top:20px">
+          <div class="pv-row">
+            <button class="btn btn-gold" type="button" id="pvUploadBtn">Add your photo</button>
+            <button class="btn btn-ghost" type="button" id="pvAddBtn">Add another photo</button>
+            <button class="btn btn-ghost" type="button" id="pvRemoveBtn" style="display:none">Remove photo</button>
+            <input type="file" id="pvFile" accept="image/*" style="display:none" />
+            <span class="soft" style="font-size:.9rem">Up to 3 photos — family, kids, pets.</span>
+          </div>
+          <div class="pv-tabs" id="pvTabs" aria-label="Your photos"></div>
+          <div>
+            <p class="lbl" style="margin:0 0 8px">Step 2 of 3 — Pick a style</p>
+            <div class="pv-chips" id="pvChips" role="group" aria-label="Preview style"></div>
+            <p class="pv-note soft">This is a quick preview. The finished portrait is checked by a real person and ready in 24 hours.</p>
+          </div>
+          <div class="pv-ai" style="border:2px solid var(--gold);border-radius:12px;padding:16px;margin-top:14px;background:linear-gradient(180deg,#FFFDF7,#F7EFDA)">
+            <p class="lbl" style="margin:0 0 6px">See your photo as a Christmas portrait</p>
+            <p class="soft" style="margin:0 0 12px;font-size:.92rem">Tap the button below. You will see a preview with a watermark on it. The portrait you buy is clear, with no watermark, and ready in 24 hours.</p>
+            <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
+              <button class="btn btn-gold" type="button" id="aiTransformBtn">Transform with AI</button>
+              <span class="soft" style="font-size:.9rem" id="aiStatus">Your photo is only used to make your portrait. We never share it.</span>
+            </div>
+            <div id="aiPreviewWrap" style="display:none;margin-top:14px">
+              <img id="aiPreviewImg" alt="Your AI-transformed Christmas portrait preview" style="width:100%;height:auto;display:block;border-radius:10px" />
+              <p class="soft" style="font-size:.9rem;margin:8px 0 0">Preview — watermarked, so it cannot be printed from the screen. The portrait you buy is clear, with no watermark.</p>
+              <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:10px">
+                <button class="btn btn-green btn-small" type="button" id="aiUsePortrait">Use this portrait — $39</button>
+                <button class="btn btn-gold btn-small" type="button" id="aiUseCanvas">Put it on canvas — $49</button>
+                <button class="btn btn-ghost btn-small" type="button" id="aiUseMug">Put it on a mug — $29</button>
+              </div>
+            </div>
+          </div>
+          <div class="pv-zoom">
+            <label class="lbl" for="pvZoom">Zoom</label>
+            <input type="range" id="pvZoom" min="1" max="2" step="0.01" value="1" aria-label="Preview zoom" />
+            <span class="soft" style="font-size:.92rem">Drag the big preview to reposition your photo</span>
+          </div>
+          <div style="margin-top:14px">
+            <button class="btn btn-ghost" type="button" id="pvFunToggle" aria-expanded="false" aria-controls="pvFunBox">Add some fun — stickers and scenes</button>
+          </div>
+          <div id="pvFunBox" class="hidden-for-now">
+          <div class="pv-magic">
+            <span class="lbl">Stickers — tap to add, then drag it onto someone in the photo</span>
+            <div class="pv-sticker-bar" id="pvStickerBar" role="group" aria-label="Stickers"></div>
+            <p class="pv-note soft" style="margin:8px 0 0">A sticker appears at the top of your photo, clear of every face — drag it where you want it. Drag its corner handle to resize, the top handle to tilt it.</p>
+          </div>
+          <div class="pv-magic">
+            <span class="lbl">Scenes — drop your photo into a Christmas scene</span>
+            <div class="pv-scene-row" id="pvSceneRow" role="group" aria-label="Scenes"></div>
+            <p class="pv-note soft" style="margin:8px 0 0">Scenes change the setting around your photo. Your finished portrait is checked by a real person and ready in 24 hours.</p>
+          </div>
+          </div>
+        </div>
+
+        <div class="pv-switcher" id="pvSwitcher" role="group" aria-label="Featured preview product"></div>
+        <div class="pv-toggle" role="group" aria-label="Featured preview look">
+          <button type="button" id="pvToggleSeason" class="pv-toggle-btn active">Season look</button>
+          <button type="button" id="pvToggleOriginal" class="pv-toggle-btn">Original</button>
+          <span class="soft" id="pvToggleNote" style="font-size:.9rem">Season look — Classic Santa Snow grade preview. The finished portrait is art-directed in this style.</span>
+        </div>
+        <div class="pv-stage pv-featured-stage" id="pvFeatStage">
+          <img class="pv-base fit-contain" id="pvFeatImg" alt="Featured gift preview" />
+          <div class="pv-wins" id="pvFeatWins"></div>
+          <canvas class="pv-scene-canvas" id="pvSceneCanvas" aria-label="Magic scene preview"></canvas>
+          <div class="pv-scene-glow" id="pvSceneGlow" aria-hidden="true"></div>
+          <canvas class="pv-sticker-canvas" id="pvStickerCanvas" aria-hidden="true"></canvas>
+          <canvas class="pv-live-canvas" id="pvLiveCanvas" aria-hidden="true"></canvas>
+          <span class="pv-badge">Print Preview</span>
+          <div class="pv-empty" id="pvFeatEmpty">Upload a photo to see it here</div>
+        </div>
+        <p class="pv-note"><b>Your photo on the gift</b> <span class="soft">· The gold outline shows the print area — it is not part of the print.</span></p>
+        <div class="pv-sticker-tools hidden-for-now" id="pvStickerTools">
+          <span class="soft" style="font-size:.9rem" id="pvStickerHint">No sticker selected — tap a sticker above to add one, then drag it where you want it.</span>
+          <button class="pv-tool-btn" type="button" id="pvStickerDelete">Remove selected sticker</button>
+          <button class="pv-tool-btn" type="button" id="pvStickerClear">Clear all stickers</button>
+          <button class="pv-tool-btn" type="button" id="pvLiveToggle" aria-pressed="false">Pause snowfall</button>
+        </div>
+        <p class="pv-note"><b>Stickers and scenes are just for fun</b> <span class="soft">· They are drawn over your photo in your browser, to show the idea. The finished portrait is made properly and checked by a real person.</span></p>
+
+        <div class="pv-favbar">
+          <b id="pvFavCount">Favourites: 0/3</b>
+          <div style="display:flex;gap:10px;flex-wrap:wrap">
+            <button class="btn btn-green btn-small" type="button" id="pvFavAdd">Add my favourites to your order</button>
+            <button class="btn btn-gold btn-small" type="button" id="pvSave">Save this design</button>
+          </div>
+        </div>
+
+        <div class="pv-grid" id="pvGallery"></div>
+
+        <div class="card" style="margin-top:22px">
+          <h3>My Designs — saved on this device</h3>
+          <p class="soft" style="margin:0">Your saved designs live on this device only. Up to 20 are kept here.</p>
+          <div class="pv-designs" id="pvDesigns"></div>
+          <p class="soft" id="pvDesignsEmpty" style="margin:12px 0 0">No saved designs yet — build a preview above and tap “Save this design”.</p>
+        </div>
+      </div>
+    </section>
+    <!-- ============ 3 · CHRISTMAS CARDS ============ -->
+    <section id="cards" style="padding-top:0">
+      <div class="wrap">
+        <p class="kicker">Christmas Cards</p>
+        <h2>Your family, on every card you send</h2>
+        <p class="soft" style="max-width:46rem">5×7 cards with your portrait on the front and your message inside. Envelopes included. Pick a design, pick a pack, add it to your order.</p>
+        <div class="grid grid-3" style="margin-top:22px">
+          <div class="card card-design">
+            <img src="https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/29159649/ad8df902-0c24-483e-9723-b1548a542640" alt="Classic Red and Gold Christmas card — your family portrait in a deep red and gold frame" loading="lazy" />
+            <h3 style="margin-top:12px">Classic Red &amp; Gold — folded</h3>
+            <p class="soft" style="margin:0">The classic. Your portrait full-bleed on the front, gold border, your message inside.</p>
+            <div class="pack-btns">
+              <button class="btn btn-green" type="button" data-add="card10-classic">Add 10 cards — $49</button>
+              <button class="btn btn-gold" type="button" data-add="card25-classic">Add 25 cards — $89</button>
+              <button class="btn btn-green" type="button" data-add="card50-classic">Add 50 cards — $149</button>
+            </div>
+          </div>
+          <div class="card card-design">
+            <img src="https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/29159649/361dc47e-8182-4f7e-accf-398028fd09d7" alt="Snow Globe Christmas card — your family inside a snow globe scene" loading="lazy" />
+            <h3 style="margin-top:12px">Snow Globe — flat</h3>
+            <p class="soft" style="margin:0">Your family inside a snow globe. Bright, joyful, and loved by kids.</p>
+            <div class="pack-btns">
+              <button class="btn btn-green" type="button" data-add="card10-globe">Add 10 cards — $49</button>
+              <button class="btn btn-gold" type="button" data-add="card25-globe">Add 25 cards — $89</button>
+              <button class="btn btn-green" type="button" data-add="card50-globe">Add 50 cards — $149</button>
+            </div>
+          </div>
+          <div class="card card-design">
+            <img src="https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/29159649/d4d536a3-93a5-4c7c-b5ea-b2d942189db4" alt="Golden Movie Poster Christmas card — your family in golden cinematic light" loading="lazy" />
+            <h3 style="margin-top:12px">Golden Movie Poster — flat</h3>
+            <p class="soft" style="margin:0">Golden light, like a Christmas film poster. The card people keep.</p>
+            <div class="pack-btns">
+              <button class="btn btn-green" type="button" data-add="card10-poster">Add 10 cards — $49</button>
+              <button class="btn btn-gold" type="button" data-add="card25-poster">Add 25 cards — $89</button>
+              <button class="btn btn-green" type="button" data-add="card50-poster">Add 50 cards — $149</button>
+            </div>
+          </div>
+        </div>
+        <div class="card" style="margin-top:22px">
+          <h3>Your message inside the card</h3>
+          <p class="soft" style="margin:0">Tap one, or write your own. Your message goes inside every card.</p>
+          <div class="msg-pick" id="cardMsgPick">
+            <button type="button" data-msg="Merry Christmas and a Happy New Year! With all our love, The Family">Merry Christmas and a Happy New Year!</button>
+            <button type="button" data-msg="Wishing you joy, warmth and time together this Christmas. Love from all of us">Wishing you joy and warmth</button>
+            <button type="button" data-msg="Merry Christmas! Thank you for being part of our year. Love, The Family">Thank you for being part of our year</button>
+          </div>
+          <div class="field" style="margin-bottom:0"><label for="cardMessage">Your message</label><textarea id="cardMessage" rows="2">Merry Christmas from our family to yours!</textarea></div>
+          <p class="soft" style="font-size:.9rem;margin:10px 0 0">Your message is saved with your order. Cards are sent to you, envelopes included, ready to sign and send.</p>
+        </div>
+        <div class="grid grid-2" style="margin-top:22px">
+          <figure style="margin:0"><img src="https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/29159649/a1397df0-0155-4b8f-92ec-71d026637eb4" alt="Inside of the folded Christmas card — your message on warm cream paper with a gold border" style="width:100%;height:auto;display:block;border-radius:14px" loading="lazy" /><figcaption class="soft" style="margin-top:8px">Inside the folded card — room for your message.</figcaption></figure>
+          <figure style="margin:0"><img src="https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/29159649/59aaadd6-675b-44d6-8bd6-059ae083db90" alt="A fanned stack of Christmas cards with red envelopes" style="width:100%;height:auto;display:block;border-radius:14px" loading="lazy" /><figcaption class="soft" style="margin-top:8px">Packs of 10, 25 or 50 — envelopes included.</figcaption></figure>
         </div>
       </div>
     </section>
 
-    <!-- ============ 3 · PRICING ============ -->
-    <section id="pricing" style="padding-top:0">
+    <!-- ============ 4 · PACKS ============ -->
+    <section id="packs" style="padding-top:0">
       <div class="wrap">
-        <p class="kicker">Portrait Pricing</p>
-        <h2>One price for the memory. Three ways to gift it.</h2>
+        <p class="kicker">Packs</p>
+        <h2>Simple packs. One price each.</h2>
         <div class="grid grid-3" style="margin-top:26px">
           <div class="card">
-            <h3>Single Portrait</h3>
+            <h3>Portrait</h3>
             <p><span class="serif" style="font-size:2.2rem;font-weight:800">$39</span></p>
-            <p class="soft">3 portraits in 1 style · digital delivery in 24h · print-ready 300 DPI files · free Santa Letter with every portrait.</p>
-            <button class="btn btn-green" type="button" data-add="portrait" style="width:100%">Add Single — $39</button>
+            <p class="soft">3 portraits in 1 style. Ready in 24 hours.</p>
+            <button class="btn btn-green" type="button" data-add="portrait" style="width:100%">Add Portrait — $39</button>
           </div>
           <div class="card pop">
             <span class="pop-tag">MOST POPULAR</span>
             <h3>Family Pack</h3>
             <p><span class="serif" style="font-size:2.2rem;font-weight:800">$69</span></p>
-            <p class="soft">Up to 4 people · 6 portraits across 2 styles · 1 canvas mockup preview · priority 24h queue · free Santa Letter.</p>
+            <p class="soft">6 portraits in 2 styles, for up to 4 people.</p>
             <button class="btn btn-gold" type="button" data-add="family" style="width:100%">Add Family Pack — $69</button>
           </div>
           <div class="card">
             <h3>Gift Pack</h3>
             <p><span class="serif" style="font-size:2.2rem;font-weight:800">$89</span></p>
-            <p class="soft">Everything in Single · plus your portrait printed on a gift mug · gift note included · free Santa Letter.</p>
+            <p class="soft">Portraits, plus your portrait on a mug.</p>
             <button class="btn btn-red" type="button" data-add="giftpack" style="width:100%">Add Gift Pack — $89</button>
           </div>
+          <div class="card">
+            <h3>Card Pack</h3>
+            <p><span class="serif" style="font-size:2.2rem;font-weight:800">$89</span></p>
+            <p class="soft">25 Christmas cards, 5×7 folded, envelopes included. Classic Red &amp; Gold design.</p>
+            <button class="btn btn-green" type="button" data-add="card25-classic" style="width:100%">Add 25 Cards — $89</button>
+          </div>
+          <div class="card pop">
+            <span class="pop-tag">BEST VALUE</span>
+            <h3>Everything</h3>
+            <p><span class="serif" style="font-size:2.2rem;font-weight:800">$149</span></p>
+            <p class="soft">Portrait ($39) + Canvas ($49) + 25 cards ($89) = $177. You save $28.</p>
+            <button class="btn btn-gold" type="button" data-add="everything" style="width:100%">Add Everything — $149</button>
+          </div>
         </div>
-        <p class="soft" style="margin-top:14px;font-size:.93rem">Bundle maths applies automatically in the cart: Portrait + Mug = $59 (save $9) · Portrait + Canvas = $79 (save $9) · every 3rd portrait is 50% off.</p>
+        <p class="soft" style="margin-top:14px">Full price shown. No account needed. Your order stays saved in your cart until you are ready to pay.</p>
+      </div>
+    </section>
+    <!-- ============ 4c · SANTA CERTIFICATE PERSONALIZER ============ -->
+    <section id="certificate-studio" style="padding-top:0">
+      <div class="wrap">
+        <h2>Santa Certificate — made for your child</h2>
+        <p class="soft" style="max-width:46rem">Type their name, add their photo, and see their certificate come alive.</p>
+        <figure style="margin:20px 0 0">
+          <img src="https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/29159649/b9077d44-d55a-433d-90a6-1ef79d51a68a" alt="A child holding her personalised Nice List certificate from Santa, smiling by the fireplace" style="width:100%;height:auto;display:block;border-radius:14px;box-shadow:0 10px 34px rgba(7,24,15,.28)" loading="lazy" />
+          <figcaption class="soft" style="margin-top:10px">Emma holding her own Nice List certificate.</figcaption>
+        </figure>
+        <div class="card" style="margin-top:20px">
+          <div class="grid grid-2" style="gap:20px;align-items:start">
+            <div>
+              <div class="field"><label for="certKidName">Your child's name</label><input type="text" id="certKidName" value="Emma" maxlength="24" placeholder="e.g. Emma" /></div>
+              <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:12px">
+                <button class="btn btn-gold" type="button" id="certUploadBtn">Upload their photo</button>
+                <button class="btn btn-ghost" type="button" id="certUseStudioBtn">Use my Studio photo</button>
+              </div>
+              <p class="soft" style="font-size:.9rem;margin-top:12px">Their photo stays in your browser until you order — we never share or sell it. Delete it anytime from the Preview Studio.</p>
+              <h3 style="margin-top:20px">What your child gets</h3>
+              <ul class="value-stack">
+                <li><span>Personalized certificate — their name in gold, their photo in the snow globe</span><b>Live preview</b></li>
+                <li><span>Print-ready PDF — crisp, watermark-free, print as many times as you like</span><b>$12 kit</b></li>
+                <li><span>Their portrait holding the certificate — framed canvas or digital portrait</span><b>$49 / $39</b></li>
+                <li><span>A personal letter from Santa, written just for them</span><b>Included</b></li>
+              </ul>
+              <p style="margin-top:14px"><b>Printed gifts: order by Dec 20</b> <span class="soft">for Christmas delivery. Digital portraits arrive in 24 hours.</span></p>
+            </div>
+            <div>
+              <canvas id="certCanvas" width="880" height="620" style="width:100%;height:auto;display:block;border-radius:14px;box-shadow:0 10px 34px rgba(7,24,15,.28)" role="img" aria-label="Personalized Nice List certificate preview"></canvas>
+              <p class="soft" style="font-size:.9rem;margin-top:10px">This is your preview — watermarked and low-resolution so it can't be printed from the screen. The version you buy is crisp, watermark-free, and delivered instantly.</p>
+            </div>
+          </div>
+          <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:18px">
+            <button class="btn btn-gold" type="button" data-add="santakit">Add Santa Kit — $12</button>
+            <button class="btn btn-red" type="button" data-add="nicelist">Add My Nice List Portrait — Canvas $49</button>
+            <button class="btn btn-green" type="button" data-add="nicelistportrait">Add Digital Portrait — $39</button>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- ============ 6 · TRUST ============ -->
+    <section id="trust" style="padding-top:0">
+      <div class="wrap">
+        <p class="kicker">Our promise</p>
+        <h2>Good to know</h2>
+        <div class="grid grid-2" style="margin-top:20px">
+          <div class="card"><h3>Ready in 24 hours</h3><p class="soft" style="margin:0">Digital portraits arrive by email within 24 hours of your photo.</p></div>
+          <div class="card"><h3>Checked by a real person</h3><p class="soft" style="margin:0">Every portrait is checked before it is sent. Nothing goes out half-finished.</p></div>
+          <div class="card"><h3>No watermark when you pay</h3><p class="soft" style="margin:0">Previews carry a watermark so they cannot be printed from the screen. The version you pay for is clear.</p></div>
+          <div class="card"><h3>We never share your photo</h3><p class="soft" style="margin:0">Your photo is only used to make your portrait. Never shared, never sold.</p></div>
+        </div>
+        <p class="soft" style="margin-top:18px">Love it, or we make it right — re-made in a different style free, or refunded in full, within 14 days.</p>
       </div>
     </section>
 
-    <!-- ============ 4 · ORDER FORM ============ -->
-    <section id="order" style="padding-top:0">
+    <!-- ============ 7 · GUARANTEE + FAQ ============ -->
+    <section id="faq" style="padding-top:0">
+      <div class="wrap">
+        <div class="badge-row">
+          <div class="badge"><svg viewBox="0 0 24 24" fill="none" stroke="#A8842A" stroke-width="1.7"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg><b>24-Hour Delivery</b><span>Digital portraits in your inbox within a day</span></div>
+          <div class="badge"><svg viewBox="0 0 24 24" fill="none" stroke="#A8842A" stroke-width="1.7"><path d="M12 3l7 3v5c0 5-3.5 8-7 10-3.5-2-7-5-7-10V6z"/><path d="M9 12l2 2 4-4"/></svg><b>Love-It Guarantee</b><span>Free re-make in a new style, or a refund</span></div>
+          <div class="badge"><svg viewBox="0 0 24 24" fill="none" stroke="#A8842A" stroke-width="1.7"><path d="M12 3l7 3v5c0 5-3.5 8-7 10-3.5-2-7-5-7-10V6z"/><path d="M9 12l2 2 4-4"/></svg><b>Checked by a real person</b><span>Every portrait checked before it is sent</span></div>
+          <div class="badge"><svg viewBox="0 0 24 24" fill="none" stroke="#A8842A" stroke-width="1.7"><path d="M4 6h16v12H4z"/><path d="M4 8l8 6 8-6"/></svg><b>Free Santa Letter</b><span>With every portrait, all season</span></div>
+        </div>
+
+        <div class="card" style="margin-top:22px">
+          <p class="kicker">The Love-It Guarantee</p>
+          <h2 style="font-size:1.6rem">Love your portraits — or we make it right</h2>
+          <p class="soft" style="max-width:46rem;margin:0">If you don't love your portraits, tell us within 14 days and we re-make them in a different style free, or refund you in full. Anything that arrives damaged or misprinted is replaced free.</p>
+        </div>
+
+        <div class="grid grid-2 hidden-for-now" style="margin-top:22px">
+          <div class="card"><p class="kicker">Santa's Nice List Checker</p><h3>Are they on the Nice List?</h3><p class="soft">Type a name and get a fun Nice List certificate preview — perfect to show the kids.</p><div class="field"><label for="niceName">Child's (or grown-up's) name</label><input type="text" id="niceName" placeholder="e.g. Amaya" /></div><button class="btn btn-red" type="button" id="niceBtn" style="width:100%">Check the Nice List</button><div class="cert" id="niceCert"><p style="letter-spacing:.15em;font-size:.8rem">✦ OFFICIAL · NORTH POLE ✦</p><h3>Nice List Certificate</h3><p>This certifies that</p><p class="serif" id="niceCertName" style="font-size:1.7rem;font-weight:800"></p><p>is officially on Santa's Nice List for Christmas 2026<br />for kindness, giggles, and excellent story-listening.</p><p style="font-size:.85rem">Signed: Santa Claus · Head Elf, Christmas Portrait Studio<br />Get the printable kit in the Santa Letter Kit — $12</p><button class="btn btn-gold btn-small" type="button" data-add="santakit">Add Santa Kit — $12</button></div></div>
+          <div class="card"><p class="kicker">Gift Finder</p><h3>Who are you shopping for?</h3><p class="soft">Pick one — we'll recommend 3 perfect gifts instantly.</p><div id="finderBtns"><button class="btn btn-ghost finder-opt" type="button" data-finder="mom">Mom</button><button class="btn btn-ghost finder-opt" type="button" data-finder="dad">Dad</button><button class="btn btn-ghost finder-opt" type="button" data-finder="kids">Kids</button><button class="btn btn-ghost finder-opt" type="button" data-finder="partner">Partner</button><button class="btn btn-ghost finder-opt" type="button" data-finder="pet">Pet</button><button class="btn btn-ghost finder-opt" type="button" data-finder="self">Yourself</button></div><div id="finderResult" style="margin-top:14px"></div></div>
+        </div>
+
+        <div style="max-width:860px;margin:44px auto 0">
+          <p class="kicker">Questions</p>
+          <h2>Before you order</h2>
+          <div style="margin-top:20px">
+            <details class="faq" id="faq-speed"><summary>How fast will I get my portraits?</summary><p>Digital portraits are delivered by email within 24 hours of your photo upload. Printed gifts (mugs, canvas, hoodies, stockings) are produced per order — order by Dec 20 to guarantee Christmas delivery.</p></details>
+            <details class="faq" id="faq-photo"><summary>What kind of photo works best?</summary><p>A clear photo where faces are visible and reasonably well lit. Phone photos are perfect. Group shots up to 4 people fit the Family Pack; pets can join any portrait — just mention them in the order notes.</p></details>
+            <details class="faq" id="faq-guarantee"><summary>What if I don't love my portrait?</summary><p>That's what the Love-It Guarantee is for: tell us within 14 days and we re-make your portraits in a different style free, or refund you in full. No forms, no interrogation.</p></details>
+            <details class="faq hidden-for-now"><summary>Can I print the portraits myself?</summary><p>Yes — files are print-ready at 300 DPI, sized for Christmas cards, canvas, and framed prints. Or skip the printer run and add the mug, canvas, or stocking from the gift shop and we handle production.</p></details>
+            <details class="faq" id="faq-cutoff"><summary>What is the Dec 20 cutoff?</summary><p>December 20, 2026 is the last day to order printed gifts with Christmas delivery. Digital portraits are ready in 24 hours, right up to Dec 25.</p></details>
+            <details class="faq hidden-for-now" id="faq-shipping"><summary>Do you ship internationally?</summary><p>Digital portraits and downloads go anywhere instantly. Printed gifts are produced at facilities close to the recipient in 32 countries, which keeps international delivery fast and affordable.</p></details>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- ============ 8 · FOOTER ============ -->
+    <footer>
+      <div class="wrap">
+        <div class="foot-grid">
+          <div class="foot-col">
+            <a class="foot-brand" href="#top" aria-label="Christmas Portrait Studio — back to top">
+              <img src="https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/29159649/c4d5fe32-71f7-4c7d-a2a6-062334e904f0" alt="" width="44" height="44" />
+              <span class="wordmark">Christmas Portrait Studio</span>
+            </a>
+            <p class="foot-about">Turn your family photo into a Christmas portrait — on canvas, mugs, cards and gifts, made to order.</p>
+            <p class="foot-about">Printed gifts: order by Dec 20 for Christmas. Digital portraits arrive in 24 hours.</p>
+          </div>
+          <nav class="foot-col" aria-label="Shop">
+            <h3>Shop</h3>
+            <ul>
+              <li><a href="#styles">Six Signature Styles</a></li>
+              <li><a href="#preview-studio">Your photo</a></li>
+              <li><a href="#cards">Christmas Cards</a></li>
+              <li><a href="#packs">Packs</a></li>
+              <li><a href="#certificate-studio">Santa Certificate</a></li>
+            </ul>
+          </nav>
+          <nav class="foot-col" aria-label="Help">
+            <h3>Help</h3>
+            <ul>
+              <li><a href="#faq-speed">How fast will I get my portraits?</a></li>
+              <li><a href="#faq-guarantee">Love-It Guarantee</a></li>
+              <li><a href="#faq-cutoff">Dec 20 cutoff</a></li>
+              <li><a href="#faq-photo">What photo works best?</a></li>
+            </ul>
+          </nav>
+        </div>
+        <div class="foot-good">
+          <span><b>Portraits</b> $39 / $69 / $89</span>
+          <span><b>24-hour</b> digital delivery</span>
+          <span><b>Printed gifts</b> — order by Dec 20 for Christmas</span>
+          <span><b>Digital instant</b> until Dec 25</span>
+          <span><b>FREE Santa Letter</b> with every portrait</span>
+          <span><b>Love-It Guarantee</b> — 14 days</span>
+        </div>
+        <div class="foot-policies">
+          <div><h3>Shipping</h3><p>Digital portraits are delivered by email within 24 hours; downloads are instant. Printed gifts are made to order — order by Dec 20 for Christmas delivery, and produced close to the recipient in 32 countries for international orders.</p></div>
+          <div><h3>Returns</h3><p>Personalized items are final sale, except print defects — anything that arrives damaged or misprinted is replaced free. Portraits are covered by the Love-It Guarantee: a free re-make in a new style, or a full refund within 14 days.</p></div>
+          <div><h3>Privacy</h3><p>Your photo is used only to make your portrait. It is never shared, never sold, and never used for anything else. Your email is used only to deliver your order and reply to it.</p></div>
+        </div>
+        <p style="font-size:.88rem;margin:22px 0 0">© 2026 Christmas Portrait Studio · christmasportrait.store</p>
+      </div>
+    </footer>
+    <!-- ============ ORDER FORM (hidden in the rebuild — code kept intact) ============ -->
+    <section id="order" style="padding-top:0" class="hidden-for-now">
       <div class="wrap">
         <p class="kicker">Order Your Portrait</p>
         <h2>Start your 24-hour portrait</h2>
@@ -483,7 +792,7 @@
                 <div><b>Tap to upload a family photo</b><br /><span class="soft" style="font-size:.9rem">JPG or PNG · faces visible · phone photos welcome</span></div>
                 <div id="photoName" class="soft" style="font-size:.9rem;margin-top:6px"></div>
                 <img id="photoPreview" alt="Preview of your uploaded photo" style="display:none" />
-                <div id="photoPreviewNote" class="soft" style="font-size:.85rem;margin-top:6px;display:none">AI preview — your finished portrait is AI-transformed in this style, human-checked, and delivered in 24h.</div>
+                <div id="photoPreviewNote" class="soft" style="font-size:.85rem;margin-top:6px;display:none">Your finished portrait in this style, checked by a real person, ready in 24 hours.</div>
               </label>
               <input type="file" id="photoInput" accept="image/*" />
             </div>
@@ -520,149 +829,8 @@
         </div>
       </div>
     </section>
-
-    <!-- ============ 4b · LIVE PREVIEW STUDIO ============ -->
-    <section id="preview-studio" style="padding-top:0">
-      <div class="wrap">
-        <h2>AI Design Studio — your photo, transformed into Christmas</h2>
-        <p class="soft" style="max-width:46rem">Upload your photo once, pick a style, and tap <b>Transform with AI</b> — AI turns your family into a real Christmas scene: Santa hats, matching sweaters, firelight, snow. Then see it on every gift, pick your favourites, and order. Your photo stays in your browser until you order — we never share or sell it.</p>
-        <p class="soft" style="max-width:46rem">Saved designs live on this device only.</p>
-
-        <div class="card pv-controls" style="margin-top:20px">
-          <div class="pv-row">
-            <button class="btn btn-gold" type="button" id="pvUploadBtn">Upload your photo</button>
-            <button class="btn btn-ghost" type="button" id="pvAddBtn">Add another photo</button>
-            <button class="btn btn-ghost" type="button" id="pvRemoveBtn" style="display:none">Remove photo</button>
-            <input type="file" id="pvFile" accept="image/*" style="display:none" />
-            <span class="soft" style="font-size:.9rem">Up to 3 photos — family, kids, pets.</span>
-          </div>
-          <div class="pv-tabs" id="pvTabs" aria-label="Your photos"></div>
-          <div>
-            <p class="lbl" style="margin:0 0 8px">Style — applies to every preview</p>
-            <div class="pv-chips" id="pvChips" role="group" aria-label="Preview style"></div>
-            <p class="pv-note soft">Season-look grade preview — visibly different from your original at a glance. Your finished $39 portrait is fully art-directed in this style and delivered in 24h.</p>
-          </div>
-          <div class="pv-ai" style="border:2px solid var(--gold);border-radius:12px;padding:16px;margin-top:14px;background:linear-gradient(180deg,#FFFDF7,#F7EFDA)">
-            <p class="lbl" style="margin:0 0 6px">AI Transform — see your photo as a real Christmas portrait</p>
-            <p class="soft" style="margin:0 0 12px;font-size:.92rem">Upload your photo, pick a style, then Transform with AI. You will see your transformed portrait watermarked and low-resolution; the version you buy is full-resolution, watermark-free, human-checked, and delivered in 24h.</p>
-            <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
-              <button class="btn btn-gold" type="button" id="aiTransformBtn">Transform with AI</button>
-              <span class="soft" style="font-size:.9rem" id="aiStatus">5 free transforms a day — your photo is sent only to the AI model, never used for training.</span>
-            </div>
-            <div id="aiPreviewWrap" style="display:none;margin-top:14px">
-              <img id="aiPreviewImg" alt="Your AI-transformed Christmas portrait preview" style="width:100%;height:auto;display:block;border-radius:10px" />
-              <p class="soft" style="font-size:.9rem;margin:8px 0 0">AI preview — watermarked and low-resolution. The portrait you buy is crisp, watermark-free, and delivered in 24h.</p>
-              <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:10px">
-                <button class="btn btn-green btn-small" type="button" id="aiUsePortrait">Use this portrait — $39</button>
-                <button class="btn btn-gold btn-small" type="button" id="aiUseCanvas">Put it on canvas — $49</button>
-                <button class="btn btn-ghost btn-small" type="button" id="aiUseMug">Put it on a mug — $29</button>
-              </div>
-            </div>
-          </div>
-          <div class="pv-zoom">
-            <label class="lbl" for="pvZoom">Zoom</label>
-            <input type="range" id="pvZoom" min="1" max="2" step="0.01" value="1" aria-label="Preview zoom" />
-            <span class="soft" style="font-size:.92rem">Drag the big preview to reposition your photo</span>
-          </div>
-          <div class="pv-magic">
-            <span class="lbl">Magic stickers — tap to add, then drag it on the photo</span>
-            <div class="pv-sticker-bar" id="pvStickerBar" role="group" aria-label="Magic stickers"></div>
-            <p class="pv-note soft" style="margin:8px 0 0">Drag a sticker to move it. Drag its corner handle to resize, the top handle to tilt it. One per person — hats for the whole family.</p>
-          </div>
-          <div class="pv-magic">
-            <span class="lbl">Magic scenes — drop your photo into a Christmas scene</span>
-            <div class="pv-scene-row" id="pvSceneRow" role="group" aria-label="Magic scenes"></div>
-            <p class="pv-note soft" style="margin:8px 0 0">Scenes sit on top of your style grade — the colour grade stays underneath. Stickers and scenes are a fun preview of the idea; your finished $39 portrait is fully art-directed by the studio in 24h.</p>
-          </div>
-        </div>
-
-        <div class="pv-switcher" id="pvSwitcher" role="group" aria-label="Featured preview product"></div>
-        <div class="pv-toggle" role="group" aria-label="Featured preview look">
-          <button type="button" id="pvToggleSeason" class="pv-toggle-btn active">Season look</button>
-          <button type="button" id="pvToggleOriginal" class="pv-toggle-btn">Original</button>
-          <span class="soft" id="pvToggleNote" style="font-size:.9rem">Season look — Classic Santa Snow grade preview. The finished portrait is art-directed in this style.</span>
-        </div>
-        <div class="pv-stage pv-featured-stage" id="pvFeatStage">
-          <img class="pv-base fit-contain" id="pvFeatImg" alt="Featured gift preview" />
-          <div class="pv-wins" id="pvFeatWins"></div>
-          <canvas class="pv-scene-canvas" id="pvSceneCanvas" aria-label="Magic scene preview"></canvas>
-          <div class="pv-scene-glow" id="pvSceneGlow" aria-hidden="true"></div>
-          <canvas class="pv-sticker-canvas" id="pvStickerCanvas" aria-hidden="true"></canvas>
-          <canvas class="pv-live-canvas" id="pvLiveCanvas" aria-hidden="true"></canvas>
-          <span class="pv-badge">Print Preview</span>
-          <div class="pv-empty" id="pvFeatEmpty">Upload a photo to see it here</div>
-        </div>
-        <p class="pv-note"><b>Print preview — your photo on the gift</b> <span class="soft">· Gold outline shows the print area (not part of the print) · Season-look grade preview — your finished portrait is art-directed in this style and delivered in 24h.</span></p>
-        <div class="pv-sticker-tools" id="pvStickerTools">
-          <span class="soft" style="font-size:.9rem" id="pvStickerHint">No sticker selected — tap a sticker above to add one.</span>
-          <button class="pv-tool-btn" type="button" id="pvStickerDelete">Remove selected sticker</button>
-          <button class="pv-tool-btn" type="button" id="pvStickerClear">Clear all stickers</button>
-          <button class="pv-tool-btn" type="button" id="pvLiveToggle" aria-pressed="false">Pause snowfall</button>
-        </div>
-        <p class="pv-note"><b>Magic preview, honestly labelled</b> <span class="soft">· Stickers and scenes show the idea — they are drawn over your photo in your browser. The finished $39 portrait is fully art-directed by the studio (real Santa hats, matching sweaters, a real fireplace scene) and delivered in 24h. This preview is a grade, not the finished portrait.</span></p>
-
-        <div class="pv-favbar">
-          <b id="pvFavCount">Favourites: 0/3</b>
-          <div style="display:flex;gap:10px;flex-wrap:wrap">
-            <button class="btn btn-green btn-small" type="button" id="pvFavAdd">Add my favourites to cart</button>
-            <button class="btn btn-gold btn-small" type="button" id="pvSave">Save this design</button>
-          </div>
-        </div>
-
-        <div class="pv-grid" id="pvGallery"></div>
-
-        <div class="card" style="margin-top:22px">
-          <h3>My Designs — saved on this device</h3>
-          <p class="soft" style="margin:0">Reopen a design to keep editing it, duplicate it for another gift, or reorder its products in one tap. Up to 20 designs are kept here.</p>
-          <div class="pv-designs" id="pvDesigns"></div>
-          <p class="soft" id="pvDesignsEmpty" style="margin:12px 0 0">No saved designs yet — build a preview above and tap “Save this design”.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- ============ 4c · SANTA CERTIFICATE PERSONALIZER ============ -->
-    <section id="certificate-studio" style="padding-top:0">
-      <div class="wrap">
-        <h2>Santa Certificate — made for your child</h2>
-        <p class="soft" style="max-width:46rem">Type their name, add their photo, and watch Santa's certificate come alive — their name in gold, their face inside the snow globe. This is the moment their eyes light up.</p>
-        <figure style="margin:20px 0 0">
-          <img src="https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/29159649/b9077d44-d55a-433d-90a6-1ef79d51a68a" alt="A child holding her personalised Nice List certificate from Santa, smiling by the fireplace" style="width:100%;height:auto;display:block;border-radius:14px;box-shadow:0 10px 34px rgba(7,24,15,.28)" loading="lazy" />
-          <figcaption class="soft" style="margin-top:10px">This could be your child — Emma holding her own Nice List certificate, her name in gold, her family in the snow globe. Order it as a canvas or digital portrait below.</figcaption>
-        </figure>
-        <div class="card" style="margin-top:20px">
-          <div class="grid grid-2" style="gap:20px;align-items:start">
-            <div>
-              <div class="field"><label for="certKidName">Your child's name</label><input type="text" id="certKidName" value="Emma" maxlength="24" placeholder="e.g. Emma" /></div>
-              <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:12px">
-                <button class="btn btn-gold" type="button" id="certUploadBtn">Upload their photo</button>
-                <button class="btn btn-ghost" type="button" id="certUseStudioBtn">Use my Studio photo</button>
-              </div>
-              <p class="soft" style="font-size:.9rem;margin-top:12px">Their photo stays in your browser until you order — we never share or sell it. Delete it anytime from the Preview Studio.</p>
-              <h3 style="margin-top:20px">What your child gets</h3>
-              <ul class="value-stack">
-                <li><span>Personalized certificate — their name in gold, their photo in the snow globe</span><b>Live preview</b></li>
-                <li><span>Print-ready PDF — crisp, watermark-free, print as many times as you like</span><b>$12 kit</b></li>
-                <li><span>Their portrait holding the certificate — framed canvas or digital portrait</span><b>$49 / $39</b></li>
-                <li><span>A personal letter from Santa, written just for them</span><b>Included</b></li>
-              </ul>
-              <p style="margin-top:14px"><b>Printed gifts: order by Dec 20</b> <span class="soft">for Christmas delivery. Digital portraits arrive in 24 hours.</span></p>
-            </div>
-            <div>
-              <canvas id="certCanvas" width="880" height="620" style="width:100%;height:auto;display:block;border-radius:14px;box-shadow:0 10px 34px rgba(7,24,15,.28)" role="img" aria-label="Personalized Nice List certificate preview"></canvas>
-              <p class="soft" style="font-size:.9rem;margin-top:10px">This is your preview — watermarked and low-resolution so it can't be printed from the screen. The version you buy is crisp, watermark-free, and delivered instantly.</p>
-            </div>
-          </div>
-          <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:18px">
-            <button class="btn btn-gold" type="button" data-add="santakit">Add Santa Kit — $12</button>
-            <button class="btn btn-red" type="button" data-add="nicelist">Add My Nice List Portrait — Canvas $49</button>
-            <button class="btn btn-green" type="button" data-add="nicelistportrait">Add Digital Portrait — $39</button>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ============ 5 · PRODUCTS ============ -->
-    <section id="products" style="padding-top:0">
+    <!-- ============ GIFT SHOP (hidden in the rebuild — code kept intact; the Studio tiles are the shop now) ============ -->
+    <section id="products" style="padding-top:0" class="hidden-for-now">
       <div class="wrap">
         <p class="kicker">The Gift Shop</p>
         <h2>Personalised printed gifts — your portrait, made for them</h2>
@@ -775,7 +943,7 @@
         </div><!-- /end hidden digital downloads -->
         <div class="card hidden-for-now" style="margin-top:20px">
           <h3 style="font-size:1.3rem">The full digital catalogue</h3>
-          <p class="soft">Every book and download in one list. Instant download after checkout.</p>
+          <p class="soft">Every book and download in one list. Instant download after you pay.</p>
           <div>
             <div class="digi-row"><div><b>Milo and the Lost Star</b> <span class="soft">· Kids picture book · 24 pages</span></div><div style="display:flex;gap:10px;align-items:center"><b class="serif" style="font-size:1.25rem">$9</b><button class="btn btn-green btn-small" type="button" data-add="milo">Add</button></div></div>
             <div class="digi-row"><div><b>The Snow Globe That Snowed Inside</b> <span class="soft">· Kids picture book · 20 pages</span></div><div style="display:flex;gap:10px;align-items:center"><b class="serif" style="font-size:1.25rem">$9</b><button class="btn btn-green btn-small" type="button" data-add="snowglobe">Add</button></div></div>
@@ -793,9 +961,8 @@
         </div>
       </div>
     </section>
-
-    <!-- ============ 6 · BUNDLES ============ -->
-    <section id="bundles" style="padding-top:0">
+    <!-- ============ OLD BUNDLES (hidden in the rebuild — replaced by Packs; code kept intact) ============ -->
+    <section id="bundles" style="padding-top:0" class="hidden-for-now">
       <div class="wrap">
         <p class="kicker">Bundles</p>
         <h2>Bundle builder — the savings stack themselves</h2>
@@ -833,95 +1000,6 @@
         </div>
       </div>
     </section>
-
-    <!-- ============ 7 · GUARANTEE + FAQ ============ -->
-    <section id="faq" style="padding-top:0">
-      <div class="wrap">
-        <div class="badge-row">
-          <div class="badge"><svg viewBox="0 0 24 24" fill="none" stroke="#A8842A" stroke-width="1.7"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg><b>24-Hour Delivery</b><span>Digital portraits in your inbox within a day</span></div>
-          <div class="badge"><svg viewBox="0 0 24 24" fill="none" stroke="#A8842A" stroke-width="1.7"><path d="M12 3l7 3v5c0 5-3.5 8-7 10-3.5-2-7-5-7-10V6z"/><path d="M9 12l2 2 4-4"/></svg><b>Love-It Guarantee</b><span>Free re-make in a new style, or a refund</span></div>
-          <div class="badge"><svg viewBox="0 0 24 24" fill="none" stroke="#A8842A" stroke-width="1.7"><rect x="3" y="6" width="18" height="13" rx="2"/><path d="M3 10h18M7 15h4"/></svg><b>Print-Ready Files</b><span>300 DPI — cards, canvas and gifts</span></div>
-          <div class="badge"><svg viewBox="0 0 24 24" fill="none" stroke="#A8842A" stroke-width="1.7"><path d="M4 6h16v12H4z"/><path d="M4 8l8 6 8-6"/></svg><b>Free Santa Letter</b><span>With every portrait, all season</span></div>
-        </div>
-
-        <div class="card" style="margin-top:22px">
-          <p class="kicker">The Love-It Guarantee</p>
-          <h2 style="font-size:1.6rem">Love your portraits — or we make it right</h2>
-          <p class="soft" style="max-width:46rem;margin:0">If you don't love your portraits, tell us within 14 days and we re-make them in a different style free, or refund you in full. No forms, no interrogation. Printed gifts are checked before they ship, and anything that arrives damaged or misprinted is replaced free.</p>
-        </div>
-
-        <div class="grid grid-2 hidden-for-now" style="margin-top:22px">
-          <div class="card"><p class="kicker">Santa's Nice List Checker</p><h3>Are they on the Nice List?</h3><p class="soft">Type a name and get a fun Nice List certificate preview — perfect to show the kids.</p><div class="field"><label for="niceName">Child's (or grown-up's) name</label><input type="text" id="niceName" placeholder="e.g. Amaya" /></div><button class="btn btn-red" type="button" id="niceBtn" style="width:100%">Check the Nice List</button><div class="cert" id="niceCert"><p style="letter-spacing:.15em;font-size:.8rem">✦ OFFICIAL · NORTH POLE ✦</p><h3>Nice List Certificate</h3><p>This certifies that</p><p class="serif" id="niceCertName" style="font-size:1.7rem;font-weight:800"></p><p>is officially on Santa's Nice List for Christmas 2026<br />for kindness, giggles, and excellent story-listening.</p><p style="font-size:.85rem">Signed: Santa Claus · Head Elf, Christmas Portrait Studio<br />Get the printable kit in the Santa Letter Kit — $12</p><button class="btn btn-gold btn-small" type="button" data-add="santakit">Add Santa Kit — $12</button></div></div>
-          <div class="card"><p class="kicker">Gift Finder</p><h3>Who are you shopping for?</h3><p class="soft">Pick one — we'll recommend 3 perfect gifts instantly.</p><div id="finderBtns"><button class="btn btn-ghost finder-opt" type="button" data-finder="mom">Mom</button><button class="btn btn-ghost finder-opt" type="button" data-finder="dad">Dad</button><button class="btn btn-ghost finder-opt" type="button" data-finder="kids">Kids</button><button class="btn btn-ghost finder-opt" type="button" data-finder="partner">Partner</button><button class="btn btn-ghost finder-opt" type="button" data-finder="pet">Pet</button><button class="btn btn-ghost finder-opt" type="button" data-finder="self">Yourself</button></div><div id="finderResult" style="margin-top:14px"></div></div>
-        </div>
-
-        <div style="max-width:860px;margin:44px auto 0">
-          <p class="kicker">Questions</p>
-          <h2>Before you order</h2>
-          <div style="margin-top:20px">
-            <details class="faq" id="faq-speed"><summary>How fast will I get my portraits?</summary><p>Digital portraits are delivered by email within 24 hours of your photo upload. Printed gifts (mugs, canvas, hoodies, stockings) are produced per order — order by Dec 20 to guarantee Christmas delivery.</p></details>
-            <details class="faq"><summary>What kind of photo works best?</summary><p>A clear photo where faces are visible and reasonably well lit. Phone photos are perfect. Group shots up to 4 people fit the Family Pack; pets can join any portrait — just mention them in the order notes.</p></details>
-            <details class="faq" id="faq-guarantee"><summary>What if I don't love my portrait?</summary><p>That's what the Love-It Guarantee is for: tell us within 14 days and we re-make your portraits in a different style free, or refund you in full. No forms, no interrogation.</p></details>
-            <details class="faq"><summary>Can I print the portraits myself?</summary><p>Yes — files are print-ready at 300 DPI, sized for Christmas cards, canvas, and framed prints. Or skip the printer run and add the mug, canvas, or stocking from the gift shop and we handle production.</p></details>
-            <details class="faq" id="faq-cutoff"><summary>What is the Dec 20 cutoff?</summary><p>December 20, 2026 is the last day to order printed gifts with guaranteed Christmas delivery. Digital portraits stay instant right up to Dec 25 — the ultimate last-minute save.</p></details>
-            <details class="faq" id="faq-shipping"><summary>Do you ship internationally?</summary><p>Digital portraits and downloads go anywhere instantly. Printed gifts are produced at facilities close to the recipient in 32 countries, which keeps international delivery fast and affordable.</p></details>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ============ 8 · FOOTER ============ -->
-    <footer>
-      <div class="wrap">
-        <div class="foot-grid">
-          <div class="foot-col">
-            <a class="foot-brand" href="#top" aria-label="Christmas Portrait Studio — back to top">
-              <img src="https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/29159649/c4d5fe32-71f7-4c7d-a2a6-062334e904f0" alt="" width="44" height="44" />
-              <span class="wordmark">Christmas Portrait Studio</span>
-            </a>
-            <p class="foot-about">An AI Christmas design studio — upload your photo, watch AI transform it into a real Christmas portrait, and put it on canvas, mugs and gifts made to order. Order printed gifts by Dec 20 — digital portraits stay instant until Dec 25.</p>
-            <p class="foot-about">Questions? See “Before you order” above, or start an order — we reply to every portrait order by email within 24 hours.</p>
-          </div>
-          <nav class="foot-col" aria-label="Shop">
-            <h3>Shop</h3>
-            <ul>
-              <li><a href="#styles">Six Signature Styles</a></li>
-              <li><a href="#pricing">Portrait Pricing</a></li>
-              <li><a href="#order">Order Your Portrait</a></li>
-              <li><a href="#products">Gift Shop</a></li>
-              <li><a href="#certificate-studio">Santa Certificate</a></li>
-              <li class="hidden-for-now"><a href="#kidsbooks">Kids Books</a></li>
-              <li class="hidden-for-now"><a href="#coloringbooks">Coloring Books</a></li>
-              <li class="hidden-for-now"><a href="#digital">Digital Downloads</a></li>
-              <li><a href="#bundles">Bundles</a></li>
-            </ul>
-          </nav>
-          <nav class="foot-col" aria-label="Help">
-            <h3>Help</h3>
-            <ul>
-              <li><a href="#faq-speed">How fast will I get my portraits?</a></li>
-              <li><a href="#faq-guarantee">Love-It Guarantee</a></li>
-              <li><a href="#faq-cutoff">Dec 20 cutoff</a></li>
-              <li><a href="#faq-shipping">International shipping</a></li>
-            </ul>
-          </nav>
-        </div>
-        <div class="foot-good">
-          <span><b>Portraits</b> $39 / $69 / $89</span>
-          <span><b>24-hour</b> digital delivery</span>
-          <span><b>Printed gifts</b> — order by Dec 20 for Christmas</span>
-          <span><b>Digital instant</b> until Dec 25</span>
-          <span><b>FREE Santa Letter</b> with every portrait</span>
-          <span><b>Love-It Guarantee</b> — 14 days</span>
-        </div>
-        <div class="foot-policies">
-          <div><h3>Shipping</h3><p>Digital portraits are delivered by email within 24 hours; downloads are instant. Printed gifts are made to order — order by Dec 20 for Christmas delivery, and produced close to the recipient in 32 countries for international orders.</p></div>
-          <div><h3>Returns</h3><p>Personalized items are final sale, except print defects — anything that arrives damaged or misprinted is replaced free. Portraits are covered by the Love-It Guarantee: a free re-make in a new style, or a full refund within 14 days.</p></div>
-          <div><h3>Privacy</h3><p>Your photo is used only to make your portrait. It is never shared, never sold, and never used for anything else. Your email is used only to deliver your order and reply to it.</p></div>
-        </div>
-        <p style="font-size:.88rem;margin:22px 0 0">© 2026 Christmas Portrait Studio · christmasportrait.store</p>
-      </div>
-    </footer>
     <script>
       document.querySelectorAll('a[href^="#faq-"]').forEach(function(a){
         a.addEventListener("click", function(){
@@ -929,6 +1007,20 @@
           if(d && d.tagName === "DETAILS") d.open = true;
         });
       });
+      /* Christmas card message: one-tap messages fill the field, and the
+         field stays in sync with the order form's notes so the message
+         travels with the order. (Full card-order wiring — message into
+         the fulfilment payload — still needs the checkout build.) */
+      (function(){
+        var box = document.getElementById("cardMessage");
+        if(!box) return;
+        function sync(){ var n = document.getElementById("custNote"); if(n) n.value = box.value; }
+        box.addEventListener("input", sync);
+        document.querySelectorAll("#cardMsgPick button").forEach(function(b){
+          b.addEventListener("click", function(){ box.value = b.getAttribute("data-msg"); sync(); });
+        });
+        sync();
+      })();
     </script>
 
     <!-- ============ CART ============ -->
@@ -942,7 +1034,7 @@
         <div class="row"><span>Santa Letter (with any portrait)</span><span style="color:#1E7A34;font-weight:700">FREE</span></div>
         <div class="row total"><span>Total</span><span id="ctTotal">$0.00</span></div>
         <button class="btn btn-green" type="button" id="checkoutBtn" style="width:100%;margin-top:10px">Checkout</button>
-        <p class="checkout-note">Secure checkout opens soon — your picks stay saved in the cart.</p>
+        <p class="checkout-note">Secure payment opens soon — your picks stay saved in your order.</p>
       </div>
     </aside>
     <div class="toast" id="toast" role="status"></div>
@@ -964,6 +1056,16 @@
         portrait:{name:"Personalized Christmas Portrait — Single", price:39},
         family:{name:"Family Pack Portrait (4 people, 6 portraits)", price:69},
         giftpack:{name:"Gift Pack (Portraits + Mug)", price:89},
+        "card10-classic":{name:"Christmas Cards — Classic Red & Gold, 10-pack (5x7 folded, envelopes included)", price:49},
+        "card25-classic":{name:"Christmas Cards — Classic Red & Gold, 25-pack (5x7 folded, envelopes included)", price:89},
+        "card50-classic":{name:"Christmas Cards — Classic Red & Gold, 50-pack (5x7 folded, envelopes included)", price:149},
+        "card10-globe":{name:"Christmas Cards — Snow Globe, 10-pack (5x7 flat, envelopes included)", price:49},
+        "card25-globe":{name:"Christmas Cards — Snow Globe, 25-pack (5x7 flat, envelopes included)", price:89},
+        "card50-globe":{name:"Christmas Cards — Snow Globe, 50-pack (5x7 flat, envelopes included)", price:149},
+        "card10-poster":{name:"Christmas Cards — Golden Movie Poster, 10-pack (5x7 flat, envelopes included)", price:49},
+        "card25-poster":{name:"Christmas Cards — Golden Movie Poster, 25-pack (5x7 flat, envelopes included)", price:89},
+        "card50-poster":{name:"Christmas Cards — Golden Movie Poster, 50-pack (5x7 flat, envelopes included)", price:149},
+        everything:{name:"Everything Bundle — Portrait + Canvas + 25 Christmas Cards", price:149},
         mug:{name:"Christmas Portrait Mug 11oz", price:29},
         canvas:{name:"Christmas Portrait Canvas", price:49},
         stocking:{name:"Christmas Portrait Stocking", price:34.99},
@@ -1930,7 +2032,8 @@
       var pvChipsBox = document.getElementById("pvChips");
       STYLES.forEach(function(s){
         var b = document.createElement("button");
-        b.type = "button"; b.className = "pv-chip"; b.textContent = s.name; b.setAttribute("data-style", s.name);
+        b.type = "button"; b.className = "pv-chip"; b.setAttribute("data-style", s.name);
+        b.innerHTML = '<img src="' + s.img + '" alt="" loading="lazy" /><span>' + s.name + '</span>';
         b.addEventListener("click", function(){ pvSetStyle(s.name, true); });
         pvChipsBox.appendChild(b);
       });
@@ -2254,10 +2357,15 @@
         {id:"banner", label:"Merry Christmas Banner", pw:0.42, px:0.5, py:0.90},
         {id:"snowburst", label:"Snow Burst", pw:0.30, px:0.5, py:0.45}
       ];
-      /* Head slots in FULL-PHOTO fractions, measured from the hero photo
-         (1920x1280): y is the HEAD TOP. Constant for any photo of a family
-         of four in this layout; the rect conversion in pvStickerScreen
-         maps them to the stage in every product and scene. */
+      /* HEAD_SLOTS — NO LONGER USED for placement (2026-11-25).
+         Auto-placement on heads failed FIVE live-browser rounds: the
+         harness passed (brim-vs-head diff <=0.3px) while the live render
+         put hats floating above heads and antlers on chests. The slots
+         are kept here only as a record of that attempt. pvAddSticker
+         below now places every new sticker at a neutral spot at the top
+         of the photo, clear of every face, and the person drags it where
+         they want it. Do NOT re-enable auto-placement without live-
+         browser pixel measurements of the real rendered photo. */
       var HEAD_SLOTS = [
         {x:0.44, y:0.085},   /* father */
         {x:0.585, y:0.155},  /* mother */
@@ -2544,36 +2652,23 @@
         PV_STICKER_DEFS.forEach(function(d){ if(d.id === type) def = d; });
         if(!def) return;
         if(pvStickers.length >= 8){ toast("That's plenty of magic — 8 stickers max. Remove one to add another."); return; }
-        /* Placement cycles through the four HEAD_SLOTS (photo fractions) by
-           HEAD-WORN count, so hats land on different heads and never pile
-           up. HEAD_SLOTS y is the HEAD TOP. Hats: the brim band sits
-           +0.08s..+0.25s below the sticker centre, so the centre goes half
-           a brim-height above the head top: py = headTop - 0.085*pw*
-           (rect.w/rect.h), which puts the brim's top edge on the head top
-           (brim band then straddles the forehead). Antlers: the antler
-           base sits +0.32s below centre, so py = headTop - 0.32*pw*
-           (rect.w/rect.h) puts the base ON the head top. Stickers are
-           stored as PHOTO fractions {px, py, pw} — the render-time
-           conversion moves them with the photo when the scene, product or
-           zoom changes. Non-head stickers keep their def position (photo
-           fractions) plus a stagger by total count. */
+        /* MANUAL PLACEMENT ONLY (2026-11-25): a new sticker lands in
+           plain sight at the top of the photo, clear of every face, and
+           the person drags it onto someone in the photo. Head-worn
+           stickers spread across the top edge so several are visible at
+           once and never pile up. Stickers are still stored as PHOTO
+           fractions {px, py, pw} — the render-time conversion moves them
+           with the photo when the scene, product or zoom changes — and
+           drag / resize / rotate work exactly as before. */
         var headWorn = (type === "santahat" || type === "elfhat" || type === "antlers");
-        var rect = pvFeatPhotoRect();
-        var px = def.px, py = def.py, pw = def.pw;
-        if(rect){
-          var aspect = rect.w / rect.h;
-          if(headWorn){
-            var hc = pvStickers.filter(function(s2){ return s2.type === "santahat" || s2.type === "elfhat" || s2.type === "antlers"; }).length;
-            var slot = HEAD_SLOTS[hc % HEAD_SLOTS.length];
-            px = slot.x;
-            if(type === "antlers") py = slot.y - 0.32 * pw * aspect;
-            else py = slot.y - 0.085 * pw * aspect;
-            if(hc >= HEAD_SLOTS.length) px = Math.min(0.9, Math.max(0.1, px + 0.05 * Math.floor(hc / HEAD_SLOTS.length)));
-          } else {
-            var tot = pvStickers.length;
-            px = Math.min(0.9, Math.max(0.1, def.px + ((tot % 3) - 1) * 0.06));
-            py = Math.min(0.92, Math.max(0.05, def.py + (Math.floor(tot / 3) % 2) * 0.05));
-          }
+        var n = pvStickers.length;
+        var px, py, pw = def.pw;
+        if(headWorn){
+          px = Math.min(0.85, 0.15 + (n % 4) * 0.20);
+          py = 0.05;
+        } else {
+          px = Math.min(0.9, Math.max(0.1, def.px + ((n % 3) - 1) * 0.06));
+          py = Math.min(0.92, Math.max(0.05, def.py + (Math.floor(n / 3) % 2) * 0.05));
         }
         pvStickers.push({type:type, px:px, py:py, pw:pw, rot:0});
         pvSelSticker = pvStickers.length - 1;
@@ -2597,6 +2692,19 @@
         pvStickers = []; pvSelSticker = -1;
         pvRenderStickers(); pvPaintStickerHint();
       });
+      /* --- "Add some fun" toggle: stickers + scenes stay hidden until asked for --- */
+      (function(){
+        var t = document.getElementById("pvFunToggle"), box = document.getElementById("pvFunBox"),
+            tools = document.getElementById("pvStickerTools");
+        if(!t || !box) return;
+        t.addEventListener("click", function(){
+          var open = box.classList.contains("hidden-for-now");
+          box.classList.toggle("hidden-for-now", !open);
+          if(tools) tools.classList.toggle("hidden-for-now", !open);
+          t.setAttribute("aria-expanded", open ? "true" : "false");
+          t.textContent = open ? "Hide the fun stuff" : "Add some fun — stickers and scenes";
+        });
+      })();
 
       /* --- sticker hit-testing + drag / resize / rotate (pointer events on the stage) --- */
       function pvStagePoint(e){
