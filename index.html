@@ -293,6 +293,7 @@
       .pv-scene-btn{ border:1.5px solid var(--line); background:var(--surface); color:var(--ink); border-radius:999px; padding:.5rem 1rem; font-family:inherit; font-weight:700; cursor:pointer; font-size:.92rem; min-height:42px; }
       .pv-scene-btn.active{ background:var(--green); color:var(--gold); border-color:var(--green); }
       .pv-scene-canvas{ position:absolute; inset:0; width:100%; height:100%; z-index:2; display:none; }
+      .pv-scene-glow{ position:absolute; inset:0; width:100%; height:100%; z-index:2; pointer-events:none; display:none; background:radial-gradient(ellipse at 50% 35%, rgba(255,190,90,0) 0%, rgba(255,190,90,0) 38%, rgba(255,190,90,0.20) 55%, rgba(255,190,90,0) 85%); }
       .pv-sticker-canvas{ position:absolute; inset:0; width:100%; height:100%; z-index:3; pointer-events:none; }
       .pv-live-canvas{ position:absolute; inset:0; width:100%; height:100%; z-index:4; pointer-events:none; }
       .pv-sticker-tools{ display:flex; flex-wrap:wrap; gap:8px; align-items:center; margin-top:10px; }
@@ -585,6 +586,7 @@
           <img class="pv-base fit-contain" id="pvFeatImg" alt="Featured gift preview" />
           <div class="pv-wins" id="pvFeatWins"></div>
           <canvas class="pv-scene-canvas" id="pvSceneCanvas" aria-label="Magic scene preview"></canvas>
+          <div class="pv-scene-glow" id="pvSceneGlow" aria-hidden="true"></div>
           <canvas class="pv-sticker-canvas" id="pvStickerCanvas" aria-hidden="true"></canvas>
           <canvas class="pv-live-canvas" id="pvLiveCanvas" aria-hidden="true"></canvas>
           <span class="pv-badge">Print Preview</span>
@@ -2213,48 +2215,142 @@
          6 style grades, the product windows, My Designs and the cart are all
          untouched. Honest label: stickers/scenes preview the IDEA; the
          finished $39 portrait is art-directed by the studio in 24h. --- */
-      /* Sticker defaults are fractions of the PHOTO's displayed width/height
-         (pw = size as a fraction of photo width; px/py = centre as a fraction
-         of the photo rect), converted to stage fractions in pvAddSticker via
-         pvFeatPhotoRect(). MEASURED LIVE (2026-11-24, Node harness replicating
-         pvDrawWindow: mug base is square 1200x1200, window canvas 440x660,
-         cover scale 0.516, photo 1920x1280): father's face is 0.193 of the
-         window width, his HEAD incl. hair 0.234. Hat brim draws 1.04x size.
-         pw 0.19 gave brim 0.84x a head — the pivot test measured 0.79-0.84x,
-         not the claimed 1.1x. pw 0.23 gives brim 0.239 = 1.02x a head.
-         Antlers span 0.84x size, so pw 0.28 spans 0.235 = 1.00x a head.
-         Hats default on the FIRST head (px 0.35 = father's head centre in
-         the mug window, 0.34 measured); pvAddSticker cycles later hats
-         through the other three head slots. py puts the brim on the head
-         top (brim sits +0.165s below the sticker centre). Do NOT size
-         stickers as stage fractions again: the photo is only ~0.44 of the
-         stage in the mug window, so any stage fraction overstates the size
-         by more than 2x. Saved designs store stage fractions and still work. */
+      /* Sticker defaults are PHOTO fractions, stored verbatim in pvStickers
+         ({type, px, py, pw, rot}: px/py = sticker centre in full-photo
+         fractions 0..1, pw = size as a fraction of the DRAWN photo width).
+         pvRenderStickers / pvStickerHit / the drag handlers convert through
+         the CURRENT photo rect from pvFeatPhotoRect() at call time, so a
+         sticker follows the photo across products, scenes and resizes.
+         MEASURED from the hero photo 1920x1280 (2026-11-24, full-photo
+         fractions): father centre 0.44 / head top 0.085, mother 0.585 /
+         0.155, daughter 0.385 / 0.465, son 0.625 / 0.415; face width 0.085
+         (father), head incl. hair 0.104. Mug window 440x660, cover scale
+         0.516: only photo-x 0.278-0.722 is visible, full height.
+         SIZE ARITHMETIC (why pw is 0.10, not the old 0.23): the old 0.23 was
+         a fraction of the WINDOW width — brim 1.04*0.23 = 0.239 window
+         widths = 1.02x a head (0.234 window). As a fraction of the DRAWN
+         photo width that same on-screen size is 0.23 * 0.444 = 0.102, so
+         pw 0.10 gives brim 1.04*0.10 = 0.104 photo fractions = 1.00x a
+         head (0.104). pw 0.23 of the drawn width would be a 2.3x-head hat.
+         Same scaling for antlers (span 0.84x size): 0.28 * 0.444 = 0.124,
+         so pw 0.125 spans 0.105 = 1.01x a head. Non-head pw are the old
+         window-fraction values x0.444 likewise (banner 0.95 -> 0.42,
+         scarf 0.37 -> 0.16, cane 0.45 -> 0.20, wand 0.50 -> 0.22,
+         snowburst 0.68 -> 0.30). Cane/wand px 0.80 was a window fraction
+         (photo 0.80 is outside the mug window); as a photo fraction the
+         same spot is 0.278 + 0.80*0.444 = 0.633. The browser's live
+         numbers (face ~127px, brim ~100px, ratio 0.79) prove the old
+         window-fraction model did not match the live render; do NOT size
+         stickers as stage or window fractions again. Old saved designs
+         store stage fractions {x,y,size} — pvMigrateSticker converts them
+         on open (see pvDesignAction). */
       var PV_STICKER_DEFS = [
-        {id:"santahat", label:"Santa Hat", pw:0.23, px:0.35, py:0.07},
-        {id:"antlers", label:"Reindeer Antlers", pw:0.28, px:0.35, py:0.03},
-        {id:"elfhat", label:"Elf Hat", pw:0.23, px:0.35, py:0.07},
-        {id:"scarf", label:"Cosy Scarf", pw:0.37, px:0.5, py:0.58},
-        {id:"cane", label:"Candy Cane", pw:0.45, px:0.80, py:0.55},
-        {id:"wand", label:"Star Wand", pw:0.50, px:0.80, py:0.45},
-        {id:"banner", label:"Merry Christmas Banner", pw:0.95, px:0.5, py:0.90},
-        {id:"snowburst", label:"Snow Burst", pw:0.68, px:0.5, py:0.45}
+        {id:"santahat", label:"Santa Hat", pw:0.10, px:0.44, py:0.06},
+        {id:"antlers", label:"Reindeer Antlers", pw:0.125, px:0.44, py:0.02},
+        {id:"elfhat", label:"Elf Hat", pw:0.10, px:0.44, py:0.06},
+        {id:"scarf", label:"Cosy Scarf", pw:0.16, px:0.5, py:0.58},
+        {id:"cane", label:"Candy Cane", pw:0.20, px:0.63, py:0.55},
+        {id:"wand", label:"Star Wand", pw:0.22, px:0.63, py:0.45},
+        {id:"banner", label:"Merry Christmas Banner", pw:0.42, px:0.5, py:0.90},
+        {id:"snowburst", label:"Snow Burst", pw:0.30, px:0.5, py:0.45}
       ];
-      /* Displayed photo rect (stage px) for the featured preview: the first
-         print window of the featured product, or the scene photo rect when a
-         Magic Scene is active (recorded by pvScenePhoto). Stickers are sized
-         and placed against THIS rect, never against the whole stage. */
+      /* Head slots in FULL-PHOTO fractions, measured from the hero photo
+         (1920x1280): y is the HEAD TOP. Constant for any photo of a family
+         of four in this layout; the rect conversion in pvStickerScreen
+         maps them to the stage in every product and scene. */
+      var HEAD_SLOTS = [
+        {x:0.44, y:0.085},   /* father */
+        {x:0.585, y:0.155},  /* mother */
+        {x:0.385, y:0.465},  /* daughter */
+        {x:0.625, y:0.415}   /* son */
+      ];
+      /* TRUE displayed photo rect (stage px) for the featured preview.
+         Returns {x, y, w, h, vx0, vx1, vy0, vy1}: (x,y,w,h) is the ACTUAL
+         DRAWN photo rect (which may extend past the window — the mug window
+         cover-draws the photo, so only photo-x 0.278-0.722 is visible) and
+         (vx0,vx1,vy0,vy1) is the visible photo-fraction range inside it.
+         Stickers are stored as photo fractions and converted through THIS
+         rect at render/drag time, never against the window or the stage.
+         No scene: the rect is derived from pvDrawWindow's own cover math
+         (same Wc/Hc, scale, dx/dy, pvZoom/pvOx/pvOy), mapped from window-
+         canvas px to stage px via the window's stage fractions. Scene: the
+         contain-fit rect recorded by pvScenePhoto / pvSceneSnowGlobe
+         (bounds [0,1]x[0,1] — scenes show the whole photo). Returns null
+         when a scene is active but no rect was recorded yet. */
       var pvLastScenePhotoRect = null;
+      function pvContainPhotoRect(x, y, w, h, iw, ih){
+        var sc = Math.min(w / iw, h / ih);
+        var dw = iw * sc, dh = ih * sc;
+        return {x:x + (w - dw) / 2, y:y + (h - dh) / 2, w:dw, h:dh, vx0:0, vx1:1, vy0:0, vy1:1};
+      }
       function pvFeatPhotoRect(){
         var stage = document.getElementById("pvFeatStage");
         if(!stage) return null;
         var w = stage.clientWidth, h = stage.clientHeight;
         if(!w || !h) return null;
         if(pvScene && pvLastScenePhotoRect) return pvLastScenePhotoRect;
+        if(pvScene) return null;
         var p = pvProd(pvFeatured);
         if(!p || !p.wins || !p.wins[0]) return null;
         var win = p.wins[0];
-        return {x:win.x / 100 * w, y:win.y / 100 * h, w:win.w / 100 * w, h:win.h / 100 * h};
+        var ph = pvActivePhoto();
+        if(!ph || !ph.img || !ph.img.naturalWidth){
+          return {x:win.x / 100 * w, y:win.y / 100 * h, w:win.w / 100 * w, h:win.h / 100 * h, vx0:0, vx1:1, vy0:0, vy1:1};
+        }
+        var iw = ph.img.naturalWidth, ih = ph.img.naturalHeight;
+        var base = document.getElementById("pvFeatImg");
+        var natW = base && base.naturalWidth ? base.naturalWidth : 0;
+        var natH = base && base.naturalHeight ? base.naturalHeight : 0;
+        var aspect = (natW && natH) ? (win.h / 100 * natH) / (win.w / 100 * natW) : (win.h / win.w);
+        var Wc = 440, Hc = Math.max(40, Math.round(440 * aspect));
+        var heroH = (p.custom === "nicelist") ? Math.round(Hc * 0.60) : Hc;
+        var scale = Math.max(Wc / iw, heroH / ih) * pvZoom;
+        var dw = iw * scale, dh = ih * scale;
+        var dx = (Wc - dw) / 2 + pvOx * Wc, dy = (heroH - dh) / 2 + pvOy * heroH;
+        var wx0 = win.x / 100 * w, wy0 = win.y / 100 * h, wwS = win.w / 100 * w, whS = win.h / 100 * h;
+        return {
+          x:wx0 + dx / Wc * wwS, y:wy0 + dy / Hc * whS,
+          w:dw / Wc * wwS, h:dh / Hc * whS,
+          vx0:-dx / dw, vx1:(Wc - dx) / dw, vy0:-dy / dh, vy1:(heroH - dy) / dh
+        };
+      }
+      /* Photo-fraction sticker -> stage px, through the CURRENT photo rect.
+         Returns {cx, cy, s, rect} or null when no rect is available. */
+      function pvStickerScreen(st, w, h){
+        var rect = pvFeatPhotoRect();
+        if(!rect) return null;
+        /* the drawn rect spans the FULL photo (0..1), so a photo fraction
+           maps directly: stage = rect origin + fraction * rect size. The
+           visible bounds (vx0..vx1) only say which fractions fall inside
+           the window — they must NOT scale the mapping (that would shift
+           every sticker by vx0 towards the window's left edge). */
+        return {
+          cx:rect.x + st.px * rect.w,
+          cy:rect.y + st.py * rect.h,
+          s:st.pw * rect.w,
+          rect:rect
+        };
+      }
+      /* Old saved designs store stage fractions {x, y, size}; new designs
+         store photo fractions {px, py, pw} with stickersV 2. Convert an old
+         sticker through the then-current photo rect so it lands on the same
+         head it was placed on. New-format stickers pass through unchanged. */
+      function pvMigrateSticker(s2){
+        if(!s2) return null;
+        if(s2.px != null && s2.pw != null) return {type:s2.type, px:s2.px, py:s2.py, pw:s2.pw, rot:s2.rot || 0};
+        var stage = document.getElementById("pvFeatStage");
+        var rect = pvFeatPhotoRect();
+        if(!rect || !stage || !stage.clientWidth || !stage.clientHeight){
+          return {type:s2.type, px:(s2.x == null ? 0.5 : s2.x), py:(s2.y == null ? 0.26 : s2.y), pw:(s2.size == null ? 0.10 : s2.size), rot:s2.rot || 0};
+        }
+        var w = stage.clientWidth, h = stage.clientHeight;
+        return {
+          type:s2.type,
+          px:(s2.x * w - rect.x) / rect.w,
+          py:(s2.y * h - rect.y) / rect.h,
+          pw:s2.size * w / rect.w,
+          rot:s2.rot || 0
+        };
       }
       var PV_SCENES = [
         {id:"", label:"No scene"},
@@ -2413,7 +2509,9 @@
         ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
         ctx.clearRect(0, 0, w, h);
         pvStickers.forEach(function(st, idx){
-          var cx = st.x * w, cy = st.y * h, s = st.size * w;
+          var sc = pvStickerScreen(st, w, h);
+          if(!sc) return;
+          var cx = sc.cx, cy = sc.cy, s = sc.s;
           ctx.save(); ctx.translate(cx, cy); ctx.rotate(st.rot || 0);
           pvDrawStickerShape(ctx, st.type, s);
           ctx.restore();
@@ -2446,47 +2544,38 @@
         PV_STICKER_DEFS.forEach(function(d){ if(d.id === type) def = d; });
         if(!def) return;
         if(pvStickers.length >= 8){ toast("That's plenty of magic — 8 stickers max. Remove one to add another."); return; }
-        /* ROOT CAUSE (2026-11-24 pivot test): the old offset was per-TYPE
-           count, so the first Santa Hat, first Elf Hat and first Antlers all
-           landed at the SAME centre (px 0.5, py 0.07) at the same size — each
-           new sticker painted exactly over the previous one, so only one was
-           ever visible. Placement now cycles through the four head slots by
-           HEAD-WORN count, so hats land on different heads. Slots are window
-           fractions measured from the hero photo in the default mug window
-           (cover scale 0.516): father centre 0.34/top 0.08, mother 0.65/0.16,
-           daughter 0.23/0.48, son 0.75/0.45; py puts the brim on the head top
-           (brim sits +0.165s below the sticker centre). Antlers sit 0.04
-           higher — their shape extends 0.32s below centre. Non-head stickers
-           keep their def position plus a stagger by total count, so they can
-           never pile up exactly either. */
-        var HEAD_SLOTS = [{x:0.34,y:0.07},{x:0.65,y:0.13},{x:0.23,y:0.46},{x:0.75,y:0.42}];
+        /* Placement cycles through the four HEAD_SLOTS (photo fractions) by
+           HEAD-WORN count, so hats land on different heads and never pile
+           up. HEAD_SLOTS y is the HEAD TOP. Hats: the brim band sits
+           +0.08s..+0.25s below the sticker centre, so the centre goes half
+           a brim-height above the head top: py = headTop - 0.085*pw*
+           (rect.w/rect.h), which puts the brim's top edge on the head top
+           (brim band then straddles the forehead). Antlers: the antler
+           base sits +0.32s below centre, so py = headTop - 0.32*pw*
+           (rect.w/rect.h) puts the base ON the head top. Stickers are
+           stored as PHOTO fractions {px, py, pw} — the render-time
+           conversion moves them with the photo when the scene, product or
+           zoom changes. Non-head stickers keep their def position (photo
+           fractions) plus a stagger by total count. */
         var headWorn = (type === "santahat" || type === "elfhat" || type === "antlers");
-        var stage = document.getElementById("pvFeatStage");
         var rect = pvFeatPhotoRect();
-        var x, y, size;
-        if(rect && stage && stage.clientWidth && stage.clientHeight){
-          /* photo-relative default: size from the photo's displayed width,
-             centre from the photo rect — a hat lands on a head, not mid-face */
-          size = def.pw * rect.w / stage.clientWidth;
-          var px = def.px, py = def.py;
+        var px = def.px, py = def.py, pw = def.pw;
+        if(rect){
+          var aspect = rect.w / rect.h;
           if(headWorn){
             var hc = pvStickers.filter(function(s2){ return s2.type === "santahat" || s2.type === "elfhat" || s2.type === "antlers"; }).length;
             var slot = HEAD_SLOTS[hc % HEAD_SLOTS.length];
-            px = slot.x; py = slot.y;
-            if(type === "antlers") py = Math.max(0.02, py - 0.04);
+            px = slot.x;
+            if(type === "antlers") py = slot.y - 0.32 * pw * aspect;
+            else py = slot.y - 0.085 * pw * aspect;
             if(hc >= HEAD_SLOTS.length) px = Math.min(0.9, Math.max(0.1, px + 0.05 * Math.floor(hc / HEAD_SLOTS.length)));
           } else {
             var tot = pvStickers.length;
             px = Math.min(0.9, Math.max(0.1, def.px + ((tot % 3) - 1) * 0.06));
             py = Math.min(0.92, Math.max(0.05, def.py + (Math.floor(tot / 3) % 2) * 0.05));
           }
-          x = (rect.x + px * rect.w) / stage.clientWidth;
-          y = (rect.y + py * rect.h) / stage.clientHeight;
-        } else {
-          /* no photo yet: centre of the stage, small, staggered by count */
-          size = 0.08; x = Math.min(0.85, Math.max(0.15, 0.5 + ((pvStickers.length % 3) - 1) * 0.07)); y = 0.26;
         }
-        pvStickers.push({type:type, x:x, y:y, size:size, rot:0});
+        pvStickers.push({type:type, px:px, py:py, pw:pw, rot:0});
         pvSelSticker = pvStickers.length - 1;
         pvRenderStickers(); pvPaintStickerHint();
         toast(def.label + " added — drag it onto someone in the photo");
@@ -2524,7 +2613,9 @@
         }
         if(pvSelSticker >= 0 && pvStickers[pvSelSticker]){
           var st = pvStickers[pvSelSticker];
-          var scx = st.x * p.w, scy = st.y * p.h, ss = st.size * p.w, rot = st.rot || 0;
+          var ssc = pvStickerScreen(st, p.w, p.h);
+          if(!ssc) return null;
+          var scx = ssc.cx, scy = ssc.cy, ss = ssc.s, rot = st.rot || 0;
           var rotH = toScreen(scx, scy, ss, rot, 0, -ss * 0.5 - 26);
           var resH = toScreen(scx, scy, ss, rot, ss * 0.55, ss * 0.5);
           if(Math.hypot(mx - rotH.x, my - rotH.y) < 18) return {mode:"rotate", index:pvSelSticker};
@@ -2532,7 +2623,9 @@
         }
         for(var i = pvStickers.length - 1; i >= 0; i--){
           var st2 = pvStickers[i];
-          var cx2 = st2.x * p.w, cy2 = st2.y * p.h, s2 = st2.size * p.w, r2 = st2.rot || 0;
+          var s2c = pvStickerScreen(st2, p.w, p.h);
+          if(!s2c) continue;
+          var cx2 = s2c.cx, cy2 = s2c.cy, s2 = s2c.s, r2 = st2.rot || 0;
           var dx = mx - cx2, dy = my - cy2;
           var c2 = Math.cos(-r2), s2b = Math.sin(-r2);
           var lx = dx * c2 - dy * s2b, ly = dx * s2b + dy * c2;
@@ -2549,12 +2642,14 @@
         pvSelSticker = hit.index;
         var st = pvStickers[hit.index];
         var p = pvStagePoint(e);
-        var cx = st.x * p.w, cy = st.y * p.h;
-        pvStickerDrag = {mode:hit.mode, index:hit.index,
+        var scc = pvStickerScreen(st, p.w, p.h);
+        if(!scc) return false;
+        var cx = scc.cx, cy = scc.cy;
+        pvStickerDrag = {mode:hit.mode, index:hit.index, rect:scc.rect,
           startX:p.x, startY:p.y, startPX:p.x * p.w, startPY:p.y * p.h,
           cx:cx, cy:cy, dist0:Math.max(20, Math.hypot(p.x * p.w - cx, p.y * p.h - cy)),
           ang0:Math.atan2(p.y * p.h - cy, p.x * p.w - cx),
-          ox:st.x, oy:st.y, oSize:st.size, oRot:st.rot || 0};
+          ox:st.px, oy:st.py, oSize:st.pw, oRot:st.rot || 0};
         try { document.getElementById("pvFeatStage").setPointerCapture(e.pointerId); } catch(err){}
         pvRenderStickers(); pvPaintStickerHint();
         return true;
@@ -2565,12 +2660,19 @@
         if(!st){ pvStickerDrag = null; return false; }
         var p = pvStagePoint(e);
         var px = p.x * p.w, py = p.y * p.h;
+        var rect = d.rect || pvFeatPhotoRect();
+        if(!rect){ pvStickerDrag = null; return false; }
         if(d.mode === "move"){
-          st.x = Math.max(0.03, Math.min(0.97, d.ox + (p.x - d.startX)));
-          st.y = Math.max(0.03, Math.min(0.97, d.oy + (p.y - d.startY)));
+          /* pointer delta (stage fractions) -> photo fractions through the
+             current rect: stage px / drawn-photo width (the rect spans the
+             full photo, so no visible-bounds scaling here either) */
+          st.px = Math.max(0, Math.min(1, d.ox + (p.x - d.startX) * p.w / rect.w));
+          st.py = Math.max(0, Math.min(1, d.oy + (p.y - d.startY) * p.h / rect.h));
         } else if(d.mode === "resize"){
           var dist = Math.max(20, Math.hypot(px - d.cx, py - d.cy));
-          st.size = Math.max(0.03, Math.min(0.95, d.oSize * dist / d.dist0));
+          /* clamp so the STAGE size stays 0.03-0.95 of the stage width */
+          var minPw = 0.03 * p.w / rect.w, maxPw = 0.95 * p.w / rect.w;
+          st.pw = Math.max(minPw, Math.min(maxPw, d.oSize * dist / d.dist0));
         } else if(d.mode === "rotate"){
           var ang = Math.atan2(py - d.cy, px - d.cx);
           st.rot = d.oRot + (ang - d.ang0);
@@ -2601,7 +2703,11 @@
       function pvScenePhoto(ctx, x, y, w, h, fill){
         var ph = pvActivePhoto();
         var src = ph ? (pvFeatOriginal ? ph.img : pvGradedPhoto()) : null;
-        pvLastScenePhotoRect = {x:x, y:y, w:w, h:h};
+        /* record the CONTAIN-FIT photo rect (what pvContainDraw actually
+           draws), not the window — the letterbox bands are not photo, so
+           head slots computed against the window would land off the photo */
+        var siw = src ? (src.naturalWidth || src.width) : 0, sih = src ? (src.naturalHeight || src.height) : 0;
+        pvLastScenePhotoRect = (siw && sih) ? pvContainPhotoRect(x, y, w, h, siw, sih) : {x:x, y:y, w:w, h:h, vx0:0, vx1:1, vy0:0, vy1:1};
         ctx.save();
         ctx.beginPath(); ctx.rect(x, y, w, h); ctx.clip();
         if(src && (src.naturalWidth || src.width)){
@@ -2713,6 +2819,11 @@
         ctx.fillStyle = sg; ctx.fillRect(cx - R, cy - R, R * 2, R * 2);
         var ph = pvActivePhoto();
         var src = ph ? (pvFeatOriginal ? ph.img : pvGradedPhoto()) : null;
+        /* record the contain-fit rect inside the circle (same math as
+           pvContainDraw below) — previously nothing was recorded, so the
+           rect went stale from the previous scene (or null) */
+        var giw = src ? (src.naturalWidth || src.width) : 0, gih = src ? (src.naturalHeight || src.height) : 0;
+        pvLastScenePhotoRect = (giw && gih) ? pvContainPhotoRect(cx - R, cy - R, R * 2, R * 2, giw, gih) : {x:cx - R, y:cy - R, w:R * 2, h:R * 2, vx0:0, vx1:1, vy0:0, vy1:1};
         if(src && (src.naturalWidth || src.width)){ pvContainDraw(ctx, src, cx - R, cy - R, R * 2, R * 2); }
         else {
           var pg = ctx.createLinearGradient(cx - R, cy - R, cx + R, cy + R);
@@ -2952,7 +3063,7 @@
            It is drawn BEFORE the shutters, so it can never light them: they
            are opaque fills painted over it. The spill below does the shutters. */
         var wl = ctx.createRadialGradient(W / 2, H * 0.38, 10, W / 2, H * 0.38, H * 0.78);
-        wl.addColorStop(0, "rgba(255,190,90,0.45)"); wl.addColorStop(1, "rgba(255,190,90,0)");
+        wl.addColorStop(0, "rgba(255,190,90,0.55)"); wl.addColorStop(1, "rgba(255,190,90,0)");
         ctx.fillStyle = wl; ctx.fillRect(0, 0, W, H);
         pvSceneLights(ctx, W, H * 0.06, 10, 23);
         /* --- the window: shutters, wooden frame, sill --- */
@@ -2985,6 +3096,18 @@
           ctx.beginPath(); ctx.arc(sx + (sh[1] > 0 ? W * 0.072 : W * 0.018), wy + wh * 0.5, Math.max(4, W * 0.009), 0, Math.PI * 2); ctx.fill();
           ctx.fillStyle = "#FFF3C4";
           ctx.beginPath(); ctx.arc(sx + (sh[1] > 0 ? W * 0.072 : W * 0.018) - 1.5, wy + wh * 0.5 - 1.5, Math.max(1.5, W * 0.003), 0, Math.PI * 2); ctx.fill();
+          /* warm edge-light on the shutter's INNER edge (the edge facing the
+             window): a vertical gradient strip, 0.55 alpha at the edge
+             fading out over 30% of the shutter width — painted AFTER the
+             shutter fills so the light lands ON the green instead of being
+             covered by it. Left shutter (sh[1] > 0): inner edge is its
+             right edge; right shutter: inner edge is its left edge. */
+          var innerX = sh[1] > 0 ? sx + sw : sx;
+          var eg = ctx.createLinearGradient(innerX, 0, innerX + (sh[1] > 0 ? -sw * 0.30 : sw * 0.30), 0);
+          eg.addColorStop(0, "rgba(255,200,110,0.55)"); eg.addColorStop(1, "rgba(255,200,110,0)");
+          ctx.fillStyle = eg;
+          if(sh[1] > 0) ctx.fillRect(sx + sw * 0.70, wy, sw * 0.30, wh);
+          else ctx.fillRect(sx, wy, sw * 0.30, wh);
         });
         /* frame */
         ctx.fillStyle = "#5A3A22"; ctx.fillRect(wx - W * 0.022, wy - H * 0.022, ww + W * 0.044, wh + H * 0.044);
@@ -2994,14 +3117,18 @@
            whole-scene wash, so that wash could never light them) and BEFORE
            the photo (so the portrait stays crisp). ROOT CAUSE of the flat
            shutters in the pivot test: the old spill was drawn after the photo
-           at 0.20 alpha — at the shutter distance (0.39W from the window
-           centre, radius 0.95*ww) it gave ~0.08 alpha, invisible. This one
-           is 0.40 centre / 0.28 mid, same radius: ~0.24 screen alpha at the
-           shutters, 3x stronger, and it visibly warms the green and the wood. */
-        var spill = ctx.createRadialGradient(wx + ww / 2, wy + wh / 2, ww * 0.10, wx + ww / 2, wy + wh / 2, ww * 0.95);
-        spill.addColorStop(0, "rgba(255,196,100,0.40)"); spill.addColorStop(0.55, "rgba(255,190,90,0.28)"); spill.addColorStop(1, "rgba(255,190,90,0)");
-        ctx.globalCompositeOperation = "screen"; ctx.fillStyle = spill;
-        ctx.fillRect(wx - ww * 0.55, wy - wh * 0.55, ww * 2.1, wh * 2.1);
+           at 0.20 alpha — at the shutter distance it gave ~0.08 alpha,
+           invisible — and the 2026-11-24 "fix" (screen blend, 0.40 centre /
+           0.28 mid) still did not render visibly. This one is source-over
+           (not screen, so it cannot wash out to nothing on the dark green),
+           0.55 centre / 0.38 mid, radius ww*1.10 — at the shutters it is
+           ~0.35 alpha of warm gold over the green, visible by construction.
+           The DOM overlay #pvSceneGlow adds a second, blend-independent
+           warm ring as a fallback (toggled in pvRenderScene). */
+        var spill = ctx.createRadialGradient(wx + ww / 2, wy + wh / 2, ww * 0.10, wx + ww / 2, wy + wh / 2, ww * 1.10);
+        spill.addColorStop(0, "rgba(255,196,100,0.55)"); spill.addColorStop(0.55, "rgba(255,190,90,0.38)"); spill.addColorStop(1, "rgba(255,190,90,0)");
+        ctx.globalCompositeOperation = "source-over"; ctx.fillStyle = spill;
+        ctx.fillRect(0, 0, W, H);
         ctx.globalCompositeOperation = "source-over";
         pvScenePhoto(ctx, wx, wy, ww, wh, "wood");
         ctx.strokeStyle = "#D4AF37"; ctx.lineWidth = 2;
@@ -3065,10 +3192,17 @@
         if(!cv || !stage) return;
         var badge = stage.querySelector(".pv-badge");
         var empty = document.getElementById("pvFeatEmpty");
+        var glow = document.getElementById("pvSceneGlow");
         if(!pvScene){
           cv.style.display = "none";
+          if(glow) glow.style.display = "none";
+          pvLastScenePhotoRect = null;
           if(badge) badge.style.display = "";
           if(empty) empty.style.display = pvPhotos.length ? "none" : "";
+          /* re-render stickers against the product-window rect: their
+             stage positions depend on the current rect, so they must be
+             re-placed when the scene (or product) changes back to none */
+          pvRenderStickers();
           return;
         }
         var dpr = window.devicePixelRatio || 1;
@@ -3083,6 +3217,10 @@
         var painters = {snowglobe:pvSceneSnowGlobe, fireplace:pvSceneFireplace, poster:pvScenePoster, workshop:pvSceneWorkshop};
         var fn = painters[pvScene];
         if(fn) fn(ctx, w, h);
+        /* DOM warm-glow fallback: visible ONLY in the workshop scene — a
+           blend-independent warm ring on the shutters/wall that never
+           touches the photo centre, even if the canvas spill fails. */
+        if(glow) glow.style.display = pvScene === "workshop" ? "block" : "none";
         pvRenderStickers();
       }
       var pvSceneRow = document.getElementById("pvSceneRow");
@@ -3621,7 +3759,7 @@
           id: "d" + Date.now(), name: pvStyle + " · " + (ph.label || "Photo") + " · " + new Date().toLocaleDateString(),
           photo: pvPhotoDataURL(), photoLabel: ph.label || "Family", style: pvStyle,
           zoom: pvZoom, ox: pvOx, oy: pvOy, products: pvResolvedFavs(), thumb: pvThumbURL(), createdAt: Date.now(),
-          stickers: JSON.parse(JSON.stringify(pvStickers)), scene: pvScene
+          stickers: JSON.parse(JSON.stringify(pvStickers)), stickersV: 2, scene: pvScene
         };
         list.push(design);
         var removed = null;
@@ -3681,9 +3819,13 @@
             (d.products || []).forEach(function(pid){ pvFavs[pid.indexOf("hoodie") === 0 ? "hoodie" : pid] = true; });
             var r = document.querySelector('input[name="style"][value="' + d.style + '"]');
             if(r){ r.checked = true; syncSummary(); }
-            pvStyle = d.style; pvPaintChips(); pvPaintFavs(); pvRenderTabs(); pvRenderAll(); pvPaintOrderThumb(); pvPaintToggle();
-            pvStickers = (d.stickers || []).map(function(s2){ return {type:s2.type, x:s2.x, y:s2.y, size:s2.size, rot:s2.rot || 0}; });
-            pvSelSticker = -1; pvScene = d.scene || "";
+            pvStyle = d.style; pvScene = d.scene || "";
+            pvPaintChips(); pvPaintFavs(); pvRenderTabs(); pvRenderAll(); pvPaintOrderThumb(); pvPaintToggle();
+            /* migrate old stage-fraction stickers through the rect of the
+               design's own scene (pvRenderAll above already painted it and
+               recorded its photo rect) — new-format stickers pass through */
+            pvStickers = (d.stickers || []).map(pvMigrateSticker).filter(function(s2){ return !!s2; });
+            pvSelSticker = -1;
             if(typeof pvPaintSceneButtons === "function") pvPaintSceneButtons();
             if(typeof pvRenderScene === "function") pvRenderScene();
             pvRenderStickers(); pvPaintStickerHint();
