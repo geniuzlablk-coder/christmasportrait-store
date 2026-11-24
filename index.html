@@ -218,7 +218,21 @@
       .toast.show{ transform:translate(-50%,0); }
       /* Footer */
       footer{ background:var(--green); color:#CFC39E; padding:44px 0 30px; }
-      .foot-lockup{ width:240px; max-width:72vw; height:auto; display:block; border-radius:12px; margin-bottom:16px; }
+      .foot-brand{ display:flex; align-items:center; gap:11px; text-decoration:none; margin-bottom:14px; }
+      .foot-brand img{ width:44px; height:44px; border-radius:9px; object-fit:cover; border:1px solid rgba(212,175,55,.55); display:block; }
+      .foot-brand .wordmark{ font-family:"Playfair Display",Georgia,serif; font-size:20px; font-weight:600; color:var(--gold); letter-spacing:.04em; line-height:1.1; }
+      .foot-grid{ display:grid; grid-template-columns:1.4fr 1fr 1fr; gap:28px; margin-top:6px; }
+      @media (max-width:880px){ .foot-grid{ grid-template-columns:1fr; } }
+      .foot-col h3{ color:var(--gold); font-size:1.05rem; margin:0 0 10px; }
+      .foot-col ul{ list-style:none; margin:0; padding:0; }
+      .foot-col li{ margin:0 0 7px; }
+      .foot-col a{ color:#E7DFC6; text-decoration:none; font-size:.95rem; }
+      .foot-col a:hover{ color:var(--gold); text-decoration:underline; }
+      .foot-about{ font-size:.95rem; max-width:26rem; }
+      .foot-good{ display:flex; flex-wrap:wrap; gap:8px 0; margin:26px 0 0; border-top:1px solid rgba(212,175,55,.35); border-bottom:1px solid rgba(212,175,55,.35); padding:14px 0; }
+      .foot-good span{ font-size:.92rem; color:#E7DFC6; padding:2px 18px 2px 0; margin-right:18px; border-right:1px solid rgba(212,175,55,.3); }
+      .foot-good span:last-child{ border-right:0; margin-right:0; padding-right:0; }
+      .foot-good b{ color:#FFE9A8; font-weight:700; }
       .foot-policies{ display:grid; grid-template-columns:repeat(3,1fr); gap:20px; margin-top:22px; }
       @media (max-width:880px){ .foot-policies{ grid-template-columns:1fr; } }
       .foot-policies h3{ color:var(--gold); font-size:1.05rem; }
@@ -450,7 +464,7 @@
         </div>
         <div class="shop-grid" id="shopGrid"></div>
 
-        <h3 class="subhead" style="font-size:1.45rem">Kids Books — bedtime stories they'll ask for again tomorrow</h3>
+        <h3 class="subhead" id="kidsbooks" style="font-size:1.45rem">Kids Books — bedtime stories they'll ask for again tomorrow</h3>
         <p class="soft" style="max-width:44rem">Three original Christmas picture books, written for read-aloud. Warm, funny, and just magical enough. Instant download — print at home or read on a tablet.</p>
         <div class="grid grid-3" style="margin-top:18px">
           <article class="card" style="padding:0;overflow:hidden">
@@ -489,7 +503,7 @@
         </div>
         <div class="card" style="margin-top:16px;display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:space-between"><div><h3>All 3 Kids Books</h3><p class="soft" style="margin:0">Milo + Snow Globe + Sleigh Ride · Instant download · Print at home or read on tablet</p></div><div><b class="serif" style="font-size:1.8rem">$19</b> <button class="btn btn-red" type="button" data-add="kids3">Add All 3 — $19</button></div></div>
 
-        <h3 class="subhead" style="font-size:1.45rem">Coloring Books — print tonight, color by morning</h3>
+        <h3 class="subhead" id="coloringbooks" style="font-size:1.45rem">Coloring Books — print tonight, color by morning</h3>
         <p class="soft" style="max-width:44rem">Bold, clean line art. Print single-sided, grab the markers, done. Sample pages shown exactly as they print.</p>
         <div class="grid grid-3" style="margin-top:18px">
           <article class="card" style="padding:0;overflow:hidden">
@@ -525,7 +539,7 @@
         </div>
         <div class="card" style="margin-top:16px;display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:space-between"><div><h3>All 3 Coloring Books</h3><p class="soft" style="margin:0">105 coloring pages total · Instant download</p></div><div><b class="serif" style="font-size:1.8rem">$15</b> <button class="btn btn-red" type="button" data-add="coloring3">Add All 3 — $15</button></div></div>
 
-        <h3 class="subhead" style="font-size:1.45rem">Digital Downloads — the bestsellers that solve December</h3>
+        <h3 class="subhead" id="digital" style="font-size:1.45rem">Digital Downloads — the bestsellers that solve December</h3>
         <p class="soft" style="max-width:44rem">Letters from Santa, advent joy, party games, planners and TV art — ready in minutes, not shipping days. <b>Instant download. No waiting for shipping.</b></p>
         <div class="grid grid-3" style="margin-top:18px">
           <article class="card"><h3>Santa Letter + Nice List Certificate Kit</h3><p><b class="serif" style="font-size:1.6rem">$12</b></p><p class="soft">Editable, personalized letter from Santa + official Nice List certificate. Add their name, print, watch their face.</p><div class="samples"><div class="sample"><b>Preview</b>Letterhead: North Pole, gold seal</div><div class="sample"><b>Preview</b>Certificate with name + date</div><div class="sample"><b>Bonus</b>Reindeer food label</div></div><button class="btn btn-gold" type="button" data-add="santakit" style="width:100%">Add — $12</button></article>
@@ -617,12 +631,12 @@
           <p class="kicker">Questions</p>
           <h2>Before you order</h2>
           <div style="margin-top:20px">
-            <details class="faq"><summary>How fast will I get my portraits?</summary><p>Digital portraits are delivered by email within 24 hours of your photo upload. Printed gifts (mugs, canvas, hoodies, stockings) are produced per order — order by Dec 20 to guarantee Christmas delivery.</p></details>
+            <details class="faq" id="faq-speed"><summary>How fast will I get my portraits?</summary><p>Digital portraits are delivered by email within 24 hours of your photo upload. Printed gifts (mugs, canvas, hoodies, stockings) are produced per order — order by Dec 20 to guarantee Christmas delivery.</p></details>
             <details class="faq"><summary>What kind of photo works best?</summary><p>A clear photo where faces are visible and reasonably well lit. Phone photos are perfect. Group shots up to 4 people fit the Family Pack; pets can join any portrait — just mention them in the order notes.</p></details>
-            <details class="faq"><summary>What if I don't love my portrait?</summary><p>That's what the Love-It Guarantee is for: tell us within 14 days and we re-make your portraits in a different style free, or refund you in full. No forms, no interrogation.</p></details>
+            <details class="faq" id="faq-guarantee"><summary>What if I don't love my portrait?</summary><p>That's what the Love-It Guarantee is for: tell us within 14 days and we re-make your portraits in a different style free, or refund you in full. No forms, no interrogation.</p></details>
             <details class="faq"><summary>Can I print the portraits myself?</summary><p>Yes — files are print-ready at 300 DPI, sized for Christmas cards, canvas, and framed prints. Or skip the printer run and add the mug, canvas, or stocking from the gift shop and we handle production.</p></details>
-            <details class="faq"><summary>What is the Dec 20 cutoff?</summary><p>December 20, 2026 is the last day to order printed gifts with guaranteed Christmas delivery. Digital portraits and downloads stay instant right up to Dec 25 — the ultimate last-minute save.</p></details>
-            <details class="faq"><summary>Do you ship internationally?</summary><p>Digital portraits and downloads go anywhere instantly. Printed gifts are produced at facilities close to the recipient in 32 countries, which keeps international delivery fast and affordable.</p></details>
+            <details class="faq" id="faq-cutoff"><summary>What is the Dec 20 cutoff?</summary><p>December 20, 2026 is the last day to order printed gifts with guaranteed Christmas delivery. Digital portraits and downloads stay instant right up to Dec 25 — the ultimate last-minute save.</p></details>
+            <details class="faq" id="faq-shipping"><summary>Do you ship internationally?</summary><p>Digital portraits and downloads go anywhere instantly. Printed gifts are produced at facilities close to the recipient in 32 countries, which keeps international delivery fast and affordable.</p></details>
           </div>
         </div>
       </div>
@@ -631,16 +645,65 @@
     <!-- ============ 8 · FOOTER ============ -->
     <footer>
       <div class="wrap">
-        <img class="foot-lockup" src="https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/29159649/6fbf608f-f64c-480a-8dc3-02078f4ecc1f" alt="Christmas Portrait Studio — gold snow globe logo and wordmark" width="300" height="300" loading="lazy" />
-        <p style="max-width:40rem">Personalized Christmas portraits in 24 hours, printed gifts made to order, kids books, coloring books and instant digital downloads. <b style="color:#FFE9A8">Order printed gifts by Dec 20 — digital stays instant until Dec 25.</b></p>
+        <div class="foot-grid">
+          <div class="foot-col">
+            <a class="foot-brand" href="#top" aria-label="Christmas Portrait Studio — back to top">
+              <img src="https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/29159649/c4d5fe32-71f7-4c7d-a2a6-062334e904f0" alt="" width="44" height="44" loading="lazy" />
+              <span class="wordmark">Christmas Portrait Studio</span>
+            </a>
+            <p class="foot-about">Personalized Christmas portraits in 24 hours, printed gifts made to order, kids books, coloring books and instant digital downloads. <b style="color:#FFE9A8">Order printed gifts by Dec 20 — digital stays instant until Dec 25.</b></p>
+            <p class="foot-about" style="margin-top:12px">Questions? See “Before you order” above, or start an order — we reply to every portrait order by email within 24 hours.</p>
+          </div>
+          <nav class="foot-col" aria-label="Shop">
+            <h3>Shop</h3>
+            <ul>
+              <li><a href="#styles">Six Signature Styles</a></li>
+              <li><a href="#pricing">Portrait Pricing</a></li>
+              <li><a href="#order">Order Your Portrait</a></li>
+              <li><a href="#products">Gift Shop</a></li>
+              <li><a href="#kidsbooks">Kids Books</a></li>
+              <li><a href="#coloringbooks">Coloring Books</a></li>
+              <li><a href="#digital">Digital Downloads</a></li>
+              <li><a href="#bundles">Bundles</a></li>
+            </ul>
+          </nav>
+          <nav class="foot-col" aria-label="Help">
+            <h3>Help</h3>
+            <ul>
+              <li><a href="#faq-speed">How fast will I get my portraits?</a></li>
+              <li><a href="#faq-guarantee">Love-It Guarantee</a></li>
+              <li><a href="#faq-cutoff">Dec 20 cutoff</a></li>
+              <li><a href="#faq-shipping">International shipping</a></li>
+            </ul>
+          </nav>
+        </div>
+        <div class="foot-good" aria-label="Good to know">
+          <span>Portraits <b>$39 / $69 / $89</b></span>
+          <span><b>24-hour</b> digital delivery</span>
+          <span>Printed gifts — order by <b>Dec 20</b> for Christmas</span>
+          <span>Digital instant until <b>Dec 25</b></span>
+          <span><b>FREE</b> Santa Letter with every portrait</span>
+          <span>Love-It Guarantee — <b>14 days</b></span>
+        </div>
         <div class="foot-policies">
           <div><h3>Shipping</h3><p>Digital portraits are delivered by email within 24 hours; downloads are instant. Printed gifts are made to order — order by Dec 20 for Christmas delivery, and produced close to the recipient in 32 countries for international orders.</p></div>
           <div><h3>Returns</h3><p>Personalized items are final sale, except print defects — anything that arrives damaged or misprinted is replaced free. Portraits are covered by the Love-It Guarantee: a free re-make in a new style, or a full refund within 14 days.</p></div>
-          <div><h3>Privacy</h3><p>Your photo is used only to make your portrait. It is never shared, never sold, and never used for anything else.</p></div>
+          <div><h3>Privacy</h3><p>Your photo is used only to make your portrait. It is never shared, never sold, and never used for anything else. Your email is used only to deliver your order and reply to it.</p></div>
         </div>
-        <p style="font-size:.88rem;margin:22px 0 0">© 2026 Christmas Portrait Studio · Portraits $39 / $69 / $89 · Printed gifts · Kids books · Coloring books · Digital downloads · Bundles</p>
+        <p style="font-size:.88rem;margin:22px 0 0">© 2026 Christmas Portrait Studio · christmasportrait.store</p>
       </div>
     </footer>
+    <script>
+      /* Footer help links: open the matching FAQ answer when jumped to. */
+      (function(){
+        document.querySelectorAll('a[href^="#faq-"]').forEach(function(a){
+          a.addEventListener("click", function(){
+            var d = document.querySelector(a.getAttribute("href"));
+            if (d && d.tagName === "DETAILS") d.open = true;
+          });
+        });
+      })();
+    </script>
 
     <!-- ============ CART ============ -->
     <div class="scrim" id="scrim"></div>
@@ -681,6 +744,12 @@
         ornament:{name:"Personalized Ornament", price:24},
         hoodie:{name:"Christmas Portrait Hoodie (S–XL)", price:54},
         hoodie2xl:{name:"Christmas Portrait Hoodie (2XL)", price:57},
+        "hoodie-green":{name:"Christmas Portrait Hoodie — Forest Green (S–XL)", price:54},
+        "hoodie-black":{name:"Christmas Portrait Hoodie — Black (S–XL)", price:54},
+        "hoodie-heather":{name:"Christmas Portrait Hoodie — Dark Heather (S–XL)", price:54},
+        "hoodie2xl-green":{name:"Christmas Portrait Hoodie — Forest Green (2XL)", price:57},
+        "hoodie2xl-black":{name:"Christmas Portrait Hoodie — Black (2XL)", price:57},
+        "hoodie2xl-heather":{name:"Christmas Portrait Hoodie — Dark Heather (2XL)", price:57},
         tote:{name:"Christmas Tote", price:24},
         santaset:{name:"Santa Letter + Portrait Gift Set", price:49},
         pettee:{name:"Pet Christmas Portrait Tee", price:29},
@@ -746,7 +815,8 @@
             '<div><span class="serif" style="font-size:1.55rem;font-weight:800" data-price>' + money(p.price) + '</span></div>' +
             '<p class="soft" style="margin:0">' + p.note + '</p>';
           if(p.gallery){
-            html += '<div class="thumbs" role="group" aria-label="Product views">' + p.gallery.map(function(g, i){
+            var galLabel = p.id === "hoodie" ? "Hoodie colour" : "Product views";
+            html += '<div class="thumbs" role="group" aria-label="' + galLabel + '">' + p.gallery.map(function(g, i){
               return '<button class="thumb' + (i===0 ? " active" : "") + '" type="button" data-view="' + g.src + '" aria-label="View: ' + g.label + '"><img src="' + g.src + '" alt="" loading="lazy" /></button>';
             }).join("") + '<span class="thumb-label">' + p.gallery[0].label + '</span></div>';
           }
@@ -766,6 +836,7 @@
           card.querySelector(".product-art img").src = t.getAttribute("data-view");
           card.querySelectorAll(".thumb").forEach(function(x){ x.classList.remove("active"); });
           t.classList.add("active");
+          card.dataset.colour = t.getAttribute("aria-label").replace("View: ", "");
           var lbl = card.querySelector(".thumb-label");
           if(lbl) lbl.textContent = t.getAttribute("aria-label").replace("View: ", "");
           return;
@@ -774,8 +845,12 @@
         if(b){
           var id = b.getAttribute("data-add");
           if(id === "hoodie"){
-            var sel = b.closest(".product").querySelector("[data-size]");
-            addToCart(sel && sel.value === "2XL" ? "hoodie2xl" : "hoodie");
+            var card = b.closest(".product");
+            var sel = card.querySelector("[data-size]");
+            var size = sel ? sel.value : "S";
+            var colour = card.dataset.colour || "Forest Green";
+            var key = {"Forest Green":"green", "Black":"black", "Dark Heather":"heather"}[colour] || "green";
+            addToCart((size === "2XL" ? "hoodie2xl-" : "hoodie-") + key);
           } else {
             addToCart(id);
           }
