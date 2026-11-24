@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="color-scheme" content="light" />
-    <meta name="description" content="Personalized Christmas portraits in 24 hours — 6 signature styles, printed gifts, kids books, coloring books and instant digital downloads. Single portrait $39." />
+    <meta name="description" content="Personalized Christmas portraits in 24 hours — 6 signature styles, printed gifts, kids books and instant digital downloads. Single portrait $39." />
     <link rel="icon" type="image/png" href="https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/29159649/4bf22131-edfb-435b-8148-2e7ad045bd5b" />
     <link rel="apple-touch-icon" href="https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/29159649/4bf22131-edfb-435b-8148-2e7ad045bd5b" />
     <title>Christmas Portrait Studio — $39 Personalized Christmas Portraits + Gift Shop</title>
@@ -30,7 +30,7 @@
       p{ margin:0 0 .8rem; }
       .soft{ color:var(--ink-soft); }
       .wrap{ max-width:1180px; margin:0 auto; padding:0 18px; }
-      section{ padding:56px 0; }
+      section{ padding:64px 0; }
       .kicker{ text-transform:uppercase; letter-spacing:.18em; font-size:.78rem; font-weight:700; color:var(--gold-deep); margin:0 0 .5rem; }
       .btn{ display:inline-flex; align-items:center; justify-content:center; gap:.5rem; border:0; cursor:pointer; font-family:inherit; font-weight:700; font-size:1rem; padding:.8rem 1.5rem; border-radius:999px; text-decoration:none; transition:transform .15s ease, box-shadow .15s ease; min-height:48px; }
       .btn:active{ transform:scale(.98); }
@@ -284,6 +284,13 @@
       .pv-featured-stage{ cursor:grab; touch-action:none; }
       .pv-featured-stage:active{ cursor:grabbing; }
       .pv-note{ font-size:.85rem; margin:.45rem 0 0; }
+      .hidden-for-now{ display:none !important; }
+      .kids-compact .samples, .kids-compact .sample-label{ display:none; }
+      .digi-compact .samples{ display:none; }
+      .pv-badge{ position:absolute; top:10px; left:10px; z-index:3; background:var(--gold); color:#23180A; font-size:.72rem; font-weight:700; letter-spacing:.12em; text-transform:uppercase; padding:.3rem .65rem; border-radius:999px; pointer-events:none; box-shadow:0 2px 8px rgba(0,0,0,.25); }
+      .pv-toggle{ display:flex; gap:8px; align-items:center; flex-wrap:wrap; margin:0 0 12px; }
+      .pv-toggle-btn{ border:1.5px solid var(--line); background:var(--surface); color:var(--ink); border-radius:999px; padding:.45rem 1rem; font-family:inherit; font-weight:700; cursor:pointer; font-size:.92rem; min-height:40px; }
+      .pv-toggle-btn.active{ background:var(--green); color:var(--gold); border-color:var(--green); }
       .pv-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin-top:20px; }
       @media (max-width:880px){ .pv-grid{ grid-template-columns:repeat(2,1fr); } }
       @media (max-width:520px){ .pv-grid{ grid-template-columns:1fr; } }
@@ -372,7 +379,7 @@
             </div>
           </div>
           <div class="trust-row">
-            <span>24h delivery</span><span>Dec 20 POD cutoff</span><span>Dec 25 digital</span><span>FREE Santa Letter with every portrait</span>
+            <span>24h delivery</span><span>FREE Santa Letter with every portrait</span>
           </div>
         </div>
         <figure class="ba" style="margin:0">
@@ -459,6 +466,7 @@
                 <div><b>Tap to upload a family photo</b><br /><span class="soft" style="font-size:.9rem">JPG or PNG · faces visible · phone photos welcome</span></div>
                 <div id="photoName" class="soft" style="font-size:.9rem;margin-top:6px"></div>
                 <img id="photoPreview" alt="Preview of your uploaded photo" style="display:none" />
+                <div id="photoPreviewNote" class="soft" style="font-size:.85rem;margin-top:6px;display:none">Season-look preview — your finished portrait is art-directed in this style and delivered in 24h.</div>
               </label>
               <input type="file" id="photoInput" accept="image/*" />
             </div>
@@ -500,9 +508,8 @@
     <section id="preview-studio" style="padding-top:0">
       <div class="wrap">
         <h2>Live Preview Studio — see your photo on every gift</h2>
-        <p class="soft" style="max-width:46rem">Upload your photo once, pick a style, and see it on all nine gifts instantly. What you see is what gets printed — a print preview, not a finished portrait. Your final portrait is art-directed by our studio in your chosen style.</p>
-        <p class="soft" style="max-width:46rem">Your photo stays in your browser until you order. Delete it anytime — we never share or sell it.</p>
-        <p class="soft" style="max-width:46rem">Saved designs live on this device only for now — sign in (coming soon) will sync them to your account.</p>
+        <p class="soft" style="max-width:46rem">Upload your photo once, pick a style, and see it on all nine gifts instantly. What you see is what gets printed. Your photo stays in your browser until you order — we never share or sell it.</p>
+        <p class="soft" style="max-width:46rem">Saved designs live on this device only.</p>
 
         <div class="card pv-controls" style="margin-top:20px">
           <div class="pv-row">
@@ -516,7 +523,7 @@
           <div>
             <p class="lbl" style="margin:0 0 8px">Style — applies to every preview</p>
             <div class="pv-chips" id="pvChips" role="group" aria-label="Preview style"></div>
-            <p class="pv-note soft">Style grade preview — your finished portrait is art-directed in this style.</p>
+            <p class="pv-note soft">Season-look grade preview — visibly different from your original at a glance. Your finished $39 portrait is fully art-directed in this style and delivered in 24h.</p>
           </div>
           <div class="pv-zoom">
             <label class="lbl" for="pvZoom">Zoom</label>
@@ -526,12 +533,18 @@
         </div>
 
         <div class="pv-switcher" id="pvSwitcher" role="group" aria-label="Featured preview product"></div>
+        <div class="pv-toggle" role="group" aria-label="Featured preview look">
+          <button type="button" id="pvToggleSeason" class="pv-toggle-btn active">Season look</button>
+          <button type="button" id="pvToggleOriginal" class="pv-toggle-btn">Original</button>
+          <span class="soft" id="pvToggleNote" style="font-size:.9rem">Season look — Classic Santa Snow grade preview. The finished portrait is art-directed in this style.</span>
+        </div>
         <div class="pv-stage pv-featured-stage" id="pvFeatStage">
           <img class="pv-base fit-contain" id="pvFeatImg" alt="Featured gift preview" />
           <div class="pv-wins" id="pvFeatWins"></div>
+          <span class="pv-badge">Print Preview</span>
           <div class="pv-empty" id="pvFeatEmpty">Upload a photo to see it here</div>
         </div>
-        <p class="pv-note"><b>Preview — your photo, print preview</b> <span class="soft">· Style grade preview — your finished portrait is art-directed in this style.</span></p>
+        <p class="pv-note"><b>Print preview — your photo on the gift</b> <span class="soft">· Gold outline shows the print area (not part of the print) · Season-look grade preview — your finished portrait is art-directed in this style and delivered in 24h.</span></p>
 
         <div class="pv-favbar">
           <b id="pvFavCount">Favourites: 0/3</b>
@@ -572,7 +585,7 @@
 
         <h3 class="subhead" id="kidsbooks" style="font-size:1.45rem">Kids Books — bedtime stories they'll ask for again tomorrow</h3>
         <p class="soft" style="max-width:44rem">Three original Christmas picture books, written for read-aloud. Warm, funny, and just magical enough. Instant download — print at home or read on a tablet.</p>
-        <div class="grid grid-3" style="margin-top:18px">
+        <div class="grid grid-3 kids-compact" style="margin-top:18px">
           <article class="card" style="padding:0;overflow:hidden">
             <div class="book-cover"><img src="https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/29159649/40fbfece-3333-4604-9638-78e2709865fe" alt="Cover of Milo and the Lost Star — a tiny reindeer beneath a starry Christmas sky" loading="lazy" /></div>
             <div style="padding:18px">
@@ -609,6 +622,8 @@
         </div>
         <div class="card" style="margin-top:16px;display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:space-between"><div><h3>All 3 Kids Books</h3><p class="soft" style="margin:0">Milo + Snow Globe + Sleigh Ride · Instant download · Print at home or read on tablet</p></div><div><b class="serif" style="font-size:1.8rem">$19</b> <button class="btn btn-red" type="button" data-add="kids3">Add All 3 — $19</button></div></div>
 
+        <!-- Coloring books hidden for now — code + files kept intact, add back later -->
+        <div class="hidden-for-now">
         <h3 class="subhead" id="coloringbooks" style="font-size:1.45rem">Coloring Books — print tonight, color by morning</h3>
         <p class="soft" style="max-width:44rem">Bold, clean line art. Print single-sided, grab the markers, done. Sample pages shown exactly as they print.</p>
         <div class="grid grid-3" style="margin-top:18px">
@@ -644,10 +659,11 @@
           </article>
         </div>
         <div class="card" style="margin-top:16px;display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:space-between"><div><h3>All 3 Coloring Books</h3><p class="soft" style="margin:0">105 coloring pages total · Instant download</p></div><div><b class="serif" style="font-size:1.8rem">$15</b> <button class="btn btn-red" type="button" data-add="coloring3">Add All 3 — $15</button></div></div>
+        </div><!-- /end hidden coloring books -->
 
         <h3 class="subhead" id="digital" style="font-size:1.45rem">Digital Downloads — the bestsellers that solve December</h3>
-        <p class="soft" style="max-width:44rem">Letters from Santa, advent joy, party games, planners and TV art — ready in minutes, not shipping days. <b>Instant download. No waiting for shipping.</b></p>
-        <div class="grid grid-3" style="margin-top:18px">
+        <p class="soft" style="max-width:44rem">Letters from Santa, advent joy, party games, planners and TV art — ready in minutes.</p>
+        <div class="grid grid-3 digi-compact" style="margin-top:18px">
           <article class="card"><h3>Santa Letter + Nice List Certificate Kit</h3><p><b class="serif" style="font-size:1.6rem">$12</b></p><p class="soft">Editable, personalized letter from Santa + official Nice List certificate. Add their name, print, watch their face.</p><div class="samples"><div class="sample"><b>Preview</b>Letterhead: North Pole, gold seal</div><div class="sample"><b>Preview</b>Certificate with name + date</div><div class="sample"><b>Bonus</b>Reindeer food label</div></div><button class="btn btn-gold" type="button" data-add="santakit" style="width:100%">Add — $12</button></article>
           <article class="card"><h3>24-Day Advent Activity Cards</h3><p><b class="serif" style="font-size:1.6rem">$14</b></p><p class="soft">Print, cut, one joy per day: bake, donate, stargaze, dance in the kitchen. No candy required, all connection.</p><div class="samples"><div class="sample"><b>Day 1</b>Make a card for a neighbor</div><div class="sample"><b>Day 12</b>Hot cocoa taste-test night</div><div class="sample"><b>Day 24</b>Read a story by tree light</div></div><button class="btn btn-gold" type="button" data-add="advent" style="width:100%">Add — $14</button></article>
           <article class="card"><h3>Christmas Party Games Mega Pack</h3><p><b class="serif" style="font-size:1.6rem">$16</b></p><p class="soft">Bingo, trivia, scavenger hunt, White Elephant rules + scorecards. Office party, family night, classroom — sorted.</p><div class="samples"><div class="sample"><b>Includes</b>Bingo (30 unique cards)</div><div class="sample"><b>Includes</b>Trivia — 100 questions</div><div class="sample"><b>Includes</b>Scavenger hunt + White Elephant</div></div><button class="btn btn-gold" type="button" data-add="partygames" style="width:100%">Add — $16</button></article>
@@ -655,16 +671,16 @@
           <article class="card"><h3>Christmas Frame TV Art Pack</h3><p><b class="serif" style="font-size:1.6rem">$12</b></p><p class="soft">20 vintage Christmas images sized for Frame TV. Turn the black rectangle into a fireplace painting.</p><div class="samples"><div class="sample"><b>Art 1</b>Vintage village in snow</div><div class="sample"><b>Art 2</b>Classic Santa portrait</div><div class="sample"><b>Art 3</b>Winter forest, gold frame look</div></div><button class="btn btn-gold" type="button" data-add="tvart" style="width:100%">Add — $12</button></article>
           <article class="card"><h3>New Year Reset Workbook</h3><p><b class="serif" style="font-size:1.6rem">$14</b></p><p class="soft">Vision, goals, 30-day plan. Close the year kindly, start January clear.</p><div class="samples"><div class="sample"><b>Part 1</b>Year review — honest, kind</div><div class="sample"><b>Part 2</b>Vision + 3 real goals</div><div class="sample"><b>Part 3</b>30-day starter plan</div></div><button class="btn btn-gold" type="button" data-add="newyear" style="width:100%">Add — $14</button></article>
         </div>
-        <div class="card" style="margin-top:20px">
+        <div class="card hidden-for-now" style="margin-top:20px">
           <h3 style="font-size:1.3rem">The full digital catalogue</h3>
           <p class="soft">Every book and download in one list. Instant download after checkout.</p>
           <div>
             <div class="digi-row"><div><b>Milo and the Lost Star</b> <span class="soft">· Kids picture book · 24 pages</span></div><div style="display:flex;gap:10px;align-items:center"><b class="serif" style="font-size:1.25rem">$9</b><button class="btn btn-green btn-small" type="button" data-add="milo">Add</button></div></div>
             <div class="digi-row"><div><b>The Snow Globe That Snowed Inside</b> <span class="soft">· Kids picture book · 20 pages</span></div><div style="display:flex;gap:10px;align-items:center"><b class="serif" style="font-size:1.25rem">$9</b><button class="btn btn-green btn-small" type="button" data-add="snowglobe">Add</button></div></div>
             <div class="digi-row"><div><b>Santa's Last Sleigh Ride</b> <span class="soft">· Kids picture book · 28 pages</span></div><div style="display:flex;gap:10px;align-items:center"><b class="serif" style="font-size:1.25rem">$9</b><button class="btn btn-green btn-small" type="button" data-add="sleigh">Add</button></div></div>
-            <div class="digi-row"><div><b>Cozy Christmas Coloring</b> <span class="soft">· Coloring book · 40 pages</span></div><div style="display:flex;gap:10px;align-items:center"><b class="serif" style="font-size:1.25rem">$7</b><button class="btn btn-green btn-small" type="button" data-add="cozycolor">Add</button></div></div>
-            <div class="digi-row"><div><b>Magical Christmas Mandalas</b> <span class="soft">· Coloring book · 30 pages</span></div><div style="display:flex;gap:10px;align-items:center"><b class="serif" style="font-size:1.25rem">$7</b><button class="btn btn-green btn-small" type="button" data-add="mandalas">Add</button></div></div>
-            <div class="digi-row"><div><b>Santa's Workshop Coloring</b> <span class="soft">· Coloring book · 35 pages</span></div><div style="display:flex;gap:10px;align-items:center"><b class="serif" style="font-size:1.25rem">$7</b><button class="btn btn-green btn-small" type="button" data-add="workshopcolor">Add</button></div></div>
+            <div class="digi-row hidden-for-now"><div><b>Cozy Christmas Coloring</b> <span class="soft">· Coloring book · 40 pages</span></div><div style="display:flex;gap:10px;align-items:center"><b class="serif" style="font-size:1.25rem">$7</b><button class="btn btn-green btn-small" type="button" data-add="cozycolor">Add</button></div></div>
+            <div class="digi-row hidden-for-now"><div><b>Magical Christmas Mandalas</b> <span class="soft">· Coloring book · 30 pages</span></div><div style="display:flex;gap:10px;align-items:center"><b class="serif" style="font-size:1.25rem">$7</b><button class="btn btn-green btn-small" type="button" data-add="mandalas">Add</button></div></div>
+            <div class="digi-row hidden-for-now"><div><b>Santa's Workshop Coloring</b> <span class="soft">· Coloring book · 35 pages</span></div><div style="display:flex;gap:10px;align-items:center"><b class="serif" style="font-size:1.25rem">$7</b><button class="btn btn-green btn-small" type="button" data-add="workshopcolor">Add</button></div></div>
             <div class="digi-row"><div><b>Santa Letter + Nice List Kit</b> <span class="soft">· Personalized letter + certificate kit</span></div><div style="display:flex;gap:10px;align-items:center"><b class="serif" style="font-size:1.25rem">$12</b><button class="btn btn-green btn-small" type="button" data-add="santakit">Add</button></div></div>
             <div class="digi-row"><div><b>24-Day Advent Cards</b> <span class="soft">· Printable activity card set</span></div><div style="display:flex;gap:10px;align-items:center"><b class="serif" style="font-size:1.25rem">$14</b><button class="btn btn-green btn-small" type="button" data-add="advent">Add</button></div></div>
             <div class="digi-row"><div><b>Christmas Party Games</b> <span class="soft">· Mega pack — bingo, trivia, scavenger hunt</span></div><div style="display:flex;gap:10px;align-items:center"><b class="serif" style="font-size:1.25rem">$16</b><button class="btn btn-green btn-small" type="button" data-add="partygames">Add</button></div></div>
@@ -695,12 +711,12 @@
         </div>
 
         <div class="grid grid-3" style="margin-top:18px">
-          <div class="card bundle-card"><span class="save-pill">KIDS FAVORITE</span><h3>Kids Bundle — $29</h3><p class="soft">Kids books + coloring highlights + Santa Kit for the full kid Christmas.</p><button class="btn btn-gold" type="button" data-add="kidsbundle" style="width:100%">Add Kids Bundle — $29</button></div>
-          <div class="card bundle-card"><span class="save-pill">RELAX &amp; COLOR</span><h3>Coloring Bundle — $19</h3><p class="soft">All coloring books at bundle price, plus mandala calm for adults.</p><button class="btn btn-gold" type="button" data-add="coloringbundle" style="width:100%">Add Coloring Bundle — $19</button></div>
+          <div class="card bundle-card"><span class="save-pill">KIDS FAVORITE</span><h3>Kids Bundle — $29</h3><p class="soft">Kids books + Santa Kit for the full kid Christmas.</p><button class="btn btn-gold" type="button" data-add="kidsbundle" style="width:100%">Add Kids Bundle — $29</button></div>
+          <div class="card bundle-card hidden-for-now"><span class="save-pill">RELAX &amp; COLOR</span><h3>Coloring Bundle — $19</h3><p class="soft">All coloring books at bundle price, plus mandala calm for adults.</p><button class="btn btn-gold" type="button" data-add="coloringbundle" style="width:100%">Add Coloring Bundle — $19</button></div>
           <div class="card bundle-card"><span class="save-pill">FAMILY NIGHT</span><h3>Family Fun Bundle — $39</h3><p class="soft">Party Games + Advent Cards + Planner + Santa Kit. December, organized and fun.</p><button class="btn btn-gold" type="button" data-add="familyfun" style="width:100%">Add Family Fun — $39</button></div>
         </div>
 
-        <div class="card" style="margin-top:20px">
+        <div class="card hidden-for-now" style="margin-top:20px">
           <h3>Build your own bundle</h3>
           <p class="soft">Tick what you want — bundle discounts apply live, exactly as they will in your cart.</p>
           <div id="builderRows"></div>
@@ -728,7 +744,7 @@
           <p class="soft" style="max-width:46rem;margin:0">If you don't love your portraits, tell us within 14 days and we re-make them in a different style free, or refund you in full. No forms, no interrogation. Printed gifts are checked before they ship, and anything that arrives damaged or misprinted is replaced free.</p>
         </div>
 
-        <div class="grid grid-2" style="margin-top:22px">
+        <div class="grid grid-2 hidden-for-now" style="margin-top:22px">
           <div class="card"><p class="kicker">Santa's Nice List Checker</p><h3>Are they on the Nice List?</h3><p class="soft">Type a name and get a fun Nice List certificate preview — perfect to show the kids.</p><div class="field"><label for="niceName">Child's (or grown-up's) name</label><input type="text" id="niceName" placeholder="e.g. Amaya" /></div><button class="btn btn-red" type="button" id="niceBtn" style="width:100%">Check the Nice List</button><div class="cert" id="niceCert"><p style="letter-spacing:.15em;font-size:.8rem">✦ OFFICIAL · NORTH POLE ✦</p><h3>Nice List Certificate</h3><p>This certifies that</p><p class="serif" id="niceCertName" style="font-size:1.7rem;font-weight:800"></p><p>is officially on Santa's Nice List for Christmas 2026<br />for kindness, giggles, and excellent story-listening.</p><p style="font-size:.85rem">Signed: Santa Claus · Head Elf, Christmas Portrait Studio<br />Get the printable kit in the Santa Letter Kit — $12</p><button class="btn btn-gold btn-small" type="button" data-add="santakit">Add Santa Kit — $12</button></div></div>
           <div class="card"><p class="kicker">Gift Finder</p><h3>Who are you shopping for?</h3><p class="soft">Pick one — we'll recommend 3 perfect gifts instantly.</p><div id="finderBtns"><button class="btn btn-ghost finder-opt" type="button" data-finder="mom">Mom</button><button class="btn btn-ghost finder-opt" type="button" data-finder="dad">Dad</button><button class="btn btn-ghost finder-opt" type="button" data-finder="kids">Kids</button><button class="btn btn-ghost finder-opt" type="button" data-finder="partner">Partner</button><button class="btn btn-ghost finder-opt" type="button" data-finder="pet">Pet</button><button class="btn btn-ghost finder-opt" type="button" data-finder="self">Yourself</button></div><div id="finderResult" style="margin-top:14px"></div></div>
         </div>
@@ -757,7 +773,7 @@
               <img src="https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/29159649/c4d5fe32-71f7-4c7d-a2a6-062334e904f0" alt="" width="44" height="44" />
               <span class="wordmark">Christmas Portrait Studio</span>
             </a>
-            <p class="foot-about">Personalized Christmas portraits in 24 hours, printed gifts made to order, kids books, coloring books and instant digital downloads. Order printed gifts by Dec 20 — digital stays instant until Dec 25.</p>
+            <p class="foot-about">Personalized Christmas portraits in 24 hours, printed gifts made to order, kids books and instant digital downloads. Order printed gifts by Dec 20 — digital stays instant until Dec 25.</p>
             <p class="foot-about">Questions? See “Before you order” above, or start an order — we reply to every portrait order by email within 24 hours.</p>
           </div>
           <nav class="foot-col" aria-label="Shop">
@@ -768,7 +784,7 @@
               <li><a href="#order">Order Your Portrait</a></li>
               <li><a href="#products">Gift Shop</a></li>
               <li><a href="#kidsbooks">Kids Books</a></li>
-              <li><a href="#coloringbooks">Coloring Books</a></li>
+              <li class="hidden-for-now"><a href="#coloringbooks">Coloring Books</a></li>
               <li><a href="#digital">Digital Downloads</a></li>
               <li><a href="#bundles">Bundles</a></li>
             </ul>
@@ -1214,27 +1230,67 @@
       });
 
       /* ---------- Live Preview Studio (Phase 1 — client-side only) ---------- */
-      var PV_GRADES = {
-        "Classic Santa Snow":"brightness(1.06) contrast(1.05) saturate(1.06)",
-        "Golden Christmas Movie Poster":"sepia(0.35) contrast(1.15) saturate(1.2) brightness(1.02)",
-        "Cozy Fireplace":"sepia(0.28) saturate(1.15) brightness(1.04) hue-rotate(-8deg)",
-        "Snow Globe":"brightness(1.08) saturate(0.9) hue-rotate(12deg) contrast(1.03)",
-        "Colombo Christmas":"saturate(1.28) contrast(1.08) brightness(1.03)",
-        "Winter Royal":"sepia(0.15) contrast(1.1) saturate(0.95)"
+      /* --- Season look: two-layer grade. Layer 1 is a manual per-pixel grade
+         (temperature / tint / brightness / contrast / saturation) applied on an
+         offscreen canvas — it works in every browser and never depends on
+         the canvas filter property (older Safari/Chrome silently ignore it on canvas).
+         Layer 2 is visible seasonal treatment drawn on top, clipped to the
+         print window: colour wash, vignette, glow, snowfall, sparkle, bokeh.
+         Washes stay at moderate alpha (0.08–0.30) so faces stay natural.
+         Honest label: this is a grade preview, not an AI restyle — the full
+         AI portrait is the $39 product, art-directed and delivered in 24h. --- */
+      var PV_STYLE_GRADE = {
+        "Classic Santa Snow":{temp:-16, tint:3, bright:8, contrast:12, sat:1.05, wash:"rgba(165,200,240,0.16)", vig:"rgba(255,255,255,0.30)", glow:null, flakes:46, sparkle:0, bokeh:0},
+        "Golden Christmas Movie Poster":{temp:22, tint:-2, bright:6, contrast:22, sat:1.22, wash:"rgba(255,190,80,0.13)", vig:"rgba(180,130,20,0.30)", glow:null, flakes:0, sparkle:10, bokeh:0},
+        "Cozy Fireplace":{temp:26, tint:2, bright:4, contrast:10, sat:1.12, wash:"rgba(255,150,60,0.10)", vig:"rgba(120,50,10,0.28)", glow:{x:0.12, y:0.88, r:0.95, color:"rgba(255,150,50,0.30)"}, flakes:0, sparkle:6, bokeh:0},
+        "Snow Globe":{temp:-18, tint:5, bright:10, contrast:8, sat:0.92, wash:"rgba(170,205,245,0.18)", vig:"rgba(210,230,255,0.32)", glow:null, flakes:34, sparkle:22, bokeh:0},
+        "Colombo Christmas":{temp:14, tint:2, bright:7, contrast:12, sat:1.25, wash:"rgba(255,170,90,0.12)", vig:"rgba(60,20,60,0.16)", glow:null, flakes:0, sparkle:8, bokeh:16},
+        "Winter Royal":{temp:-12, tint:2, bright:8, contrast:14, sat:1.00, wash:"rgba(180,195,230,0.15)", wash2:"rgba(212,175,55,0.08)", vig:"rgba(20,30,60,0.22)", glow:null, flakes:0, sparkle:18, bokeh:0}
       };
+      function pvGradeDef(){ return PV_STYLE_GRADE[pvStyle] || PV_STYLE_GRADE["Classic Santa Snow"]; }
+      function pvSeededRand(seed){ var s = seed % 2147483647; if(s <= 0) s += 2147483646; return function(){ s = s * 16807 % 2147483647; return (s - 1) / 2147483646; }; }
+      function pvHashStr(str){ var h = 7; for(var i = 0; i < str.length; i++){ h = (h * 31 + str.charCodeAt(i)) % 2147483647; } return h; }
+      var pvGradeCache = { key:"", canvas:null };
+      function pvGradedPhoto(){
+        var ph = pvActivePhoto(); if(!ph || !ph.img.naturalWidth) return null;
+        var key = pvStyle + "|" + ph.img.src;
+        if(pvGradeCache.key === key && pvGradeCache.canvas) return pvGradeCache.canvas;
+        var g = pvGradeDef();
+        var iw = ph.img.naturalWidth, ih = ph.img.naturalHeight, sc = Math.min(1, 880 / Math.max(iw, ih));
+        var c = document.createElement("canvas"); c.width = Math.max(2, Math.round(iw * sc)); c.height = Math.max(2, Math.round(ih * sc));
+        var x = c.getContext("2d"); x.drawImage(ph.img, 0, 0, c.width, c.height);
+        var id, d;
+        try { id = x.getImageData(0, 0, c.width, c.height); } catch(e){ return ph.img; }
+        d = id.data;
+        var cf = 1 + g.contrast / 100, sat = g.sat;
+        for(var i = 0; i < d.length; i += 4){
+          var r = d[i], gg = d[i+1], b = d[i+2];
+          r += g.temp; b -= g.temp; gg += g.tint * 0.5;
+          r += g.bright; gg += g.bright; b += g.bright;
+          r = (r - 128) * cf + 128; gg = (gg - 128) * cf + 128; b = (b - 128) * cf + 128;
+          var luma = 0.299 * r + 0.587 * gg + 0.114 * b;
+          r = luma + (r - luma) * sat; gg = luma + (gg - luma) * sat; b = luma + (b - luma) * sat;
+          d[i] = r < 0 ? 0 : (r > 255 ? 255 : r);
+          d[i+1] = gg < 0 ? 0 : (gg > 255 ? 255 : gg);
+          d[i+2] = b < 0 ? 0 : (b > 255 ? 255 : b);
+        }
+        x.putImageData(id, 0, 0);
+        pvGradeCache = { key:key, canvas:c };
+        return c;
+      }
       var HOOD_GREEN = HOOD + "33419/98424/christmas-portrait-hoodie-personalized-family-portrait.jpg?camera_label=front";
       var HOOD_BLACK = HOOD + "32920/98424/christmas-portrait-hoodie-personalized-family-portrait.jpg?camera_label=front";
       var HOOD_HEATHER = HOOD + "32880/98424/christmas-portrait-hoodie-personalized-family-portrait.jpg?camera_label=front";
       var PV_PRODUCTS = [
         {id:"mug", name:"Christmas Portrait Mug 11oz", price:29, fit:"contain", base:MUG + "front", alt:"White 11oz mug printed with a family Christmas portrait", wins:[{x:28,y:22,w:44,h:66,shape:"arc",frame:"none",shading:"cylinder"}]},
-        {id:"hoodie", name:"Christmas Portrait Hoodie", price:54, fit:"contain", base:HOOD_GREEN, alt:"Hoodie with a family Christmas portrait in a gold circular frame printed on the chest", wins:[{x:39.5,y:28.5,w:23,h:23,shape:"circle",frame:"ring",shading:"radial"}]},
+        {id:"hoodie", name:"Christmas Portrait Hoodie", price:54, fit:"contain", base:HOOD_GREEN, alt:"Hoodie with a family Christmas portrait in a gold circular frame printed on the chest", wins:[{x:39.5,y:28.5,w:23,h:23,shape:"circle",frame:"ring",shading:"folds"}]},
         {id:"stocking", name:"Christmas Portrait Stocking", price:34.99, fit:"contain", base:STOCK + "1530/christmas-portrait-stocking-personalized-family-portrait.jpg?camera_label=front", alt:"Soft white plush Christmas stocking printed with a family portrait in a gold oval frame", wins:[{x:26,y:24,w:47,h:28,shape:"ellipse",frame:"oval",shading:"radial"}]},
         {id:"canvas", name:"Christmas Portrait Canvas", price:49, fit:"cover", base:IMG + "eea881b6-90fd-4485-aeef-f507eba96989", alt:"A Christmas portrait printed on a gallery canvas hanging above a sofa", wins:[{x:28,y:5,w:47,h:52,shape:"rect",frame:"none",shading:"inner"}]},
         {id:"ornament", name:"Personalized Ornament", price:24, fit:"cover", base:IMG + "aa89a37e-3415-4d9e-a242-5067327454d9", alt:"A personalized Christmas ornament with a family portrait hanging on a tree", wins:[{x:35.2,y:33.8,w:31.7,h:47.5,shape:"circle",frame:"ring",shading:"screen"}]},
-        {id:"pettee", name:"Pet Christmas Portrait Tee", price:29, fit:"cover", base:IMG + "cf4be324-d5d1-4084-8eab-1028d648c098", alt:"A tee printed with a pet's Christmas portrait — a dog wearing a Santa hat", wins:[{x:27,y:56,w:22,h:34,shape:"ellipse",frame:"oval",shading:"radial"}]},
-        {id:"tote", name:"Christmas Tote", price:24, fit:"cover", base:IMG + "328e0b89-7923-4020-b227-c63aae640402", alt:"A Christmas tote bag printed with a family portrait", wins:[{x:28,y:38,w:39,h:50,shape:"rect",frame:"rect",shading:"radial"}]},
+        {id:"pettee", name:"Pet Christmas Portrait Tee", price:29, fit:"cover", base:IMG + "cf4be324-d5d1-4084-8eab-1028d648c098", alt:"A tee printed with a pet's Christmas portrait — a dog wearing a Santa hat", wins:[{x:27,y:56,w:22,h:34,shape:"ellipse",frame:"oval",shading:"folds"}]},
+        {id:"tote", name:"Christmas Tote", price:24, fit:"cover", base:IMG + "328e0b89-7923-4020-b227-c63aae640402", alt:"A Christmas tote bag printed with a family portrait", wins:[{x:28,y:38,w:39,h:50,shape:"rect",frame:"rect",shading:"folds"}]},
         {id:"santaset", name:"Santa Letter + Portrait Gift Set", price:49, fit:"cover", base:IMG + "25bc2b2d-9646-409a-bc6d-e4cb1c0e63a4", alt:"Santa letter and portrait gift set with a certificate and festive packaging", wins:[{x:19,y:43,w:29,h:45,shape:"arc",frame:"none",shading:"cylinder"},{x:59,y:33,w:21,h:30,shape:"rect",frame:"rect",shading:"radial"}]},
-        {id:"phonecase", name:"Christmas Phone Case", price:24, fit:"cover", base:IMG + "3bd2e3a2-3ba8-46ce-88ab-f9e8bdd98480", alt:"A phone case printed with a family Christmas portrait", wins:[{x:29,y:30,w:34,h:58,shape:"ellipse",frame:"oval",shading:"radial",rot:-8}]}
+        {id:"phonecase", name:"Christmas Phone Case", price:24, fit:"cover", base:IMG + "3bd2e3a2-3ba8-46ce-88ab-f9e8bdd98480", alt:"A phone case printed with a family Christmas portrait", wins:[{x:29,y:30,w:34,h:58,shape:"ellipse",frame:"oval",shading:"gloss",rot:-8}]}
       ];
       var PV_LABELS = ["Family","Kids","Pet"];
       var pvPhotos = [], pvActive = -1, pvZoom = 1, pvOx = 0, pvOy = 0, pvFeatured = "mug", pvFavs = {};
@@ -1251,7 +1307,7 @@
           var entry = { img:im, url:url, fileName:f.name, label: PV_LABELS[Math.min(pvPhotos.length,2)] };
           if(pvPhotos.length >= 3){ pvPhotos[pvActive < 0 ? 0 : pvActive] = entry; pvActive = pvActive < 0 ? 0 : pvActive; toast("Photo replaced — you can keep up to 3 photos"); }
           else { pvPhotos.push(entry); pvActive = pvPhotos.length - 1; }
-          pvRenderTabs(); pvRenderAll();
+          pvRenderTabs(); pvRenderAll(); pvPaintOrderThumb();
         };
         im.src = url;
       }
@@ -1291,7 +1347,7 @@
           var inp = document.createElement("input");
           inp.type = "text"; inp.value = p.label; inp.setAttribute("aria-label", "Label for photo " + (i+1));
           inp.addEventListener("input", function(){ p.label = inp.value; });
-          tab.querySelector("button").addEventListener("click", function(){ pvActive = i; pvRenderTabs(); pvRenderAll(); });
+          tab.querySelector("button").addEventListener("click", function(){ pvActive = i; pvRenderTabs(); pvRenderAll(); pvPaintOrderThumb(); });
           tab.appendChild(inp);
           box.appendChild(tab);
         });
@@ -1307,7 +1363,7 @@
       });
       function pvPaintChips(){ pvChipsBox.querySelectorAll(".pv-chip").forEach(function(c){ c.classList.toggle("active", c.getAttribute("data-style") === pvStyle); }); }
       function pvSetStyle(name, fromChip){
-        pvStyle = name; pvPaintChips(); pvRenderAll();
+        pvStyle = name; pvPaintChips(); pvRenderAll(); pvPaintOrderThumb(); pvPaintToggle();
         if(fromChip){
           var r = document.querySelector('input[name="style"][value="' + name + '"]');
           if(r && !r.checked){ r.checked = true; syncSummary(); }
@@ -1315,7 +1371,7 @@
       }
       stylePick.addEventListener("change", function(){
         var r = document.querySelector('input[name="style"]:checked');
-        if(r && r.value !== pvStyle){ pvStyle = r.value; pvPaintChips(); pvRenderAll(); }
+        if(r && r.value !== pvStyle){ pvStyle = r.value; pvPaintChips(); pvRenderAll(); pvPaintOrderThumb(); pvPaintToggle(); }
       });
       pvPaintChips();
 
@@ -1323,13 +1379,128 @@
       document.getElementById("pvZoom").addEventListener("input", function(){ pvZoom = parseFloat(this.value); pvRenderAll(); });
 
       /* --- render engine --- */
+      /* --- season overlays + print shading + mug warp (drawn on canvas, no canvas filter property) --- */
+      function pvApplyOverlays(t, win, W, H){
+        var g = pvGradeDef();
+        if(g.wash){ t.fillStyle = g.wash; t.fillRect(0, 0, W, H); }
+        if(g.wash2){ t.fillStyle = g.wash2; t.fillRect(0, 0, W, H); }
+        if(g.glow){
+          var gr = t.createRadialGradient(W * g.glow.x, H * g.glow.y, 4, W * g.glow.x, H * g.glow.y, Math.max(W, H) * g.glow.r);
+          gr.addColorStop(0, g.glow.color); gr.addColorStop(1, "rgba(255,150,50,0)");
+          t.globalCompositeOperation = "screen"; t.fillStyle = gr; t.fillRect(0, 0, W, H); t.globalCompositeOperation = "source-over";
+        }
+        if(g.vig){
+          var vg = t.createRadialGradient(W/2, H/2, Math.min(W,H)*0.42, W/2, H/2, Math.max(W,H)*0.78);
+          vg.addColorStop(0, "rgba(0,0,0,0)"); vg.addColorStop(1, g.vig);
+          t.fillStyle = vg; t.fillRect(0, 0, W, H);
+        }
+        var seed = pvHashStr(pvStyle + "|" + win.x + "|" + win.y + "|" + win.w + "|" + win.h);
+        var rnd = pvSeededRand(seed), k, px, py, pr, pa;
+        if(g.flakes){
+          for(k = 0; k < g.flakes; k++){
+            px = rnd() * W; py = rnd() * H; pr = (0.9 + rnd() * 2.6) * (W / 440); pa = 0.25 + rnd() * 0.55;
+            t.globalAlpha = pa; t.fillStyle = "#ffffff";
+            t.beginPath(); t.arc(px, py, pr, 0, Math.PI * 2); t.fill();
+          }
+          t.globalAlpha = 1;
+        }
+        if(g.bokeh){
+          t.globalCompositeOperation = "screen";
+          for(k = 0; k < g.bokeh; k++){
+            px = rnd() * W; py = rnd() * H; pr = (6 + rnd() * 13) * (W / 440); pa = 0.10 + rnd() * 0.16;
+            t.globalAlpha = pa; t.fillStyle = "#FFCD6E";
+            t.beginPath(); t.arc(px, py, pr, 0, Math.PI * 2); t.fill();
+          }
+          t.globalAlpha = 1; t.globalCompositeOperation = "source-over";
+        }
+        if(g.sparkle){
+          for(k = 0; k < g.sparkle; k++){
+            px = rnd() * W; py = rnd() * H; pr = (3 + rnd() * 4) * (W / 440); pa = 0.45 + rnd() * 0.45;
+            t.globalAlpha = pa; t.strokeStyle = "#FFF3C4"; t.lineWidth = Math.max(1, W * 0.004);
+            t.beginPath(); t.moveTo(px - pr, py); t.lineTo(px + pr, py); t.moveTo(px, py - pr); t.lineTo(px, py + pr); t.stroke();
+            t.fillStyle = "#ffffff"; t.beginPath(); t.arc(px, py, pr * 0.28, 0, Math.PI * 2); t.fill();
+          }
+          t.globalAlpha = 1;
+        }
+      }
+      function pvApplyShading(ctx, win, W, H){
+        var i, bx, bw, bg;
+        if(win.shading === "cylinder"){
+          var g1 = ctx.createLinearGradient(0, 0, W, 0);
+          g1.addColorStop(0, "#7a7a7a"); g1.addColorStop(0.10, "#c9c9c9"); g1.addColorStop(0.30, "#ffffff"); g1.addColorStop(0.62, "#ffffff"); g1.addColorStop(0.88, "#dcdcdc"); g1.addColorStop(1, "#6f6f6f");
+          ctx.globalCompositeOperation = "multiply"; ctx.fillStyle = g1; ctx.fillRect(0, 0, W, H); ctx.globalCompositeOperation = "source-over";
+          var gl = ctx.createLinearGradient(W*0.24, 0, W*0.46, 0);
+          gl.addColorStop(0, "rgba(255,255,255,0)"); gl.addColorStop(0.5, "rgba(255,255,255,0.20)"); gl.addColorStop(1, "rgba(255,255,255,0)");
+          ctx.globalCompositeOperation = "screen"; ctx.fillStyle = gl; ctx.fillRect(0, 0, W, H); ctx.globalCompositeOperation = "source-over";
+        } else if(win.shading === "folds"){
+          for(i = 0; i < 3; i++){
+            bx = W * (0.18 + i * 0.30); bw = W * 0.16;
+            bg = ctx.createLinearGradient(bx - bw, 0, bx + bw, 0);
+            bg.addColorStop(0, "rgba(0,0,0,0)"); bg.addColorStop(0.5, "rgba(0,0,0,0.13)"); bg.addColorStop(1, "rgba(0,0,0,0)");
+            ctx.globalCompositeOperation = "multiply"; ctx.fillStyle = bg; ctx.fillRect(bx - bw, 0, bw * 2, H); ctx.globalCompositeOperation = "source-over";
+          }
+          var fl = ctx.createLinearGradient(0, 0, 0, H);
+          fl.addColorStop(0, "rgba(255,255,255,0.10)"); fl.addColorStop(0.35, "rgba(255,255,255,0)"); fl.addColorStop(1, "rgba(0,0,0,0.08)");
+          ctx.fillStyle = fl; ctx.fillRect(0, 0, W, H);
+        } else if(win.shading === "gloss"){
+          ctx.save(); ctx.translate(W/2, H/2); ctx.rotate(-0.6); ctx.translate(-W/2, -H/2);
+          var gg2 = ctx.createLinearGradient(-W*0.2, 0, W*0.45, 0);
+          gg2.addColorStop(0, "rgba(255,255,255,0)"); gg2.addColorStop(0.5, "rgba(255,255,255,0.28)"); gg2.addColorStop(1, "rgba(255,255,255,0)");
+          ctx.globalCompositeOperation = "screen"; ctx.fillStyle = gg2; ctx.fillRect(-W*0.2, -H*0.3, W*0.65, H*1.6); ctx.globalCompositeOperation = "source-over";
+          ctx.restore();
+          var ge = ctx.createRadialGradient(W/2, H/2, Math.min(W,H)*0.35, W/2, H/2, Math.max(W,H)*0.72);
+          ge.addColorStop(0, "rgba(0,0,0,0)"); ge.addColorStop(1, "rgba(0,0,0,0.14)");
+          ctx.fillStyle = ge; ctx.fillRect(0, 0, W, H);
+        } else if(win.shading === "screen"){
+          var g2 = ctx.createRadialGradient(W*0.25, H*0.2, 4, W*0.25, H*0.2, Math.max(W,H)*0.9);
+          g2.addColorStop(0, "rgba(255,255,255,0.65)"); g2.addColorStop(1, "rgba(255,255,255,0)");
+          ctx.globalCompositeOperation = "screen"; ctx.fillStyle = g2; ctx.fillRect(0, 0, W, H); ctx.globalCompositeOperation = "source-over";
+          var g2b = ctx.createRadialGradient(W/2, H/2, Math.min(W,H)*0.4, W/2, H/2, Math.max(W,H)*0.75);
+          g2b.addColorStop(0, "rgba(0,0,0,0)"); g2b.addColorStop(1, "rgba(0,0,0,0.18)");
+          ctx.fillStyle = g2b; ctx.fillRect(0, 0, W, H);
+        } else if(win.shading === "inner"){
+          ctx.save();
+          ctx.shadowColor = "rgba(0,0,0,0.45)"; ctx.shadowBlur = Math.max(12, W*0.08);
+          ctx.strokeStyle = "rgba(0,0,0,0.6)"; ctx.lineWidth = 4;
+          ctx.strokeRect(-2, -2, W+4, H+4);
+          ctx.restore();
+          var gi = ctx.createLinearGradient(0, 0, 0, H);
+          gi.addColorStop(0, "rgba(0,0,0,0.16)"); gi.addColorStop(0.12, "rgba(0,0,0,0)"); gi.addColorStop(0.88, "rgba(0,0,0,0)"); gi.addColorStop(1, "rgba(0,0,0,0.18)");
+          ctx.fillStyle = gi; ctx.fillRect(0, 0, W, H);
+        } else {
+          var g3 = ctx.createRadialGradient(W/2, H/2, Math.min(W,H)*0.3, W/2, H/2, Math.max(W,H)*0.75);
+          g3.addColorStop(0, "#ffffff"); g3.addColorStop(1, "#c4c4c4");
+          ctx.globalCompositeOperation = "multiply"; ctx.fillStyle = g3; ctx.fillRect(0, 0, W, H); ctx.globalCompositeOperation = "source-over";
+        }
+      }
+      function pvDrawWarped(ctx, tmp, W, H){
+        var N = 48, maxA = 1.02, sinMax = Math.sin(maxA);
+        function sx(u){ return W/2 + (W/2) * Math.sin(u * maxA) / sinMax; }
+        for(var i = 0; i < N; i++){
+          var u0 = -1 + 2 * i / N, u1 = -1 + 2 * (i + 1) / N;
+          var srcX = (u0 + 1) / 2 * W, srcW = (u1 - u0) / 2 * W;
+          var dx0 = sx(u0), dx1 = sx(u1);
+          ctx.drawImage(tmp, srcX, 0, srcW, H, dx0, 0, Math.max(1, dx1 - dx0), H);
+        }
+      }
+      function pvPrintOutline(ctx, win, W, H){
+        ctx.save();
+        ctx.strokeStyle = "rgba(212,175,55,0.95)";
+        ctx.lineWidth = Math.max(2, W * 0.006);
+        ctx.shadowColor = "rgba(0,0,0,0.35)"; ctx.shadowBlur = Math.max(6, W * 0.03);
+        var inset = ctx.lineWidth + 2;
+        if(win.shape === "circle"){ ctx.beginPath(); ctx.arc(W/2, H/2, Math.min(W,H)/2 - inset, 0, Math.PI*2); ctx.stroke(); }
+        else if(win.shape === "ellipse"){ ctx.beginPath(); ctx.ellipse(W/2, H/2, W/2 - inset, H/2 - inset, 0, 0, Math.PI*2); ctx.stroke(); }
+        else { ctx.strokeRect(inset, inset, W - inset*2, H - inset*2); }
+        ctx.restore();
+      }
       function pvClipPath(ctx, win, W, H){
         ctx.beginPath();
         if(win.shape === "circle"){ ctx.arc(W/2, H/2, Math.min(W,H)/2, 0, Math.PI*2); }
         else if(win.shape === "ellipse"){ ctx.ellipse(W/2, H/2, W/2, H/2, 0, 0, Math.PI*2); }
         else { ctx.rect(0, 0, W, H); }
       }
-      function pvDrawWindow(cv, win, baseImg){
+      function pvDrawWindow(cv, win, baseImg, graded){
         var ctx = cv.getContext("2d");
         var natW = baseImg && baseImg.naturalWidth ? baseImg.naturalWidth : 0;
         var natH = baseImg && baseImg.naturalHeight ? baseImg.naturalHeight : 0;
@@ -1339,42 +1510,37 @@
         ctx.clearRect(0, 0, W, H);
         var ph = pvActivePhoto();
         if(!ph || !ph.img.naturalWidth) return;
-        ctx.save();
-        pvClipPath(ctx, win, W, H); ctx.clip();
-        try { ctx.filter = PV_GRADES[pvStyle] || "none"; } catch(e){}
-        var iw = ph.img.naturalWidth, ih = ph.img.naturalHeight;
+        if(graded === undefined) graded = true;
+        var src = graded ? pvGradedPhoto() : ph.img;
+        if(!src) return;
+        /* render photo + season treatment into an offscreen window first */
+        var tmp = document.createElement("canvas"); tmp.width = W; tmp.height = H;
+        var t = tmp.getContext("2d");
+        t.save();
+        pvClipPath(t, win, W, H); t.clip();
+        var iw = src.naturalWidth || src.width, ih = src.naturalHeight || src.height;
         var scale = Math.max(W/iw, H/ih) * pvZoom;
         var dw = iw*scale, dh = ih*scale;
         var dx = (W - dw)/2 + pvOx * W, dy = (H - dh)/2 + pvOy * H;
-        ctx.drawImage(ph.img, dx, dy, dw, dh);
-        try { ctx.filter = "none"; } catch(e){}
-        /* shading pass — multiply / screen, never a flat overlay */
-        if(win.shading === "cylinder"){
-          var g1 = ctx.createLinearGradient(0, 0, W, 0);
-          g1.addColorStop(0, "#cfcfcf"); g1.addColorStop(0.28, "#ffffff"); g1.addColorStop(0.72, "#ffffff"); g1.addColorStop(1, "#cfcfcf");
-          ctx.globalCompositeOperation = "multiply"; ctx.fillStyle = g1; ctx.fillRect(0, 0, W, H); ctx.globalCompositeOperation = "source-over";
-        } else if(win.shading === "screen"){
-          var g2 = ctx.createRadialGradient(W*0.25, H*0.2, 4, W*0.25, H*0.2, Math.max(W,H)*0.9);
-          g2.addColorStop(0, "rgba(255,255,255,0.55)"); g2.addColorStop(1, "rgba(255,255,255,0)");
-          ctx.globalCompositeOperation = "screen"; ctx.fillStyle = g2; ctx.fillRect(0, 0, W, H); ctx.globalCompositeOperation = "source-over";
-        } else if(win.shading === "inner"){
-          ctx.shadowColor = "rgba(0,0,0,0.38)"; ctx.shadowBlur = Math.max(10, W*0.07); ctx.shadowOffsetX = 0; ctx.shadowOffsetY = 0;
-          ctx.strokeStyle = "rgba(0,0,0,0.55)"; ctx.lineWidth = 3;
-          ctx.strokeRect(-2, -2, W+4, H+4);
-          ctx.shadowColor = "transparent"; ctx.shadowBlur = 0;
-        } else {
-          var g3 = ctx.createRadialGradient(W/2, H/2, Math.min(W,H)*0.3, W/2, H/2, Math.max(W,H)*0.75);
-          g3.addColorStop(0, "#ffffff"); g3.addColorStop(1, "#d8d8d8");
-          ctx.globalCompositeOperation = "multiply"; ctx.fillStyle = g3; ctx.fillRect(0, 0, W, H); ctx.globalCompositeOperation = "source-over";
-        }
+        t.drawImage(src, dx, dy, dw, dh);
+        if(graded) pvApplyOverlays(t, win, W, H);
+        t.restore();
+        /* composite onto the product: real cylindrical warp for arc windows */
+        ctx.save();
+        pvClipPath(ctx, win, W, H); ctx.clip();
+        if(win.shape === "arc") pvDrawWarped(ctx, tmp, W, H);
+        else ctx.drawImage(tmp, 0, 0);
+        pvApplyShading(ctx, win, W, H);
         ctx.restore();
         /* gold frame */
         ctx.strokeStyle = "#D4AF37";
         if(win.frame === "ring"){ ctx.lineWidth = Math.max(3, W*0.022); ctx.beginPath(); ctx.arc(W/2, H/2, Math.min(W,H)/2 - ctx.lineWidth/2, 0, Math.PI*2); ctx.stroke(); }
         else if(win.frame === "oval"){ ctx.lineWidth = Math.max(3, W*0.022); ctx.beginPath(); ctx.ellipse(W/2, H/2, W/2 - ctx.lineWidth/2, H/2 - ctx.lineWidth/2, 0, 0, Math.PI*2); ctx.stroke(); }
         else if(win.frame === "rect"){ ctx.lineWidth = Math.max(2, W*0.014); ctx.strokeRect(ctx.lineWidth, ctx.lineWidth, W - ctx.lineWidth*2, H - ctx.lineWidth*2); var o = Math.max(6, W*0.035); ctx.strokeRect(o, o, W - o*2, H - o*2); }
+        /* thin gold print-area outline (the print boundary — not part of the print) + soft drop shadow */
+        pvPrintOutline(ctx, win, W, H);
       }
-      function pvBuildWins(container, prod, baseImg){
+      function pvBuildWins(container, prod, baseImg, graded){
         container.innerHTML = "";
         var list = [];
         prod.wins.forEach(function(win){
@@ -1384,12 +1550,22 @@
           container.appendChild(cv);
           list.push({cv:cv, win:win});
         });
-        list.forEach(function(it){ pvDrawWindow(it.cv, it.win, baseImg); });
+        list.forEach(function(it){ pvDrawWindow(it.cv, it.win, baseImg, graded); });
         return list;
       }
 
       /* --- featured preview + switcher --- */
       var pvFeatImg = document.getElementById("pvFeatImg"), pvFeatWins = document.getElementById("pvFeatWins"), pvFeatList = [];
+      var pvFeatOriginal = false;
+      function pvPaintToggle(){
+        document.getElementById("pvToggleSeason").classList.toggle("active", !pvFeatOriginal);
+        document.getElementById("pvToggleOriginal").classList.toggle("active", pvFeatOriginal);
+        document.getElementById("pvToggleNote").textContent = pvFeatOriginal
+          ? "Original photo — no season grade. Switch back to see the season look."
+          : "Season look — " + pvStyle + " grade preview. The finished portrait is art-directed in this style.";
+      }
+      document.getElementById("pvToggleSeason").addEventListener("click", function(){ pvFeatOriginal = false; pvPaintToggle(); pvRenderFeatured(); });
+      document.getElementById("pvToggleOriginal").addEventListener("click", function(){ pvFeatOriginal = true; pvPaintToggle(); pvRenderFeatured(); });
       var pvSwitcher = document.getElementById("pvSwitcher");
       PV_PRODUCTS.forEach(function(p){
         var b = document.createElement("button");
@@ -1407,7 +1583,7 @@
         pvFeatImg.alt = p.alt;
         pvFeatImg.className = "pv-base fit-" + p.fit;
         document.getElementById("pvFeatEmpty").style.display = pvPhotos.length ? "none" : "";
-        pvFeatList = pvBuildWins(pvFeatWins, p, pvFeatImg);
+        pvFeatList = pvBuildWins(pvFeatWins, p, pvFeatImg, !pvFeatOriginal);
       }
       pvFeatImg.addEventListener("load", function(){ pvRenderFeatured(); });
       /* drag to pan on the featured preview */
@@ -1451,11 +1627,11 @@
           extra = '<div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center"><label style="font-weight:600;font-size:.9rem">Size <select id="pvHoodSize"><option>S</option><option>M</option><option>L</option><option>XL</option><option>2XL</option></select></label>' +
             '<label style="font-weight:600;font-size:.9rem">Colour <select id="pvHoodColour"><option>Forest Green</option><option>Black</option><option>Dark Heather</option></select></label><span class="soft" style="font-size:.85rem">2XL is $57</span></div>';
         }
-        tile.innerHTML = '<div class="pv-stage"><img class="pv-base fit-' + p.fit + '" src="' + p.base + '" alt="' + p.alt + '" loading="lazy" /><div class="pv-wins"></div><div class="pv-empty">Upload a photo to see it here</div></div>' +
+        tile.innerHTML = '<div class="pv-stage"><img class="pv-base fit-' + p.fit + '" src="' + p.base + '" alt="' + p.alt + '" loading="lazy" /><div class="pv-wins"></div><span class="pv-badge">Print Preview</span><div class="pv-empty">Upload a photo to see it here</div></div>' +
           '<div class="pv-tile-body"><div class="pv-tile-head"><h3>' + p.name + '</h3>' +
           '<button class="pv-heart" type="button" data-pv-fav="' + p.id + '" aria-label="Favourite ' + p.name + '"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20.7C6.4 17 3 13.6 3 9.9 3 7.2 5 5 7.6 5c1.7 0 3.4.9 4.4 2.4C13 5.9 14.7 5 16.4 5 19 5 21 7.2 21 9.9c0 3.7-3.4 7.1-9 10.8z"/></svg></button></div>' +
           '<div><span class="serif" style="font-size:1.45rem;font-weight:800" data-pv-price>' + money(p.price) + '</span></div>' + extra +
-          '<p class="pv-note soft" style="margin:0">Preview — your photo, print preview</p>' +
+          '<p class="pv-note soft" style="margin:0">Print preview — gold outline shows the print area</p>' +
           '<button class="btn btn-green" type="button" data-pv-add="' + p.id + '">Add to Cart — ' + money(p.price) + '</button></div>';
         pvGallery.appendChild(tile);
         var img = tile.querySelector(".pv-base"), winsBox = tile.querySelector(".pv-wins");
@@ -1501,10 +1677,27 @@
         Object.keys(pvTileState).forEach(function(id){
           var st = pvTileState[id];
           st.empty.style.display = pvPhotos.length ? "none" : "";
-          pvBuildWins(st.winsBox, st.prod, st.img);
+          pvBuildWins(st.winsBox, st.prod, st.img, true);
         });
         document.getElementById("pvFeatEmpty").style.display = pvPhotos.length ? "none" : "";
-        pvFeatList = pvBuildWins(pvFeatWins, pvProd(pvFeatured), pvFeatImg);
+        pvFeatList = pvBuildWins(pvFeatWins, pvProd(pvFeatured), pvFeatImg, !pvFeatOriginal);
+      }
+      /* order-form thumbnail: same season grade as the Studio, so the two never contradict */
+      function pvPaintOrderThumb(){
+        var prev = document.getElementById("photoPreview"), note = document.getElementById("photoPreviewNote");
+        var ph = pvActivePhoto();
+        if(!prev || !ph) return;
+        try {
+          var src = pvGradedPhoto(); if(!src) return;
+          var iw = src.naturalWidth || src.width, ih = src.naturalHeight || src.height;
+          var c = document.createElement("canvas"); c.width = 440; c.height = Math.max(40, Math.round(440 * ih / iw));
+          var x = c.getContext("2d");
+          x.drawImage(src, 0, 0, c.width, c.height);
+          pvApplyOverlays(x, {x:0, y:0, w:100, h:100, shape:"rect"}, c.width, c.height);
+          prev.src = c.toDataURL("image/jpeg", 0.85);
+          prev.style.display = "block";
+          if(note) note.style.display = "block";
+        } catch(e){ /* keep the raw photo already shown */ }
       }
 
       /* --- My Designs (localStorage, guest) --- */
@@ -1595,14 +1788,14 @@
             (d.products || []).forEach(function(pid){ pvFavs[pid.indexOf("hoodie") === 0 ? "hoodie" : pid] = true; });
             var r = document.querySelector('input[name="style"][value="' + d.style + '"]');
             if(r){ r.checked = true; syncSummary(); }
-            pvStyle = d.style; pvPaintChips(); pvPaintFavs(); pvRenderTabs(); pvRenderAll();
+            pvStyle = d.style; pvPaintChips(); pvPaintFavs(); pvRenderTabs(); pvRenderAll(); pvPaintOrderThumb(); pvPaintToggle();
             document.getElementById("preview-studio").scrollIntoView({ behavior:"smooth" });
             toast("Design opened: " + d.name);
           };
           im.src = d.photo;
         }
       }
-      pvRenderTabs(); pvRenderDesigns(); pvRenderFeatured(); pvRenderAll(); pvPaintFavs();
+      pvRenderTabs(); pvRenderDesigns(); pvRenderFeatured(); pvRenderAll(); pvPaintFavs(); pvPaintToggle();
       if(photoInput.files && photoInput.files[0]) pvHandleFile(photoInput.files[0]);
 
       /* ---------- Jingle Bells — Web Audio bell synth (public-domain melody), starts only on tap ---------- */
