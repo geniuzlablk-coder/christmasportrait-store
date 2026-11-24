@@ -145,6 +145,7 @@
       .product-art img{ position:absolute; inset:0; width:100%; height:100%; display:block; }
       .product-art img.fit-contain{ object-fit:contain; padding:10px; }
       .product-art img.fit-cover{ object-fit:cover; }
+      .product-art canvas{ position:absolute; inset:0; width:100%; height:100%; display:block; }
       .thumbs{ display:flex; gap:8px; flex-wrap:wrap; }
       .thumb{ border:2px solid var(--line); background:#FFF; border-radius:9px; padding:3px; cursor:pointer; width:52px; height:52px; }
       .thumb img{ width:100%; height:100%; object-fit:cover; border-radius:6px; display:block; }
@@ -970,7 +971,12 @@
           var mainSrc = p.gallery ? p.gallery[0].src : p.img;
           var el = document.createElement("article");
           el.className = "product";
-          var html = '<div class="product-art"><img class="fit-' + p.fit + '" src="' + mainSrc + '" alt="' + p.alt + '" loading="lazy" /></div>' +
+          /* the tee shop card is a live composite, not a plain photo: the hero
+             portrait printed large on the chest, same composition as the Studio tile */
+          var artHtml = (p.id === "pettee")
+            ? '<div class="product-art"><canvas data-shop-tee role="img" aria-label="' + p.alt + '"></canvas></div>'
+            : '<div class="product-art"><img class="fit-' + p.fit + '" src="' + mainSrc + '" alt="' + p.alt + '" loading="lazy" /></div>';
+          var html = artHtml +
             '<div class="product-body"><h3>' + p.name + '</h3>' +
             '<div><span class="serif" style="font-size:1.55rem;font-weight:800" data-price>' + money(p.price) + '</span></div>' +
             '<p class="soft" style="margin:0">' + p.note + '</p>';
@@ -988,7 +994,64 @@
           el.innerHTML = html;
           shopGrid.appendChild(el);
         });
+        paintShopTee();
       }
+      /* --- Gift Shop tee card: hero portrait composited as the large chest print --- */
+      var SHOP_TEE_BASE = IMG + "512bd95c-5e81-4995-b165-ad7326715faa";
+      var SHOP_TEE_SAMPLE = IMG + "5fd0e0d7-ce55-4b33-8075-281de34602b5"; /* hero "After" portrait */
+      function paintShopTee(){
+        var cv = document.querySelector("[data-shop-tee]");
+        if(!cv) return;
+        var art = cv.closest(".product-art");
+        var dispW = art.clientWidth || 360, dispH = 220;
+        cv.width = dispW * 2; cv.height = dispH * 2;
+        var ctx = cv.getContext("2d");
+        var base = new Image(), sample = new Image(), n = 0, failed = false;
+        function coverInto(c, img, x, y, W, H){
+          var iw = img.naturalWidth, ih = img.naturalHeight, s = Math.max(W / iw, H / ih);
+          var dw = iw * s, dh = ih * s;
+          c.drawImage(img, x + (W - dw) / 2, y + (H - dh) / 2, dw, dh);
+        }
+        function draw(){
+          if(failed) return;
+          var W = cv.width, H = cv.height;
+          /* base tee, cover-fit exactly like the CSS object-fit:cover cards */
+          var bw = base.naturalWidth, bh = base.naturalHeight, s = Math.max(W / bw, H / bh);
+          var dw = bw * s, dh = bh * s, dx = (W - dw) / 2, dy = (H - dh) / 2;
+          ctx.drawImage(base, dx, dy, dw, dh);
+          /* print window, same fractions as the Studio tile (16,46,44,38),
+             mapped through the cover crop so the print stays on the chest */
+          var win = {x:16, y:46, w:44, h:38, shape:"rect", frame:"rect", shading:"folds"};
+          var wx = dx + win.x / 100 * dw, wy = dy + win.y / 100 * dh;
+          var ww = win.w / 100 * dw, wh = win.h / 100 * dh;
+          var tmp = document.createElement("canvas");
+          tmp.width = Math.max(2, Math.round(ww)); tmp.height = Math.max(2, Math.round(wh));
+          var t = tmp.getContext("2d");
+          coverInto(t, sample, 0, 0, tmp.width, tmp.height);
+          pvApplyShading(t, win, tmp.width, tmp.height);
+          t.strokeStyle = "#D4AF37";
+          t.lineWidth = Math.max(2, tmp.width * 0.014);
+          t.strokeRect(t.lineWidth, t.lineWidth, tmp.width - t.lineWidth * 2, tmp.height - t.lineWidth * 2);
+          var o = Math.max(6, tmp.width * 0.035);
+          t.strokeRect(o, o, tmp.width - o * 2, tmp.height - o * 2);
+          ctx.drawImage(tmp, wx, wy, ww, wh);
+        }
+        function done(){ if(++n === 2) draw(); }
+        function fail(){
+          if(failed) return; failed = true;
+          var img = document.createElement("img");
+          img.className = "fit-cover"; img.src = SHOP_TEE_BASE;
+          img.alt = "A folded deep-green tee";
+          cv.replaceWith(img);
+        }
+        base.onload = done; sample.onload = done; base.onerror = fail; sample.onerror = fail;
+        base.src = SHOP_TEE_BASE; sample.src = SHOP_TEE_SAMPLE;
+      }
+      var shopTeeTimer = null;
+      window.addEventListener("resize", function(){
+        if(shopTeeTimer) clearTimeout(shopTeeTimer);
+        shopTeeTimer = setTimeout(paintShopTee, 200);
+      });
       shopGrid.addEventListener("click", function(e){
         var t = e.target.closest("[data-view]");
         if(t){
@@ -1287,7 +1350,7 @@
          Snow Globe = blue-white glass globe rim + sparkle, light snowfall only.
          Colombo Christmas = tropical green-gold tint + dense fairy-light bokeh.
          Winter Royal = near-neutral silver + STRONG gold wash + deep royal
-         vignette + large gold sparkles, no snow at all.
+         vignette + royal gold frame + LARGE gold sparkles, no snow at all.
          Honest label: this is a grade preview, not an AI restyle — the full
          AI portrait is the $39 product, art-directed and delivered in 24h. --- */
       var PV_STYLE_GRADE = {
@@ -1296,7 +1359,7 @@
         "Cozy Fireplace":{temp:26, tint:2, bright:4, contrast:10, sat:1.12, wash:"rgba(255,150,60,0.10)", vig:"rgba(120,50,10,0.28)", glow:{x:0.12, y:0.88, r:0.95, color:"rgba(255,150,50,0.36)"}, flakes:0, sparkle:6, bokeh:0},
         "Snow Globe":{temp:-14, tint:5, bright:10, contrast:8, sat:0.95, wash:"rgba(190,220,255,0.20)", vig:"rgba(210,230,255,0.28)", glow:null, flakes:12, sparkle:30, bokeh:0, globe:true},
         "Colombo Christmas":{temp:10, tint:6, bright:7, contrast:10, sat:1.30, wash:"rgba(255,180,90,0.10)", wash2:"rgba(90,160,80,0.10)", vig:"rgba(60,20,60,0.16)", glow:null, flakes:0, sparkle:6, bokeh:26},
-        "Winter Royal":{temp:-6, tint:2, bright:8, contrast:18, sat:0.95, wash:"rgba(200,210,235,0.10)", wash2:"rgba(212,175,55,0.16)", vig:"rgba(15,20,45,0.30)", glow:null, flakes:0, sparkle:26, bokeh:0}
+        "Winter Royal":{temp:-4, tint:2, bright:6, contrast:20, sat:1.0, wash:"rgba(200,210,235,0.12)", wash2:"rgba(212,175,55,0.30)", vig:"rgba(12,16,40,0.44)", glow:null, flakes:0, sparkle:26, sparkleSize:2.0, sparkleColor:"#FFD98A", bokeh:0, royal:true}
       };
       function pvGradeDef(){ return PV_STYLE_GRADE[pvStyle] || PV_STYLE_GRADE["Classic Santa Snow"]; }
       function pvSeededRand(seed){ var s = seed % 2147483647; if(s <= 0) s += 2147483646; return function(){ s = s * 16807 % 2147483647; return (s - 1) / 2147483646; }; }
@@ -1442,7 +1505,10 @@
           t.globalCompositeOperation = "screen"; t.fillStyle = gr; t.fillRect(0, 0, W, H); t.globalCompositeOperation = "source-over";
         }
         if(g.vig){
-          var vg = t.createRadialGradient(W/2, H/2, Math.min(W,H)*0.42, W/2, H/2, Math.max(W,H)*0.78);
+          /* vignette radii from the centre-to-corner distance, so the vignette
+             reaches the edges on tall windows (mug) as well as square ones */
+          var vR = Math.hypot(W, H) / 2;
+          var vg = t.createRadialGradient(W/2, H/2, vR * 0.45, W/2, H/2, vR);
           vg.addColorStop(0, "rgba(0,0,0,0)"); vg.addColorStop(1, g.vig);
           t.fillStyle = vg; t.fillRect(0, 0, W, H);
         }
@@ -1467,22 +1533,67 @@
         }
         if(g.sparkle){
           for(k = 0; k < g.sparkle; k++){
-            px = rnd() * W; py = rnd() * H; pr = (3 + rnd() * 4) * (W / 440); pa = 0.45 + rnd() * 0.45;
-            t.globalAlpha = pa; t.strokeStyle = "#FFF3C4"; t.lineWidth = Math.max(1, W * 0.004);
+            px = rnd() * W; py = rnd() * H; pr = (3 + rnd() * 4) * (W / 440) * (g.sparkleSize || 1); pa = 0.45 + rnd() * 0.45;
+            t.globalAlpha = pa; t.strokeStyle = g.sparkleColor || "#FFF3C4"; t.lineWidth = Math.max(1, W * 0.004 * (g.sparkleSize || 1));
             t.beginPath(); t.moveTo(px - pr, py); t.lineTo(px + pr, py); t.moveTo(px, py - pr); t.lineTo(px, py + pr); t.stroke();
             t.fillStyle = "#ffffff"; t.beginPath(); t.arc(px, py, pr * 0.28, 0, Math.PI * 2); t.fill();
           }
           t.globalAlpha = 1;
         }
+        if(g.royal){
+          /* regal portrait frame: triple gold/navy/gold rule inset from the
+             window edge — the structural anchor that makes Winter Royal read
+             at a glance. Drawn inside the clipped window, so on round windows
+             it becomes gold arcs at the four sides. */
+          var f1 = Math.max(2, W * 0.008), f2 = Math.max(4, W * 0.02);
+          t.strokeStyle = "rgba(212,175,55,0.95)"; t.lineWidth = f1;
+          t.strokeRect(f2, f2, W - 2 * f2, H - 2 * f2);
+          t.strokeStyle = "rgba(20,26,60,0.85)"; t.lineWidth = Math.max(2, W * 0.012);
+          t.strokeRect(f2 * 1.9, f2 * 1.9, W - 2 * f2 * 1.9, H - 2 * f2 * 1.9);
+          t.strokeStyle = "rgba(212,175,55,0.9)"; t.lineWidth = f1;
+          t.strokeRect(f2 * 2.6, f2 * 2.6, W - 2 * f2 * 2.6, H - 2 * f2 * 2.6);
+        }
         if(g.globe){
-          /* glass-globe rim: clear centre, deepening blue rim, bright glass highlight top-left */
-          var gg = t.createRadialGradient(W/2, H/2, Math.min(W,H)*0.52, W/2, H/2, Math.max(W,H)*0.78);
+          /* glass-globe rim: clear centre, deepening blue rim that actually
+             reaches the window edges (radii from centre-to-corner distance),
+             a crisp darker-blue rim stroke hugging the window edge, and a
+             bright glass highlight top-left. The rim stays at the edges,
+             never across the centre of a face. */
+          var gR = Math.hypot(W, H) / 2;
+          var gg = t.createRadialGradient(W/2, H/2, gR * 0.55, W/2, H/2, gR * 1.02);
           gg.addColorStop(0, "rgba(140,180,230,0)");
-          gg.addColorStop(0.72, "rgba(140,180,230,0.08)");
-          gg.addColorStop(1, "rgba(90,130,190,0.38)");
+          gg.addColorStop(0.70, "rgba(140,180,230,0.10)");
+          gg.addColorStop(0.92, "rgba(70,110,180,0.45)");
+          gg.addColorStop(1, "rgba(50,85,160,0.60)");
           t.fillStyle = gg; t.fillRect(0, 0, W, H);
+          var rimW = Math.max(2.5, W * 0.014);
+          t.save();
+          t.lineWidth = rimW;
+          t.strokeStyle = "rgba(45,80,150,0.85)";
+          t.beginPath();
+          if(win.shape === "circle"){ t.arc(W/2, H/2, Math.min(W, H)/2 - rimW, 0, Math.PI * 2); }
+          else if(win.shape === "ellipse"){ t.ellipse(W/2, H/2, W/2 - rimW, H/2 - rimW, 0, 0, Math.PI * 2); }
+          else {
+            var rr = Math.min(W, H) * 0.10, ri = rimW;
+            t.moveTo(ri + rr, ri);
+            t.lineTo(W - ri - rr, ri); t.quadraticCurveTo(W - ri, ri, W - ri, ri + rr);
+            t.lineTo(W - ri, H - ri - rr); t.quadraticCurveTo(W - ri, H - ri, W - ri - rr, H - ri);
+            t.lineTo(ri + rr, H - ri); t.quadraticCurveTo(ri, H - ri, ri, H - ri - rr);
+            t.lineTo(ri, ri + rr); t.quadraticCurveTo(ri, ri, ri + rr, ri);
+            t.closePath();
+          }
+          t.stroke();
+          /* bright glass highlight along the top-left of the rim */
+          t.strokeStyle = "rgba(255,255,255,0.9)";
+          t.lineWidth = Math.max(2, W * 0.008);
+          t.beginPath();
+          if(win.shape === "circle"){ t.arc(W/2, H/2, Math.min(W, H)/2 - rimW, Math.PI * 0.95, Math.PI * 1.5); }
+          else if(win.shape === "ellipse"){ t.ellipse(W/2, H/2, W/2 - rimW, H/2 - rimW, 0, Math.PI * 0.95, Math.PI * 1.5); }
+          else { t.moveTo(W * 0.10, H * 0.42); t.quadraticCurveTo(W * 0.16, H * 0.12, W * 0.44, H * 0.08); }
+          t.stroke();
+          t.restore();
           t.globalCompositeOperation = "screen";
-          t.fillStyle = "rgba(255,255,255,0.16)";
+          t.fillStyle = "rgba(255,255,255,0.30)";
           t.beginPath(); t.ellipse(W*0.30, H*0.22, W*0.20, H*0.10, -0.5, 0, Math.PI*2); t.fill();
           t.globalCompositeOperation = "source-over";
         }
