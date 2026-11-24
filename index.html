@@ -1,0 +1,1247 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="color-scheme" content="light dark" />
+    <link rel="icon" href="data:," />
+    <title>Christmas Portrait Studio — $39 Personalized AI Christmas Portraits + Gift Shop</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;0,800;1,500&family=Jost:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <style>
+      button, [role="button"], select, summary, input:not([type="checkbox"], [type="radio"]) { min-height: 2.25rem; }
+      * { box-sizing: border-box; }
+      :root{
+        --bg:#FBF5E9; --surface:#FFFDF7; --surface2:#F3EAD6; --ink:#16241B; --ink-soft:#4A5A4E;
+        --line:#E2D5B8; --green:#07180F; --green2:#0E2A1A; --green3:#17452A;
+        --gold:#D4AF37; --gold-deep:#A8842A; --red:#B3271E; --red-bright:#C93A2E;
+        --cream:#F7EFDA; --shadow:0 14px 34px rgba(7,24,15,.14);
+        --radius:14px;
+      }
+      @media (prefers-color-scheme: dark){
+        :root{
+          --bg:#050F09; --surface:#0B2114; --surface2:#0E2A1A; --ink:#F3ECD9; --ink-soft:#C4BFA8;
+          --line:#274431; --shadow:0 14px 34px rgba(0,0,0,.45);
+        }
+      }
+      html{ scroll-behavior:smooth; }
+      body{ margin:0; background:var(--bg); color:var(--ink); font-family:"Jost",system-ui,sans-serif; font-size:17px; line-height:1.55; }
+      h1,h2,h3,.serif{ font-family:"Playfair Display",Georgia,serif; }
+      h1{ font-size:clamp(2.1rem,6vw,3.6rem); line-height:1.08; margin:0 0 .5rem; font-weight:800; }
+      h2{ font-size:clamp(1.6rem,4vw,2.3rem); line-height:1.15; margin:0 0 .5rem; font-weight:700; }
+      h3{ font-size:1.2rem; margin:0 0 .35rem; }
+      p{ margin:0 0 .8rem; }
+      .soft{ color:var(--ink-soft); }
+      .wrap{ max-width:1180px; margin:0 auto; padding:0 18px; }
+      section{ padding:56px 0; }
+      .kicker{ text-transform:uppercase; letter-spacing:.18em; font-size:.78rem; font-weight:700; color:var(--gold-deep); margin:0 0 .5rem; }
+      @media (prefers-color-scheme: dark){ .kicker{ color:var(--gold); } }
+      .btn{ display:inline-flex; align-items:center; justify-content:center; gap:.5rem; border:0; cursor:pointer; font-family:inherit; font-weight:700; font-size:1rem; padding:.8rem 1.5rem; border-radius:999px; text-decoration:none; transition:transform .15s ease, box-shadow .15s ease; min-height:48px; }
+      .btn:active{ transform:scale(.98); }
+      .btn-gold{ background:linear-gradient(135deg,#E9CD6B,var(--gold) 55%,#B8912C); color:#23180A; box-shadow:0 8px 22px rgba(212,175,55,.35); }
+      .btn-red{ background:linear-gradient(135deg,var(--red-bright),var(--red)); color:#FFF6EA; box-shadow:0 8px 22px rgba(179,39,30,.3); }
+      .btn-ghost{ background:transparent; color:inherit; border:1.5px solid var(--line); }
+      .btn-green{ background:var(--green3); color:var(--cream); }
+      .btn-small{ padding:.5rem 1rem; min-height:40px; font-size:.92rem; }
+      .price{ font-weight:700; }
+      .strike{ text-decoration:line-through; opacity:.6; font-weight:400; }
+      /* Announcement + nav */
+      .announce{ background:var(--red); color:#FFF3E2; text-align:center; padding:.55rem 14px; font-size:.95rem; font-weight:600; }
+      .announce b{ color:#FFE9A8; }
+      nav.top{ position:sticky; top:0; z-index:50; background:var(--green); color:var(--cream); box-shadow:0 4px 18px rgba(0,0,0,.25); }
+      nav.top .wrap{ display:flex; align-items:center; gap:14px; padding-top:10px; padding-bottom:10px; flex-wrap:wrap; }
+      .brand{ font-family:"Playfair Display",serif; font-weight:800; font-size:1.25rem; color:var(--cream); text-decoration:none; }
+      .brand span{ color:var(--gold); }
+      nav.top .links{ display:flex; gap:4px; flex-wrap:wrap; margin-left:auto; align-items:center; }
+      nav.top .links a{ color:var(--cream); text-decoration:none; padding:.55rem .7rem; border-radius:8px; font-size:.95rem; min-height:36px; display:inline-flex; align-items:center; }
+      nav.top .links a:hover{ background:rgba(212,175,55,.18); }
+      .cart-btn{ background:var(--gold); color:#23180A; border:0; border-radius:999px; font-weight:700; padding:.55rem 1.1rem; cursor:pointer; font-family:inherit; font-size:.95rem; min-height:44px; }
+      /* Hero */
+      .hero{ background:radial-gradient(1100px 500px at 85% -10%, rgba(212,175,55,.28), transparent 60%), radial-gradient(800px 500px at -10% 110%, rgba(179,39,30,.35), transparent 55%), linear-gradient(160deg,#0B2417, var(--green) 60%, #04100A); color:var(--cream); padding:52px 0 64px; position:relative; overflow:hidden; }
+      .snow i{ position:absolute; top:-10px; border-radius:50%; background:#FFF; opacity:.75; animation:fall linear infinite; }
+      @keyframes fall{ to{ transform:translateY(110vh); } }
+      @media (prefers-reduced-motion: reduce){ .snow i{ animation:none; } }
+      .hero-grid{ display:grid; grid-template-columns:1.05fr .95fr; gap:36px; align-items:center; position:relative; }
+      @media (max-width:880px){ .hero-grid{ grid-template-columns:1fr; } }
+      .hero .kicker{ color:var(--gold); }
+      .hero h1 em{ color:var(--gold); font-style:italic; }
+      .hero-sub{ font-size:1.13rem; color:#E7DFC6; max-width:34rem; }
+      .hero-price{ display:flex; align-items:baseline; gap:12px; margin:14px 0 4px; flex-wrap:wrap; }
+      .hero-price .big{ font-family:"Playfair Display",serif; font-size:3rem; font-weight:800; color:var(--gold); }
+      .hero-price .was{ text-decoration:line-through; opacity:.65; font-size:1.2rem; }
+      .chips{ display:flex; flex-wrap:wrap; gap:8px; margin:16px 0; }
+      .chip{ border:1px solid rgba(212,175,55,.55); color:#F1E7C8; border-radius:999px; padding:.35rem .8rem; font-size:.88rem; background:rgba(212,175,55,.08); }
+      .countdown{ display:flex; gap:10px; margin:20px 0; flex-wrap:wrap; }
+      .cd-cell{ background:rgba(255,255,255,.06); border:1px solid rgba(212,175,55,.4); border-radius:12px; min-width:70px; text-align:center; padding:.55rem .4rem; }
+      .cd-cell b{ display:block; font-size:1.55rem; font-family:"Playfair Display",serif; color:#FFF; line-height:1; }
+      .cd-cell span{ font-size:.72rem; text-transform:uppercase; letter-spacing:.12em; color:#D9CEA6; }
+      .trust-row{ display:flex; flex-wrap:wrap; gap:8px 20px; margin-top:18px; font-size:.93rem; color:#DCD2B2; }
+      .trust-row span::before{ content:"✦ "; color:var(--gold); }
+      /* Before / after */
+      .ba{ background:#0A2013; border:1px solid rgba(212,175,55,.35); border-radius:18px; padding:14px; box-shadow:var(--shadow); }
+      .ba-stage{ position:relative; border-radius:12px; overflow:hidden; aspect-ratio:4/3.4; }
+      .ba-panel{ position:absolute; inset:0; display:flex; align-items:flex-end; padding:14px; }
+      .ba-before{ background:linear-gradient(160deg,#8FA3A8,#5E7472 55%,#43585A); justify-content:flex-end; }
+      .ba-after{ background:linear-gradient(160deg,#7A1420,#3D0E18 40%,#0E2A1A 78%); }
+      .ba-after-wrap{ position:absolute; inset:0; }
+      .ba-tag{ position:relative; z-index:3; background:rgba(4,16,10,.72); color:#FFF; font-size:.78rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase; padding:.3rem .7rem; border-radius:999px; }
+      .ba-after .ba-tag{ background:var(--gold); color:#23180A; }
+      .ba-divider{ position:absolute; top:0; bottom:0; width:3px; background:var(--gold); z-index:4; box-shadow:0 0 12px rgba(0,0,0,.5); }
+      .ba input[type=range]{ width:100%; margin-top:12px; accent-color:var(--gold); min-height:36px; }
+      .ba figcaption{ color:#CFC39E; font-size:.9rem; margin-top:6px; text-align:center; }
+      .scene{ position:absolute; inset:0; }
+      /* Cards & grids */
+      .grid{ display:grid; gap:18px; }
+      .grid-3{ grid-template-columns:repeat(3,1fr); }
+      .grid-2{ grid-template-columns:repeat(2,1fr); }
+      @media (max-width:880px){ .grid-3,.grid-2{ grid-template-columns:1fr; } }
+      .card{ background:var(--surface); border:1px solid var(--line); border-radius:var(--radius); padding:22px; box-shadow:0 4px 14px rgba(7,24,15,.06); }
+      .card.pop{ border:2px solid var(--gold); position:relative; }
+      .pop-tag{ position:absolute; top:-14px; left:50%; transform:translateX(-50%); background:var(--gold); color:#23180A; font-weight:700; font-size:.8rem; padding:.25rem .9rem; border-radius:999px; white-space:nowrap; }
+      .step-num{ width:46px; height:46px; border-radius:50%; background:var(--green); color:var(--gold); font-family:"Playfair Display",serif; font-weight:800; font-size:1.3rem; display:flex; align-items:center; justify-content:center; margin-bottom:10px; }
+      @media (prefers-color-scheme: dark){ .step-num{ background:var(--gold); color:#23180A; } }
+      /* Styles */
+      .style-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+      @media (max-width:880px){ .style-grid{ grid-template-columns:repeat(2,1fr); } }
+      @media (max-width:520px){ .style-grid{ grid-template-columns:1fr; } }
+      .style-card{ border-radius:var(--radius); overflow:hidden; border:1px solid var(--line); background:var(--surface); }
+      .style-art{ height:130px; position:relative; display:flex; align-items:center; justify-content:center; }
+      .style-art svg{ width:64px; height:64px; }
+      .style-body{ padding:14px 16px 16px; }
+      .style-body h3{ font-size:1.08rem; }
+      .style-body p{ font-size:.92rem; color:var(--ink-soft); margin:0; }
+      /* Order form */
+      .order-grid{ display:grid; grid-template-columns:1.15fr .85fr; gap:22px; align-items:start; }
+      @media (max-width:880px){ .order-grid{ grid-template-columns:1fr; } }
+      .dropzone{ border:2px dashed var(--gold-deep); border-radius:var(--radius); padding:26px 18px; text-align:center; background:var(--surface2); cursor:pointer; }
+      .dropzone input{ display:none; }
+      .dropzone img{ max-width:100%; max-height:220px; border-radius:10px; margin-top:10px; }
+      .field{ margin-bottom:14px; }
+      .field label{ display:block; font-weight:600; margin-bottom:5px; font-size:.95rem; }
+      .field input[type=text], .field input[type=email], .field select, .field textarea{ width:100%; padding:.65rem .8rem; border:1.5px solid var(--line); border-radius:10px; background:var(--surface); color:var(--ink); font-family:inherit; font-size:1rem; }
+      .pick-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:10px; }
+      @media (max-width:520px){ .pick-grid{ grid-template-columns:1fr; } }
+      .pick{ display:flex; gap:10px; align-items:flex-start; border:1.5px solid var(--line); border-radius:12px; padding:12px; cursor:pointer; background:var(--surface); min-height:44px; }
+      .pick:has(input:checked){ border-color:var(--gold); box-shadow:0 0 0 2px rgba(212,175,55,.35); }
+      .pick input{ margin-top:4px; accent-color:var(--gold-deep); width:18px; height:18px; }
+      .pick b{ display:block; font-size:.98rem; }
+      .pick span{ font-size:.86rem; color:var(--ink-soft); }
+      .summary{ background:var(--green); color:var(--cream); border-radius:var(--radius); padding:22px; position:sticky; top:86px; }
+      .summary h3{ color:var(--gold); }
+      .summary .row{ display:flex; justify-content:space-between; gap:10px; padding:.35rem 0; border-bottom:1px dashed rgba(212,175,55,.3); font-size:.97rem; }
+      .summary .row.total{ border-bottom:0; font-size:1.25rem; font-weight:700; color:#FFF; }
+      .summary .free{ color:#9FE8A9; font-weight:700; }
+      .success{ display:none; background:#E9F7EA; border:1.5px solid #3E9B4F; color:#12351A; border-radius:var(--radius); padding:20px; margin-top:16px; }
+      @media (prefers-color-scheme: dark){ .success{ background:#0E2E18; color:#D8F5DC; border-color:#3E9B4F; } }
+      .success.show{ display:block; }
+      /* Shop */
+      .filters{ display:flex; gap:8px; flex-wrap:wrap; margin:18px 0 22px; }
+      .filter-btn{ border:1.5px solid var(--line); background:var(--surface); color:var(--ink); border-radius:999px; padding:.55rem 1.15rem; font-family:inherit; font-weight:600; cursor:pointer; font-size:.95rem; min-height:44px; }
+      .filter-btn.active{ background:var(--green); color:var(--gold); border-color:var(--green); }
+      @media (prefers-color-scheme: dark){ .filter-btn.active{ background:var(--gold); color:#23180A; border-color:var(--gold); } }
+      .shop-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:18px; }
+      @media (max-width:980px){ .shop-grid{ grid-template-columns:repeat(2,1fr); } }
+      @media (max-width:600px){ .shop-grid{ grid-template-columns:1fr; } }
+      .product{ background:var(--surface); border:1px solid var(--line); border-radius:var(--radius); overflow:hidden; display:flex; flex-direction:column; }
+      .product-art{ height:180px; position:relative; display:flex; align-items:center; justify-content:center; }
+      .product-art svg{ width:132px; height:132px; filter:drop-shadow(0 8px 14px rgba(0,0,0,.35)); }
+      .book-cover svg{ width:86px; height:86px; margin-bottom:8px; filter:drop-shadow(0 6px 10px rgba(0,0,0,.35)); }
+      /* Jingle player */
+      .jingle{ position:fixed; right:16px; bottom:16px; z-index:85; display:flex; flex-direction:column; align-items:flex-end; gap:8px; }
+      .jingle-hint{ background:var(--green); color:var(--cream); border:1px solid var(--gold); font-size:.85rem; font-weight:600; padding:.4rem .8rem; border-radius:999px; box-shadow:var(--shadow); animation:bob 2.2s ease-in-out infinite; }
+      @keyframes bob{ 0%,100%{ transform:translateY(0);} 50%{ transform:translateY(-4px);} }
+      @media (prefers-reduced-motion: reduce){ .jingle-hint{ animation:none; } }
+      .jingle-bar{ display:flex; align-items:center; gap:10px; background:var(--green); border:1px solid var(--gold); border-radius:999px; padding:.45rem .6rem .45rem .45rem; box-shadow:var(--shadow); }
+      .jingle-btn{ background:linear-gradient(135deg,var(--red-bright),var(--red)); color:#FFF6EA; border:0; border-radius:999px; font-family:inherit; font-weight:700; font-size:.95rem; padding:.6rem 1.1rem; cursor:pointer; min-height:44px; }
+      .jingle-bar label{ color:#DCD2B2; font-size:.8rem; font-weight:600; }
+      .jingle-bar input[type=range]{ width:84px; accent-color:var(--gold); min-height:32px; }
+      .supplier-tag{ position:absolute; top:10px; left:10px; background:rgba(4,16,10,.78); color:#F1E7C8; font-size:.72rem; font-weight:700; letter-spacing:.06em; padding:.22rem .6rem; border-radius:999px; text-transform:uppercase; }
+      .product-body{ padding:16px; display:flex; flex-direction:column; gap:6px; flex:1; }
+      .product-body h3{ font-size:1.08rem; line-height:1.25; }
+      .margin-table{ font-size:.88rem; width:100%; border-collapse:collapse; }
+      .margin-table td{ padding:.18rem 0; border-bottom:1px dotted var(--line); }
+      .margin-table td:last-child{ text-align:right; font-weight:600; }
+      .profit{ color:#1E7A34; font-weight:700; }
+      @media (prefers-color-scheme: dark){ .profit{ color:#7BD88C; } }
+      .meta-line{ font-size:.86rem; color:var(--ink-soft); }
+      .product .btn{ margin-top:auto; }
+      /* Tables */
+      .table-scroll{ overflow-x:auto; border:1px solid var(--line); border-radius:var(--radius); background:var(--surface); }
+      table.compare{ width:100%; border-collapse:collapse; min-width:640px; }
+      table.compare th, table.compare td{ padding:13px 16px; text-align:left; border-bottom:1px solid var(--line); vertical-align:top; font-size:.96rem; }
+      table.compare th{ background:var(--green); color:var(--cream); font-family:"Playfair Display",serif; font-size:1.05rem; }
+      table.compare th span{ color:var(--gold); }
+      table.compare tr:last-child td{ border-bottom:0; }
+      /* Bundles */
+      .bundle-card .save-pill{ display:inline-block; background:var(--red); color:#FFF3E2; font-weight:700; font-size:.82rem; padding:.2rem .7rem; border-radius:999px; margin-bottom:8px; }
+      .builder-row{ display:flex; align-items:center; justify-content:space-between; gap:12px; padding:.7rem 0; border-bottom:1px dashed var(--line); }
+      .builder-row label{ display:flex; gap:10px; align-items:center; cursor:pointer; padding:.4rem 0; min-height:44px; }
+      .builder-row input{ width:20px; height:20px; accent-color:var(--gold-deep); }
+      /* Gift guide */
+      .tabs{ display:flex; gap:8px; flex-wrap:wrap; margin-bottom:18px; }
+      .tab-btn{ border:1.5px solid var(--line); background:var(--surface); color:var(--ink); border-radius:999px; padding:.55rem 1.2rem; font-family:inherit; font-weight:600; cursor:pointer; min-height:44px; font-size:.97rem; }
+      .tab-btn.active{ background:var(--red); color:#FFF3E2; border-color:var(--red); }
+      .tab-panel{ display:none; }
+      .tab-panel.active{ display:block; }
+      /* GluteBoss */
+      .gb{ background:linear-gradient(155deg,#101010,#1C1030 55%,#07180F); color:#F4EFE4; border-radius:22px; padding:34px 26px; position:relative; overflow:hidden; }
+      .gb h2{ color:#FFF; }
+      .gb .kicker{ color:#C9A7FF; }
+      .gb-grid{ display:grid; grid-template-columns:1.05fr .95fr; gap:28px; }
+      @media (max-width:880px){ .gb-grid{ grid-template-columns:1fr; } }
+      .gb-offer{ background:rgba(255,255,255,.06); border:1px solid rgba(201,167,255,.4); border-radius:16px; padding:22px; }
+      .gb-offer .big-price{ font-family:"Playfair Display",serif; font-size:2.6rem; color:#C9A7FF; font-weight:800; }
+      .value-stack{ list-style:none; padding:0; margin:12px 0; }
+      .value-stack li{ display:flex; justify-content:space-between; gap:10px; padding:.4rem 0; border-bottom:1px dashed rgba(255,255,255,.22); font-size:.96rem; }
+      .track{ background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.16); border-radius:14px; padding:18px; }
+      .track h3{ color:#C9A7FF; }
+      .funnel{ display:flex; align-items:stretch; gap:8px; flex-wrap:wrap; margin:16px 0; }
+      .funnel .fstep{ flex:1 1 120px; background:rgba(212,175,55,.14); border:1px solid rgba(212,175,55,.45); border-radius:12px; padding:12px; text-align:center; font-weight:700; font-size:.95rem; }
+      .funnel .fstep small{ display:block; font-weight:400; color:#D9D2BE; font-size:.82rem; margin-top:3px; }
+      .funnel .arrow{ align-self:center; color:var(--gold); font-weight:800; }
+      .quiz-box{ background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.18); border-radius:16px; padding:22px; margin-top:20px; }
+      .quiz-opt{ display:block; width:100%; text-align:left; background:rgba(255,255,255,.07); color:#FFF; border:1px solid rgba(255,255,255,.25); border-radius:10px; padding:.75rem 1rem; margin-bottom:9px; font-family:inherit; font-size:1rem; cursor:pointer; min-height:48px; }
+      .quiz-opt:hover{ border-color:#C9A7FF; }
+      .quiz-result{ display:none; background:rgba(201,167,255,.14); border:1.5px solid #C9A7FF; border-radius:12px; padding:18px; margin-top:12px; }
+      .quiz-result.show{ display:block; }
+      /* Math */
+      .math-box{ background:var(--green); color:var(--cream); border-radius:22px; padding:34px 26px; }
+      .math-grid{ display:grid; grid-template-columns:1fr 1fr; gap:26px; align-items:center; }
+      @media (max-width:880px){ .math-grid{ grid-template-columns:1fr; } }
+      .math-box label{ display:block; font-weight:600; margin:12px 0 5px; }
+      .math-box input[type=number]{ width:150px; padding:.6rem .8rem; border-radius:10px; border:1.5px solid rgba(212,175,55,.5); background:rgba(255,255,255,.08); color:#FFF; font-size:1.1rem; font-family:inherit; }
+      .math-box input[type=range]{ width:100%; accent-color:var(--gold); min-height:36px; }
+      .math-result{ font-family:"Playfair Display",serif; font-size:clamp(2rem,5vw,3.2rem); color:var(--gold); font-weight:800; line-height:1.1; }
+      .math-eq{ font-size:1.25rem; color:#EFE7CC; }
+      /* Reviews / FAQ */
+      .stars{ color:var(--gold-deep); letter-spacing:.15em; font-size:1.05rem; }
+      @media (prefers-color-scheme: dark){ .stars{ color:var(--gold); } }
+      details.faq{ background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:6px 18px; margin-bottom:10px; }
+      details.faq summary{ cursor:pointer; font-weight:700; padding:.7rem 0; font-size:1.02rem; }
+      details.faq p{ color:var(--ink-soft); padding-bottom:.8rem; }
+      .badge-row{ display:grid; grid-template-columns:repeat(4,1fr); gap:14px; }
+      @media (max-width:880px){ .badge-row{ grid-template-columns:repeat(2,1fr); } }
+      .badge{ text-align:center; background:var(--surface); border:1px solid var(--line); border-radius:var(--radius); padding:18px 12px; }
+      .badge svg{ width:36px; height:36px; margin-bottom:6px; }
+      .badge b{ display:block; font-size:.98rem; }
+      .badge span{ font-size:.85rem; color:var(--ink-soft); }
+      /* Cart drawer */
+      .cart-drawer{ position:fixed; top:0; right:0; height:100dvh; width:min(420px,94vw); background:var(--surface); color:var(--ink); z-index:100; box-shadow:-12px 0 34px rgba(0,0,0,.3); display:none; flex-direction:column; }
+      .cart-drawer.open{ display:flex; animation:slidein .25s ease; }
+      @keyframes slidein{ from{ transform:translateX(40px); opacity:.4; } to{ transform:none; opacity:1; } }
+      @media (max-width:640px){
+        table.compare{ min-width:0; }
+        table.compare thead{ display:none; }
+        table.compare tr{ display:block; padding:8px 0; border-bottom:2px solid var(--line); }
+        table.compare tr:last-child{ border-bottom:0; }
+        table.compare td{ display:block; border-bottom:0; padding:6px 16px; }
+        table.compare td::before{ content:attr(data-label); display:block; font-size:.72rem; text-transform:uppercase; letter-spacing:.12em; color:var(--gold-deep); font-weight:700; margin-bottom:2px; }
+      }
+      .cart-head{ display:flex; align-items:center; justify-content:space-between; padding:18px; border-bottom:1px solid var(--line); }
+      .cart-items{ flex:1; overflow-y:auto; padding:14px 18px; }
+      .cart-item{ display:flex; gap:10px; align-items:center; padding:.6rem 0; border-bottom:1px dashed var(--line); }
+      .cart-item .grow{ flex:1; }
+      .qty{ display:inline-flex; align-items:center; gap:6px; }
+      .qty button{ width:36px; height:36px; border-radius:50%; border:1.5px solid var(--line); background:var(--surface); color:var(--ink); font-size:1.05rem; cursor:pointer; }
+      .cart-foot{ padding:18px; border-top:1px solid var(--line); background:var(--surface2); }
+      .cart-foot .row{ display:flex; justify-content:space-between; padding:.25rem 0; font-size:.97rem; }
+      .cart-foot .row.total{ font-size:1.3rem; font-weight:700; }
+      .cart-foot .discount{ color:#1E7A34; font-weight:600; }
+      @media (prefers-color-scheme: dark){ .cart-foot .discount{ color:#7BD88C; } }
+      .scrim{ position:fixed; inset:0; background:rgba(3,10,6,.55); z-index:90; display:none; }
+      .scrim.show{ display:block; }
+      .close-x{ background:none; border:0; font-size:1.5rem; cursor:pointer; color:inherit; width:44px; height:44px; }
+      .toast{ position:fixed; left:50%; bottom:22px; transform:translate(-50%,80px); background:var(--green); color:var(--cream); border:1px solid var(--gold); padding:.8rem 1.4rem; border-radius:999px; font-weight:600; z-index:120; transition:transform .3s ease; box-shadow:var(--shadow); max-width:92vw; text-align:center; }
+      .toast.show{ transform:translate(-50%,0); }
+      footer{ background:var(--green); color:#CFC39E; padding:44px 0 30px; }
+      footer a{ color:var(--gold); }
+      .checklist{ list-style:none; padding:0; margin:0; }
+      .checklist li{ padding:.65rem 0 .65rem 2rem; position:relative; border-bottom:1px dashed var(--line); }
+      .checklist li::before{ content:""; position:absolute; left:0; top:.8rem; width:16px; height:16px; border-radius:4px; border:2px solid var(--gold-deep); }
+      .checklist li b{ color:var(--ink); }
+      /* Wonderland additions */
+      .lights{display:flex;justify-content:space-around;background:#07180F;padding:6px 8px 10px;overflow:hidden}
+      .lights i{width:12px;height:12px;border-radius:50%;display:block;animation:twinkle 1.6s infinite alternate}
+      .lights i:nth-child(3n){background:#FFD166;box-shadow:0 0 14px #FFD166}.lights i:nth-child(3n+1){background:#FF6B5E;box-shadow:0 0 14px #FF6B5E}.lights i:nth-child(3n+2){background:#7BD88C;box-shadow:0 0 14px #7BD88C}
+      .lights i:nth-child(even){animation-delay:.7s}
+      @keyframes twinkle{from{opacity:.45;transform:scale(.85)}to{opacity:1;transform:scale(1.15)}}
+      #globalSnow{position:fixed;inset:0;pointer-events:none;z-index:80;overflow:hidden}
+      #globalSnow i{position:absolute;top:-12px;background:#fff;border-radius:50%;opacity:.65;animation:gfall linear infinite}
+      @keyframes gfall{to{transform:translateY(105vh) translateX(24px)}}
+      @media (prefers-reduced-motion: reduce){#globalSnow i,.lights i{animation:none}}
+      .section-hero{background:linear-gradient(135deg,#0E2A1A,#07180F);color:#F7EFDA;border-radius:18px;padding:28px 24px;margin-bottom:22px;position:relative;overflow:hidden}
+      .section-hero h2{color:#fff}.section-hero .kicker{color:var(--gold)}
+      .proof{color:#FFE9A8;font-weight:600;font-size:.95rem}
+      .book-cover{height:210px;border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:18px;color:#fff;position:relative;overflow:hidden}
+      .book-cover b{font-family:"Playfair Display",serif;font-size:1.35rem;line-height:1.15}
+      .book-cover span{font-size:.85rem;opacity:.9}
+      .samples{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:12px 0}
+      .sample{background:var(--surface2);border:1px solid var(--line);border-radius:8px;padding:10px 8px;font-size:.78rem;line-height:1.35;min-height:86px;text-align:center}
+      .sample b{display:block;font-size:.82rem;margin-bottom:4px}
+      .color-sample{background:#fff;color:#222}
+      @media (prefers-color-scheme:dark){.color-sample{background:#FFFDF7}}
+      .color-pages{display:grid;gap:14px;margin:14px 0}
+      .color-page{margin:0;background:#fff;border:1.5px solid #2b2b2b;border-radius:6px;padding:10px;color:#1c1c1c}
+      .color-page svg{width:100%;height:auto;display:block}
+      .color-page figcaption{padding:10px 4px 2px;text-align:center}
+      .color-page figcaption b{display:block;font-size:.95rem;color:#1c1c1c}
+      .color-page figcaption span{display:block;font-size:.8rem;color:#555}
+      .color-page figcaption .print-note{margin-top:5px;font-weight:700;color:#7A5B12;letter-spacing:.02em}
+      .meta-pills{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0}
+      .pill{background:var(--surface2);border:1px solid var(--line);border-radius:999px;padding:.25rem .65rem;font-size:.82rem;font-weight:600}
+      .fireplace{background:radial-gradient(600px 300px at 50% 100%,rgba(255,120,30,.55),transparent 70%),linear-gradient(180deg,#1A0E06,#2A1608);color:#FFEFD6;border-radius:22px;padding:36px 26px;text-align:center}
+      .flames{font-size:2.6rem;letter-spacing:.2em;animation:flick 1s infinite alternate}
+      @keyframes flick{from{transform:scale(1)}to{transform:scale(1.06)}}
+      .cert{background:#FFFDF7;color:#23180A;border:3px double #D4AF37;border-radius:12px;padding:24px;text-align:center;margin-top:16px;display:none}
+      .cert.show{display:block}
+      .cert h3{color:#B3271E;font-size:1.6rem}
+      .finder-opt{margin:4px}
+      .workshop{background:linear-gradient(150deg,#3A1C0C,#5A2410 50%,#0E2A1A);color:#FFF3E2;border-radius:22px;padding:32px 26px}
+      .dual-cd{display:grid;grid-template-columns:1fr 1fr;gap:16px}@media(max-width:700px){.dual-cd{grid-template-columns:1fr}}
+      .cd-box{background:var(--green);color:var(--cream);border-radius:16px;padding:20px;text-align:center}.cd-box b{font-family:"Playfair Display",serif;font-size:1.8rem;color:var(--gold)}
+    </style>
+  </head>
+  <body>
+    <div class="announce">Order by <b>Dec 20</b> for POD Christmas delivery &nbsp;·&nbsp; Digital is <b>instant until Dec 24</b> &nbsp;·&nbsp; <b>FREE Santa Letter</b> with every portrait</div>
+    <div class="lights" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+    <div id="globalSnow" aria-hidden="true"></div>
+
+    <nav class="top">
+      <div class="wrap">
+        <a class="brand" href="#top">Christmas <span>Wonderland</span></a>
+        <div class="links">
+          <a href="#studio">Portraits</a>
+          <a href="#shop">POD Gifts</a>
+          <a href="#kidsbooks">Kids Books</a>
+          <a href="#coloring">Coloring Books</a>
+          <a href="#digital">Digital Downloads</a>
+          <a href="#bundles">Bundles</a>
+          <a href="#gluteboss">GluteBoss Christmas</a>
+          <a href="#faq">FAQ</a>
+          <button class="cart-btn" id="cartOpen" type="button">Cart · <span id="cartCount">0</span> · $<span id="cartMiniTotal">0.00</span></button>
+        </div>
+      </div>
+    </nav>
+
+    <!-- ============ HERO ============ -->
+    <header class="hero" id="top">
+      <div class="snow" id="snow" aria-hidden="true"></div>
+      <div class="wrap hero-grid">
+        <div>
+          <p class="kicker">Personalized AI Christmas Portrait Studio</p>
+          <h1>Your family photo, turned into a <em>Christmas masterpiece</em> in 24 hours.</h1>
+          <p class="hero-sub">Upload one photo, pick from 6 signature styles, and receive <b>3 print-ready portraits</b> — the Christmas card, gift, and keepsake everyone actually keeps.</p>
+          <div class="hero-price">
+            <span class="big">$39</span>
+            <span class="was">$79</span>
+            <span>· 3 portraits · digital + print-ready files</span>
+          </div>
+          <div class="chips">
+            <span class="chip">Classic Santa Snow</span><span class="chip">Golden Movie Poster</span><span class="chip">Cozy Fireplace</span><span class="chip">Snow Globe</span><span class="chip">Colombo Christmas</span><span class="chip">Winter Royal</span>
+          </div>
+          <div style="display:flex;gap:12px;flex-wrap:wrap">
+            <a class="btn btn-gold" href="#order">Create My Portrait — $39</a>
+            <button class="btn btn-ghost" style="color:var(--cream);border-color:rgba(212,175,55,.6)" type="button" data-add="portrait">Add to Cart</button>
+          </div>
+          <p style="margin:18px 0 4px;font-weight:700;color:#FFE9A8">Christmas order cutoff — Dec 20, 2026</p>
+          <div class="countdown" role="timer" aria-label="Countdown to December 20 2026 order cutoff">
+            <div class="cd-cell"><b id="cdD">–</b><span>Days</span></div>
+            <div class="cd-cell"><b id="cdH">–</b><span>Hours</span></div>
+            <div class="cd-cell"><b id="cdM">–</b><span>Mins</span></div>
+            <div class="cd-cell"><b id="cdS">–</b><span>Secs</span></div>
+          </div>
+          <div class="trust-row">
+            <span>Delivered in 24 hours</span><span>Print-ready 300 DPI</span><span>Love-it guarantee</span><span>Free Santa Letter until Dec 20</span>
+          </div>
+        </div>
+        <figure class="ba" style="margin:0">
+          <div class="ba-stage">
+            <div class="ba-panel ba-before">
+              <svg class="scene" viewBox="0 0 400 340" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+                <rect width="400" height="340" fill="none"/>
+                <circle cx="130" cy="150" r="34" fill="#D8C7B2"/><path d="M78 300 q6-95 52-95 t52 95 z" fill="#5B6E73"/>
+                <circle cx="215" cy="128" r="28" fill="#B98A64"/><path d="M172 300 q5-80 43-80 t43 80 z" fill="#71807A"/>
+                <circle cx="290" cy="168" r="24" fill="#E3CDB4"/><path d="M252 300 q4-70 38-70 t38 70 z" fill="#87979B"/>
+                <rect x="0" y="298" width="400" height="42" fill="#3E5457"/>
+              </svg>
+              <span class="ba-tag">Before · Your photo</span>
+            </div>
+            <div class="ba-after-wrap" id="baAfterWrap" style="clip-path:inset(0 45% 0 0)">
+              <div class="ba-panel ba-after">
+                <svg class="scene" viewBox="0 0 400 340" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+                  <circle cx="60" cy="52" r="3" fill="#FFF"/><circle cx="150" cy="30" r="2.4" fill="#FFF"/><circle cx="250" cy="60" r="3" fill="#FFF"/><circle cx="340" cy="36" r="2.4" fill="#FFF"/><circle cx="320" cy="110" r="2" fill="#FFF"/><circle cx="90" cy="110" r="2" fill="#FFF"/>
+                  <path d="M352 300 l22-70 22 70 z" fill="#17452A"/><path d="M360 258 l14-40 14 40 z" fill="#1E5A35"/><circle cx="374" cy="212" r="5" fill="#D4AF37"/>
+                  <circle cx="130" cy="150" r="34" fill="#D8C7B2"/><path d="M96 122 q34-30 68 0 l-8-16 q-26-14-52 0 z" fill="#B3271E"/><circle cx="130" cy="104" r="7" fill="#FFF"/>
+                  <path d="M78 300 q6-95 52-95 t52 95 z" fill="#8C1F28"/>
+                  <circle cx="215" cy="128" r="28" fill="#B98A64"/><path d="M172 300 q5-80 43-80 t43 80 z" fill="#D4AF37"/>
+                  <circle cx="290" cy="168" r="24" fill="#E3CDB4"/><path d="M252 300 q4-70 38-70 t38 70 z" fill="#17452A"/>
+                  <rect x="0" y="298" width="400" height="42" fill="#0A2013"/>
+                </svg>
+                <span class="ba-tag">After · Classic Santa Snow</span>
+              </div>
+            </div>
+            <div class="ba-divider" id="baDivider" style="left:55%"></div>
+          </div>
+          <input type="range" id="baRange" min="5" max="95" value="55" aria-label="Slide to compare before and after portrait" />
+          <figcaption>Drag the slider — every portrait is art-directed in one of the 6 studio styles, then finished print-ready.</figcaption>
+        </figure>
+      </div>
+    </header>
+
+    <!-- ============ HOW IT WORKS + STYLES ============ -->
+    <section id="studio">
+      <div class="wrap">
+        <p class="kicker">The Studio Funnel</p>
+        <h2>Three steps. One photo. Christmas handled.</h2>
+        <div class="grid grid-3" style="margin-top:22px">
+          <div class="card"><div class="step-num">1</div><h3>Upload your photo</h3><p class="soft" style="margin:0">Any clear family, couple, or pet photo — phone photos are perfect. Faces visible, good light, that's all we need.</p></div>
+          <div class="card"><div class="step-num">2</div><h3>Pick your style</h3><p class="soft" style="margin:0">Choose 1 of 6 signature looks below. Your 3 portraits explore poses and crops inside that style.</p></div>
+          <div class="card"><div class="step-num">3</div><h3>Get portraits in 24h</h3><p class="soft" style="margin:0">Three print-ready portraits land in your inbox within 24 hours — ready for cards, canvas, mugs, and gifts.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="styles" style="padding-top:0">
+      <div class="wrap">
+        <p class="kicker">Six Signature Styles</p>
+        <h2>Pick the Christmas you want to live in</h2>
+        <div class="style-grid" style="margin-top:22px">
+          <div class="style-card"><div class="style-art" style="background:linear-gradient(150deg,#B3271E,#5E1420 60%,#0E2A1A)"><svg viewBox="0 0 64 64" fill="none"><path d="M32 6 L50 34 H40 L54 52 H10 L24 34 H14 Z" fill="#2E7D46"/><rect x="29" y="52" width="6" height="7" fill="#8A5A2B"/><circle cx="32" cy="24" r="3.4" fill="#D4AF37"/><circle cx="24" cy="38" r="2.6" fill="#E4572E"/><circle cx="40" cy="42" r="2.6" fill="#D4AF37"/></svg></div><div class="style-body"><h3>Classic Santa Snow</h3><p>Snowfall, Santa hats, deep red and pine green. The timeless family-card look.</p></div></div>
+          <div class="style-card"><div class="style-art" style="background:linear-gradient(150deg,#3A2A08,#8A6A1F 55%,#D4AF37)"><svg viewBox="0 0 64 64" fill="none"><rect x="12" y="8" width="40" height="48" rx="4" fill="#0B2417"/><rect x="17" y="13" width="30" height="30" fill="#D4AF37" opacity=".85"/><path d="M22 52 h20 M26 47 h12" stroke="#F7EFDA" stroke-width="2.4"/><circle cx="32" cy="28" r="8" fill="#0B2417"/></svg></div><div class="style-body"><h3>Golden Christmas Movie Poster</h3><p>Cinematic gold, dramatic light, your names in the credits. Pure Hollywood Christmas.</p></div></div>
+          <div class="style-card"><div class="style-art" style="background:linear-gradient(150deg,#5A2410,#8A4A1F 55%,#2A1608)"><svg viewBox="0 0 64 64" fill="none"><rect x="14" y="26" width="36" height="26" rx="3" fill="#3A1C0C"/><path d="M32 46 C26 38 30 32 32 27 C34 32 38 38 32 46Z" fill="#E8833A"/><path d="M32 44 C29 39 31 35 32 32 C33 35 35 39 32 44Z" fill="#F5C04E"/><rect x="10" y="52" width="44" height="4" fill="#241105"/></svg></div><div class="style-body"><h3>Cozy Fireplace</h3><p>Warm firelight, knit blankets, cocoa in hand. The hug-you-can-frame style.</p></div></div>
+          <div class="style-card"><div class="style-art" style="background:linear-gradient(150deg,#7FB3C8,#2E5F7A 60%,#123A52)"><svg viewBox="0 0 64 64" fill="none"><circle cx="32" cy="34" r="22" fill="#EAF6FB" opacity=".9"/><path d="M32 22 L40 36 H35 L44 46 H20 L29 36 H24 Z" fill="#2E7D46"/><rect x="24" y="54" width="16" height="4" rx="2" fill="#8A5A2B"/><circle cx="24" cy="26" r="1.8" fill="#FFF"/><circle cx="42" cy="30" r="1.8" fill="#FFF"/></svg></div><div class="style-body"><h3>Snow Globe</h3><p>Your family inside a magical snow globe. Kids and grandparents adore this one.</p></div></div>
+          <div class="style-card"><div class="style-art" style="background:linear-gradient(150deg,#0E4A38,#146B4F 55%,#D4AF37)"><svg viewBox="0 0 64 64" fill="none"><path d="M14 50 V30 l8-8 v28 M26 50 V22 l8 6 v22 M38 50 V28 l8-6 v28" stroke="#F7EFDA" stroke-width="3" fill="none"/><path d="M32 6 l2.4 5 5.4.7-4 3.8 1 5.4-4.8-2.6-4.8 2.6 1-5.4-4-3.8 5.4-.7z" fill="#D4AF37"/></svg></div><div class="style-body"><h3>Colombo Christmas</h3><p>Galle Face lights, tropical December warmth, Sri Lankan Christmas soul — for home and the diaspora.</p></div></div>
+          <div class="style-card"><div class="style-art" style="background:linear-gradient(150deg,#1C2440,#31406E 55%,#8FA3C8)"><svg viewBox="0 0 64 64" fill="none"><path d="M14 44 L18 20 L28 32 L32 16 L36 32 L46 20 L50 44 Z" fill="#D4AF37"/><rect x="14" y="46" width="36" height="5" rx="2" fill="#A8842A"/><circle cx="32" cy="12" r="2.6" fill="#F7EFDA"/></svg></div><div class="style-body"><h3>Winter Royal</h3><p>Velvet, crowns, and palace-snow elegance. Regal portraits that look painted, not generated.</p></div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ PRICING ============ -->
+    <section style="padding-top:0">
+      <div class="wrap">
+        <p class="kicker">Portrait Pricing</p>
+        <h2>One price for the memory. Three ways to gift it.</h2>
+        <div class="grid grid-3" style="margin-top:26px">
+          <div class="card">
+            <h3>Single Portrait</h3>
+            <p><span class="serif" style="font-size:2.2rem;font-weight:800">$39</span> <span class="strike">$79</span></p>
+            <p class="soft">3 portraits in 1 style · digital delivery in 24h · print-ready 300 DPI files · free Santa Letter until Dec 20.</p>
+            <button class="btn btn-green" type="button" data-add="portrait" style="width:100%">Add Single — $39</button>
+          </div>
+          <div class="card pop">
+            <span class="pop-tag">MOST POPULAR</span>
+            <h3>Family Pack</h3>
+            <p><span class="serif" style="font-size:2.2rem;font-weight:800">$69</span> <span class="strike">$129</span></p>
+            <p class="soft">Up to 4 people · 6 portraits across 2 styles · 1 canvas mockup preview · priority 24h queue · free Santa Letter.</p>
+            <button class="btn btn-gold" type="button" data-add="family" style="width:100%">Add Family Pack — $69</button>
+          </div>
+          <div class="card">
+            <h3>Gift Pack</h3>
+            <p><span class="serif" style="font-size:2.2rem;font-weight:800">$89</span> <span class="strike">$149</span></p>
+            <p class="soft">Everything in Single · plus your portrait printed on a gift mug · gift note included · free Santa Letter.</p>
+            <button class="btn btn-red" type="button" data-add="giftpack" style="width:100%">Add Gift Pack — $89</button>
+          </div>
+        </div>
+        <p class="soft" style="margin-top:14px;font-size:.93rem">Bundle maths applies automatically in the cart: Portrait + Mug = $59 (save $9) · Portrait + Canvas = $79 (save $9) · every 3rd portrait is 50% off.</p>
+      </div>
+    </section>
+
+    <!-- ============ ORDER FORM ============ -->
+    <section id="order" style="padding-top:0">
+      <div class="wrap">
+        <p class="kicker">Order Your Portrait</p>
+        <h2>Start your 24-hour portrait</h2>
+        <div class="order-grid" style="margin-top:22px">
+          <form class="card" id="orderForm" novalidate>
+            <div class="field">
+              <label>Step 1 — Upload your photo</label>
+              <label class="dropzone" for="photoInput">
+                <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" style="color:var(--gold-deep)"><path d="M12 16V4m0 0l-4 4m4-4l4 4"/><path d="M4 16v3a1 1 0 001 1h14a1 1 0 001-1v-3"/></svg>
+                <div><b>Tap to upload a family photo</b><br /><span class="soft" style="font-size:.9rem">JPG or PNG · faces visible · phone photos welcome</span></div>
+                <div id="photoName" class="soft" style="font-size:.9rem;margin-top:6px"></div>
+                <img id="photoPreview" alt="Preview of your uploaded photo" style="display:none" />
+              </label>
+              <input type="file" id="photoInput" accept="image/*" />
+            </div>
+            <div class="field">
+              <label>Step 2 — Pick your style</label>
+              <div class="pick-grid" id="stylePick"></div>
+            </div>
+            <div class="field">
+              <label for="packSelect">Step 3 — Choose your pack</label>
+              <select id="packSelect">
+                <option value="portrait">Single — $39 · 3 portraits, 1 style</option>
+                <option value="family">Family Pack — $69 · 4 people, 6 portraits + canvas mockup</option>
+                <option value="giftpack">Gift Pack — $89 · portraits + printed mug</option>
+              </select>
+            </div>
+            <div class="grid grid-2" style="gap:12px">
+              <div class="field"><label for="custName">Your name</label><input type="text" id="custName" placeholder="e.g. Amaya Perera" autocomplete="name" /></div>
+              <div class="field"><label for="custEmail">Email for delivery</label><input type="email" id="custEmail" placeholder="you@example.com" autocomplete="email" /></div>
+            </div>
+            <div class="field"><label for="custNote">Anything we should know? <span class="soft">(optional)</span></label><textarea id="custNote" rows="2" placeholder="Names for the movie-poster credits, a pet to include, a gift message…"></textarea></div>
+            <button class="btn btn-gold" type="submit" style="width:100%">Place Portrait Order</button>
+            <div class="success" id="orderSuccess" role="status"></div>
+          </form>
+          <aside class="summary" aria-label="Order summary">
+            <h3>Your portrait order</h3>
+            <div class="row"><span>Pack</span><b id="sumPack">Single</b></div>
+            <div class="row"><span>Style</span><b id="sumStyle">Classic Santa Snow</b></div>
+            <div class="row"><span>Portraits</span><b id="sumCount">3 portraits</b></div>
+            <div class="row"><span>Delivery</span><b>Within 24 hours</b></div>
+            <div class="row"><span>Santa Letter</span><span class="free">FREE until Dec 20</span></div>
+            <div class="row total"><span>Total</span><span id="sumTotal">$39.00</span></div>
+            <p style="font-size:.9rem;color:#DCD2B2;margin-top:12px">Covered by the Love-It Guarantee: if you don't love your portraits, we re-make them in a new style or refund you — no forms, no fuss.</p>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ POD SHOP ============ -->
+    <section id="shop" style="padding-top:0">
+      <div class="wrap">
+        <p class="kicker">Print-on-Demand Gift Shop</p>
+        <h2>12 Christmas best-sellers, printed per order</h2>
+        <p class="soft" style="max-width:44rem">Every design is printed only when ordered — no stock, no waste. Prices below show the real 2026 print-on-demand base cost and the profit per sale, so you can see exactly how the shop makes money.</p>
+        <div class="filters" id="shopFilters" role="group" aria-label="Filter shop by recipient">
+          <button class="filter-btn active" type="button" data-filter="all">All 12</button>
+          <button class="filter-btn" type="button" data-filter="her">For Her</button>
+          <button class="filter-btn" type="button" data-filter="him">For Him</button>
+          <button class="filter-btn" type="button" data-filter="kids">For Kids</button>
+          <button class="filter-btn" type="button" data-filter="pets">For Pets</button>
+          <button class="filter-btn" type="button" data-filter="home">Home</button>
+        </div>
+        <div class="shop-grid" id="shopGrid"></div>
+      </div>
+    </section>
+
+    <!-- ============ SUPPLIERS ============ -->
+    <section style="padding-top:0">
+      <div class="wrap">
+        <p class="kicker">Supplier Architecture</p>
+        <h2>Which print partner prints what — and why</h2>
+        <div class="table-scroll" style="margin-top:20px">
+          <table class="compare">
+            <thead><tr><th>Supplier</th><th>Best at</th><th>Base-cost position</th><th>Reach</th><th>We use it for</th></tr></thead>
+            <tbody>
+              <tr><td><td data-label="Supplier"><b>Printful</b> <span>· quality lead</span></td><td><td data-label="Best at">Premium quality control, knitted sweaters, embroidery, rustic stockings</td><td><td data-label="Base-cost position">Higher base, higher perceived quality — knitted sweater $37.74–$59.00, stocking $17.17</td><td><td data-label="Reach">US / EU fulfilment centres</td><td><td data-label="We use it for">Ugly Christmas Sweater, Rustic Stocking, Canvas, Hoodie</td></tr>
+              <tr><td><td data-label="Supplier"><b>Printify</b> <span>· cost lead</span></td><td><td data-label="Best at">Lowest base costs and the widest product catalogue via its print-provider network</td><td><td data-label="Base-cost position">Lowest on mugs, tees, totes, phone cases</td><td><td data-label="Reach">Global provider network</td><td><td data-label="We use it for">Mug, Family Tee, Tote, Phone Case, Ornament, Puzzle</td></tr>
+              <tr><td><td data-label="Supplier"><b>Gelato</b> <span>· global lead</span></td><td><td data-label="Best at">Local printing close to the customer — faster, cheaper international delivery</td><td><td data-label="Base-cost position">Competitive, with big savings on international shipping</td><td><td data-label="Reach">Local printers in 32 countries</td><td><td data-label="We use it for">International orders, diaspora gifts, Santa Letter gift sets</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="soft" style="margin-top:12px;font-size:.93rem">Rule of thumb: quality-critical and knitted items go to Printful, price-critical staples go to Printify, and anything shipping outside the US/EU goes to Gelato so it prints in the customer's own region.</p>
+      </div>
+    </section>
+
+    <!-- ============ BUNDLES ============ -->
+    <section id="bundles" style="padding-top:0">
+      <div class="wrap">
+        <p class="kicker">Special Offer System</p>
+        <h2>Bundle builder — the savings stack themselves</h2>
+        <div class="grid grid-3" style="margin-top:22px">
+          <div class="card bundle-card"><span class="save-pill">SAVE $9</span><h3>Portrait + Mug</h3><p class="soft">The $39 portrait with your art printed on the $29 mug.</p><p><span class="serif" style="font-size:1.9rem;font-weight:800">$59</span> <span class="strike">$68</span></p><button class="btn btn-gold" type="button" data-bundle="portrait,mug" style="width:100%">Add Bundle — $59</button></div>
+          <div class="card bundle-card"><span class="save-pill">SAVE $9</span><h3>Portrait + Canvas</h3><p class="soft">The $39 portrait plus the $49 gallery canvas, wall-ready.</p><p><span class="serif" style="font-size:1.9rem;font-weight:800">$79</span> <span class="strike">$88</span></p><button class="btn btn-gold" type="button" data-bundle="portrait,canvas" style="width:100%">Add Bundle — $79</button></div>
+          <div class="card bundle-card"><span class="save-pill">3RD = 50% OFF</span><h3>Buy 2 Portraits, 3rd Half Price</h3><p class="soft">One for you, one for the grandparents, one for the in-laws.</p><p><span class="serif" style="font-size:1.9rem;font-weight:800">$97.50</span> <span class="strike">$117</span></p><button class="btn btn-gold" type="button" data-bundle="portrait,portrait,portrait" style="width:100%">Add 3 Portraits — $97.50</button></div>
+        </div>
+
+        <div class="card" style="margin-top:20px">
+          <h3>Build your own bundle</h3>
+          <p class="soft">Tick what you want — bundle discounts apply live, exactly as they will in your cart.</p>
+          <div id="builderRows"></div>
+          <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-top:16px">
+            <div><span class="soft">Bundle total:</span> <b class="serif" style="font-size:1.7rem" id="builderTotal">$0.00</b> <span class="profit" id="builderSave"></span></div>
+            <button class="btn btn-red" type="button" id="builderAdd">Add My Bundle to Cart</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ GIFT GUIDE ============ -->
+    <section style="padding-top:0">
+      <div class="wrap">
+        <p class="kicker">Gift Guide</p>
+        <h2>Stuck? Shop by who it's for</h2>
+        <div class="tabs" id="giftTabs" style="margin-top:18px">
+          <button class="tab-btn active" type="button" data-tab="mom">For Mom</button>
+          <button class="tab-btn" type="button" data-tab="dad">For Dad</button>
+          <button class="tab-btn" type="button" data-tab="kids">For Kids</button>
+          <button class="tab-btn" type="button" data-tab="partner">For Partner</button>
+          <button class="tab-btn" type="button" data-tab="pet">For the Pet</button>
+        </div>
+        <div class="tab-panel active" data-panel="mom"><div class="card"><h3>Mom — the keeper of every family photo</h3><p class="soft">Family Pack portrait ($69) on a Canvas ($49), or the Portrait Mug ($29) she'll use every morning. Order by Dec 14 for canvas, Dec 15 for mugs.</p><button class="btn btn-gold btn-small" type="button" data-add="canvas">Add Canvas — $49</button> <button class="btn btn-ghost btn-small" type="button" data-add="mug">Add Mug — $29</button></div></div>
+        <div class="tab-panel" data-panel="dad"><div class="card"><h3>Dad — impossible to buy for, easy to portrait</h3><p class="soft">Golden Movie Poster style with Dad as the headline star, on a Cozy Hoodie ($54) or Family Tee ($29). He will pretend not to love it. He will wear it all December.</p><button class="btn btn-gold btn-small" type="button" data-add="hoodie">Add Hoodie — $54</button> <button class="btn btn-ghost btn-small" type="button" data-add="tee">Add Family Tee — $29</button></div></div>
+        <div class="tab-panel" data-panel="kids"><div class="card"><h3>Kids — the Santa Letter moment</h3><p class="soft">The Santa Letter + Portrait Gift Set ($49): a portrait of them in Snow Globe style plus a personal letter from Santa. Free Santa Letter with every portrait until Dec 20.</p><button class="btn btn-gold btn-small" type="button" data-add="santaset">Add Gift Set — $49</button> <button class="btn btn-ghost btn-small" type="button" data-add="puzzle">Add Puzzle — $34</button></div></div>
+        <div class="tab-panel" data-panel="partner"><div class="card"><h3>Partner — the romantic one</h3><p class="soft">Cozy Fireplace or Winter Royal couple portrait, Gift Pack ($89) with the printed mug for Christmas-morning coffee. Digital portraits arrive in 24h — the ultimate last-minute save.</p><button class="btn btn-gold btn-small" type="button" data-add="giftpack">Add Gift Pack — $89</button></div></div>
+        <div class="tab-panel" data-panel="pet"><div class="card"><h3>The Pet — the real head of the family</h3><p class="soft">Pet Christmas Portrait Tee ($29) with your dog or cat in a Santa hat, or include them in the Family Pack portrait at no extra fuss.</p><button class="btn btn-gold btn-small" type="button" data-add="pettee">Add Pet Tee — $29</button> <button class="btn btn-ghost btn-small" type="button" data-add="family">Add Family Pack — $69</button></div></div>
+      </div>
+    </section>
+
+    <!-- ============ WONDERLAND: COUNTDOWNS + WHY DIRECT + FIREPLACE ============ -->
+    <section style="padding-top:0"><div class="wrap">
+      <div class="dual-cd">
+        <div class="cd-box"><p class="kicker" style="color:var(--gold)">POD Order Cutoff</p><b id="cd20">—</b><p style="margin:4px 0 0">until Dec 20 — last day for printed gifts to arrive by Christmas</p></div>
+        <div class="cd-box" style="background:#5E1420"><p class="kicker" style="color:#FFE9A8">Christmas Day</p><b id="cd25" style="color:#fff">—</b><p style="margin:4px 0 0">until Dec 25 — digital gifts stay instant until Dec 24</p></div>
+      </div>
+      <div class="fireplace" style="margin-top:18px"><div class="flames" aria-hidden="true">🔥 ✨ 🔥</div><h2 style="color:#fff">The Cozy Fireplace Corner</h2><p style="max-width:38rem;margin:0 auto">Curl up here. Every book below was made to be read by firelight — aloud, together, with cocoa going cold because nobody wants the story to end. That's the feeling we're selling, not just files.</p><p class="proof" style="margin-top:10px">★ Loved by families who read one story a night all December</p></div>
+    </div></section>
+
+    <section id="why-direct" style="padding-top:0"><div class="wrap">
+      <p class="kicker">Why Buy Direct?</p><h2>No KDP limit. No waiting. 100% Christmas, instantly.</h2>
+      <div class="grid grid-3" style="margin-top:18px">
+        <div class="card"><h3>🚀 No publishing limit</h3><p class="soft">Amazon KDP limits you to 2 new titles per format per week. On our own store there is no limit — every book, game and planner here is live now.</p></div>
+        <div class="card"><h3>⚡ Instant download</h3><p class="soft">Pay, download, print at home in minutes. No shipping, no stock-outs, no "arrives Dec 27". Digital is instant until Dec 24.</p></div>
+        <div class="card"><h3>🎁 Giftable in 2 minutes</h3><p class="soft">Print it, slip it in a stocking, or email it to family anywhere in the world. Perfect last-minute gift that still feels personal.</p></div>
+      </div>
+    </div></section>
+
+    <!-- ============ KIDS BOOKS ============ -->
+    <section id="kidsbooks" style="padding-top:0"><div class="wrap">
+      <div class="section-hero"><p class="kicker">Kids Books — Landing Page</p><h2>Bedtime stories they'll ask for again tomorrow</h2><p>Three original Christmas picture books, written for read-aloud. Warm, funny, and just magical enough.</p><p class="proof">★★★★★ "We read Milo three nights in a row — my 5-year-old now checks the sky for lost stars." — Illustrative preview review</p><a class="btn btn-gold" href="#kidsbooks-grid">Browse the 3 Books — $9 each / $19 for all 3</a></div>
+      <div class="grid grid-3" id="kidsbooks-grid">
+        <article class="card"><div class="book-cover" style="background:linear-gradient(160deg,#1C2440,#B3271E)"><svg viewBox="0 0 64 64" fill="none"><circle cx="32" cy="36" r="13" fill="#E8C39E"/><circle cx="19" cy="27" r="5" fill="#E8C39E"/><circle cx="45" cy="27" r="5" fill="#E8C39E"/><path d="M24 26q-6-8-13-9M40 26q6-8 13-9" stroke="#D4AF37" stroke-width="3" stroke-linecap="round"/><circle cx="27" cy="34" r="2" fill="#07180F"/><circle cx="37" cy="34" r="2" fill="#07180F"/><ellipse cx="32" cy="40" rx="4" ry="3" fill="#B3271E"/><path d="M50 48l1.8 3.8 4.2.6-3 3 .7 4.1-3.7-2-3.7 2 .7-4.1-3-3 4.2-.6z" fill="#D4AF37"/><path d="M6 57q10-4 20 0t20 0 12-2" stroke="#FFF" stroke-width="2.4"/></svg><span>✦ MILO ✦</span><b>Milo and the<br>Lost Star</b><span>A tiny reindeer. One missing star.</span></div><div class="meta-pills"><span class="pill">Ages 3–7</span><span class="pill">24 pages</span><span class="pill">Read-aloud · ~8 min</span></div><p class="soft">Milo finds the North Star has fallen into the snow — and only a kind heart can lift it back. A story about helping, even when you're small.</p><div class="samples"><div class="sample"><b>Page 4</b>"The star was cold, and very, very quiet in the snow."</div><div class="sample"><b>Page 11</b>Milo tucked it under his scarf. "Don't worry. I know the way up."</div><div class="sample"><b>Page 21</b>The whole sky lit up — because one small reindeer didn't walk past.</div></div><button class="btn btn-gold" type="button" data-add="milo" style="width:100%">Add to Cart — $9</button></article>
+        <article class="card"><div class="book-cover" style="background:linear-gradient(160deg,#2E5F7A,#7FB3C8)"><svg viewBox="0 0 64 64" fill="none"><circle cx="32" cy="30" r="20" fill="#EAF6FB" opacity=".94"/><path d="M32 18 L38 28 H35.4 L40 35 H24 L28.6 28 H26 Z" fill="#146B4F"/><rect x="30.4" y="35" width="3.2" height="3.6" fill="#8A5A2B"/><rect x="40" y="30" width="8" height="7" fill="#B3271E"/><path d="M40 30l4-3.4L48 30z" fill="#F7EFDA"/><circle cx="20" cy="20" r="1.6" fill="#2E5F7A"/><circle cx="44" cy="18" r="1.6" fill="#2E5F7A"/><circle cx="23" cy="42" r="1.4" fill="#2E5F7A"/><path d="M14 43a20 8 0 0036 0z" fill="#FFF"/><rect x="18" y="48" width="28" height="6" rx="2" fill="#8A5A2B"/><rect x="14" y="54" width="36" height="5" rx="2" fill="#5A3A1A"/></svg><span>❄ INSIDE THE GLOBE ❄</span><b>The Snow Globe That Snowed Inside</b><span>Shake it. Step inside.</span></div><div class="meta-pills"><span class="pill">Ages 4–8</span><span class="pill">20 pages</span><span class="pill">Read-aloud · ~7 min</span></div><p class="soft">Nora shakes her grandmother's snow globe and wakes up inside it — where it snows upwards and the tiny villagers need her help before Christmas.</p><div class="samples"><div class="sample"><b>Page 3</b>"It wasn't snowing outside. It was snowing inside."</div><div class="sample"><b>Page 9</b>The lamplighter was the size of a thimble, and very polite.</div><div class="sample"><b>Page 18</b>Nora learned: small worlds still need big kindness.</div></div><button class="btn btn-gold" type="button" data-add="snowglobe" style="width:100%">Add to Cart — $9</button></article>
+        <article class="card"><div class="book-cover" style="background:linear-gradient(160deg,#5E1420,#0E2A1A)"><svg viewBox="0 0 64 64" fill="none"><path d="M50 6a9.4 9.4 0 1 0 5.4 12.6A7.4 7.4 0 1 1 50 6" fill="#F7EFDA"/><path d="M8 40h30c0 6-5 10-12 10h-8c-6 0-10-4-10-10z" fill="#B3271E"/><path d="M38 40q6-1 6-8" stroke="#D4AF37" stroke-width="3"/><path d="M6 55q16 4 32 0M38 55q6 0 5-6" stroke="#D4AF37" stroke-width="3"/><circle cx="24" cy="27" r="5.4" fill="#E8C39E"/><path d="M19 30q5 7 10 0-1 6-5 7-4-1-5-7" fill="#FFF"/><path d="M18.6 24.4c1-4 9.8-4 10.8 0z" fill="#B3271E"/><path d="M29.4 23q5 0 5 5" stroke="#B3271E" stroke-width="3"/><circle cx="35" cy="28.6" r="2.2" fill="#FFF"/><rect x="11" y="31" width="9" height="9" fill="#146B4F"/><path d="M15.5 31v9M11 35.5h9" stroke="#D4AF37" stroke-width="1.8"/><path d="M45 33l7-5M52 28l2.6-4.6" stroke="#D4AF37" stroke-width="2.4"/><circle cx="56" cy="21" r="3" fill="#D4AF37"/></svg><span>🦌 ONE LAST RIDE 🦌</span><b>Santa's Last<br>Sleigh Ride</b><span>A thank-you story</span></div><div class="meta-pills"><span class="pill">Ages 3–7</span><span class="pill">28 pages</span><span class="pill">Read-aloud · ~10 min</span></div><p class="soft">On his final Christmas Eve before retirement, Santa takes one child along to say thank you to the world. Gentle, tear-jerker bedtime gold for grandparents too.</p><div class="samples"><div class="sample"><b>Page 5</b>"One last ride," Santa whispered, "and I want you to see why."</div><div class="sample"><b>Page 14</b>Every rooftop had a story. Every chimney, a thank-you.</div><div class="sample"><b>Page 27</b>"Christmas doesn't retire," said Santa. "It just changes hands."</div></div><button class="btn btn-gold" type="button" data-add="sleigh" style="width:100%">Add to Cart — $9</button></article>
+      </div>
+      <div class="card" style="margin-top:16px;display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:space-between"><div><h3>All 3 Kids Books — Best Value</h3><p class="soft" style="margin:0">Milo + Snow Globe + Sleigh Ride · Instant PDF · Print at home or read on tablet</p></div><div><span class="strike">$27</span> <b class="serif" style="font-size:1.8rem">$19</b> <button class="btn btn-red" type="button" data-add="kids3">Add All 3 — $19</button></div></div>
+    </div></section>
+
+    <!-- ============ COLORING BOOKS ============ -->
+    <section id="coloring" style="padding-top:0"><div class="wrap">
+      <div class="section-hero" style="background:linear-gradient(135deg,#5E1420,#07180F)"><p class="kicker">Coloring Books — Landing Page</p><h2>Print tonight. Color by morning.</h2><p>Bold, clean line art — no grey mush, no AI weirdness. Print single-sided, grab the markers, done.</p><p class="proof">★★★★★ "Printed Cozy Christmas at 7pm, kids colored until bedtime. Worth every cent." — Illustrative preview review</p><a class="btn btn-gold" href="#coloring-grid">See Coloring Books — $7 each / $15 for all 3</a></div>
+      <div class="grid grid-3" id="coloring-grid">
+        <article class="card"><div class="book-cover" style="background:linear-gradient(160deg,#146B4F,#D4AF37);color:#07180F"><svg viewBox="0 0 64 64" fill="none" stroke="#FFFDF7" stroke-width="3" stroke-linecap="round"><circle cx="18" cy="15" r="6"/><circle cx="46" cy="15" r="6"/><circle cx="32" cy="31" r="17"/><circle cx="26" cy="29" r="1.6" fill="#FFFDF7" stroke="none"/><circle cx="38" cy="29" r="1.6" fill="#FFFDF7" stroke="none"/><ellipse cx="32" cy="36" rx="6" ry="4.4"/><path d="M13 55q19-7 38 0"/></svg><b>Cozy Christmas Coloring</b><span>40 pages · Kids 4–10</span><span>🐻 🦊 🎄 ☕</span></div><div class="meta-pills"><span class="pill">40 pages</span><span class="pill">Ages 4–10</span><span class="pill">Print-at-home PDF</span></div><p class="soft">Cute animals, trees, cocoa mugs and cozy cabins. Big shapes for little hands, sweet details for older kids.</p><div class="color-pages">
+<figure class="color-page"><svg viewBox="0 0 200 240" fill="none" stroke="#111" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="Coloring page: bear in a scarf holding a mug of cocoa beside a small Christmas tree"><rect x="7" y="7" width="186" height="226" fill="#fff" stroke-width="2"/><path d="M45 32 l3.4 6.8 7.5 1.1 -5.4 5.3 1.3 7.5 -6.8 -3.6 -6.8 3.6 1.3 -7.5 -5.4 -5.3 7.5 -1.1 Z" fill="#fff"/><path d="M45 46 L62 84 H52 L70 118 H20 L38 84 H28 Z" fill="#fff"/><circle cx="38" cy="94" r="3.5" fill="#fff"/><circle cx="53" cy="102" r="3.5" fill="#fff"/><circle cx="45" cy="72" r="3" fill="#fff"/><rect x="40" y="118" width="10" height="13" fill="#fff"/><circle cx="103" cy="64" r="11" fill="#fff"/><circle cx="147" cy="64" r="11" fill="#fff"/><circle cx="103" cy="64" r="5" fill="#fff"/><circle cx="147" cy="64" r="5" fill="#fff"/><circle cx="125" cy="84" r="29" fill="#fff"/><circle cx="114" cy="80" r="3" fill="#111" stroke="none"/><circle cx="136" cy="80" r="3" fill="#111" stroke="none"/><ellipse cx="125" cy="95" rx="13" ry="9" fill="#fff"/><ellipse cx="125" cy="90" rx="5" ry="3.5" fill="#fff"/><path d="M125 94 v3 M125 97 q-5 5 -10 1 M125 97 q5 5 10 1"/><ellipse cx="125" cy="160" rx="35" ry="40" fill="#fff"/><ellipse cx="125" cy="168" rx="20" ry="26" fill="#fff"/><path d="M97 108 Q125 122 153 108 L153 122 Q125 136 97 122 Z" fill="#fff"/><path d="M110 114 L110 127 M140 114 L140 127"/><path d="M141 122 L150 152 L134 155 L132 124 Z" fill="#fff"/><path d="M137 146 l10 -2 M136 151 l10 -2"/><ellipse cx="93" cy="152" rx="10" ry="18" transform="rotate(24 93 152)" fill="#fff"/><ellipse cx="157" cy="152" rx="10" ry="18" transform="rotate(-24 157 152)" fill="#fff"/><path d="M116 148 q-5-7 0-13 q5-6 0-13"/><path d="M133 148 q-5-7 0-13 q5-6 0-13"/><rect x="110" y="156" width="30" height="24" rx="4" fill="#fff"/><path d="M140 162 q12 3 0 13"/><circle cx="125" cy="168" r="5" fill="#fff"/><ellipse cx="103" cy="204" rx="14" ry="8" fill="#fff"/><ellipse cx="147" cy="204" rx="14" ry="8" fill="#fff"/><path d="M16 216 H184"/></svg><figcaption><b>Bear with Cocoa</b><span>Sample page 1 of 40 — print at home</span><span class="print-note">Print sample · A4 or Letter · single-sided</span></figcaption></figure>
+<figure class="color-page"><svg viewBox="0 0 200 240" fill="none" stroke="#111" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="Coloring page: Christmas tree with a cat sleeping underneath, presents and a star on top"><rect x="7" y="7" width="186" height="226" fill="#fff" stroke-width="2"/><path d="M100 18 l4 8.2 9 1.3 -6.5 6.4 1.5 9 -8 -4.2 -8 4.2 1.5 -9 -6.5 -6.4 9 -1.3 Z" fill="#fff"/><path d="M100 42 L126 92 H112 L138 138 H62 L88 92 H74 Z" fill="#fff"/><path d="M80 96 Q100 110 120 96"/><path d="M70 124 Q100 140 130 124"/><circle cx="88" cy="78" r="4" fill="#fff"/><circle cx="113" cy="84" r="4" fill="#fff"/><circle cx="100" cy="106" r="4" fill="#fff"/><circle cx="80" cy="118" r="4" fill="#fff"/><circle cx="121" cy="120" r="4" fill="#fff"/><circle cx="96" cy="130" r="4" fill="#fff"/><rect x="94" y="138" width="12" height="14" fill="#fff"/><rect x="20" y="168" width="34" height="26" fill="#fff"/><path d="M37 168 v26 M20 181 h34"/><circle cx="31" cy="163" r="5" fill="#fff"/><circle cx="43" cy="163" r="5" fill="#fff"/><rect x="148" y="176" width="30" height="20" fill="#fff"/><path d="M163 176 v20 M148 186 h30"/><ellipse cx="112" cy="190" rx="34" ry="16" fill="#fff"/><path d="M92 178 q4 6 2 12 M106 176 q4 7 2 13"/><circle cx="82" cy="186" r="13" fill="#fff"/><path d="M73 178 l-3 -10 9 5 M91 176 l4 -9 5 10" fill="#fff"/><path d="M76 186 q5 4 10 0"/><path d="M64 184 h-8 M65 190 h-8"/><path d="M144 192 q17 2 13 -13"/><path d="M58 156 h10 l-10 10 h10"/><path d="M46 142 h8 l-8 8 h8"/><path d="M14 212 H186"/></svg><figcaption><b>Tree &amp; Sleeping Cat</b><span>Sample page 2 of 40 — print at home</span><span class="print-note">Print sample · A4 or Letter · single-sided</span></figcaption></figure>
+<figure class="color-page"><svg viewBox="0 0 200 240" fill="none" stroke="#111" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="Coloring page: happy reindeer wearing sleigh bells with snowflakes around it"><rect x="7" y="7" width="186" height="226" fill="#fff" stroke-width="2"/><path d="M34 26 v28 M21 33 l26 14 M47 33 L21 47 M34 26 l-6 7 M34 26 l6 7 M34 54 l-6 -7 M34 54 l6 -7"/><path d="M168 66 v24 M157 72 l22 12 M179 72 l-22 12 M168 66 l-5 6 M168 66 l5 6 M168 90 l-5 -6 M168 90 l5 -6"/><path d="M30 108 v20 M21 113 l18 10 M39 113 l-18 10"/><ellipse cx="104" cy="142" rx="42" ry="30" fill="#fff"/><path d="M76 166 v26 M90 170 v22 M118 170 v22 M132 166 v26"/><path d="M68 192 h14 M84 192 h13 M112 192 h13 M126 192 h14"/><path d="M63 130 q-11 -5 -9 -18"/><circle cx="55" cy="108" r="5" fill="#fff"/><path d="M132 126 L155 94 L172 104 L150 140 Z" fill="#fff"/><ellipse cx="167" cy="95" rx="17" ry="13" transform="rotate(-24 167 95)" fill="#fff"/><circle cx="181" cy="103" r="6" fill="#fff"/><circle cx="163" cy="90" r="3" fill="#111" stroke="none"/><path d="M172 106 q3 6 -3 8"/><ellipse cx="152" cy="82" rx="8" ry="5" transform="rotate(-30 152 82)" fill="#fff"/><path d="M158 80 q-4 -17 -17 -22 M147 64 q-9 0 -13 -7 M141 60 q-2 -9 -9 -12"/><path d="M170 78 q2 -17 13 -23 M181 62 q9 -2 11 -9"/><path d="M126 116 Q146 142 170 126"/><circle cx="133" cy="127" r="5" fill="#fff"/><circle cx="145" cy="135" r="5" fill="#fff"/><circle cx="158" cy="133" r="5" fill="#fff"/><path d="M133 132 v4 M145 140 v4 M158 138 v4"/><path d="M82 118 Q104 134 128 118"/><circle cx="93" cy="127" r="4" fill="#fff"/><circle cx="105" cy="130" r="4" fill="#fff"/><circle cx="117" cy="127" r="4" fill="#fff"/><path d="M16 214 q22 -10 44 0 t44 0 t44 0 t36 0"/></svg><figcaption><b>Reindeer &amp; Sleigh Bells</b><span>Sample page 3 of 40 — print at home</span><span class="print-note">Print sample · A4 or Letter · single-sided</span></figcaption></figure>
+</div><button class="btn btn-green" type="button" data-add="cozycolor" style="width:100%">Add to Cart — $7</button></article>
+        <article class="card"><div class="book-cover" style="background:linear-gradient(160deg,#31406E,#8FA3C8)"><svg viewBox="0 0 64 64" fill="none" stroke="#FFFDF7" stroke-width="2.6" stroke-linecap="round"><circle cx="32" cy="32" r="24"/><circle cx="32" cy="32" r="16"/><circle cx="32" cy="32" r="7"/><path d="M32 8v9M32 47v9M8 32h9M47 32h9M15 15l6.4 6.4M42.6 42.6L49 49M49 15l-6.4 6.4M21.4 42.6L15 49"/></svg><b>Magical Christmas Mandalas</b><span>30 pages · Adults + older kids</span><span>❄ ✦ ❄</span></div><div class="meta-pills"><span class="pill">30 pages</span><span class="pill">Relaxing</span><span class="pill">Print-at-home PDF</span></div><p class="soft">Snowflake mandalas, ornament spirals and star patterns. The calm-down book for grown-ups during December chaos.</p><div class="color-pages">
+<figure class="color-page"><svg viewBox="0 0 200 240" fill="none" stroke="#111" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="Coloring page: large six-point snowflake mandala with intricate inner patterns"><rect x="7" y="7" width="186" height="226" fill="#fff" stroke-width="2"/><circle cx="100" cy="120" r="92" stroke-width="5" stroke-dasharray="0.1 13"/><circle cx="100" cy="120" r="80" stroke-width="2"/><g><path d="M100 108 V42 M100 64 L84 46 M100 64 L116 46 M100 84 L88 70 M100 84 L112 70"/><path d="M100 28 l8 12 -8 12 -8 -12 Z" fill="#fff"/></g><g transform="rotate(60 100 120)"><path d="M100 108 V42 M100 64 L84 46 M100 64 L116 46 M100 84 L88 70 M100 84 L112 70"/><path d="M100 28 l8 12 -8 12 -8 -12 Z" fill="#fff"/></g><g transform="rotate(120 100 120)"><path d="M100 108 V42 M100 64 L84 46 M100 64 L116 46 M100 84 L88 70 M100 84 L112 70"/><path d="M100 28 l8 12 -8 12 -8 -12 Z" fill="#fff"/></g><g transform="rotate(180 100 120)"><path d="M100 108 V42 M100 64 L84 46 M100 64 L116 46 M100 84 L88 70 M100 84 L112 70"/><path d="M100 28 l8 12 -8 12 -8 -12 Z" fill="#fff"/></g><g transform="rotate(240 100 120)"><path d="M100 108 V42 M100 64 L84 46 M100 64 L116 46 M100 84 L88 70 M100 84 L112 70"/><path d="M100 28 l8 12 -8 12 -8 -12 Z" fill="#fff"/></g><g transform="rotate(300 100 120)"><path d="M100 108 V42 M100 64 L84 46 M100 64 L116 46 M100 84 L88 70 M100 84 L112 70"/><path d="M100 28 l8 12 -8 12 -8 -12 Z" fill="#fff"/></g><path d="M161 74 v18 M152 83 h18"/><path d="M161 148 v18 M152 157 h18"/><path d="M39 148 v18 M30 157 h18"/><path d="M39 74 v18 M30 83 h18"/><polygon points="100,94 122.5,107 122.5,133 100,146 77.5,133 77.5,107" fill="#fff"/><circle cx="100" cy="120" r="15" fill="#fff"/><circle cx="100" cy="120" r="4" fill="#fff"/><path d="M100 105 v-8 M100 143 v-8 M85 120 h-8 M123 120 h-8"/></svg><figcaption><b>Snowflake Mandala</b><span>Sample page 1 of 30 — print at home</span><span class="print-note">Print sample · A4 or Letter · single-sided</span></figcaption></figure>
+<figure class="color-page"><svg viewBox="0 0 200 240" fill="none" stroke="#111" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="Coloring page: round Christmas ornament mandala with concentric circles, petals, dots and a bow on top"><rect x="7" y="7" width="186" height="226" fill="#fff" stroke-width="2"/><path d="M100 28 C78 8 58 18 66 32 C72 44 92 40 100 28 Z" fill="#fff"/><path d="M100 28 C122 8 142 18 134 32 C128 44 108 40 100 28 Z" fill="#fff"/><circle cx="100" cy="29" r="6" fill="#fff"/><rect x="88" y="36" width="24" height="12" rx="3" fill="#fff"/><path d="M94 36 v12 M106 36 v12"/><circle cx="100" cy="142" r="72" fill="#fff"/><circle cx="100" cy="142" r="60" fill="#fff"/><circle cx="100" cy="74" r="3" fill="#fff"/><circle cx="134" cy="85" r="3" fill="#fff"/><circle cx="158" cy="109" r="3" fill="#fff"/><circle cx="168" cy="142" r="3" fill="#fff"/><circle cx="158" cy="175" r="3" fill="#fff"/><circle cx="134" cy="199" r="3" fill="#fff"/><circle cx="100" cy="210" r="3" fill="#fff"/><circle cx="66" cy="199" r="3" fill="#fff"/><circle cx="42" cy="175" r="3" fill="#fff"/><circle cx="32" cy="142" r="3" fill="#fff"/><circle cx="42" cy="109" r="3" fill="#fff"/><circle cx="66" cy="85" r="3" fill="#fff"/><ellipse cx="100" cy="94" rx="9" ry="16" fill="#fff"/><ellipse cx="100" cy="94" rx="9" ry="16" transform="rotate(45 100 142)" fill="#fff"/><ellipse cx="100" cy="94" rx="9" ry="16" transform="rotate(90 100 142)" fill="#fff"/><ellipse cx="100" cy="94" rx="9" ry="16" transform="rotate(135 100 142)" fill="#fff"/><ellipse cx="100" cy="94" rx="9" ry="16" transform="rotate(180 100 142)" fill="#fff"/><ellipse cx="100" cy="94" rx="9" ry="16" transform="rotate(225 100 142)" fill="#fff"/><ellipse cx="100" cy="94" rx="9" ry="16" transform="rotate(270 100 142)" fill="#fff"/><ellipse cx="100" cy="94" rx="9" ry="16" transform="rotate(315 100 142)" fill="#fff"/><circle cx="100" cy="142" r="26" fill="#fff"/><path d="M100 142 m-13 0 a13 13 0 1 1 13 13 a9 9 0 1 0 9 -9"/><path d="M100 124 v36 M82 142 h36 M87 129 l26 26 M113 129 l-26 26" stroke-width="2.5"/><circle cx="100" cy="142" r="4" fill="#fff"/></svg><figcaption><b>Ornament Mandala</b><span>Sample page 2 of 30 — print at home</span><span class="print-note">Print sample · A4 or Letter · single-sided</span></figcaption></figure>
+<figure class="color-page"><svg viewBox="0 0 200 240" fill="none" stroke="#111" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="Coloring page: Christmas tree mandala with stars and circles in concentric rings"><rect x="7" y="7" width="186" height="226" fill="#fff" stroke-width="2"/><circle cx="100" cy="120" r="92" stroke-width="5" stroke-dasharray="0.1 13"/><circle cx="100" cy="120" r="80" fill="#fff"/><path d="M100 48 l2.6 5.3 5.8 .8 -4.2 4.1 1 5.8 -5.2 -2.7 -5.2 2.7 1 -5.8 -4.2 -4.1 5.8 -.8 Z" fill="#fff"/><path d="M100 48 l2.6 5.3 5.8 .8 -4.2 4.1 1 5.8 -5.2 -2.7 -5.2 2.7 1 -5.8 -4.2 -4.1 5.8 -.8 Z" transform="rotate(30 100 120)" fill="#fff"/><path d="M100 48 l2.6 5.3 5.8 .8 -4.2 4.1 1 5.8 -5.2 -2.7 -5.2 2.7 1 -5.8 -4.2 -4.1 5.8 -.8 Z" transform="rotate(60 100 120)" fill="#fff"/><path d="M100 48 l2.6 5.3 5.8 .8 -4.2 4.1 1 5.8 -5.2 -2.7 -5.2 2.7 1 -5.8 -4.2 -4.1 5.8 -.8 Z" transform="rotate(90 100 120)" fill="#fff"/><path d="M100 48 l2.6 5.3 5.8 .8 -4.2 4.1 1 5.8 -5.2 -2.7 -5.2 2.7 1 -5.8 -4.2 -4.1 5.8 -.8 Z" transform="rotate(120 100 120)" fill="#fff"/><path d="M100 48 l2.6 5.3 5.8 .8 -4.2 4.1 1 5.8 -5.2 -2.7 -5.2 2.7 1 -5.8 -4.2 -4.1 5.8 -.8 Z" transform="rotate(150 100 120)" fill="#fff"/><path d="M100 48 l2.6 5.3 5.8 .8 -4.2 4.1 1 5.8 -5.2 -2.7 -5.2 2.7 1 -5.8 -4.2 -4.1 5.8 -.8 Z" transform="rotate(180 100 120)" fill="#fff"/><path d="M100 48 l2.6 5.3 5.8 .8 -4.2 4.1 1 5.8 -5.2 -2.7 -5.2 2.7 1 -5.8 -4.2 -4.1 5.8 -.8 Z" transform="rotate(210 100 120)" fill="#fff"/><path d="M100 48 l2.6 5.3 5.8 .8 -4.2 4.1 1 5.8 -5.2 -2.7 -5.2 2.7 1 -5.8 -4.2 -4.1 5.8 -.8 Z" transform="rotate(240 100 120)" fill="#fff"/><path d="M100 48 l2.6 5.3 5.8 .8 -4.2 4.1 1 5.8 -5.2 -2.7 -5.2 2.7 1 -5.8 -4.2 -4.1 5.8 -.8 Z" transform="rotate(270 100 120)" fill="#fff"/><path d="M100 48 l2.6 5.3 5.8 .8 -4.2 4.1 1 5.8 -5.2 -2.7 -5.2 2.7 1 -5.8 -4.2 -4.1 5.8 -.8 Z" transform="rotate(300 100 120)" fill="#fff"/><path d="M100 48 l2.6 5.3 5.8 .8 -4.2 4.1 1 5.8 -5.2 -2.7 -5.2 2.7 1 -5.8 -4.2 -4.1 5.8 -.8 Z" transform="rotate(330 100 120)" fill="#fff"/><circle cx="100" cy="120" r="58" fill="#fff"/><ellipse cx="100" cy="76" rx="7" ry="12" fill="#fff"/><ellipse cx="100" cy="76" rx="7" ry="12" transform="rotate(45 100 120)" fill="#fff"/><ellipse cx="100" cy="76" rx="7" ry="12" transform="rotate(90 100 120)" fill="#fff"/><ellipse cx="100" cy="76" rx="7" ry="12" transform="rotate(135 100 120)" fill="#fff"/><ellipse cx="100" cy="76" rx="7" ry="12" transform="rotate(180 100 120)" fill="#fff"/><ellipse cx="100" cy="76" rx="7" ry="12" transform="rotate(225 100 120)" fill="#fff"/><ellipse cx="100" cy="76" rx="7" ry="12" transform="rotate(270 100 120)" fill="#fff"/><ellipse cx="100" cy="76" rx="7" ry="12" transform="rotate(315 100 120)" fill="#fff"/><circle cx="100" cy="120" r="38" fill="#fff"/><path d="M100 84 l2.2 4.5 5 .7 -3.6 3.5 .9 5 -4.5 -2.4 -4.5 2.4 .9 -5 -3.6 -3.5 5 -.7 Z" fill="#fff"/><path d="M100 94 L114 116 H106 L120 134 H80 L94 116 H86 Z" fill="#fff"/><circle cx="93" cy="112" r="3" fill="#fff"/><circle cx="108" cy="120" r="3" fill="#fff"/><circle cx="97" cy="127" r="3" fill="#fff"/><rect x="95" y="134" width="10" height="10" fill="#fff"/><circle cx="84" cy="152" r="4" fill="#fff"/><circle cx="116" cy="152" r="4" fill="#fff"/><rect x="76" y="148" width="14" height="10" fill="#fff"/><rect x="110" y="148" width="14" height="10" fill="#fff"/></svg><figcaption><b>Christmas Tree Mandala</b><span>Sample page 3 of 30 — print at home</span><span class="print-note">Print sample · A4 or Letter · single-sided</span></figcaption></figure>
+</div><button class="btn btn-green" type="button" data-add="mandalas" style="width:100%">Add to Cart — $7</button></article>
+        <article class="card"><div class="book-cover" style="background:linear-gradient(160deg,#B3271E,#E8833A)"><svg viewBox="0 0 64 64" fill="none" stroke="#FFFDF7" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M14 44h36M18 44v10M46 44v10"/><rect x="20" y="30" width="24" height="10" rx="3"/><rect x="24" y="20" width="6" height="10"/><circle cx="38" cy="24" r="4"/><path d="M20 40l-6 6h6M44 40h8"/><circle cx="26" cy="50" r="3"/><circle cx="38" cy="50" r="3"/><path d="M50 12l2 4.4 4.8.6-3.5 3.3.9 4.7-4.2-2.3-4.2 2.3.9-4.7-3.5-3.3 4.8-.6z"/></svg><b>Santa's Workshop Coloring Adventure</b><span>35 pages · Elves, toys, reindeer</span><span>🧝 🎁 🦌</span></div><div class="meta-pills"><span class="pill">35 pages</span><span class="pill">Adventure scenes</span><span class="pill">Print-at-home PDF</span></div><p class="soft">Follow Pip the elf through the workshop: toy trains, wrapping chaos, reindeer stables and the sleigh launch.</p><div class="color-pages">
+<figure class="color-page"><svg viewBox="0 0 200 240" fill="none" stroke="#111" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="Coloring page: a cheerful elf building a toy train at a workbench"><rect x="7" y="7" width="186" height="226" fill="#fff" stroke-width="2"/><path d="M14 30 Q100 54 186 30"/><circle cx="50" cy="40" r="4" fill="#fff"/><circle cx="100" cy="46" r="4" fill="#fff"/><circle cx="150" cy="40" r="4" fill="#fff"/><path d="M50 22 C42 44 38 58 38 72 L78 72 C76 54 66 36 50 22 Z" fill="#fff"/><rect x="34" y="70" width="48" height="9" rx="4" fill="#fff"/><circle cx="50" cy="20" r="6" fill="#fff"/><circle cx="58" cy="96" r="17" fill="#fff"/><path d="M43 90 l-12 -4 6 12 M73 90 l12 -4 -6 12" fill="#fff"/><circle cx="52" cy="94" r="2.6" fill="#111" stroke="none"/><circle cx="64" cy="94" r="2.6" fill="#111" stroke="none"/><circle cx="58" cy="100" r="3" fill="#fff"/><path d="M51 105 q7 6 14 0"/><path d="M40 114 h36 l4 40 H36 Z" fill="#fff"/><path d="M36 136 h44"/><path d="M76 120 L98 100"/><path d="M98 100 L112 84"/><rect x="103" y="72" width="23" height="11" rx="2" transform="rotate(38 114 77)" fill="#fff"/><rect x="88" y="118" width="10" height="18" fill="#fff"/><rect x="168" y="118" width="10" height="18" fill="#fff"/><rect x="16" y="136" width="168" height="10" fill="#fff"/><rect x="28" y="146" width="9" height="34" fill="#fff"/><rect x="163" y="146" width="9" height="34" fill="#fff"/><rect x="96" y="104" width="52" height="18" rx="5" fill="#fff"/><rect x="100" y="88" width="9" height="16" fill="#fff"/><circle cx="122" cy="94" r="6" fill="#fff"/><rect x="146" y="90" width="24" height="32" fill="#fff"/><rect x="152" y="97" width="12" height="12" fill="#fff"/><path d="M96 122 L84 136 H96 Z" fill="#fff"/><rect x="92" y="122" width="82" height="7" fill="#fff"/><circle cx="104" cy="136" r="7" fill="#fff"/><circle cx="126" cy="136" r="7" fill="#fff"/><circle cx="158" cy="136" r="7" fill="#fff"/><rect x="20" y="112" width="20" height="20" fill="#fff"/><circle cx="30" cy="122" r="5" fill="#fff"/><rect x="24" y="94" width="16" height="16" fill="#fff"/><path d="M32 97 l1.8 3.7 4 .6 -2.9 2.8 .7 4 -3.6 -1.9 -3.6 1.9 .7 -4 -2.9 -2.8 4 -.6 Z" fill="#fff"/><circle cx="176" cy="196" r="12" fill="#fff"/><path d="M166 188 q10 8 20 0"/><path d="M14 214 H186"/></svg><figcaption><b>Elf Builds a Toy Train</b><span>Sample page 1 of 35 — print at home</span><span class="print-note">Print sample · A4 or Letter · single-sided</span></figcaption></figure>
+<figure class="color-page"><svg viewBox="0 0 200 240" fill="none" stroke="#111" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="Coloring page: Santa's workshop with a workbench, shelves of toys and tools"><rect x="7" y="7" width="186" height="226" fill="#fff" stroke-width="2"/><path d="M14 28 Q100 50 186 28"/><circle cx="55" cy="38" r="4" fill="#fff"/><circle cx="100" cy="43" r="4" fill="#fff"/><circle cx="145" cy="38" r="4" fill="#fff"/><rect x="128" y="56" width="52" height="52" fill="#fff"/><path d="M154 56 v52 M128 82 h52"/><path d="M166 66 a10 10 0 1 0 6 18 a8 8 0 1 1 -6 -18" fill="#fff"/><circle cx="138" cy="68" r="2.4" fill="#fff"/><circle cx="140" cy="96" r="2.4" fill="#fff"/><circle cx="168" cy="98" r="2.4" fill="#fff"/><rect x="18" y="98" width="86" height="8" fill="#fff"/><circle cx="32" cy="76" r="5" fill="#fff"/><circle cx="52" cy="76" r="5" fill="#fff"/><circle cx="42" cy="84" r="10" fill="#fff"/><ellipse cx="42" cy="96" rx="8" ry="4" fill="#fff"/><circle cx="72" cy="86" r="11" fill="#fff"/><path d="M63 80 q9 6 18 0 M63 92 q9 -6 18 0"/><rect x="88" y="80" width="14" height="18" fill="#fff"/><path d="M88 86 h14 M88 92 h14"/><path d="M24 116 v22 M34 116 v14"/><rect x="18" y="112" width="14" height="7" rx="2" transform="rotate(24 25 115)" fill="#fff"/><path d="M52 114 l14 18 M66 114 l-14 18"/><rect x="80" y="112" width="20" height="24" fill="#fff"/><path d="M82 124 h16"/><rect x="14" y="150" width="172" height="10" fill="#fff"/><rect x="24" y="160" width="9" height="32" fill="#fff"/><rect x="167" y="160" width="9" height="32" fill="#fff"/><path d="M52 150 L58 122 L84 122 L90 150 Z" fill="#fff"/><path d="M58 122 L71 108 L84 122" fill="#fff"/><rect x="66" y="132" width="10" height="12" fill="#fff"/><rect x="104" y="124" width="26" height="26" fill="#fff"/><path d="M117 124 v26 M104 137 h26"/><circle cx="110" cy="119" r="5" fill="#fff"/><circle cx="124" cy="119" r="5" fill="#fff"/><circle cx="148" cy="128" r="5" fill="#fff"/><circle cx="164" cy="128" r="5" fill="#fff"/><circle cx="156" cy="136" r="10" fill="#fff"/><ellipse cx="156" cy="148" rx="8" ry="4" fill="#fff"/><path d="M14 214 H186"/><path d="M40 196 h34 M40 204 h34"/><rect x="120" y="192" width="18" height="18" fill="#fff"/><circle cx="129" cy="201" r="5" fill="#fff"/><rect x="146" y="196" width="14" height="14" fill="#fff"/><path d="M153 199 l1.6 3.2 3.5 .5 -2.5 2.5 .6 3.5 -3.2 -1.7 -3.2 1.7 .6 -3.5 -2.5 -2.5 3.5 -.5 Z" fill="#fff"/></svg><figcaption><b>Santa's Workshop</b><span>Sample page 2 of 35 — print at home</span><span class="print-note">Print sample · A4 or Letter · single-sided</span></figcaption></figure>
+<figure class="color-page"><svg viewBox="0 0 200 240" fill="none" stroke="#111" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="Coloring page: a reindeer pulling a toy sleigh loaded with a teddy bear and presents"><rect x="7" y="7" width="186" height="226" fill="#fff" stroke-width="2"/><path d="M170 24 a15 15 0 1 0 8 27 a12 12 0 1 1 -8 -27" fill="#fff"/><path d="M36 30 l2 5.5 5.5 2 -5.5 2 -2 5.5 -2 -5.5 -5.5 -2 5.5 -2 Z" fill="#fff"/><path d="M120 44 l1.6 4.4 4.4 1.6 -4.4 1.6 -1.6 4.4 -1.6 -4.4 -4.4 -1.6 4.4 -1.6 Z" fill="#fff"/><path d="M24 84 v20 M15 89 l18 10 M33 89 L15 99"/><ellipse cx="56" cy="138" rx="30" ry="21" fill="#fff"/><path d="M36 154 l-4 22 M48 158 v18 M66 158 l4 18 M78 154 l6 20"/><path d="M28 176 h10 M43 176 h10 M65 176 h10 M79 174 h11"/><path d="M84 128 q10 -4 8 -16"/><circle cx="93" cy="108" r="4.5" fill="#fff"/><path d="M32 124 L18 104 L30 94 L46 116 Z" fill="#fff"/><ellipse cx="22" cy="96" rx="12" ry="9" transform="rotate(28 22 96)" fill="#fff"/><circle cx="11" cy="102" r="5" fill="#fff"/><circle cx="24" cy="90" r="2.6" fill="#111" stroke="none"/><path d="M14 104 q-1 6 5 7"/><ellipse cx="34" cy="86" rx="6" ry="4" transform="rotate(30 34 86)" fill="#fff"/><path d="M28 84 q-8 -12 -19 -13 M12 76 q-7 -1 -10 -6"/><path d="M38 82 q6 -13 16 -16 M52 72 q7 0 10 -4"/><path d="M44 122 Q74 112 96 122"/><circle cx="56" cy="117" r="4.5" fill="#fff"/><circle cx="70" cy="115" r="4.5" fill="#fff"/><circle cx="84" cy="117" r="4.5" fill="#fff"/><path d="M96 122 L104 138 M100 124 L112 140"/><path d="M100 128 L168 128 C168 148 154 158 132 158 L112 158 C102 148 96 138 100 128 Z" fill="#fff"/><path d="M168 128 q12 -4 11 -20"/><path d="M94 172 q42 12 84 0"/><path d="M178 172 q11 -1 9 -12"/><path d="M112 158 v12 M162 158 v12"/><circle cx="126" cy="104" r="5" fill="#fff"/><circle cx="144" cy="104" r="5" fill="#fff"/><circle cx="135" cy="112" r="10" fill="#fff"/><ellipse cx="135" cy="124" rx="9" ry="6" fill="#fff"/><rect x="152" y="106" width="22" height="22" fill="#fff"/><path d="M163 106 v22 M152 117 h22"/><path d="M14 216 q24 -10 48 0 t48 0 t48 0 t28 0"/></svg><figcaption><b>Reindeer &amp; Toy Sleigh</b><span>Sample page 3 of 35 — print at home</span><span class="print-note">Print sample · A4 or Letter · single-sided</span></figcaption></figure>
+</div><button class="btn btn-green" type="button" data-add="workshopcolor" style="width:100%">Add to Cart — $7</button></article>
+      </div>
+      <div class="card" style="margin-top:16px;display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:space-between"><div><h3>All 3 Coloring Books</h3><p class="soft" style="margin:0">105 coloring pages total · Instant download</p></div><div><span class="strike">$21</span> <b class="serif" style="font-size:1.8rem">$15</b> <button class="btn btn-red" type="button" data-add="coloring3">Add All 3 — $15</button></div></div>
+    </div></section>
+
+    <!-- ============ DIGITAL DOWNLOADS ============ -->
+    <section id="digital" style="padding-top:0"><div class="wrap">
+      <div class="section-hero" style="background:linear-gradient(135deg,#3A2A08,#07180F)"><p class="kicker">Digital Downloads — Landing Page</p><h2>The bestsellers that solve December</h2><p>Letters from Santa, advent joy, party games, planners and TV art — ready in minutes, not shipping days.</p><p class="proof">⚡ Instant delivery · Print at home · Giftable in 2 minutes</p></div>
+      <div class="grid grid-3">
+        <article class="card"><h3>🎅 Santa Letter + Nice List Certificate Kit</h3><p><b class="serif" style="font-size:1.6rem">$12</b></p><p class="soft">Editable, personalized letter from Santa + official Nice List certificate. Add their name, print, watch their face.</p><div class="samples"><div class="sample"><b>Preview</b>Letterhead: North Pole, gold seal</div><div class="sample"><b>Preview</b>Certificate with name + date</div><div class="sample"><b>Bonus</b>Reindeer food label</div></div><button class="btn btn-gold" type="button" data-add="santakit" style="width:100%">Add — $12</button></article>
+        <article class="card"><h3>📅 24-Day Advent Activity Cards</h3><p><b class="serif" style="font-size:1.6rem">$14</b></p><p class="soft">Print, cut, one joy per day: bake, donate, stargaze, dance in the kitchen. No candy required, all connection.</p><div class="samples"><div class="sample"><b>Day 1</b>Make a card for a neighbor</div><div class="sample"><b>Day 12</b>Hot cocoa taste-test night</div><div class="sample"><b>Day 24</b>Read a story by tree light</div></div><button class="btn btn-gold" type="button" data-add="advent" style="width:100%">Add — $14</button></article>
+        <article class="card"><h3>🎉 Christmas Party Games Mega Pack</h3><p><b class="serif" style="font-size:1.6rem">$16</b></p><p class="soft">Bingo, trivia, scavenger hunt, White Elephant rules + scorecards. Office party, family night, classroom — sorted.</p><div class="samples"><div class="sample"><b>Includes</b>Bingo (30 unique cards)</div><div class="sample"><b>Includes</b>Trivia — 100 questions</div><div class="sample"><b>Includes</b>Scavenger hunt + White Elephant</div></div><button class="btn btn-gold" type="button" data-add="partygames" style="width:100%">Add — $16</button></article>
+        <article class="card"><h3>🗂️ Christmas Planner Bundle</h3><p><b class="serif" style="font-size:1.6rem">$17</b></p><p class="soft">Gift tracker, budget sheet, meal plan, card list, December calendar. The calm brain for Christmas.</p><div class="samples"><div class="sample"><b>Page</b>Gift tracker by person</div><div class="sample"><b>Page</b>Budget — no January shock</div><div class="sample"><b>Page</b>Meal plan + shopping list</div></div><button class="btn btn-gold" type="button" data-add="planner" style="width:100%">Add — $17</button></article>
+        <article class="card"><h3>🖼️ Christmas Frame TV Art Pack</h3><p><b class="serif" style="font-size:1.6rem">$12</b></p><p class="soft">20 vintage Christmas images sized for Samsung Frame TV. Turn the black rectangle into a fireplace painting.</p><div class="samples"><div class="sample"><b>Art 1</b>Vintage village in snow</div><div class="sample"><b>Art 2</b>Classic Santa portrait</div><div class="sample"><b>Art 3</b>Winter forest, gold frame look</div></div><button class="btn btn-gold" type="button" data-add="tvart" style="width:100%">Add — $12</button></article>
+        <article class="card"><h3>✨ New Year Reset Workbook</h3><p><b class="serif" style="font-size:1.6rem">$14</b></p><p class="soft">Vision, goals, 30-day plan. Close the year kindly, start January clear. Pairs perfectly with GluteBoss.</p><div class="samples"><div class="sample"><b>Part 1</b>Year review — honest, kind</div><div class="sample"><b>Part 2</b>Vision + 3 real goals</div><div class="sample"><b>Part 3</b>30-day starter plan</div></div><button class="btn btn-gold" type="button" data-add="newyear" style="width:100%">Add — $14</button></article>
+      </div>
+      <div class="workshop" style="margin-top:20px"><h2 style="color:#fff">🎄 Santa's Workshop — Behind the Scenes</h2><p style="color:#FFE9C9;max-width:42rem">This is where the Wonderland gets made: portraits art-directed one by one, books proof-read aloud (if it doesn't sound good spoken, it gets rewritten), coloring pages test-printed so lines stay clean. No mass AI slop — every product is checked by a human elf before it ships.</p><p class="proof">Workshop promise: if it wouldn't delight our own family, it doesn't go in the store.</p></div>
+    </div></section>
+
+    <!-- ============ ULTIMATE BUNDLE ============ -->
+    <section id="ultimate-bundle" style="padding-top:0"><div class="wrap">
+      <div class="card pop" style="padding:30px"><span class="pop-tag">SAVE $118 · BEST VALUE</span>
+        <p class="kicker">Bundles — Landing Page</p><h2>THE ULTIMATE CHRISTMAS BUNDLE — $79</h2>
+        <p class="soft">Everything digital in the Wonderland, in one instant download. One gift that covers kids, family, parties, planning and the portrait they'll keep forever.</p>
+        <div class="grid grid-2" style="gap:20px;margin-top:14px"><div><ul class="value-stack" style="color:var(--ink)"><li><span>Portrait Studio — Single</span><b>$39</b></li><li><span>All 3 Kids Books</span><b>$19</b></li><li><span>All 3 Coloring Books</span><b>$15</b></li><li><span>Santa Letter + Certificate Kit</span><b>$12</b></li><li><span>24-Day Advent Activity Cards</span><b>$14</b></li><li><span>Party Games Mega Pack</span><b>$16</b></li><li><span>Christmas Planner Bundle</span><b>$17</b></li><li><span><b>Total value</b></span><b>$197*</b></li></ul><p class="soft" style="font-size:.88rem">*Value stack as listed in brief ($132 in items + bonus previews, gift wrap printables &amp; updates valued to $197 total bundle value).</p></div>
+        <div style="text-align:center;background:var(--surface2);border-radius:14px;padding:22px"><p class="soft" style="margin:0">Total value $197</p><p class="serif" style="font-size:3rem;font-weight:800;margin:4px 0">$79</p><p style="color:var(--red);font-weight:800">You save $118</p><button class="btn btn-red" type="button" data-add="ultimate" style="width:100%;font-size:1.1rem">Add Ultimate Bundle — $79</button><p class="soft" style="font-size:.88rem;margin-top:8px">Instant delivery · Print at home · Giftable in 2 minutes</p></div></div>
+      </div>
+      <div class="grid grid-3" style="margin-top:18px">
+        <div class="card bundle-card"><span class="save-pill">KIDS FAVORITE</span><h3>Kids Bundle — $29</h3><p class="soft">Kids books + coloring highlights + Santa Kit for the full kid Christmas.</p><button class="btn btn-gold" type="button" data-add="kidsbundle" style="width:100%">Add Kids Bundle — $29</button></div>
+        <div class="card bundle-card"><span class="save-pill">RELAX &amp; COLOR</span><h3>Coloring Bundle — $19</h3><p class="soft">All coloring books at bundle price, plus mandala calm for adults.</p><button class="btn btn-gold" type="button" data-add="coloringbundle" style="width:100%">Add Coloring Bundle — $19</button></div>
+        <div class="card bundle-card"><span class="save-pill">FAMILY NIGHT</span><h3>Family Fun Bundle — $39</h3><p class="soft">Party Games + Advent Cards + Planner + Santa Kit. December, organized and fun.</p><button class="btn btn-gold" type="button" data-add="familyfun" style="width:100%">Add Family Fun — $39</button></div>
+      </div>
+    </div></section>
+
+    <!-- ============ NICE LIST + GIFT FINDER ============ -->
+    <section style="padding-top:0"><div class="wrap"><div class="grid grid-2">
+      <div class="card"><p class="kicker">Santa's Nice List Checker</p><h3>Are they on the Nice List?</h3><p class="soft">Type a name and get a fun Nice List certificate preview — perfect to show the kids.</p><div class="field"><label for="niceName">Child's (or grown-up's) name</label><input type="text" id="niceName" placeholder="e.g. Amaya" /></div><button class="btn btn-red" type="button" id="niceBtn" style="width:100%">Check the Nice List ✨</button><div class="cert" id="niceCert"><p style="letter-spacing:.15em;font-size:.8rem">✦ OFFICIAL · NORTH POLE ✦</p><h3>Nice List Certificate</h3><p>This certifies that</p><p class="serif" id="niceCertName" style="font-size:1.7rem;font-weight:800"></p><p>is officially on Santa's Nice List for Christmas 2026<br>for kindness, giggles, and excellent story-listening.</p><p style="font-size:.85rem">Signed: Santa Claus · Head Elf, Wonderland Workshop<br>Get the printable kit in the Santa Letter Kit — $12</p><button class="btn btn-gold btn-small" type="button" data-add="santakit">Add Santa Kit — $12</button></div></div>
+      <div class="card"><p class="kicker">Gift Finder Quiz</p><h3>Who are you shopping for?</h3><p class="soft">Pick one — we'll recommend 3 perfect gifts instantly.</p><div id="finderBtns"><button class="btn btn-ghost finder-opt" type="button" data-finder="mom">Mom</button><button class="btn btn-ghost finder-opt" type="button" data-finder="dad">Dad</button><button class="btn btn-ghost finder-opt" type="button" data-finder="kids">Kids</button><button class="btn btn-ghost finder-opt" type="button" data-finder="partner">Partner</button><button class="btn btn-ghost finder-opt" type="button" data-finder="pet">Pet</button><button class="btn btn-ghost finder-opt" type="button" data-finder="self">Yourself</button></div><div id="finderResult" style="margin-top:14px"></div></div>
+    </div></div></section>
+
+    <!-- ============ GLUTEBOSS ============ -->
+    <section id="gluteboss" style="padding-top:0">
+      <div class="wrap">
+        <div class="gb">
+          <p class="kicker">GluteBoss · Christmas Strong Gift</p>
+          <h2>Gift the portrait now. Gift the strong January.</h2>
+          <p style="color:#DCD6C4;max-width:44rem">GluteBoss is the glute-training app with a 12-question quiz that matches you to your track, a deterministic engine across 14 exercises, and double progression that adapts every week. This Christmas it bundles with the Portrait Studio.</p>
+          <div class="funnel" aria-label="GluteBoss funnel">
+            <div class="fstep">1 · Quiz<small>12 questions, 2 minutes</small></div><span class="arrow">→</span>
+            <div class="fstep">2 · Track Reveal<small>Riley, Hustler or Patty</small></div><span class="arrow">→</span>
+            <div class="fstep">3 · Paywall<small>$14.99/mo or $99.99/yr</small></div><span class="arrow">→</span>
+            <div class="fstep">4 · The App<small>Logger, timer, progress</small></div>
+          </div>
+          <div class="gb-grid">
+            <div class="gb-offer">
+              <h3 style="color:#FFF">Christmas Strong Gift</h3>
+              <div class="big-price">$99.99</div>
+              <ul class="value-stack">
+                <li><span>GluteBoss Annual — full app, all 3 tracks</span><b>$99</b></li>
+                <li><span>Personalized Christmas Portrait (Single)</span><b>$39.00</b></li>
+                <li><span>12-week glute program + progression engine</span><b>$149</b></li>
+                <li><span>Exercise library — 14 movements, video form cues</span><b>$79</b></li>
+                <li><span>12 Days of Glutes Christmas Challenge</span><b>$49</b></li>
+                <li><span>Progress tracking + deload weeks built in</span><b>$77</b></li>
+                <li><span><b>Total value stack</b></span><b>$492</b></li>
+              </ul>
+              <p style="color:#E9C46A;font-weight:700;margin:6px 0">You pay $99.99 — the portrait is free. You save $39.</p>
+              <p style="color:#CFC9B8;font-size:.93rem">Giftable: send it to her inbox on Christmas morning. The program starts <b style="color:#FFF">January 5</b> — portrait arrives within 24h of ordering.</p>
+              <button class="btn btn-gold" type="button" data-add="gluteboss" style="width:100%">Add Christmas Strong Gift — $99.99</button>
+            </div>
+            <div>
+              <div class="grid" style="gap:12px">
+                <div class="track"><h3>RILEY · The Rookie</h3><p style="color:#DCD6C4;margin:0;font-size:.95rem">New to glute training. Bodyweight-first foundations, form before load, confidence in 12 weeks.</p></div>
+                <div class="track"><h3>HUSTLER · The Home Hustler</h3><p style="color:#DCD6C4;margin:0;font-size:.95rem">Trains at home with dumbbells or bands. Short, intense sessions built for busy schedules.</p></div>
+                <div class="track"><h3>PATTY · The Plateau Breaker</h3><p style="color:#DCD6C4;margin:0;font-size:.95rem">Already strong, stuck at the same numbers. Advanced progression and deload science to break through.</p></div>
+              </div>
+              <div class="quiz-box">
+                <h3 style="color:#FFF">12 Days of Glutes — free challenge entry</h3>
+                <p style="color:#DCD6C4;font-size:.95rem">Try a 3-question preview of the 12-question GluteBoss quiz. Your full quiz result picks your challenge track.</p>
+                <div id="quizArea"></div>
+                <div class="quiz-result" id="quizResult"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ $10K MATH ============ -->
+    <section style="padding-top:0">
+      <div class="wrap">
+        <div class="math-box">
+          <p class="kicker" style="color:var(--gold)">The Christmas Maths</p>
+          <h2 style="color:#FFF">Why 257 portraits is a very good December</h2>
+          <div class="math-grid">
+            <div>
+              <label for="mathPrice">Portrait price ($)</label>
+              <input type="number" id="mathPrice" value="39" min="1" max="500" />
+              <label for="mathOrders">Portraits sold: <b id="mathOrdersLabel">257</b></label>
+              <input type="range" id="mathOrders" min="1" max="600" value="257" />
+              <p style="color:#CFC39E;font-size:.93rem;margin-top:10px">Drag it. At $39, the $10,000 line falls at exactly 257 portraits — that's about 9 portraits a day across December, before a single mug, canvas, or GluteBoss bundle is sold.</p>
+            </div>
+            <div>
+              <div class="math-eq" id="mathEq">$39 × 257 portraits</div>
+              <div class="math-result" id="mathResult">= $10,023</div>
+              <p style="color:#EFE7CC" id="mathNeed">257 portraits reaches $10,000 at this price.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ TRUST + REVIEWS ============ -->
+    <section style="padding-top:0">
+      <div class="wrap">
+        <div class="badge-row">
+          <div class="badge"><svg viewBox="0 0 24 24" fill="none" stroke="#A8842A" stroke-width="1.7"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg><b>24-Hour Delivery</b><span>Digital portraits in your inbox within a day</span></div>
+          <div class="badge"><svg viewBox="0 0 24 24" fill="none" stroke="#A8842A" stroke-width="1.7"><path d="M12 3l7 3v5c0 5-3.5 8-7 10-3.5-2-7-5-7-10V6z"/><path d="M9 12l2 2 4-4"/></svg><b>Love-It Guarantee</b><span>Free re-make in a new style, or a refund</span></div>
+          <div class="badge"><svg viewBox="0 0 24 24" fill="none" stroke="#A8842A" stroke-width="1.7"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 018 0v3"/></svg><b>Secure Checkout</b><span>Via Shopify checkout once connected</span></div>
+          <div class="badge"><svg viewBox="0 0 24 24" fill="none" stroke="#A8842A" stroke-width="1.7"><rect x="3" y="6" width="18" height="13" rx="2"/><path d="M3 10h18M7 15h4"/></svg><b>Print-Ready Files</b><span>300 DPI — cards, canvas and gifts</span></div>
+        </div>
+
+        <h2 style="margin-top:44px">What gift-givers say</h2>
+        <p class="soft" style="font-size:.9rem">Illustrative reviews for this storefront preview — real customer reviews will be published here as orders ship.</p>
+        <div class="grid grid-3" style="margin-top:20px">
+          <div class="card"><div class="stars">★★★★★</div><p>"Ordered the Family Pack at 9pm, portraits were in my inbox before lunch the next day. My mother cried at the canvas mockup — in the good way."</p><p class="soft" style="margin:0"><b>Nadeesha R.</b> · Family Pack, Colombo Christmas</p></div>
+          <div class="card"><div class="stars">★★★★★</div><p>"The Movie Poster style with our names in the credits is now our actual Christmas card. Three people have asked for the link already."</p><p class="soft" style="margin:0"><b>Marcus T.</b> · Single, Golden Movie Poster</p></div>
+          <div class="card"><div class="stars">★★★★★</div><p>"Bought the Gift Pack for my sister — portrait plus the mug. The mug arrived before Christmas and the portrait beat it by a week. Zero stress gifting."</p><p class="soft" style="margin:0"><b>Priya S.</b> · Gift Pack, Cozy Fireplace</p></div>
+          <div class="card"><div class="stars">★★★★★</div><p>"Our dog in a Santa hat on a tee. I have no notes. Ten out of ten, would embarrass the family again."</p><p class="soft" style="margin:0"><b>Danielle K.</b> · Pet Portrait Tee</p></div>
+          <div class="card"><div class="stars">★★★★★</div><p>"Gifted my wife the GluteBoss Christmas bundle — she got the portrait for Christmas and starts her program Jan 5. Smartest gift I've given."</p><p class="soft" style="margin:0"><b>Josh M.</b> · Christmas Strong Gift</p></div>
+          <div class="card"><div class="stars">★★★★☆</div><p>"Snow Globe portrait of the grandkids was adorable. Wish I'd ordered the canvas at the same time — the bundle discount is real money."</p><p class="soft" style="margin:0"><b>Carol W.</b> · Single, Snow Globe</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ FAQ ============ -->
+    <section id="faq" style="padding-top:0">
+      <div class="wrap" style="max-width:860px">
+        <p class="kicker">Questions</p>
+        <h2>Before you order</h2>
+        <div style="margin-top:20px">
+          <details class="faq"><summary>How fast will I get my portraits?</summary><p>Digital portraits are delivered by email within 24 hours of your photo upload. Printed gifts (mugs, canvas, sweaters) are produced per order by our print partners — order by the cutoff date shown on each product to guarantee Christmas delivery.</p></details>
+          <details class="faq"><summary>What kind of photo works best?</summary><p>A clear photo where faces are visible and reasonably well lit. Phone photos are perfect. Group shots up to 4 people fit the Family Pack; pets can join any portrait — just mention them in the order notes.</p></details>
+          <details class="faq"><summary>What if I don't love my portrait?</summary><p>That's what the Love-It Guarantee is for: tell us within 14 days and we re-make your portraits in a different style free, or refund you in full. No forms, no interrogation.</p></details>
+          <details class="faq"><summary>Can I print the portraits myself?</summary><p>Yes — files are print-ready at 300 DPI, sized for Christmas cards, canvas, and framed prints. Or skip the printer run and add the mug, canvas, or puzzle from the gift shop and we handle production.</p></details>
+          <details class="faq"><summary>What is the Dec 20 cutoff?</summary><p>December 20, 2026 is the last day to order portraits with guaranteed Christmas delivery — and the last day the free Santa Letter comes with every portrait. Digital portraits ordered after Dec 20 still arrive in 24h, but we can't promise they'll beat Santa.</p></details>
+          <details class="faq"><summary>How does the GluteBoss gift work?</summary><p>The Christmas Strong Gift gives GluteBoss Annual ($99.99) plus a free Single portrait ($39 value) for $99.99 total. The portrait is delivered within 24h; the GluteBoss program starts January 5. It's giftable — add the recipient's email at checkout.</p></details>
+          <details class="faq"><summary>Do you ship internationally?</summary><p>Digital portraits go anywhere instantly. Printed gifts are produced close to the recipient through Gelato's local printers in 32 countries, which keeps international delivery fast and affordable.</p></details>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ CONNECT ============ -->
+    <section style="padding-top:0">
+      <div class="wrap">
+        <p class="kicker">Store Status</p>
+        <h2>Connect Printify &amp; Shopify to go live</h2>
+        <div class="grid grid-2" style="margin-top:20px">
+          <div class="card">
+            <h3>Where this store stands</h3>
+            <p class="soft">This storefront is a complete working demo: catalogue, margins, bundle maths, cart, order form, and the GluteBoss funnel all run. Two connections turn it into a live store — <b>Printify and Shopify are not yet connected</b>, so checkout and automatic print fulfilment are not switched on yet.</p>
+            <p class="soft" style="margin:0">Until then, the order form above captures portrait orders as previews, and the cart calculates exact totals including bundle discounts — nothing is charged.</p>
+          </div>
+          <div class="card">
+            <h3>Next steps to launch</h3>
+            <ul class="checklist">
+              <li><b>Create the Shopify store</b> and add the 12 POD products + 3 portrait packs with the prices on this page.</li>
+              <li><b>Connect Printify to Shopify</b> (Apps → Printify), then attach each product to its print provider — Printify for staples, and order knitted/stocking items via Printful.</li>
+              <li><b>Add Gelato</b> for international orders so diaspora gifts print locally in 32 countries.</li>
+              <li><b>Point checkout at Shopify</b> — swap the demo order buttons for Shopify checkout links, and route portrait uploads to your delivery inbox.</li>
+              <li><b>Test one real order end-to-end</b> (a mug to yourself) before the Dec 20 push.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div class="wrap">
+        <p class="serif" style="font-size:1.3rem;color:var(--cream);margin-bottom:6px">Christmas <span style="color:var(--gold)">Portrait Studio</span></p>
+        <p style="max-width:40rem">Personalized AI Christmas portraits in 24 hours, a print-on-demand gift shop, kids books, coloring books and instant digital downloads — one Christmas Wonderland. <b style="color:#FFE9A8">Order by Dec 20 for POD delivery, digital is instant until Dec 24.</b></p>
+        <p style="font-size:.9rem;margin:0">Portraits · POD Gifts · Kids Books · Coloring · Digital Downloads · Bundles · GluteBoss Christmas — checkout is demo until Shopify/Printify is connected. Print partners: Printful · Printify · Gelato.</p>
+      </div>
+    </footer>
+
+    <!-- ============ CART ============ -->
+    <div class="scrim" id="scrim"></div>
+    <aside class="cart-drawer" id="cartDrawer" aria-label="Shopping cart">
+      <div class="cart-head"><h3 style="margin:0">Your Cart</h3><button class="close-x" id="cartClose" type="button" aria-label="Close cart">×</button></div>
+      <div class="cart-items" id="cartItems"></div>
+      <div class="cart-foot">
+        <div class="row"><span>Subtotal</span><span id="ctSub">$0.00</span></div>
+        <div class="row discount"><span>Bundle savings</span><span id="ctDisc">−$0.00</span></div>
+        <div class="row"><span>Santa Letter (with any portrait)</span><span style="color:#1E7A34;font-weight:700">FREE</span></div>
+        <div class="row total"><span>Total</span><span id="ctTotal">$0.00</span></div>
+        <button class="btn btn-gold" type="button" id="checkoutBtn" style="width:100%;margin-top:10px">Checkout</button>
+        <p class="soft" style="font-size:.85rem;margin:8px 0 0;text-align:center">Demo checkout — live payment switches on when Shopify is connected.</p>
+      </div>
+    </aside>
+    <div class="toast" id="toast" role="status"></div>
+
+    <!-- ============ JINGLE PLAYER ============ -->
+    <div class="jingle" id="jingleBox">
+      <div class="jingle-hint" id="jingleHint">Tap ♪ for Christmas music</div>
+      <div class="jingle-bar">
+        <button class="jingle-btn" id="jingleBtn" type="button" aria-pressed="false">♪ Jingle Bells</button>
+        <label for="jingleVol">Vol</label>
+        <input type="range" id="jingleVol" min="0" max="100" value="55" aria-label="Music volume" />
+      </div>
+    </div>
+
+    <script>
+      /* ---------- Data ---------- */
+      var PRODUCTS = {
+        portrait:{name:"Personalized Christmas Portrait — Single", price:39},
+        family:{name:"Family Pack Portrait (4 people, 6 portraits)", price:69},
+        giftpack:{name:"Gift Pack (Portraits + Mug)", price:89},
+        mug:{name:"Personalized Portrait Mug", price:29},
+        canvas:{name:"Christmas Portrait Canvas", price:49},
+        sweater:{name:"Ugly Christmas Sweater (Knitted)", price:59},
+        stocking:{name:"Rustic Christmas Stocking", price:34.99},
+        ornament:{name:"Personalized Ornament", price:24},
+        tee:{name:"Family Christmas Tee", price:29},
+        hoodie:{name:"Cozy Hoodie", price:54},
+        tote:{name:"Christmas Tote", price:24},
+        puzzle:{name:"Portrait Puzzle", price:34},
+        santaset:{name:"Santa Letter + Portrait Gift Set", price:49},
+        pettee:{name:"Pet Christmas Portrait Tee", price:29},
+        phonecase:{name:"Christmas Phone Case", price:24},
+        gluteboss:{name:"GluteBoss Christmas Strong Gift (Annual + Free Portrait)", price:99.99},
+        milo:{name:"Milo and the Lost Star — Kids Book (PDF)", price:9},
+        snowglobe:{name:"The Snow Globe That Snowed Inside — Kids Book (PDF)", price:9},
+        sleigh:{name:"Santa's Last Sleigh Ride — Kids Book (PDF)", price:9},
+        kids3:{name:"All 3 Kids Books Bundle (PDF)", price:19},
+        cozycolor:{name:"Cozy Christmas Coloring — 40 Pages (PDF)", price:7},
+        mandalas:{name:"Magical Christmas Mandalas — 30 Pages (PDF)", price:7},
+        workshopcolor:{name:"Santa's Workshop Coloring Adventure — 35 Pages (PDF)", price:7},
+        coloring3:{name:"All 3 Coloring Books Bundle (PDF)", price:15},
+        santakit:{name:"Santa Letter + Nice List Certificate Kit", price:12},
+        advent:{name:"24-Day Advent Activity Cards", price:14},
+        partygames:{name:"Christmas Party Games Mega Pack", price:16},
+        planner:{name:"Christmas Planner Bundle", price:17},
+        tvart:{name:"Christmas Frame TV Art Pack — 20 Images", price:12},
+        newyear:{name:"New Year Reset Workbook", price:14},
+        ultimate:{name:"THE ULTIMATE CHRISTMAS BUNDLE — Everything Digital", price:79},
+        kidsbundle:{name:"Kids Bundle — Books + Coloring + Santa Kit", price:29},
+        coloringbundle:{name:"Coloring Bundle — All Coloring + Mandalas Bonus", price:19},
+        familyfun:{name:"Family Fun Bundle — Games + Advent + Planner + Santa Kit", price:39}
+      };
+      var SHOP = [
+        {id:"mug", name:"Personalized Portrait Mug", price:29, base:"$13–$15", profit:"$14–$16", best:"Mom, coworkers, Secret Santa", cutoff:"Dec 15", supplier:"Printify", cats:["her","him","home"], art:"linear-gradient(150deg,#8C1F28,#3D0E18)", glyph:"mug"},
+        {id:"canvas", name:"Christmas Portrait Canvas", price:49, base:"$24", profit:"$25", best:"Mom, grandparents, the family wall", cutoff:"Dec 14", supplier:"Printful", cats:["her","home"], art:"linear-gradient(150deg,#8A6A1F,#3A2A08)", glyph:"frame"},
+        {id:"sweater", name:"Ugly Christmas Sweater", price:59, base:"$37.74–$59", profit:"up to $21.26", best:"Office parties, Dad, photo day", cutoff:"Dec 13", supplier:"Printful · knitted", cats:["her","him"], art:"linear-gradient(150deg,#146B4F,#0E2A1A)", glyph:"sweater"},
+        {id:"stocking", name:"Rustic Christmas Stocking", price:34.99, base:"$17.17", profit:"$17.82", best:"New babies, newlyweds, the fireplace", cutoff:"Dec 15", supplier:"Printful", cats:["kids","home"], art:"linear-gradient(150deg,#8A4A1F,#3A1C0C)", glyph:"stocking"},
+        {id:"ornament", name:"Personalized Ornament", price:24, base:"$9", profit:"$15", best:"First Christmas, teachers, tree gifts", cutoff:"Dec 16", supplier:"Printify", cats:["kids","home"], art:"linear-gradient(150deg,#B3271E,#5E1420)", glyph:"ornament"},
+        {id:"tee", name:"Family Christmas Tee", price:29, base:"$12", profit:"$17", best:"Matching family photos, Dad", cutoff:"Dec 15", supplier:"Printify", cats:["him","her","kids"], art:"linear-gradient(150deg,#31406E,#1C2440)", glyph:"tee"},
+        {id:"hoodie", name:"Cozy Hoodie", price:54, base:"$28", profit:"$26", best:"Partner, teens, cold December nights", cutoff:"Dec 14", supplier:"Printful", cats:["her","him"], art:"linear-gradient(150deg,#5A2410,#2A1608)", glyph:"hoodie"},
+        {id:"tote", name:"Christmas Tote", price:24, base:"$10", profit:"$14", best:"Her, teachers, market runs", cutoff:"Dec 16", supplier:"Printify", cats:["her","home"], art:"linear-gradient(150deg,#C8F16922,#146B4F)", glyph:"tote"},
+        {id:"puzzle", name:"Portrait Puzzle", price:34, base:"$15", profit:"$19", best:"Kids, grandparents, family night", cutoff:"Dec 15", supplier:"Printify", cats:["kids","home"], art:"linear-gradient(150deg,#2E5F7A,#123A52)", glyph:"puzzle"},
+        {id:"santaset", name:"Santa Letter + Portrait Gift Set", price:49, base:"$20", profit:"$29", best:"Kids 4–9 — the Christmas-morning moment", cutoff:"Dec 13", supplier:"Gelato", cats:["kids"], art:"linear-gradient(150deg,#D4AF37,#8A6A1F)", glyph:"letter"},
+        {id:"pettee", name:"Pet Christmas Portrait Tee", price:29, base:"$12", profit:"$17", best:"Pet parents — dogs and cats in Santa hats", cutoff:"Dec 15", supplier:"Printify", cats:["pets"], art:"linear-gradient(150deg,#7A4A8C,#3A2050)", glyph:"paw"},
+        {id:"phonecase", name:"Christmas Phone Case", price:24, base:"$11", profit:"$13", best:"Teens, stocking stuffers, last-minute gifts", cutoff:"Dec 16", supplier:"Printify", cats:["her","him","kids"], art:"linear-gradient(150deg,#43585A,#22332F)", glyph:"phone"}
+      ];
+      var GLYPHS = {
+        mug:'<svg viewBox="0 0 64 64" fill="none"><ellipse cx="29" cy="54" rx="20" ry="4" fill="#D4AF37" opacity=".55"/><path d="M12 22h32v20a10 10 0 01-10 10h-12a10 10 0 01-10-10z" fill="#B3271E"/><path d="M44 27h3a7 7 0 010 14h-3" stroke="#B3271E" stroke-width="4"/><path d="M12 22h32v6H12z" fill="#8C1F28"/><circle cx="28" cy="37" r="8" fill="#F7EFDA"/><circle cx="28" cy="34" r="3" fill="#8A5A2B"/><path d="M21 44a7 5 0 0114 0z" fill="#146B4F"/><path d="M20 14c0 3-3 3-3 6M28 14c0 3-3 3-3 6M36 14c0 3-3 3-3 6" stroke="#F7EFDA" stroke-width="2.6" stroke-linecap="round"/><path d="M52 46V32a5 5 0 0110 0" stroke="#F7EFDA" stroke-width="3.4"/><path d="M54 39l6-2M53 45l6-2" stroke="#B3271E" stroke-width="2"/></svg>',
+        frame:'<svg viewBox="0 0 64 64" fill="none"><rect x="8" y="8" width="48" height="48" rx="3" fill="#D4AF37"/><rect x="13" y="13" width="38" height="38" fill="#0E2A1A"/><circle cx="20" cy="20" r="1.6" fill="#FFF"/><circle cx="45" cy="18" r="1.6" fill="#FFF"/><circle cx="40" cy="26" r="1.3" fill="#FFF"/><path d="M32 24 L39 36 H36 L42 44 H22 L28 36 H25 Z" fill="#2E7D46"/><circle cx="32" cy="31" r="1.8" fill="#D4AF37"/><circle cx="28" cy="39" r="1.6" fill="#C93A2E"/><circle cx="36" cy="41" r="1.6" fill="#D4AF37"/><rect x="30" y="44" width="4" height="4" fill="#8A5A2B"/><circle cx="18" cy="40" r="3.4" fill="#E8C39E"/><path d="M14 51a4 6 0 018 0z" fill="#B3271E"/><circle cx="47" cy="40" r="3.4" fill="#8A5A2B"/><path d="M43 51a4 6 0 018 0z" fill="#D4AF37"/></svg>',
+        sweater:'<svg viewBox="0 0 64 64" fill="none"><path d="M22 10 L8 20 L14 29 L19 25 V54 H45 V25 L50 29 L56 20 L42 10 a11 6 0 01-20 0z" fill="#146B4F"/><path d="M22 10a11 6 0 0020 0l-2 4a13 7 0 01-16 0z" fill="#F7EFDA"/><path d="M19 30h26M19 49h26" stroke="#B3271E" stroke-width="3"/><path d="M23 34l3 3 3-3 3 3 3-3 3 3 3-3" stroke="#F7EFDA" stroke-width="1.8"/><path d="M32 37 L36 44 H34 L38 49 H26 L30 44 H28 Z" fill="#F7EFDA"/><circle cx="32" cy="41" r="1.4" fill="#B3271E"/><path d="M13 25l2.4 3.4M51 25l-2.4 3.4" stroke="#D4AF37" stroke-width="2"/></svg>',
+        stocking:'<svg viewBox="0 0 64 64" fill="none"><path d="M50 22v-7a4.4 4.4 0 00-8.8 0v3.4" stroke="#D4AF37" stroke-width="3"/><rect x="41" y="17" width="9" height="12" rx="2" fill="#2E7D46"/><path d="M47 21l4.6-1.2-1.2 5.4z" fill="#B3271E"/><path d="M25 12h17v22l13 11a9 9 0 01-6 15H28a11 11 0 01-11-11v-4.6L25 38z" fill="#B3271E"/><rect x="23" y="10" width="21" height="9" rx="4" fill="#F7EFDA"/><path d="M27 26l3.6 3.6L27 33.2 23.4 29.6zM38 32l3 3-3 3-3-3z" fill="#D4AF37"/><circle cx="31" cy="43" r="2.2" fill="#F7EFDA"/><circle cx="24" cy="36" r="1.7" fill="#F7EFDA"/></svg>',
+        ornament:'<svg viewBox="0 0 64 64" fill="none"><path d="M32 4v6" stroke="#D4AF37" stroke-width="3"/><rect x="26" y="9" width="12" height="7" rx="2" fill="#D4AF37"/><path d="M28.6 12h6.8" stroke="#8A6A1F" stroke-width="1.6"/><circle cx="32" cy="37" r="19" fill="#B3271E"/><path d="M15.4 29a19 19 0 0133.2 0z" fill="#C93A2E"/><ellipse cx="32" cy="38" rx="9" ry="10" fill="#F7EFDA"/><circle cx="32" cy="34" r="3.2" fill="#8A5A2B"/><path d="M24 45a8 6 0 0116 0z" fill="#146B4F"/><path d="M20 27a13 13 0 015-6" stroke="#FFF" stroke-width="2.6" stroke-linecap="round" opacity=".85"/><path d="M52 21l1.2 3.2 3.2 1.2-3.2 1.2L52 29.8l-1.2-3.2-3.2-1.2 3.2-1.2z" fill="#D4AF37"/><circle cx="11" cy="45" r="1.8" fill="#F7EFDA"/></svg>',
+        tee:'<svg viewBox="0 0 64 64" fill="none"><path d="M22 10 L8 20 L14 29 L19 25 V54 H45 V25 L50 29 L56 20 L42 10 a11 6 0 01-20 0z" fill="#B3271E"/><path d="M22 10a11 6 0 0020 0l-2 4a13 7 0 01-16 0z" fill="#F7EFDA"/><rect x="22" y="23" width="20" height="23" rx="2" fill="#F7EFDA"/><path d="M32 26 L34.6 30.4 H33.2 L35.8 34 H28.2 L30.8 30.4 H29.4 Z" fill="#2E7D46"/><circle cx="27.4" cy="38" r="2.7" fill="#8A5A2B"/><path d="M22.6 44a4.8 4.6 0 019.6 0z" fill="#146B4F"/><circle cx="37" cy="37.4" r="2.5" fill="#E8C39E"/><path d="M33 44a4 4.4 0 018 0z" fill="#D4AF37"/><circle cx="12" cy="24" r="1.5" fill="#FFF"/><circle cx="52" cy="24" r="1.5" fill="#FFF"/></svg>',
+        hoodie:'<svg viewBox="0 0 64 64" fill="none"><path d="M32 6a11 11 0 0111 11l9 7-5 9-5-3v26H22V30l-5 3-5-9 9-7a11 11 0 0111-11z" fill="#17452A"/><path d="M24.6 13.4a10 10 0 0114.8 0 12 9 0 01-14.8 0z" fill="#0E2A1A"/><path d="M28 23v8M36 23v8" stroke="#D4AF37" stroke-width="2.4" stroke-linecap="round"/><circle cx="28" cy="32.4" r="1.8" fill="#D4AF37"/><circle cx="36" cy="32.4" r="1.8" fill="#D4AF37"/><path d="M32 35.4 L35.4 41.4 H33.8 L37 45.8 H27 L30.2 41.4 H28.6 Z" fill="#C93A2E"/><rect x="25" y="46.6" width="14" height="8" rx="2.5" fill="#0E2A1A"/><path d="M22 52.6h20" stroke="#D4AF37" stroke-width="1.8"/></svg>',
+        tote:'<svg viewBox="0 0 64 64" fill="none"><path d="M48.6 19v-3.4a5 5 0 00-10 0v2" stroke="#B3271E" stroke-width="3"/><rect x="42.6" y="12.6" width="10" height="9" rx="1.6" fill="#2E7D46"/><path d="M24 24v-5a8 8 0 0116 0v5" stroke="#8A5A2B" stroke-width="3.6"/><path d="M14 24h36l-3.4 32H17.4z" fill="#F7EFDA"/><path d="M14 24h36l-.8 7H14.8z" fill="#EADFC2"/><path d="M32 33 L37 42 H34.6 L39.4 48.6 H24.6 L29.4 42 H27 Z" fill="#146B4F"/><circle cx="32" cy="39" r="1.7" fill="#D4AF37"/><circle cx="27" cy="45" r="1.4" fill="#B3271E"/><rect x="29.8" y="48.6" width="4.4" height="3.6" fill="#8A5A2B"/></svg>',
+        puzzle:'<svg viewBox="0 0 64 64" fill="none"><rect x="12" y="12" width="40" height="40" rx="4" fill="#F7EFDA"/><path d="M32 12v13M12 32h13M39 32h13M32 39v13" stroke="#2E5F7A" stroke-width="2.6"/><circle cx="32" cy="32" r="6" fill="#D4AF37"/><path d="M20 17 L23.4 22.6 H21.8 L24.6 27 H15.4 L18.2 22.6 H16.6 Z" fill="#B3271E"/><circle cx="43" cy="20" r="2.2" fill="#146B4F"/><circle cx="20" cy="44" r="2.2" fill="#146B4F"/><path d="M43 38l1.1 2.4 2.6.4-1.9 1.8.5 2.6-2.3-1.2-2.3 1.2.5-2.6-1.9-1.8 2.6-.4z" fill="#B3271E"/></svg>',
+        letter:'<svg viewBox="0 0 64 64" fill="none"><rect x="16" y="8" width="30" height="42" rx="2" fill="#FFFDF7"/><path d="M20 14h22" stroke="#B3271E" stroke-width="3"/><path d="M20 21h22M20 26h22M20 31h13" stroke="#C9BFA3" stroke-width="2.2"/><circle cx="31" cy="42" r="5.4" fill="#B3271E"/><path d="M31 39.6l.9 1.8 2 .3-1.45 1.4.35 2-1.8-.95-1.8.95.35-2-1.45-1.4 2-.3z" fill="#D4AF37"/><g transform="rotate(-8 24 40)"><rect x="7" y="28" width="34" height="23" rx="2.5" fill="#F7EFDA"/><path d="M8.5 31l15.5 10.6L39.5 31" stroke="#B3271E" stroke-width="2.4" fill="none"/></g><path d="M49 6.6 q7.4-4.4 10.6 2.2 q-5.4 3.4-10 .8z" fill="#B3271E"/><circle cx="59.6" cy="10" r="2.4" fill="#FFF"/></svg>',
+        paw:'<svg viewBox="0 0 64 64" fill="none"><path d="M22 12 L10 21 L15.4 28.4 L19 25 V52 H45 V25 L48.6 28.4 L54 21 L42 12 a10.5 5.6 0 01-20 0z" fill="#3A2050"/><path d="M22 12a10.5 5.6 0 0020 0l-1.8 3.6a12.5 6.6 0 01-16.4 0z" fill="#F7EFDA"/><ellipse cx="32" cy="40" rx="8" ry="6.6" fill="#F7EFDA"/><circle cx="21.6" cy="30.6" r="3.4" fill="#F7EFDA"/><circle cx="27.4" cy="25.6" r="3.4" fill="#F7EFDA"/><circle cx="36.6" cy="25.6" r="3.4" fill="#F7EFDA"/><circle cx="42.4" cy="30.6" r="3.4" fill="#F7EFDA"/><path d="M25 20.4 q7-6.4 14 0 l-2.2 4.4 q-4.8-3-9.6 0z" fill="#B3271E"/><circle cx="39.8" cy="15.2" r="2.2" fill="#FFF"/></svg>',
+        phone:'<svg viewBox="0 0 64 64" fill="none"><rect x="19" y="6" width="26" height="52" rx="6" fill="#B3271E"/><rect x="22.4" y="9.4" width="19.2" height="45.2" rx="4" fill="#8C1F28"/><circle cx="27" cy="15" r="2.2" fill="#07180F"/><circle cx="27" cy="21" r="2.2" fill="#07180F" opacity=".7"/><path d="M32 24 L37.4 33 H35 L40 40.6 H24 L29 33 H26.6 Z" fill="#2E7D46"/><circle cx="32" cy="30.6" r="1.7" fill="#D4AF37"/><circle cx="28.4" cy="37" r="1.4" fill="#F7EFDA"/><rect x="30.2" y="40.6" width="3.6" height="3.4" fill="#8A5A2B"/><circle cx="25" cy="48" r="1.4" fill="#FFF"/><circle cx="39" cy="49" r="1.4" fill="#FFF"/><circle cx="32" cy="52.4" r="1.2" fill="#FFF"/></svg>'
+      };
+      function money(n){ return "$" + n.toFixed(2); }
+
+      /* ---------- Shop render + filters ---------- */
+      var shopGrid = document.getElementById("shopGrid");
+      function renderShop(filter){
+        shopGrid.innerHTML = "";
+        SHOP.forEach(function(p){
+          if(filter !== "all" && p.cats.indexOf(filter) === -1) return;
+          var el = document.createElement("article");
+          el.className = "product";
+          el.innerHTML =
+            '<div class="product-art" style="background:' + p.art + '"><span class="supplier-tag">' + p.supplier + '</span>' + GLYPHS[p.glyph] + '</div>' +
+            '<div class="product-body"><h3>' + p.name + '</h3>' +
+            '<div><span class="serif" style="font-size:1.55rem;font-weight:800">' + money(p.price) + '</span></div>' +
+            '<table class="margin-table"><tr><td>Print base cost</td><td>' + p.base + '</td></tr>' +
+            '<tr><td>Profit per sale</td><td class="profit">' + p.profit + '</td></tr></table>' +
+            '<p class="meta-line"><b>Best for:</b> ' + p.best + '<br /><b>Order by:</b> ' + p.cutoff + ' for Christmas delivery</p>' +
+            '<button class="btn btn-green" type="button" data-add="' + p.id + '">Add to Cart — ' + money(p.price) + '</button></div>';
+          shopGrid.appendChild(el);
+        });
+        bindAddButtons(shopGrid);
+      }
+      document.getElementById("shopFilters").addEventListener("click", function(e){
+        var b = e.target.closest("[data-filter]"); if(!b) return;
+        this.querySelectorAll(".filter-btn").forEach(function(x){ x.classList.remove("active"); });
+        b.classList.add("active");
+        renderShop(b.getAttribute("data-filter"));
+      });
+      renderShop("all");
+
+      /* ---------- Cart ---------- */
+      var cart = {};
+      function cartTotals(){
+        var sub = 0, count = 0;
+        Object.keys(cart).forEach(function(id){ sub += PRODUCTS[id].price * cart[id]; count += cart[id]; });
+        var pairs1 = Math.min(cart.portrait||0, cart.mug||0);
+        var pairs2 = Math.min(cart.portrait||0, cart.canvas||0);
+        var trio = Math.floor((cart.portrait||0) / 3);
+        var disc = pairs1*9 + pairs2*9 + trio*19.50;
+        if(disc > sub) disc = sub;
+        return { sub:sub, disc:disc, total:sub-disc, count:count };
+      }
+      function renderCart(){
+        var t = cartTotals();
+        document.getElementById("cartCount").textContent = t.count;
+        document.getElementById("cartMiniTotal").textContent = t.total.toFixed(2);
+        document.getElementById("ctSub").textContent = money(t.sub);
+        document.getElementById("ctDisc").textContent = "−" + money(t.disc);
+        document.getElementById("ctTotal").textContent = money(t.total);
+        var box = document.getElementById("cartItems");
+        var ids = Object.keys(cart);
+        if(!ids.length){ box.innerHTML = '<p class="soft">Your cart is empty — the portraits are waiting in the studio above.</p>'; return; }
+        box.innerHTML = "";
+        ids.forEach(function(id){
+          var row = document.createElement("div");
+          row.className = "cart-item";
+          row.innerHTML = '<div class="grow"><b>' + PRODUCTS[id].name + '</b><br /><span class="soft">' + money(PRODUCTS[id].price) + ' each</span></div>' +
+            '<span class="qty"><button type="button" data-dec="' + id + '" aria-label="Decrease quantity">−</button><b>' + cart[id] + '</b><button type="button" data-inc="' + id + '" aria-label="Increase quantity">+</button></span>' +
+            '<b>' + money(PRODUCTS[id].price * cart[id]) + '</b>';
+          box.appendChild(row);
+        });
+        box.querySelectorAll("[data-inc]").forEach(function(b){ b.addEventListener("click", function(){ cart[b.getAttribute("data-inc")]++; renderCart(); }); });
+        box.querySelectorAll("[data-dec]").forEach(function(b){ b.addEventListener("click", function(){ var id=b.getAttribute("data-dec"); cart[id]--; if(cart[id]<=0) delete cart[id]; renderCart(); }); });
+      }
+      var toastTimer;
+      function toast(msg){
+        var t = document.getElementById("toast");
+        t.textContent = msg; t.classList.add("show");
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(function(){ t.classList.remove("show"); }, 2600);
+      }
+      function addToCart(id, silent){
+        cart[id] = (cart[id]||0) + 1;
+        renderCart();
+        if(!silent) toast("Added: " + PRODUCTS[id].name);
+      }
+      function bindAddButtons(scope){
+        (scope||document).querySelectorAll("[data-add]").forEach(function(b){
+          if(b.dataset.bound) return; b.dataset.bound = "1";
+          b.addEventListener("click", function(){ addToCart(b.getAttribute("data-add")); });
+        });
+      }
+      bindAddButtons(document);
+      document.querySelectorAll("[data-bundle]").forEach(function(b){
+        b.addEventListener("click", function(){
+          b.getAttribute("data-bundle").split(",").forEach(function(id){ addToCart(id, true); });
+          toast("Bundle added — savings applied in your cart");
+          openCart();
+        });
+      });
+      var drawer = document.getElementById("cartDrawer"), scrim = document.getElementById("scrim");
+      function openCart(){ drawer.classList.add("open"); scrim.classList.add("show"); }
+      function closeCart(){ drawer.classList.remove("open"); scrim.classList.remove("show"); }
+      document.getElementById("cartOpen").addEventListener("click", openCart);
+      document.getElementById("cartClose").addEventListener("click", closeCart);
+      scrim.addEventListener("click", closeCart);
+      document.getElementById("checkoutBtn").addEventListener("click", function(){
+        var t = cartTotals();
+        if(!t.count){ toast("Your cart is empty — add a portrait or gift first"); return; }
+        toast("Demo checkout: " + t.count + " item(s), total " + money(t.total) + " — live checkout arrives with the Shopify connection");
+      });
+      renderCart();
+
+      /* ---------- Bundle builder ---------- */
+      var BUILDER = ["portrait","mug","canvas","sweater","hoodie","ornament","puzzle","gluteboss"];
+      var builderBox = document.getElementById("builderRows");
+      BUILDER.forEach(function(id){
+        var row = document.createElement("div");
+        row.className = "builder-row";
+        row.innerHTML = '<label><input type="checkbox" data-build="' + id + '" /> <span>' + PRODUCTS[id].name + '</span></label><b>' + money(PRODUCTS[id].price) + '</b>';
+        builderBox.appendChild(row);
+      });
+      function builderSelection(){
+        var sel = {};
+        builderBox.querySelectorAll("[data-build]:checked").forEach(function(c){ sel[c.getAttribute("data-build")] = 1; });
+        return sel;
+      }
+      function builderCalc(){
+        var sel = builderSelection(), sub = 0;
+        Object.keys(sel).forEach(function(id){ sub += PRODUCTS[id].price; });
+        var disc = 0;
+        if(sel.portrait && sel.mug) disc += 9;
+        if(sel.portrait && sel.canvas) disc += 9;
+        document.getElementById("builderTotal").textContent = money(sub - disc);
+        document.getElementById("builderSave").textContent = disc ? "· you save " + money(disc) : "";
+        return Object.keys(sel);
+      }
+      builderBox.addEventListener("change", builderCalc);
+      document.getElementById("builderAdd").addEventListener("click", function(){
+        var ids = builderCalc();
+        if(!ids.length){ toast("Tick at least one item to build your bundle"); return; }
+        ids.forEach(function(id){ addToCart(id, true); });
+        toast("Your bundle is in the cart — savings applied");
+        openCart();
+      });
+
+      /* ---------- Gift guide tabs ---------- */
+      document.getElementById("giftTabs").addEventListener("click", function(e){
+        var b = e.target.closest("[data-tab]"); if(!b) return;
+        this.querySelectorAll(".tab-btn").forEach(function(x){ x.classList.remove("active"); });
+        b.classList.add("active");
+        document.querySelectorAll("[data-panel]").forEach(function(p){ p.classList.toggle("active", p.getAttribute("data-panel") === b.getAttribute("data-tab")); });
+        bindAddButtons(document);
+      });
+
+      /* ---------- Order form ---------- */
+      var STYLES = ["Classic Santa Snow","Golden Christmas Movie Poster","Cozy Fireplace","Snow Globe","Colombo Christmas","Winter Royal"];
+      var stylePick = document.getElementById("stylePick");
+      STYLES.forEach(function(s, i){
+        var l = document.createElement("label");
+        l.className = "pick";
+        l.innerHTML = '<input type="radio" name="style" value="' + s + '"' + (i===0 ? " checked" : "") + ' /><span><b>' + s + '</b><span>3 portraits in this look</span></span>';
+        stylePick.appendChild(l);
+      });
+      var PACKS = { portrait:{label:"Single", count:"3 portraits"}, family:{label:"Family Pack", count:"6 portraits + canvas mockup"}, giftpack:{label:"Gift Pack", count:"3 portraits + printed mug"} };
+      function syncSummary(){
+        var pack = document.getElementById("packSelect").value;
+        var style = document.querySelector('input[name="style"]:checked').value;
+        document.getElementById("sumPack").textContent = PACKS[pack].label;
+        document.getElementById("sumStyle").textContent = style;
+        document.getElementById("sumCount").textContent = PACKS[pack].count;
+        document.getElementById("sumTotal").textContent = money(PRODUCTS[pack].price);
+      }
+      document.getElementById("packSelect").addEventListener("change", syncSummary);
+      stylePick.addEventListener("change", syncSummary);
+      syncSummary();
+      var photoInput = document.getElementById("photoInput");
+      photoInput.addEventListener("change", function(){
+        if(!this.files || !this.files[0]) return;
+        var f = this.files[0];
+        document.getElementById("photoName").textContent = "Selected: " + f.name;
+        var img = document.getElementById("photoPreview");
+        img.src = URL.createObjectURL(f);
+        img.style.display = "block";
+      });
+      document.getElementById("orderForm").addEventListener("submit", function(e){
+        e.preventDefault();
+        var pack = document.getElementById("packSelect").value;
+        var style = document.querySelector('input[name="style"]:checked').value;
+        var name = document.getElementById("custName").value.trim();
+        var email = document.getElementById("custEmail").value.trim();
+        var box = document.getElementById("orderSuccess");
+        if(!photoInput.files || !photoInput.files.length){ toast("Add your photo first — that's Step 1"); box.classList.remove("show"); return; }
+        if(!name || !email){ toast("Add your name and delivery email so we can send your portraits"); box.classList.remove("show"); return; }
+        addToCart(pack, true);
+        box.innerHTML = "<b>Order preview created, " + name.split(" ")[0] + ".</b><br />" +
+          PACKS[pack].label + " · " + style + " · " + money(PRODUCTS[pack].price) + " — added to your cart.<br />" +
+          "Your 3 portraits would be delivered to <b>" + email + "</b> within 24 hours, with your free Santa Letter. Live payment switches on with the Shopify connection (see Store Status).";
+        box.classList.add("show");
+        box.scrollIntoView({ behavior:"smooth", block:"center" });
+      });
+
+      /* ---------- Before / after slider ---------- */
+      var baRange = document.getElementById("baRange");
+      baRange.addEventListener("input", function(){
+        document.getElementById("baAfterWrap").style.clipPath = "inset(0 " + (100 - this.value) + "% 0 0)";
+        document.getElementById("baDivider").style.left = this.value + "%";
+      });
+
+      /* ---------- Countdown to Dec 20, 2026 ---------- */
+      var cutoff = new Date("2026-12-20T23:59:59");
+      function tick(){
+        var diff = cutoff - new Date();
+        if(diff < 0) diff = 0;
+        var d = Math.floor(diff/86400000), h = Math.floor(diff/3600000)%24, m = Math.floor(diff/60000)%60, s = Math.floor(diff/1000)%60;
+        document.getElementById("cdD").textContent = d;
+        document.getElementById("cdH").textContent = String(h).padStart(2,"0");
+        document.getElementById("cdM").textContent = String(m).padStart(2,"0");
+        document.getElementById("cdS").textContent = String(s).padStart(2,"0");
+      }
+      tick(); setInterval(tick, 1000);
+
+      /* ---------- Snow ---------- */
+      (function(){
+        if(window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+        var box = document.getElementById("snow");
+        for(var i=0;i<26;i++){
+          var f = document.createElement("i");
+          var sz = 2 + Math.random()*4;
+          f.style.left = Math.random()*100 + "%";
+          f.style.width = sz + "px"; f.style.height = sz + "px";
+          f.style.animationDuration = (7 + Math.random()*8) + "s";
+          f.style.animationDelay = (-Math.random()*10) + "s";
+          box.appendChild(f);
+        }
+      })();
+
+      /* ---------- GluteBoss mini quiz ---------- */
+      var QUIZ = [
+        { q:"How would you describe your training right now?", opts:[["Just starting out", "riley"],["Training at home with bands or dumbbells","hustler"],["Training consistently, but progress has stalled","patty"]] },
+        { q:"Where will you train most?", opts:[["At home, minimal equipment","hustler"],["At home, following a guided plan step by step","riley"],["Gym or home — wherever the hard work is","patty"]] },
+        { q:"What do you want by the end of January?", opts:[["A routine I actually stick to","riley"],["Visible shape from home workouts","hustler"],["New personal bests — break the plateau","patty"]] }
+      ];
+      var quizStep = 0, quizScore = { riley:0, hustler:0, patty:0 };
+      var quizArea = document.getElementById("quizArea");
+      function renderQuiz(){
+        if(quizStep >= QUIZ.length){
+          var best = "riley";
+          if(quizScore.hustler > quizScore[best]) best = "hustler";
+          if(quizScore.patty > quizScore[best]) best = "patty";
+          var names = { riley:"RILEY · The Rookie", hustler:"HUSTLER · The Home Hustler", patty:"PATTY · The Plateau Breaker" };
+          var res = document.getElementById("quizResult");
+          res.innerHTML = "<b style='font-size:1.1rem'>Your preview track: " + names[best] + "</b><br />" +
+            "<span style='color:#DCD6C4'>That's your entry point for the free 12 Days of Glutes Christmas Challenge. The full 12-question quiz in GluteBoss fine-tunes your loads, progression, and deload weeks. Your program starts January 5.</span>";
+          res.classList.add("show");
+          quizArea.innerHTML = '<button class="quiz-opt" type="button" id="quizRestart">Retake the preview</button>';
+          document.getElementById("quizRestart").addEventListener("click", function(){
+            quizStep = 0; quizScore = { riley:0, hustler:0, patty:0 };
+            document.getElementById("quizResult").classList.remove("show");
+            renderQuiz();
+          });
+          return;
+        }
+        var item = QUIZ[quizStep];
+        var html = '<p style="color:#FFF;font-weight:700;margin-bottom:10px">Preview question ' + (quizStep+1) + ' of 3 — ' + item.q + '</p>';
+        item.opts.forEach(function(o, idx){ html += '<button class="quiz-opt" type="button" data-opt="' + idx + '">' + o[0] + '</button>'; });
+        quizArea.innerHTML = html;
+        quizArea.querySelectorAll("[data-opt]").forEach(function(b){
+          b.addEventListener("click", function(){
+            var track = item.opts[parseInt(b.getAttribute("data-opt"),10)][1];
+            quizScore[track]++;
+            quizStep++;
+            renderQuiz();
+          });
+        });
+      }
+      renderQuiz();
+
+      /* ---------- $10k math ---------- */
+      var mathPrice = document.getElementById("mathPrice"), mathOrders = document.getElementById("mathOrders");
+      function mathCalc(){
+        var price = Math.max(1, parseFloat(mathPrice.value) || 39);
+        var orders = parseInt(mathOrders.value, 10);
+        document.getElementById("mathOrdersLabel").textContent = orders;
+        document.getElementById("mathEq").textContent = "$" + price + " × " + orders + " portraits";
+        document.getElementById("mathResult").textContent = "= $" + (price*orders).toLocaleString("en-US");
+        var need = Math.ceil(10000/price);
+        document.getElementById("mathNeed").textContent = need + " portraits reaches $10,000 at this price" + (orders >= need ? " — and you're past it." : ".");
+      }
+      mathPrice.addEventListener("input", mathCalc);
+      mathOrders.addEventListener("input", mathCalc);
+      mathCalc();
+      /* Global snow */
+      (function(){ if(window.matchMedia("(prefers-reduced-motion: reduce)").matches) return; var b=document.getElementById("globalSnow"); if(!b) return; for(var i=0;i<36;i++){ var f=document.createElement("i"); var s=2+Math.random()*4; f.style.left=Math.random()*100+"%"; f.style.width=s+"px"; f.style.height=s+"px"; f.style.animationDuration=(9+Math.random()*10)+"s"; f.style.animationDelay=(-Math.random()*12)+"s"; b.appendChild(f);} })();
+      /* Dual countdowns */
+      function daysTo(dt){ var diff=new Date(dt)-new Date(); if(diff<0) diff=0; var d=Math.floor(diff/86400000),h=Math.floor(diff/3600000)%24; return d+" days "+String(h).padStart(2,"0")+" hrs"; }
+      function tickDual(){ var a=document.getElementById("cd20"),c=document.getElementById("cd25"); if(a) a.textContent=daysTo("2026-12-20T23:59:59"); if(c) c.textContent=daysTo("2026-12-25T00:00:00"); }
+      tickDual(); setInterval(tickDual,60000);
+      /* Nice List */
+      var niceBtn=document.getElementById("niceBtn");
+      if(niceBtn) niceBtn.addEventListener("click",function(){ var n=document.getElementById("niceName").value.trim(); if(!n){ toast("Type a name first — Santa needs to check the right list"); return; } document.getElementById("niceCertName").textContent=n; document.getElementById("niceCert").classList.add("show"); toast(n+" is on the Nice List! 🎅"); bindAddButtons(document); });
+      /* Gift Finder */
+      var FINDER={ mom:[["canvas","Portrait Canvas — $49"],["family","Family Pack Portrait — $69"],["planner","Christmas Planner — $17"]], dad:[["portrait","Single Portrait (Movie Poster) — $39"],["partygames","Party Games Mega Pack — $16"],["tvart","Frame TV Art Pack — $12"]], kids:[["milo","Milo and the Lost Star — $9"],["santakit","Santa Letter Kit — $12"],["cozycolor","Cozy Coloring — $7"]], partner:[["giftpack","Gift Pack Portrait + Mug — $89"],["ultimate","Ultimate Bundle — $79"],["newyear","New Year Reset Workbook — $14"]], pet:[["pettee","Pet Portrait Tee — $29"],["portrait","Portrait incl. your pet — $39"],["ornament","Personalized Ornament — $24"]], self:[["mandalas","Magical Mandalas — $7"],["newyear","New Year Reset — $14"],["gluteboss","GluteBoss Christmas Gift — $99.99"]] };
+      var fb=document.getElementById("finderBtns");
+      if(fb) fb.addEventListener("click",function(e){ var b=e.target.closest("[data-finder]"); if(!b) return; var rec=FINDER[b.getAttribute("data-finder")]; var html="<b>Perfect for them:</b><div style='display:grid;gap:8px;margin-top:8px'>"; rec.forEach(function(r){ html+="<button class='btn btn-gold btn-small' type='button' data-add='"+r[0]+"'>Add "+r[1]+"</button>"; }); html+="</div>"; document.getElementById("finderResult").innerHTML=html; bindAddButtons(document); });
+      /* Jingle Bells — Web Audio bell synth (public-domain melody), starts only on tap */
+      (function(){
+        var btn=document.getElementById("jingleBtn"), hint=document.getElementById("jingleHint"), vol=document.getElementById("jingleVol");
+        if(!btn) return;
+        var F={C4:261.63,D4:293.66,E4:329.63,F4:349.23,G4:392.00,A4:440.00,B4:493.88,C5:523.25};
+        var S=[["E4",1],["E4",1],["E4",2],["E4",1],["E4",1],["E4",2],["E4",1],["G4",1],["C4",1.5],["D4",.5],["E4",4],["F4",1],["F4",1],["F4",1],["F4",1],["F4",1],["E4",1],["E4",1],["E4",1],["E4",1],["D4",1],["D4",1],["E4",1],["D4",2],["G4",2],["E4",1],["E4",1],["E4",2],["E4",1],["E4",1],["E4",2],["E4",1],["G4",1],["C4",1.5],["D4",.5],["E4",4],["F4",1],["F4",1],["F4",1],["F4",1],["F4",1],["E4",1],["E4",1],["E4",1],["G4",1],["G4",1],["F4",1],["D4",1],["C4",4]];
+        var BEAT=.42, ctx=null, master=null, playing=false, timers=[], startedAt=0;
+        function bell(freq,t,dur){
+          var g=ctx.createGain(); g.connect(master);
+          var o1=ctx.createOscillator(); o1.type="triangle"; o1.frequency.value=freq;
+          var o2=ctx.createOscillator(); o2.type="sine"; o2.frequency.value=freq*2.76;
+          var g2=ctx.createGain(); g2.gain.value=.35;
+          o1.connect(g); o2.connect(g2); g2.connect(g);
+          var peak=.5, dec=Math.min(dur*.95,1.1);
+          g.gain.setValueAtTime(0.0001,t);
+          g.gain.exponentialRampToValueAtTime(peak,t+.012);
+          g.gain.exponentialRampToValueAtTime(.0001,t+dec);
+          o1.start(t); o2.start(t); o1.stop(t+dec+.05); o2.stop(t+dec+.05);
+        }
+        function scheduleLoop(){
+          var t=ctx.currentTime+.06, total=0;
+          S.forEach(function(n){ bell(F[n[0]],t,n[1]*BEAT); t+=n[1]*BEAT; total+=n[1]*BEAT; });
+          var id=setTimeout(function(){ if(playing) scheduleLoop(); }, total*BEAT*1000);
+          timers.push(id);
+        }
+        function start(){
+          if(!ctx){
+            var AC=window.AudioContext||window.webkitAudioContext; if(!AC) return;
+            ctx=new AC(); master=ctx.createGain(); master.gain.value=(vol.value/100)*.8; master.connect(ctx.destination);
+          }
+          if(ctx.state==="suspended") ctx.resume();
+          playing=true; startedAt=Date.now();
+          btn.textContent="❚❚ Pause Jingle"; btn.setAttribute("aria-pressed","true");
+          if(hint) hint.style.display="none";
+          scheduleLoop();
+        }
+        function stop(){
+          playing=false;
+          timers.forEach(function(id){ clearTimeout(id); }); timers=[];
+          if(ctx) ctx.close().then(function(){ ctx=null; master=null; });
+          btn.textContent="♪ Jingle Bells"; btn.setAttribute("aria-pressed","false");
+        }
+        btn.addEventListener("click",function(){ playing?stop():start(); });
+        vol.addEventListener("input",function(){ if(master) master.gain.value=(vol.value/100)*.8; });
+      })();
+    </script>
+  </body>
+</html>
