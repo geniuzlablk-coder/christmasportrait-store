@@ -578,7 +578,7 @@
           <span class="soft" style="font-size:.9rem" id="pvStickerHint">No sticker selected — tap a sticker above to add one.</span>
           <button class="pv-tool-btn" type="button" id="pvStickerDelete">Remove selected sticker</button>
           <button class="pv-tool-btn" type="button" id="pvStickerClear">Clear all stickers</button>
-          <button class="pv-tool-btn" type="button" id="pvLiveToggle" aria-pressed="true">Pause snowfall</button>
+          <button class="pv-tool-btn" type="button" id="pvLiveToggle" aria-pressed="false">Pause snowfall</button>
         </div>
         <p class="pv-note"><b>Magic preview, honestly labelled</b> <span class="soft">· Stickers and scenes show the idea — they are drawn over your photo in your browser. The finished $39 portrait is fully art-directed by the studio (real Santa hats, matching sweaters, a real fireplace scene) and delivered in 24h. This preview is a grade, not the finished portrait.</span></p>
 
@@ -1795,10 +1795,10 @@
          untouched. Honest label: stickers/scenes preview the IDEA; the
          finished $39 portrait is art-directed by the studio in 24h. --- */
       var PV_STICKER_DEFS = [
-        {id:"santahat", label:"Santa Hat", size:0.26, x:0.5, y:0.26},
-        {id:"antlers", label:"Reindeer Antlers", size:0.32, x:0.5, y:0.24},
-        {id:"elfhat", label:"Elf Hat", size:0.26, x:0.5, y:0.26},
-        {id:"scarf", label:"Cosy Scarf", size:0.36, x:0.5, y:0.66},
+        {id:"santahat", label:"Santa Hat", size:0.20, x:0.5, y:0.26},
+        {id:"antlers", label:"Reindeer Antlers", size:0.24, x:0.5, y:0.24},
+        {id:"elfhat", label:"Elf Hat", size:0.20, x:0.5, y:0.26},
+        {id:"scarf", label:"Cosy Scarf", size:0.28, x:0.5, y:0.66},
         {id:"cane", label:"Candy Cane", size:0.20, x:0.74, y:0.55},
         {id:"wand", label:"Star Wand", size:0.22, x:0.76, y:0.45},
         {id:"banner", label:"Merry Christmas Banner", size:0.58, x:0.5, y:0.88},
@@ -2095,16 +2095,34 @@
         var dw = iw * sc, dh = ih * sc;
         ctx.drawImage(src, x + (w - dw) / 2 + pvOx * w, y + (h - dh) / 2 + pvOy * h, dw, dh);
       }
-      function pvScenePhoto(ctx, x, y, w, h){
+      /* Contain-fit: the WHOLE photo inside the window, never cropped, so a
+         face can never be cut off at a frame edge. Zoom/pan are ignored here
+         on purpose — scenes must always show every face. The window is first
+         filled with a soft Christmas gradient so the letterbox bands read as
+         part of the scene, not empty space. */
+      function pvContainDraw(ctx, src, x, y, w, h){
+        var iw = src.naturalWidth || src.width, ih = src.naturalHeight || src.height;
+        var sc = Math.min(w / iw, h / ih);
+        var dw = iw * sc, dh = ih * sc;
+        ctx.drawImage(src, x + (w - dw) / 2, y + (h - dh) / 2, dw, dh);
+      }
+      function pvScenePhoto(ctx, x, y, w, h, fill){
         var ph = pvActivePhoto();
         var src = ph ? (pvFeatOriginal ? ph.img : pvGradedPhoto()) : null;
         ctx.save();
         ctx.beginPath(); ctx.rect(x, y, w, h); ctx.clip();
-        if(src && (src.naturalWidth || src.width)){ pvCoverDraw(ctx, src, x, y, w, h); }
-        else {
+        if(src && (src.naturalWidth || src.width)){
           var g = ctx.createLinearGradient(x, y, x, y + h);
-          g.addColorStop(0, "#EAF2F8"); g.addColorStop(1, "#CBDCEA");
+          if(fill === "dark"){ g.addColorStop(0, "#232833"); g.addColorStop(1, "#050505"); }
+          else if(fill === "wood"){ g.addColorStop(0, "#8A6A45"); g.addColorStop(1, "#5A3A22"); }
+          else { g.addColorStop(0, "#FDF8EC"); g.addColorStop(1, "#EFD9A7"); }
           ctx.fillStyle = g; ctx.fillRect(x, y, w, h);
+          pvContainDraw(ctx, src, x, y, w, h);
+        }
+        else {
+          var g2 = ctx.createLinearGradient(x, y, x, y + h);
+          g2.addColorStop(0, "#EAF2F8"); g2.addColorStop(1, "#CBDCEA");
+          ctx.fillStyle = g2; ctx.fillRect(x, y, w, h);
           ctx.fillStyle = "#33506B"; ctx.textAlign = "center";
           ctx.font = "italic 600 " + Math.max(13, Math.round(w * 0.045)) + "px Georgia, serif";
           ctx.fillText("Upload a photo to see", x + w / 2, y + h / 2 - 8);
@@ -2192,12 +2210,17 @@
         pvStocking(ctx, W * 0.87, baseBottom, W * 0.075, "#1E7A3C");
         /* globe: photo clipped to the TRUE circle — rim radius == clip radius,
            centred on the globe centre, so the rim can only ever touch the
-           globe's outer edge and never cross the middle where faces are. */
+           globe's outer edge and never cross the middle where faces are.
+           The photo is CONTAIN-fit inside the circle (snowy-sky fill behind
+           it), so no face can be cropped by the circle's narrowing top. */
         ctx.save();
         ctx.beginPath(); ctx.arc(cx, cy, R, 0, Math.PI * 2); ctx.clip();
+        var sg = ctx.createLinearGradient(cx, cy - R, cx, cy + R);
+        sg.addColorStop(0, "#EAF4FB"); sg.addColorStop(1, "#C7DCEF");
+        ctx.fillStyle = sg; ctx.fillRect(cx - R, cy - R, R * 2, R * 2);
         var ph = pvActivePhoto();
         var src = ph ? (pvFeatOriginal ? ph.img : pvGradedPhoto()) : null;
-        if(src && (src.naturalWidth || src.width)){ pvCoverDraw(ctx, src, cx - R, cy - R, R * 2, R * 2); }
+        if(src && (src.naturalWidth || src.width)){ pvContainDraw(ctx, src, cx - R, cy - R, R * 2, R * 2); }
         else {
           var pg = ctx.createLinearGradient(cx - R, cy - R, cx + R, cy + R);
           pg.addColorStop(0, "#DCEAF5"); pg.addColorStop(1, "#AECBE4");
@@ -2298,7 +2321,7 @@
         ctx.fillText("Your portrait, above the fireplace", W / 2, H * 0.965);
       }
       function pvScenePoster(ctx, W, H){
-        pvScenePhoto(ctx, 0, 0, W, H);
+        pvScenePhoto(ctx, 0, 0, W, H, "dark");
         var sh = ctx.createLinearGradient(0, H * 0.45, 0, H);
         sh.addColorStop(0, "rgba(0,0,0,0)"); sh.addColorStop(1, "rgba(0,0,0,0.78)");
         ctx.fillStyle = sh; ctx.fillRect(0, H * 0.45, W, H * 0.55);
@@ -2323,36 +2346,188 @@
         ctx.fillText("A CHRISTMAS PORTRAIT STUDIO PRODUCTION", W / 2, H * 0.885);
         ctx.fillText("IN YOUR HOME  •  DECEMBER 2026", W / 2, H * 0.91);
       }
+      /* --- workshop props: simple vector tools, toys and peeking friends --- */
+      function pvHammer(ctx, x, y, s){
+        /* hammer lying on the bench; (x,y) = head centre, handle runs right */
+        ctx.save(); ctx.translate(x, y); ctx.rotate(0.18);
+        ctx.fillStyle = "#8A5A2B"; ctx.fillRect(0, -s * 0.08, s * 1.5, s * 0.16);
+        ctx.fillStyle = "#8A8A8A"; ctx.fillRect(-s * 0.55, -s * 0.30, s * 0.62, s * 0.55);
+        ctx.fillStyle = "#6E6E6E"; ctx.fillRect(-s * 0.55, -s * 0.30, s * 0.16, s * 0.55);
+        ctx.restore();
+      }
+      function pvSaw(ctx, x, y, s){
+        /* hand saw; (x,y) = handle centre, blade points right */
+        ctx.save(); ctx.translate(x, y);
+        ctx.fillStyle = "#C8C8C8";
+        ctx.beginPath(); ctx.moveTo(0, -s * 0.22); ctx.lineTo(s * 1.5, -s * 0.05); ctx.lineTo(s * 1.5, s * 0.22); ctx.lineTo(0, s * 0.22); ctx.closePath(); ctx.fill();
+        ctx.strokeStyle = "#9A9A9A"; ctx.lineWidth = 1.5;
+        ctx.beginPath(); ctx.moveTo(0, s * 0.22); ctx.lineTo(s * 1.5, s * 0.22); ctx.stroke();
+        ctx.fillStyle = "#8A5A2B";
+        ctx.beginPath(); ctx.moveTo(-s * 0.45, -s * 0.30); ctx.lineTo(0, -s * 0.30); ctx.lineTo(0, s * 0.30); ctx.lineTo(-s * 0.45, s * 0.30); ctx.closePath(); ctx.fill();
+        ctx.restore();
+      }
+      function pvPaintPot(ctx, x, y, s, color){
+        /* (x,y) = bottom-centre of the pot, s = pot width */
+        ctx.fillStyle = "#FDF8EC";
+        ctx.fillRect(x - s / 2, y - s * 0.85, s, s * 0.85);
+        ctx.fillStyle = color;
+        ctx.beginPath(); ctx.ellipse(x, y - s * 0.85, s / 2, s * 0.16, 0, 0, Math.PI * 2); ctx.fill();
+        ctx.fillStyle = color; ctx.fillRect(x - s / 2, y - s * 0.28, s, s * 0.12);
+        ctx.strokeStyle = "rgba(0,0,0,0.25)"; ctx.lineWidth = 1;
+        ctx.strokeRect(x - s / 2, y - s * 0.85, s, s * 0.85);
+      }
+      function pvToyTrain(ctx, x, y, s){
+        /* wooden toy train; (x,y) = bottom-left, s = engine width */
+        ctx.fillStyle = "#C0392B";
+        ctx.fillRect(x, y - s * 0.55, s * 0.9, s * 0.55);
+        ctx.fillRect(x + s * 0.55, y - s * 0.95, s * 0.35, s * 0.95);
+        ctx.fillStyle = "#07180F";
+        ctx.fillRect(x + s * 0.62, y - s * 0.85, s * 0.2, s * 0.25);
+        ctx.fillStyle = "#8A5A2B";
+        ctx.fillRect(x + s * 0.05, y - s * 0.85, s * 0.12, s * 0.3);
+        ctx.fillStyle = "#C0392B";
+        ctx.beginPath(); ctx.arc(x + s * 0.11, y - s * 0.92, s * 0.09, 0, Math.PI * 2); ctx.fill();
+        ctx.fillStyle = "#1E7A3C";
+        ctx.fillRect(x + s * 1.05, y - s * 0.45, s * 0.7, s * 0.45);
+        ctx.fillStyle = "#E9C767";
+        ctx.fillRect(x + s * 1.05, y - s * 0.45, s * 0.7, s * 0.1);
+        ctx.fillStyle = "#241610";
+        [0.2, 0.7, 1.25, 1.6].forEach(function(wx){
+          ctx.beginPath(); ctx.arc(x + wx * s, y - s * 0.06, s * 0.11, 0, Math.PI * 2); ctx.fill();
+        });
+        ctx.fillStyle = "#D4AF37";
+        [0.2, 0.7, 1.25, 1.6].forEach(function(wx){
+          ctx.beginPath(); ctx.arc(x + wx * s, y - s * 0.06, s * 0.04, 0, Math.PI * 2); ctx.fill();
+        });
+      }
+      function pvElfPeek(ctx, x, y, r){
+        /* elf peeking in from the right — pointy ears, green hat, gold bell */
+        ctx.fillStyle = "#F2C49B";
+        ctx.beginPath(); ctx.moveTo(x - r * 0.95, y - r * 0.15); ctx.lineTo(x - r * 1.45, y - r * 0.45); ctx.lineTo(x - r * 0.9, y + r * 0.25); ctx.closePath(); ctx.fill();
+        ctx.beginPath(); ctx.moveTo(x + r * 0.95, y - r * 0.15); ctx.lineTo(x + r * 1.45, y - r * 0.45); ctx.lineTo(x + r * 0.9, y + r * 0.25); ctx.closePath(); ctx.fill();
+        ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI * 2); ctx.fill();
+        ctx.fillStyle = "#1E7A3C";
+        ctx.beginPath();
+        ctx.moveTo(x - r * 0.95, y - r * 0.45);
+        ctx.quadraticCurveTo(x - r * 0.2, y - r * 2.1, x + r * 1.25, y - r * 1.15);
+        ctx.quadraticCurveTo(x + r * 0.5, y - r * 0.75, x + r * 0.75, y - r * 0.35);
+        ctx.closePath(); ctx.fill();
+        ctx.fillStyle = "#FFD98A";
+        ctx.beginPath(); ctx.arc(x + r * 1.25, y - r * 1.15, r * 0.22, 0, Math.PI * 2); ctx.fill();
+        ctx.fillStyle = "#07180F";
+        ctx.beginPath(); ctx.arc(x - r * 0.32, y - r * 0.05, r * 0.09, 0, Math.PI * 2); ctx.fill();
+        ctx.beginPath(); ctx.arc(x + r * 0.32, y - r * 0.05, r * 0.09, 0, Math.PI * 2); ctx.fill();
+        ctx.strokeStyle = "#8E2B20"; ctx.lineWidth = Math.max(1.5, r * 0.07);
+        ctx.beginPath(); ctx.arc(x, y + r * 0.28, r * 0.3, Math.PI * 0.15, Math.PI * 0.85); ctx.stroke();
+        ctx.fillStyle = "rgba(255,120,120,0.5)";
+        ctx.beginPath(); ctx.arc(x - r * 0.55, y + r * 0.25, r * 0.16, 0, Math.PI * 2); ctx.fill();
+        ctx.beginPath(); ctx.arc(x + r * 0.55, y + r * 0.25, r * 0.16, 0, Math.PI * 2); ctx.fill();
+      }
+      function pvSantaPeek(ctx, x, y, r){
+        /* Santa peeking in from a corner — face, white beard, red hat */
+        ctx.fillStyle = "#FDF8EC";
+        ctx.beginPath(); ctx.arc(x, y + r * 0.55, r * 0.78, 0, Math.PI * 2); ctx.fill();
+        ctx.fillStyle = "#F2C49B";
+        ctx.beginPath(); ctx.arc(x, y, r * 0.66, 0, Math.PI * 2); ctx.fill();
+        ctx.fillStyle = "#C0392B";
+        ctx.beginPath();
+        ctx.moveTo(x - r * 0.68, y - r * 0.30);
+        ctx.quadraticCurveTo(x - r * 0.3, y - r * 1.25, x + r * 0.55, y - r * 0.95);
+        ctx.quadraticCurveTo(x + r * 0.15, y - r * 0.55, x + r * 0.62, y - r * 0.30);
+        ctx.closePath(); ctx.fill();
+        ctx.fillStyle = "#FDF8EC";
+        ctx.fillRect(x - r * 0.70, y - r * 0.42, r * 1.36, r * 0.22);
+        ctx.beginPath(); ctx.arc(x + r * 0.62, y - r * 0.95, r * 0.2, 0, Math.PI * 2); ctx.fill();
+        ctx.fillStyle = "#07180F";
+        ctx.beginPath(); ctx.arc(x - r * 0.24, y - r * 0.02, r * 0.08, 0, Math.PI * 2); ctx.fill();
+        ctx.beginPath(); ctx.arc(x + r * 0.24, y - r * 0.02, r * 0.08, 0, Math.PI * 2); ctx.fill();
+        ctx.fillStyle = "#E88A8A";
+        ctx.beginPath(); ctx.arc(x, y + r * 0.18, r * 0.12, 0, Math.PI * 2); ctx.fill();
+      }
       function pvSceneWorkshop(ctx, W, H){
+        /* A REAL workshop: wooden wall, warm light, the photo inside a wooden
+           WINDOW (shutters + sill), a workbench below with tools, paint pots
+           and a toy train, Santa peeking in top-left, an elf peeking in right.
+           The photo is contain-fit (pvScenePhoto) — every face stays visible. */
         var pw = W / 8, i;
         for(i = 0; i < 8; i++){
           ctx.fillStyle = i % 2 ? "#6B4226" : "#7A5230";
           ctx.fillRect(i * pw, 0, pw, H);
           ctx.fillStyle = "rgba(0,0,0,0.25)"; ctx.fillRect(i * pw, 0, 2, H);
         }
+        /* warm workshop light spilling from the window */
+        var wl = ctx.createRadialGradient(W / 2, H * 0.38, 10, W / 2, H * 0.38, H * 0.78);
+        wl.addColorStop(0, "rgba(255,190,90,0.30)"); wl.addColorStop(1, "rgba(255,190,90,0)");
+        ctx.fillStyle = wl; ctx.fillRect(0, 0, W, H);
         pvSceneLights(ctx, W, H * 0.06, 10, 23);
-        var wx = W * 0.16, wy = H * 0.14, ww = W * 0.68, wh = H * 0.56;
-        ctx.fillStyle = "#8B5A2B"; ctx.fillRect(wx - W * 0.025, wy - H * 0.02, ww + W * 0.05, wh + H * 0.04);
-        ctx.fillStyle = "#5A3A22"; ctx.fillRect(wx - W * 0.012, wy - H * 0.008, ww + W * 0.024, wh + H * 0.016);
-        pvScenePhoto(ctx, wx, wy, ww, wh);
+        /* --- the window: shutters, wooden frame, sill --- */
+        var wx = W * 0.17, wy = H * 0.11, ww = W * 0.66, wh = H * 0.47;
+        /* shutters */
+        [[wx - W * 0.105, 1], [wx + ww + W * 0.015, -1]].forEach(function(sh){
+          var sx = sh[0];
+          ctx.fillStyle = "#6B4226"; ctx.fillRect(sx, wy, W * 0.09, wh);
+          ctx.strokeStyle = "rgba(0,0,0,0.35)"; ctx.lineWidth = 2;
+          for(var sl = 1; sl < 4; sl++){
+            ctx.beginPath(); ctx.moveTo(sx, wy + wh * sl / 4); ctx.lineTo(sx + W * 0.09, wy + wh * sl / 4); ctx.stroke();
+          }
+          ctx.fillStyle = "#D4AF37";
+          ctx.beginPath(); ctx.arc(sx + (sh[1] > 0 ? W * 0.072 : W * 0.018), wy + wh * 0.5, Math.max(2.5, W * 0.006), 0, Math.PI * 2); ctx.fill();
+        });
+        /* frame */
+        ctx.fillStyle = "#5A3A22"; ctx.fillRect(wx - W * 0.022, wy - H * 0.022, ww + W * 0.044, wh + H * 0.044);
+        ctx.fillStyle = "#8B5A2B"; ctx.fillRect(wx - W * 0.008, wy - H * 0.008, ww + W * 0.016, wh + H * 0.016);
+        pvScenePhoto(ctx, wx, wy, ww, wh, "wood");
         ctx.strokeStyle = "#D4AF37"; ctx.lineWidth = 2;
         ctx.strokeRect(wx - 2, wy - 2, ww + 4, wh + 4);
+        /* sill */
+        ctx.fillStyle = "#4A2E1A"; ctx.fillRect(wx - W * 0.04, wy + wh + H * 0.022, ww + W * 0.08, H * 0.028);
+        ctx.fillStyle = "#8B5A2B"; ctx.fillRect(wx - W * 0.04, wy + wh + H * 0.022, ww + W * 0.08, H * 0.008);
+        /* garland above the window */
         ctx.strokeStyle = "#1E7A3C"; ctx.lineWidth = Math.max(4, W * 0.012);
         ctx.beginPath(); ctx.moveTo(wx - W * 0.03, wy - H * 0.01);
         for(var gx2 = wx - W * 0.03; gx2 <= wx + ww + W * 0.03; gx2 += W * 0.06){
           ctx.quadraticCurveTo(gx2 + W * 0.03, wy - H * 0.01 + H * 0.025, gx2 + W * 0.06, wy - H * 0.01);
         }
         ctx.stroke();
-        var fy = H * 0.80;
-        pvGiftBox(ctx, W * 0.16, fy, W * 0.13, H * 0.10, "#C0392B", "#D4AF37");
-        pvGiftBox(ctx, W * 0.34, fy, W * 0.11, H * 0.08, "#1E7A3C", "#E9C767");
-        pvGiftBox(ctx, W * 0.72, fy, W * 0.13, H * 0.10, "#2E5FA3", "#D4AF37");
         ctx.fillStyle = "#C0392B";
-        ctx.beginPath(); ctx.arc(W * 0.56, fy + H * 0.045, W * 0.035, 0, Math.PI * 2); ctx.fill();
+        for(var d = 0; d < 7; d++){
+          ctx.beginPath(); ctx.arc(W * (0.14 + d * 0.12), wy - H * 0.005, Math.max(3, W * 0.008), 0, Math.PI * 2); ctx.fill();
+        }
+        /* --- the workbench --- */
+        var benchTop = H * 0.70;
+        ctx.fillStyle = "#4A2E1A"; ctx.fillRect(W * 0.07, benchTop, W * 0.86, H * 0.04);
+        ctx.fillStyle = "#6B4226"; ctx.fillRect(W * 0.07, benchTop, W * 0.86, H * 0.008);
+        ctx.fillStyle = "#3A2418";
+        ctx.fillRect(W * 0.115, benchTop + H * 0.04, W * 0.035, H * 0.19);
+        ctx.fillRect(W * 0.845, benchTop + H * 0.04, W * 0.035, H * 0.19);
+        ctx.fillStyle = "#5A3A22"; ctx.fillRect(W * 0.115, H * 0.855, W * 0.765, H * 0.018);
+        /* tools and toys on the bench */
+        pvHammer(ctx, W * 0.135, benchTop - W * 0.014, W * 0.045);
+        pvSaw(ctx, W * 0.26, benchTop - W * 0.010, W * 0.04);
+        pvPaintPot(ctx, W * 0.40, benchTop, W * 0.045, "#C0392B");
+        pvPaintPot(ctx, W * 0.47, benchTop, W * 0.045, "#1E7A3C");
+        pvPaintPot(ctx, W * 0.54, benchTop, W * 0.045, "#D4AF37");
+        ctx.save(); ctx.translate(W * 0.505, benchTop - W * 0.085); ctx.rotate(0.35);
+        ctx.fillStyle = "#8A5A2B"; ctx.fillRect(-2, -W * 0.05, 4, W * 0.05);
+        ctx.fillStyle = "#1E7A3C"; ctx.fillRect(-3, -W * 0.068, 6, W * 0.018);
+        ctx.restore();
+        pvToyBlock(ctx, W * 0.615, benchTop - W * 0.048, W * 0.048, "J");
+        pvToyBlock(ctx, W * 0.675, benchTop - W * 0.048, W * 0.048, "O");
+        pvToyBlock(ctx, W * 0.675, benchTop - W * 0.096, W * 0.048, "Y");
+        pvToyTrain(ctx, W * 0.775, benchTop, W * 0.045);
+        /* bits on the lower shelf */
+        pvGiftBox(ctx, W * 0.20, H * 0.805, W * 0.09, H * 0.05, "#C0392B", "#D4AF37");
+        pvPaintPot(ctx, W * 0.72, H * 0.855, W * 0.04, "#2E5FA3");
+        /* gifts on the floor */
+        pvGiftBox(ctx, W * 0.035, H * 0.905, W * 0.10, H * 0.05, "#2E5FA3", "#D4AF37");
+        pvGiftBox(ctx, W * 0.865, H * 0.905, W * 0.10, H * 0.05, "#1E7A3C", "#E9C767");
+        ctx.fillStyle = "#C0392B";
+        ctx.beginPath(); ctx.arc(W * 0.16, H * 0.93, W * 0.028, 0, Math.PI * 2); ctx.fill();
         ctx.strokeStyle = "#FDF8EC"; ctx.lineWidth = 3;
-        ctx.beginPath(); ctx.arc(W * 0.56, fy + H * 0.045, W * 0.035, Math.PI * 0.15, Math.PI * 0.85); ctx.stroke();
-        pvToyBlock(ctx, W * 0.60, fy + H * 0.02, W * 0.05, "N");
-        pvToyBlock(ctx, W * 0.66, fy + H * 0.05, W * 0.05, "O");
+        ctx.beginPath(); ctx.arc(W * 0.16, H * 0.93, W * 0.028, Math.PI * 0.15, Math.PI * 0.85); ctx.stroke();
+        /* Santa peeking in top-left, elf peeking in right — drawn last, in front of the frame */
+        pvSantaPeek(ctx, wx - W * 0.005, wy - H * 0.005, W * 0.045);
+        pvElfPeek(ctx, wx + ww + W * 0.06, wy + wh * 0.60, W * 0.042);
         ctx.fillStyle = "#FFE9C4"; ctx.textAlign = "center";
         ctx.font = "italic " + Math.max(13, Math.round(W * 0.028)) + "px Georgia, serif";
         ctx.fillText("Santa's Workshop — where your portrait is made", W / 2, H * 0.965);
@@ -2470,7 +2645,9 @@
         pvLiveOn = !pvLiveOn;
         var btn = document.getElementById("pvLiveToggle");
         btn.textContent = pvLiveOn ? "Pause snowfall" : "Resume snowfall";
-        btn.setAttribute("aria-pressed", pvLiveOn ? "true" : "false");
+        /* aria-pressed tracks the PAUSED state: pressed = snowfall paused.
+           (Was inverted — it reported pressed while snow was still falling.) */
+        btn.setAttribute("aria-pressed", pvLiveOn ? "false" : "true");
         if(pvLiveOn){ pvLiveStart(); }
         else {
           var cv = document.getElementById("pvLiveCanvas");
