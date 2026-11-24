@@ -81,8 +81,9 @@
       .ba-stage{ position:relative; border-radius:12px; overflow:hidden; aspect-ratio:4/3.4; background:#0E2A1A; }
       .ba-photo{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center 22%; }
       .ba-after-wrap{ position:absolute; inset:0; }
-      .ba-tag{ position:absolute; z-index:3; background:rgba(4,16,10,.72); color:#FFF; font-size:.78rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase; padding:.3rem .7rem; border-radius:999px; left:14px; bottom:14px; }
-      .ba-tag.after{ background:var(--gold); color:#23180A; }
+      .ba-tag{ position:absolute; z-index:5; background:rgba(4,16,10,.72); color:#FFF; font-size:.78rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase; padding:.3rem .7rem; border-radius:999px; top:14px; right:14px; white-space:nowrap; pointer-events:none; }
+      .ba-tag.after{ background:var(--gold); color:#23180A; left:14px; right:auto; top:14px; }
+      @media (max-width:520px){ .ba-tag{ font-size:.68rem; } }
       .ba-divider{ position:absolute; top:0; bottom:0; width:3px; background:var(--gold); z-index:4; box-shadow:0 0 12px rgba(0,0,0,.5); }
       .ba input[type=range]{ width:100%; margin-top:12px; accent-color:var(--gold); min-height:36px; }
       .ba figcaption{ color:#CFC39E; font-size:.9rem; margin-top:6px; text-align:center; }
@@ -328,11 +329,11 @@
         <figure class="ba" style="margin:0">
           <div class="ba-stage">
             <img class="ba-photo" src="https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/29159649/845120af-7d2d-486b-b9e3-7cc81d523688" alt="Before — an ordinary family snapshot, the kind of photo you already have on your phone" width="1280" height="853" />
-            <span class="ba-tag">Before · Your photo</span>
             <div class="ba-after-wrap" id="baAfterWrap" style="clip-path:inset(0 45% 0 0)">
               <img class="ba-photo" src="https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/29159649/5fd0e0d7-ce55-4b33-8075-281de34602b5" alt="After — a finished Christmas portrait: a smiling family in festive dress beside a lit Christmas tree" width="1280" height="853" />
-              <span class="ba-tag after">After · Delivered in 24h</span>
             </div>
+            <span class="ba-tag after">After · Delivered in 24h</span>
+            <span class="ba-tag">Before · Your photo</span>
             <div class="ba-divider" id="baDivider" style="left:55%"></div>
           </div>
           <input type="range" id="baRange" min="5" max="95" value="55" aria-label="Slide to compare before and after portrait" />
@@ -648,11 +649,11 @@
         <div class="foot-grid">
           <div class="foot-col">
             <a class="foot-brand" href="#top" aria-label="Christmas Portrait Studio — back to top">
-              <img src="https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/29159649/c4d5fe32-71f7-4c7d-a2a6-062334e904f0" alt="" width="44" height="44" loading="lazy" />
+              <img src="https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/29159649/c4d5fe32-71f7-4c7d-a2a6-062334e904f0" alt="" width="44" height="44" />
               <span class="wordmark">Christmas Portrait Studio</span>
             </a>
-            <p class="foot-about">Personalized Christmas portraits in 24 hours, printed gifts made to order, kids books, coloring books and instant digital downloads. <b style="color:#FFE9A8">Order printed gifts by Dec 20 — digital stays instant until Dec 25.</b></p>
-            <p class="foot-about" style="margin-top:12px">Questions? See “Before you order” above, or start an order — we reply to every portrait order by email within 24 hours.</p>
+            <p class="foot-about">Personalized Christmas portraits in 24 hours, printed gifts made to order, kids books, coloring books and instant digital downloads. Order printed gifts by Dec 20 — digital stays instant until Dec 25.</p>
+            <p class="foot-about">Questions? See “Before you order” above, or start an order — we reply to every portrait order by email within 24 hours.</p>
           </div>
           <nav class="foot-col" aria-label="Shop">
             <h3>Shop</h3>
@@ -677,13 +678,13 @@
             </ul>
           </nav>
         </div>
-        <div class="foot-good" aria-label="Good to know">
-          <span>Portraits <b>$39 / $69 / $89</b></span>
+        <div class="foot-good">
+          <span><b>Portraits</b> $39 / $69 / $89</span>
           <span><b>24-hour</b> digital delivery</span>
-          <span>Printed gifts — order by <b>Dec 20</b> for Christmas</span>
-          <span>Digital instant until <b>Dec 25</b></span>
-          <span><b>FREE</b> Santa Letter with every portrait</span>
-          <span>Love-It Guarantee — <b>14 days</b></span>
+          <span><b>Printed gifts</b> — order by Dec 20 for Christmas</span>
+          <span><b>Digital instant</b> until Dec 25</span>
+          <span><b>FREE Santa Letter</b> with every portrait</span>
+          <span><b>Love-It Guarantee</b> — 14 days</span>
         </div>
         <div class="foot-policies">
           <div><h3>Shipping</h3><p>Digital portraits are delivered by email within 24 hours; downloads are instant. Printed gifts are made to order — order by Dec 20 for Christmas delivery, and produced close to the recipient in 32 countries for international orders.</p></div>
@@ -694,15 +695,12 @@
       </div>
     </footer>
     <script>
-      /* Footer help links: open the matching FAQ answer when jumped to. */
-      (function(){
-        document.querySelectorAll('a[href^="#faq-"]').forEach(function(a){
-          a.addEventListener("click", function(){
-            var d = document.querySelector(a.getAttribute("href"));
-            if (d && d.tagName === "DETAILS") d.open = true;
-          });
+      document.querySelectorAll('a[href^="#faq-"]').forEach(function(a){
+        a.addEventListener("click", function(){
+          var d = document.querySelector(a.getAttribute("href"));
+          if(d && d.tagName === "DETAILS") d.open = true;
         });
-      })();
+      });
     </script>
 
     <!-- ============ CART ============ -->
@@ -836,21 +834,23 @@
           card.querySelector(".product-art img").src = t.getAttribute("data-view");
           card.querySelectorAll(".thumb").forEach(function(x){ x.classList.remove("active"); });
           t.classList.add("active");
-          card.dataset.colour = t.getAttribute("aria-label").replace("View: ", "");
           var lbl = card.querySelector(".thumb-label");
-          if(lbl) lbl.textContent = t.getAttribute("aria-label").replace("View: ", "");
+          var colourName = t.getAttribute("aria-label").replace("View: ", "");
+          card.dataset.colour = colourName;
+          if(lbl) lbl.textContent = colourName;
           return;
         }
         var b = e.target.closest("[data-add]");
         if(b){
           var id = b.getAttribute("data-add");
           if(id === "hoodie"){
-            var card = b.closest(".product");
-            var sel = card.querySelector("[data-size]");
+            var hcard = b.closest(".product");
+            var sel = hcard.querySelector("[data-size]");
             var size = sel ? sel.value : "S";
-            var colour = card.dataset.colour || "Forest Green";
-            var key = {"Forest Green":"green", "Black":"black", "Dark Heather":"heather"}[colour] || "green";
-            addToCart((size === "2XL" ? "hoodie2xl-" : "hoodie-") + key);
+            var colour = hcard.dataset.colour || "Forest Green";
+            var cmap = { "Forest Green":"green", "Black":"black", "Dark Heather":"heather" };
+            var ckey = cmap[colour] || "green";
+            addToCart((size === "2XL" ? "hoodie2xl-" : "hoodie-") + ckey);
           } else {
             addToCart(id);
           }
