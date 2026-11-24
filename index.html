@@ -1758,6 +1758,7 @@
         btn.addEventListener("click", function(){
           if(!endpointLive){
             setStatus(NOT_CONFIGURED);
+            toast("AI Transform opens the moment the studio key is added — the six style examples above are real AI transformations of a family photo");
             document.getElementById("styles").scrollIntoView({behavior:"smooth"});
             return;
           }
@@ -2215,20 +2216,24 @@
       /* Sticker defaults are fractions of the PHOTO's displayed width/height
          (pw = size as a fraction of photo width; px/py = centre as a fraction
          of the photo rect), converted to stage fractions in pvAddSticker via
-         pvFeatPhotoRect(). MEASURED LIVE (2026-11-24, featured mug window):
-         photo displayed width ~520px at a ~1180px stage; father's face ~95px,
-         i.e. ~0.18 of photo width. Hat brim draws 1.04x size, so pw 0.19 gives
-         a brim ~0.20 of photo width ~= 1.1x a face. Antlers span 0.84x size,
-         so pw 0.28 spans ~0.24 of photo width ~= 1.3x a face (correct —
-         antlers naturally span wider than the head). Hats sit at py 0.07, just
-         above the head tops — never dead-centre over a face. Do NOT size
+         pvFeatPhotoRect(). MEASURED LIVE (2026-11-24, Node harness replicating
+         pvDrawWindow: mug base is square 1200x1200, window canvas 440x660,
+         cover scale 0.516, photo 1920x1280): father's face is 0.193 of the
+         window width, his HEAD incl. hair 0.234. Hat brim draws 1.04x size.
+         pw 0.19 gave brim 0.84x a head — the pivot test measured 0.79-0.84x,
+         not the claimed 1.1x. pw 0.23 gives brim 0.239 = 1.02x a head.
+         Antlers span 0.84x size, so pw 0.28 spans 0.235 = 1.00x a head.
+         Hats default on the FIRST head (px 0.35 = father's head centre in
+         the mug window, 0.34 measured); pvAddSticker cycles later hats
+         through the other three head slots. py puts the brim on the head
+         top (brim sits +0.165s below the sticker centre). Do NOT size
          stickers as stage fractions again: the photo is only ~0.44 of the
          stage in the mug window, so any stage fraction overstates the size
          by more than 2x. Saved designs store stage fractions and still work. */
       var PV_STICKER_DEFS = [
-        {id:"santahat", label:"Santa Hat", pw:0.19, px:0.5, py:0.07},
-        {id:"antlers", label:"Reindeer Antlers", pw:0.28, px:0.5, py:0.03},
-        {id:"elfhat", label:"Elf Hat", pw:0.19, px:0.5, py:0.07},
+        {id:"santahat", label:"Santa Hat", pw:0.23, px:0.35, py:0.07},
+        {id:"antlers", label:"Reindeer Antlers", pw:0.28, px:0.35, py:0.03},
+        {id:"elfhat", label:"Elf Hat", pw:0.23, px:0.35, py:0.07},
         {id:"scarf", label:"Cosy Scarf", pw:0.37, px:0.5, py:0.58},
         {id:"cane", label:"Candy Cane", pw:0.45, px:0.80, py:0.55},
         {id:"wand", label:"Star Wand", pw:0.50, px:0.80, py:0.45},
@@ -2440,8 +2445,22 @@
         var def = null;
         PV_STICKER_DEFS.forEach(function(d){ if(d.id === type) def = d; });
         if(!def) return;
-        var n = pvStickers.filter(function(s2){ return s2.type === type; }).length;
-        var off = (n % 3) * 0.07 - 0.07;
+        if(pvStickers.length >= 8){ toast("That's plenty of magic — 8 stickers max. Remove one to add another."); return; }
+        /* ROOT CAUSE (2026-11-24 pivot test): the old offset was per-TYPE
+           count, so the first Santa Hat, first Elf Hat and first Antlers all
+           landed at the SAME centre (px 0.5, py 0.07) at the same size — each
+           new sticker painted exactly over the previous one, so only one was
+           ever visible. Placement now cycles through the four head slots by
+           HEAD-WORN count, so hats land on different heads. Slots are window
+           fractions measured from the hero photo in the default mug window
+           (cover scale 0.516): father centre 0.34/top 0.08, mother 0.65/0.16,
+           daughter 0.23/0.48, son 0.75/0.45; py puts the brim on the head top
+           (brim sits +0.165s below the sticker centre). Antlers sit 0.04
+           higher — their shape extends 0.32s below centre. Non-head stickers
+           keep their def position plus a stagger by total count, so they can
+           never pile up exactly either. */
+        var HEAD_SLOTS = [{x:0.34,y:0.07},{x:0.65,y:0.13},{x:0.23,y:0.46},{x:0.75,y:0.42}];
+        var headWorn = (type === "santahat" || type === "elfhat" || type === "antlers");
         var stage = document.getElementById("pvFeatStage");
         var rect = pvFeatPhotoRect();
         var x, y, size;
@@ -2449,11 +2468,23 @@
           /* photo-relative default: size from the photo's displayed width,
              centre from the photo rect — a hat lands on a head, not mid-face */
           size = def.pw * rect.w / stage.clientWidth;
-          x = (rect.x + (def.px + off) * rect.w) / stage.clientWidth;
-          y = (rect.y + def.py * rect.h) / stage.clientHeight;
+          var px = def.px, py = def.py;
+          if(headWorn){
+            var hc = pvStickers.filter(function(s2){ return s2.type === "santahat" || s2.type === "elfhat" || s2.type === "antlers"; }).length;
+            var slot = HEAD_SLOTS[hc % HEAD_SLOTS.length];
+            px = slot.x; py = slot.y;
+            if(type === "antlers") py = Math.max(0.02, py - 0.04);
+            if(hc >= HEAD_SLOTS.length) px = Math.min(0.9, Math.max(0.1, px + 0.05 * Math.floor(hc / HEAD_SLOTS.length)));
+          } else {
+            var tot = pvStickers.length;
+            px = Math.min(0.9, Math.max(0.1, def.px + ((tot % 3) - 1) * 0.06));
+            py = Math.min(0.92, Math.max(0.05, def.py + (Math.floor(tot / 3) % 2) * 0.05));
+          }
+          x = (rect.x + px * rect.w) / stage.clientWidth;
+          y = (rect.y + py * rect.h) / stage.clientHeight;
         } else {
-          /* no photo yet: centre of the stage, small */
-          size = 0.08; x = Math.min(0.85, Math.max(0.15, 0.5 + off)); y = 0.26;
+          /* no photo yet: centre of the stage, small, staggered by count */
+          size = 0.08; x = Math.min(0.85, Math.max(0.15, 0.5 + ((pvStickers.length % 3) - 1) * 0.07)); y = 0.26;
         }
         pvStickers.push({type:type, x:x, y:y, size:size, rot:0});
         pvSelSticker = pvStickers.length - 1;
@@ -2917,9 +2948,9 @@
           ctx.fillRect(i * pw, 0, pw, H);
           ctx.fillStyle = "rgba(0,0,0,0.25)"; ctx.fillRect(i * pw, 0, 2, H);
         }
-        /* warm workshop light spilling from the window — strong enough to
-           visibly cast onto the wall and shutters (the old 0.30 wash was
-           invisible in the live test) */
+        /* warm workshop light over the whole scene — warms the WALL only.
+           It is drawn BEFORE the shutters, so it can never light them: they
+           are opaque fills painted over it. The spill below does the shutters. */
         var wl = ctx.createRadialGradient(W / 2, H * 0.38, 10, W / 2, H * 0.38, H * 0.78);
         wl.addColorStop(0, "rgba(255,190,90,0.45)"); wl.addColorStop(1, "rgba(255,190,90,0)");
         ctx.fillStyle = wl; ctx.fillRect(0, 0, W, H);
@@ -2958,16 +2989,23 @@
         /* frame */
         ctx.fillStyle = "#5A3A22"; ctx.fillRect(wx - W * 0.022, wy - H * 0.022, ww + W * 0.044, wh + H * 0.044);
         ctx.fillStyle = "#8B5A2B"; ctx.fillRect(wx - W * 0.008, wy - H * 0.008, ww + W * 0.016, wh + H * 0.016);
+        /* warm light spilling OUT of the window onto the shutters and wall —
+           drawn AFTER the shutters and frame (opaque fills painted over the
+           whole-scene wash, so that wash could never light them) and BEFORE
+           the photo (so the portrait stays crisp). ROOT CAUSE of the flat
+           shutters in the pivot test: the old spill was drawn after the photo
+           at 0.20 alpha — at the shutter distance (0.39W from the window
+           centre, radius 0.95*ww) it gave ~0.08 alpha, invisible. This one
+           is 0.40 centre / 0.28 mid, same radius: ~0.24 screen alpha at the
+           shutters, 3x stronger, and it visibly warms the green and the wood. */
+        var spill = ctx.createRadialGradient(wx + ww / 2, wy + wh / 2, ww * 0.10, wx + ww / 2, wy + wh / 2, ww * 0.95);
+        spill.addColorStop(0, "rgba(255,196,100,0.40)"); spill.addColorStop(0.55, "rgba(255,190,90,0.28)"); spill.addColorStop(1, "rgba(255,190,90,0)");
+        ctx.globalCompositeOperation = "screen"; ctx.fillStyle = spill;
+        ctx.fillRect(wx - ww * 0.55, wy - wh * 0.55, ww * 2.1, wh * 2.1);
+        ctx.globalCompositeOperation = "source-over";
         pvScenePhoto(ctx, wx, wy, ww, wh, "wood");
         ctx.strokeStyle = "#D4AF37"; ctx.lineWidth = 2;
         ctx.strokeRect(wx - 2, wy - 2, ww + 4, wh + 4);
-        /* warm light spilling OUT of the window onto the shutters and wall —
-           drawn after the frame so it visibly falls on the wood (screen blend) */
-        var spill = ctx.createRadialGradient(wx + ww / 2, wy + wh / 2, ww * 0.2, wx + ww / 2, wy + wh / 2, ww * 0.95);
-        spill.addColorStop(0, "rgba(255,205,110,0.20)"); spill.addColorStop(1, "rgba(255,205,110,0)");
-        ctx.globalCompositeOperation = "screen"; ctx.fillStyle = spill;
-        ctx.fillRect(wx - ww * 0.45, wy - wh * 0.45, ww * 1.9, wh * 1.9);
-        ctx.globalCompositeOperation = "source-over";
         /* sill */
         ctx.fillStyle = "#4A2E1A"; ctx.fillRect(wx - W * 0.04, wy + wh + H * 0.022, ww + W * 0.08, H * 0.028);
         ctx.fillStyle = "#8B5A2B"; ctx.fillRect(wx - W * 0.04, wy + wh + H * 0.022, ww + W * 0.08, H * 0.008);
