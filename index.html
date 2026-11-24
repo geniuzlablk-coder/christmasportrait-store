@@ -1794,10 +1794,15 @@
          6 style grades, the product windows, My Designs and the cart are all
          untouched. Honest label: stickers/scenes preview the IDEA; the
          finished $39 portrait is art-directed by the studio in 24h. --- */
+      /* Sticker sizes are fractions of STAGE width. The hat brim draws 1.04x
+         size, and the photo in the default mug window is ~0.45 of the stage,
+         so size 0.13 gives a brim ~= 1.0x an adult face width in a 4-person
+         family photo (measured live: 0.20 gave a 250px brim vs a 155px face).
+         Do not re-inflate these without re-measuring against a real photo. */
       var PV_STICKER_DEFS = [
-        {id:"santahat", label:"Santa Hat", size:0.20, x:0.5, y:0.26},
-        {id:"antlers", label:"Reindeer Antlers", size:0.24, x:0.5, y:0.24},
-        {id:"elfhat", label:"Elf Hat", size:0.20, x:0.5, y:0.26},
+        {id:"santahat", label:"Santa Hat", size:0.13, x:0.5, y:0.26},
+        {id:"antlers", label:"Reindeer Antlers", size:0.20, x:0.5, y:0.24},
+        {id:"elfhat", label:"Elf Hat", size:0.13, x:0.5, y:0.26},
         {id:"scarf", label:"Cosy Scarf", size:0.28, x:0.5, y:0.66},
         {id:"cane", label:"Candy Cane", size:0.20, x:0.74, y:0.55},
         {id:"wand", label:"Star Wand", size:0.22, x:0.76, y:0.45},
@@ -2462,16 +2467,34 @@
         pvSceneLights(ctx, W, H * 0.06, 10, 23);
         /* --- the window: shutters, wooden frame, sill --- */
         var wx = W * 0.17, wy = H * 0.11, ww = W * 0.66, wh = H * 0.47;
-        /* shutters */
+        /* warm light spilling from behind the window — drawn before the
+           shutters and frame so it glows out from behind their edges */
+        var wglow = ctx.createRadialGradient(wx + ww / 2, wy + wh / 2, 10, wx + ww / 2, wy + wh / 2, ww * 0.78);
+        wglow.addColorStop(0, "rgba(255,205,110,0.38)"); wglow.addColorStop(1, "rgba(255,205,110,0)");
+        ctx.fillStyle = wglow; ctx.fillRect(wx - ww * 0.3, wy - wh * 0.3, ww * 1.6, wh * 1.6);
+        /* shutters — deep Christmas green with a gold border, louver slats,
+           centre stile and a gold knob, so they read as shutters at a glance
+           and never as more brown wall planks (the old #6B4226 fill was
+           identical to the wall planks and vanished into them) */
         [[wx - W * 0.105, 1], [wx + ww + W * 0.015, -1]].forEach(function(sh){
-          var sx = sh[0];
-          ctx.fillStyle = "#6B4226"; ctx.fillRect(sx, wy, W * 0.09, wh);
-          ctx.strokeStyle = "rgba(0,0,0,0.35)"; ctx.lineWidth = 2;
-          for(var sl = 1; sl < 4; sl++){
-            ctx.beginPath(); ctx.moveTo(sx, wy + wh * sl / 4); ctx.lineTo(sx + W * 0.09, wy + wh * sl / 4); ctx.stroke();
+          var sx = sh[0], sw = W * 0.09;
+          ctx.fillStyle = "#14532D"; ctx.fillRect(sx, wy, sw, wh);
+          ctx.fillStyle = "#1E7A3C"; ctx.fillRect(sx + sw * 0.12, wy + wh * 0.05, sw * 0.76, wh * 0.90);
+          ctx.strokeStyle = "#D4AF37"; ctx.lineWidth = Math.max(2, W * 0.004);
+          ctx.strokeRect(sx + 1, wy + 1, sw - 2, wh - 2);
+          var sl;
+          for(sl = 1; sl <= 5; sl++){
+            var sy = wy + wh * sl / 6;
+            ctx.strokeStyle = "rgba(0,0,0,0.45)"; ctx.lineWidth = Math.max(2, W * 0.004);
+            ctx.beginPath(); ctx.moveTo(sx + sw * 0.12, sy); ctx.lineTo(sx + sw * 0.88, sy); ctx.stroke();
+            ctx.strokeStyle = "rgba(255,255,255,0.22)"; ctx.lineWidth = 1;
+            ctx.beginPath(); ctx.moveTo(sx + sw * 0.12, sy + 2); ctx.lineTo(sx + sw * 0.88, sy + 2); ctx.stroke();
           }
+          ctx.fillStyle = "#14532D"; ctx.fillRect(sx + sw * 0.47, wy + wh * 0.05, sw * 0.06, wh * 0.90);
           ctx.fillStyle = "#D4AF37";
-          ctx.beginPath(); ctx.arc(sx + (sh[1] > 0 ? W * 0.072 : W * 0.018), wy + wh * 0.5, Math.max(2.5, W * 0.006), 0, Math.PI * 2); ctx.fill();
+          ctx.beginPath(); ctx.arc(sx + (sh[1] > 0 ? W * 0.072 : W * 0.018), wy + wh * 0.5, Math.max(4, W * 0.009), 0, Math.PI * 2); ctx.fill();
+          ctx.fillStyle = "#FFF3C4";
+          ctx.beginPath(); ctx.arc(sx + (sh[1] > 0 ? W * 0.072 : W * 0.018) - 1.5, wy + wh * 0.5 - 1.5, Math.max(1.5, W * 0.003), 0, Math.PI * 2); ctx.fill();
         });
         /* frame */
         ctx.fillStyle = "#5A3A22"; ctx.fillRect(wx - W * 0.022, wy - H * 0.022, ww + W * 0.044, wh + H * 0.044);
