@@ -332,6 +332,7 @@
           <a href="#pricing">Pricing</a>
           <a href="#order">Order</a>
           <a href="#preview-studio">Preview Studio</a>
+          <a href="#certificate-studio">Certificate</a>
           <a href="#products">Products</a>
           <a href="#bundles">Bundles</a>
           <a href="#faq">FAQ</a>
@@ -508,7 +509,7 @@
     <section id="preview-studio" style="padding-top:0">
       <div class="wrap">
         <h2>Live Preview Studio — see your photo on every gift</h2>
-        <p class="soft" style="max-width:46rem">Upload your photo once, pick a style, and see it on all nine gifts instantly. What you see is what gets printed. Your photo stays in your browser until you order — we never share or sell it.</p>
+        <p class="soft" style="max-width:46rem">Upload your photo once, pick a style, and see it on all ten gifts instantly. What you see is what gets printed. Your photo stays in your browser until you order — we never share or sell it.</p>
         <p class="soft" style="max-width:46rem">Saved designs live on this device only.</p>
 
         <div class="card pv-controls" style="margin-top:20px">
@@ -561,6 +562,43 @@
           <p class="soft" style="margin:0">Reopen a design to keep editing it, duplicate it for another gift, or reorder its products in one tap. Up to 20 designs are kept here.</p>
           <div class="pv-designs" id="pvDesigns"></div>
           <p class="soft" id="pvDesignsEmpty" style="margin:12px 0 0">No saved designs yet — build a preview above and tap “Save this design”.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 4c · SANTA CERTIFICATE PERSONALIZER ============ -->
+    <section id="certificate-studio" style="padding-top:0">
+      <div class="wrap">
+        <h2>Santa Certificate — made for your child</h2>
+        <p class="soft" style="max-width:46rem">Type their name, add their photo, and watch Santa's certificate come alive — their name in gold, their face inside the snow globe. This is the moment their eyes light up.</p>
+        <div class="card" style="margin-top:20px">
+          <div class="grid grid-2" style="gap:20px;align-items:start">
+            <div>
+              <div class="field"><label for="certKidName">Your child's name</label><input type="text" id="certKidName" value="Emma" maxlength="24" placeholder="e.g. Emma" /></div>
+              <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:12px">
+                <button class="btn btn-gold" type="button" id="certUploadBtn">Upload their photo</button>
+                <button class="btn btn-ghost" type="button" id="certUseStudioBtn">Use my Studio photo</button>
+              </div>
+              <p class="soft" style="font-size:.9rem;margin-top:12px">Their photo stays in your browser until you order — we never share or sell it. Delete it anytime from the Preview Studio.</p>
+              <h3 style="margin-top:20px">What your child gets</h3>
+              <ul class="value-stack">
+                <li><span>Personalized certificate — their name in gold, their photo in the snow globe</span><b>Live preview</b></li>
+                <li><span>Print-ready PDF — crisp, watermark-free, print as many times as you like</span><b>$12 kit</b></li>
+                <li><span>Their portrait holding the certificate — framed canvas or digital portrait</span><b>$49 / $39</b></li>
+                <li><span>A personal letter from Santa, written just for them</span><b>Included</b></li>
+              </ul>
+              <p style="margin-top:14px"><b>Printed gifts: order by Dec 20</b> <span class="soft">for Christmas delivery. Digital portraits arrive in 24 hours.</span></p>
+            </div>
+            <div>
+              <canvas id="certCanvas" width="880" height="620" style="width:100%;height:auto;display:block;border-radius:14px;box-shadow:0 10px 34px rgba(7,24,15,.28)" role="img" aria-label="Personalized Nice List certificate preview"></canvas>
+              <p class="soft" style="font-size:.9rem;margin-top:10px">This is your preview — watermarked and low-resolution so it can't be printed from the screen. The version you buy is crisp, watermark-free, and delivered instantly.</p>
+            </div>
+          </div>
+          <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:18px">
+            <button class="btn btn-gold" type="button" data-add="santakit">Add Santa Kit — $12</button>
+            <button class="btn btn-red" type="button" data-add="nicelist">Add My Nice List Portrait — Canvas $49</button>
+            <button class="btn btn-green" type="button" data-add="nicelistportrait">Add Digital Portrait — $39</button>
+          </div>
         </div>
       </div>
     </section>
@@ -783,6 +821,7 @@
               <li><a href="#pricing">Portrait Pricing</a></li>
               <li><a href="#order">Order Your Portrait</a></li>
               <li><a href="#products">Gift Shop</a></li>
+              <li><a href="#certificate-studio">Santa Certificate</a></li>
               <li><a href="#kidsbooks">Kids Books</a></li>
               <li class="hidden-for-now"><a href="#coloringbooks">Coloring Books</a></li>
               <li><a href="#digital">Digital Downloads</a></li>
@@ -873,6 +912,8 @@
         santaset:{name:"Santa Letter + Portrait Gift Set", price:49},
         pettee:{name:"Pet Christmas Portrait Tee", price:29},
         phonecase:{name:"Christmas Phone Case", price:24},
+        nicelist:{name:"My Nice List Portrait — Canvas", price:49},
+        nicelistportrait:{name:"My Nice List Portrait — Digital Portrait", price:39},
         milo:{name:"Milo and the Lost Star — Kids Book (PDF)", price:9},
         snowglobe:{name:"The Snow Globe That Snowed Inside — Kids Book (PDF)", price:9},
         sleigh:{name:"Santa's Last Sleigh Ride — Kids Book (PDF)", price:9},
@@ -1290,7 +1331,8 @@
         {id:"pettee", name:"Pet Christmas Portrait Tee", price:29, fit:"cover", base:IMG + "cf4be324-d5d1-4084-8eab-1028d648c098", alt:"A tee printed with a pet's Christmas portrait — a dog wearing a Santa hat", wins:[{x:27,y:56,w:22,h:34,shape:"ellipse",frame:"oval",shading:"folds"}]},
         {id:"tote", name:"Christmas Tote", price:24, fit:"cover", base:IMG + "328e0b89-7923-4020-b227-c63aae640402", alt:"A Christmas tote bag printed with a family portrait", wins:[{x:28,y:38,w:39,h:50,shape:"rect",frame:"rect",shading:"folds"}]},
         {id:"santaset", name:"Santa Letter + Portrait Gift Set", price:49, fit:"cover", base:IMG + "25bc2b2d-9646-409a-bc6d-e4cb1c0e63a4", alt:"Santa letter and portrait gift set with a certificate and festive packaging", wins:[{x:19,y:43,w:29,h:45,shape:"arc",frame:"none",shading:"cylinder"},{x:59,y:33,w:21,h:30,shape:"rect",frame:"rect",shading:"radial"}]},
-        {id:"phonecase", name:"Christmas Phone Case", price:24, fit:"cover", base:IMG + "3bd2e3a2-3ba8-46ce-88ab-f9e8bdd98480", alt:"A phone case printed with a family Christmas portrait", wins:[{x:29,y:30,w:34,h:58,shape:"ellipse",frame:"oval",shading:"gloss",rot:-8}]}
+        {id:"phonecase", name:"Christmas Phone Case", price:24, fit:"cover", base:IMG + "3bd2e3a2-3ba8-46ce-88ab-f9e8bdd98480", alt:"A phone case printed with a family Christmas portrait", wins:[{x:29,y:30,w:34,h:58,shape:"ellipse",frame:"oval",shading:"gloss",rot:-8}]},
+        {id:"nicelist", name:"My Nice List Portrait — Canvas", price:49, fit:"cover", base:IMG + "eea881b6-90fd-4485-aeef-f507eba96989", alt:"A canvas portrait of a child holding their personalized Nice List certificate", custom:"nicelist", wins:[{x:28,y:5,w:47,h:52,shape:"rect",frame:"none",shading:"inner"}]}
       ];
       var PV_LABELS = ["Family","Kids","Pet"];
       var pvPhotos = [], pvActive = -1, pvZoom = 1, pvOx = 0, pvOy = 0, pvFeatured = "mug", pvFavs = {};
@@ -1550,7 +1592,7 @@
           container.appendChild(cv);
           list.push({cv:cv, win:win});
         });
-        list.forEach(function(it){ pvDrawWindow(it.cv, it.win, baseImg, graded); });
+        list.forEach(function(it){ if(prod.custom === "nicelist"){ pvDrawNiceListWindow(it.cv, it.win, baseImg, graded); } else { pvDrawWindow(it.cv, it.win, baseImg, graded); } });
         return list;
       }
 
@@ -1623,6 +1665,9 @@
         var tile = document.createElement("article");
         tile.className = "pv-tile";
         var extra = "";
+        if(p.id === "nicelist"){
+          extra = '<div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center"><span class="soft" style="font-size:.9rem">Their photo on top, their certificate below — name in gold.</span><button class="btn btn-ghost btn-small" type="button" data-pv-add="nicelistportrait">Digital portrait — $39</button></div>';
+        }
         if(p.id === "hoodie"){
           extra = '<div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center"><label style="font-weight:600;font-size:.9rem">Size <select id="pvHoodSize"><option>S</option><option>M</option><option>L</option><option>XL</option><option>2XL</option></select></label>' +
             '<label style="font-weight:600;font-size:.9rem">Colour <select id="pvHoodColour"><option>Forest Green</option><option>Black</option><option>Dark Heather</option></select></label><span class="soft" style="font-size:.85rem">2XL is $57</span></div>';
@@ -1681,6 +1726,7 @@
         });
         document.getElementById("pvFeatEmpty").style.display = pvPhotos.length ? "none" : "";
         pvFeatList = pvBuildWins(pvFeatWins, pvProd(pvFeatured), pvFeatImg, !pvFeatOriginal);
+        if(typeof certPaint === "function") certPaint();
       }
       /* order-form thumbnail: same season grade as the Studio, so the two never contradict */
       function pvPaintOrderThumb(){
@@ -1699,6 +1745,300 @@
           if(note) note.style.display = "block";
         } catch(e){ /* keep the raw photo already shown */ }
       }
+
+      /* --- Santa Certificate personalizer (kids) — live name + photo, watermarked preview --- */
+      function certKidName(){
+        var inp = document.getElementById("certKidName");
+        var v = inp ? inp.value.trim() : "";
+        return v || "Emma";
+      }
+      function certStar(ctx, cx, cy, r, color){
+        ctx.save();
+        ctx.fillStyle = color || "#D4AF37";
+        ctx.beginPath();
+        for(var i = 0; i < 10; i++){
+          var a = -Math.PI / 2 + i * Math.PI / 5;
+          var rr = i % 2 === 0 ? r : r * 0.45;
+          var X = cx + Math.cos(a) * rr, Y = cy + Math.sin(a) * rr;
+          if(i === 0) ctx.moveTo(X, Y); else ctx.lineTo(X, Y);
+        }
+        ctx.closePath(); ctx.fill();
+        ctx.restore();
+      }
+      function certSnowflake(ctx, x, y, r, color, alpha){
+        ctx.save();
+        ctx.strokeStyle = color || "#D4AF37";
+        ctx.globalAlpha = alpha == null ? 0.5 : alpha;
+        ctx.lineWidth = 1;
+        for(var k = 0; k < 6; k++){
+          var a = k * Math.PI / 3;
+          ctx.beginPath();
+          ctx.moveTo(x - Math.cos(a) * r, y - Math.sin(a) * r);
+          ctx.lineTo(x + Math.cos(a) * r, y + Math.sin(a) * r);
+          ctx.stroke();
+        }
+        ctx.restore();
+      }
+      function certCandyCane(ctx, x, y, len, rot){
+        ctx.save();
+        ctx.translate(x, y); ctx.rotate(rot);
+        ctx.lineCap = "round";
+        ctx.beginPath();
+        ctx.moveTo(0, 0); ctx.lineTo(0, -len + 12);
+        ctx.arc(6, -len + 12, 6, Math.PI, 0, false);
+        ctx.lineWidth = 9; ctx.strokeStyle = "#C0392B"; ctx.stroke();
+        ctx.save();
+        ctx.clip();
+        ctx.strokeStyle = "#ffffff"; ctx.lineWidth = 4.5;
+        for(var i = -2; i < 6; i++){
+          ctx.beginPath();
+          ctx.moveTo(-12, -len + 8 + i * 11);
+          ctx.lineTo(16, -len + 20 + i * 11);
+          ctx.stroke();
+        }
+        ctx.restore();
+        ctx.restore();
+      }
+      function certReindeer(ctx, x, y, s){
+        ctx.save(); ctx.translate(x, y); ctx.scale(s, s);
+        ctx.strokeStyle = "#6B4226"; ctx.lineWidth = 3; ctx.lineCap = "round";
+        [[-1, -14], [1, -14]].forEach(function(side){
+          var sx = side[0], sy = side[1];
+          ctx.beginPath(); ctx.moveTo(sx * 8, sy);
+          ctx.lineTo(sx * 16, sy - 12); ctx.moveTo(sx * 8, sy);
+          ctx.lineTo(sx * 6, sy - 14); ctx.moveTo(sx * 8, sy);
+          ctx.lineTo(sx * 14, sy - 4); ctx.stroke();
+        });
+        ctx.fillStyle = "#8B5A2B";
+        ctx.beginPath(); ctx.ellipse(-13, -6, 5, 9, -0.5, 0, Math.PI * 2); ctx.fill();
+        ctx.beginPath(); ctx.ellipse(13, -6, 5, 9, 0.5, 0, Math.PI * 2); ctx.fill();
+        ctx.beginPath(); ctx.arc(0, 0, 19, 0, Math.PI * 2); ctx.fill();
+        ctx.fillStyle = "#F3D9B8";
+        ctx.beginPath(); ctx.ellipse(0, 9, 10, 7, 0, 0, Math.PI * 2); ctx.fill();
+        ctx.fillStyle = "#C0392B";
+        ctx.beginPath(); ctx.arc(0, 5, 5.5, 0, Math.PI * 2); ctx.fill();
+        ctx.fillStyle = "#ffffff";
+        ctx.beginPath(); ctx.arc(-1.8, 3.2, 1.6, 0, Math.PI * 2); ctx.fill();
+        ctx.fillStyle = "#1a1a1a";
+        ctx.beginPath(); ctx.arc(-7, -4, 2.2, 0, Math.PI * 2); ctx.fill();
+        ctx.beginPath(); ctx.arc(7, -4, 2.2, 0, Math.PI * 2); ctx.fill();
+        ctx.strokeStyle = "#5a3a20"; ctx.lineWidth = 1.6;
+        ctx.beginPath(); ctx.arc(0, 11, 5, 0.15 * Math.PI, 0.85 * Math.PI); ctx.stroke();
+        ctx.restore();
+      }
+      function certSeal(ctx, x, y, r){
+        ctx.save();
+        ctx.fillStyle = "#D4AF37"; ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI * 2); ctx.fill();
+        ctx.fillStyle = "#B8860B"; ctx.beginPath(); ctx.arc(x, y, r * 0.86, 0, Math.PI * 2); ctx.fill();
+        ctx.fillStyle = "#E9C767"; ctx.beginPath(); ctx.arc(x, y, r * 0.80, 0, Math.PI * 2); ctx.fill();
+        ctx.strokeStyle = "#A8842A"; ctx.lineWidth = 1;
+        ctx.beginPath(); ctx.arc(x, y, r * 0.72, 0, Math.PI * 2); ctx.stroke();
+        certStar(ctx, x, y + r * 0.26, r * 0.20, "#07180F");
+        ctx.fillStyle = "#07180F"; ctx.textAlign = "center";
+        ctx.font = "700 " + Math.round(r * 0.20) + "px Jost, sans-serif";
+        ctx.fillText("NICE LIST", x, y - r * 0.08);
+        ctx.font = Math.round(r * 0.16) + "px Jost, sans-serif";
+        ctx.fillText("NORTH POLE", x, y - r * 0.30);
+        ctx.restore();
+      }
+      function certPaint(){
+        var cv = document.getElementById("certCanvas");
+        if(!cv) return;
+        var ctx = cv.getContext("2d");
+        var W = cv.width, H = cv.height;
+        var name = certKidName();
+        var ph = pvActivePhoto();
+        var src = ph ? pvGradedPhoto() : null;
+        ctx.clearRect(0, 0, W, H);
+        /* ivory background + soft gold glow */
+        ctx.fillStyle = "#FDF8EC"; ctx.fillRect(0, 0, W, H);
+        var glow = ctx.createRadialGradient(W/2, H*0.42, 40, W/2, H*0.42, 420);
+        glow.addColorStop(0, "rgba(212,175,55,0.14)"); glow.addColorStop(1, "rgba(212,175,55,0)");
+        ctx.fillStyle = glow; ctx.fillRect(0, 0, W, H);
+        /* faint gold snowflakes, seeded so they don't jump */
+        var seed = pvHashStr("cert|" + name + "|" + pvStyle);
+        var rnd = pvSeededRand(seed);
+        for(var i = 0; i < 22; i++){
+          certSnowflake(ctx, 40 + rnd() * (W - 80), 90 + rnd() * (H - 180), 5 + rnd() * 7, "#D4AF37", 0.14 + rnd() * 0.12);
+        }
+        /* green header band */
+        ctx.fillStyle = "#07180F"; ctx.fillRect(0, 0, W, 64);
+        ctx.fillStyle = "#D4AF37"; ctx.fillRect(0, 64, W, 2);
+        ctx.fillStyle = "#E9C767"; ctx.textAlign = "center";
+        ctx.font = "600 13px Jost, sans-serif";
+        ctx.fillText("N O R T H   P O L E   •   O F F I C I A L   D O C U M E N T", W/2, 28);
+        ctx.fillStyle = "#ffffff";
+        ctx.font = "italic 13px Georgia, serif";
+        ctx.fillText("Checked twice, sealed with snow — and delivered by reindeer", W/2, 50);
+        /* double gold border */
+        ctx.strokeStyle = "#D4AF37"; ctx.lineWidth = 3;
+        ctx.strokeRect(14, 14, W - 28, H - 28);
+        ctx.lineWidth = 1; ctx.strokeRect(22, 22, W - 44, H - 44);
+        /* title */
+        ctx.fillStyle = "#07180F"; ctx.textAlign = "center";
+        ctx.font = "700 42px 'Playfair Display', Georgia, serif";
+        ctx.fillText("Nice List Certificate", W/2, 132);
+        /* divider */
+        ctx.strokeStyle = "#D4AF37"; ctx.lineWidth = 1.2;
+        ctx.beginPath(); ctx.moveTo(W/2 - 150, 152); ctx.lineTo(W/2 - 26, 152); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(W/2 + 26, 152); ctx.lineTo(W/2 + 150, 152); ctx.stroke();
+        certStar(ctx, W/2, 152, 9, "#D4AF37");
+        /* awarded to + hero name */
+        ctx.fillStyle = "#0E2E1B"; ctx.font = "italic 15px Georgia, serif";
+        ctx.fillText("This certificate is proudly awarded to", W/2, 188);
+        ctx.fillStyle = "#A8842A";
+        ctx.font = "italic 700 54px 'Playfair Display', Georgia, serif";
+        ctx.fillText(name, W/2, 246);
+        var nw = ctx.measureText(name).width;
+        ctx.strokeStyle = "#D4AF37"; ctx.lineWidth = 1.6;
+        ctx.beginPath(); ctx.moveTo(W/2 - nw/2 - 16, 258); ctx.lineTo(W/2 + nw/2 + 16, 258); ctx.stroke();
+        certStar(ctx, W/2, 258, 5, "#D4AF37");
+        /* Nice List Score — 5 gold stars */
+        ctx.fillStyle = "#A8842A"; ctx.font = "600 11px Jost, sans-serif";
+        ctx.fillText("N I C E   L I S T   S C O R E", W/2, 288);
+        for(var s = 0; s < 5; s++){
+          certStar(ctx, W/2 + (s - 2) * 36, 310, 13, "#D4AF37");
+        }
+        /* snow globe with the kid's photo */
+        var gx = 185, gy = 425, gr = 72;
+        ctx.save();
+        ctx.beginPath(); ctx.arc(gx, gy, gr, 0, Math.PI * 2); ctx.clip();
+        if(src && src.naturalWidth){
+          var iw = src.naturalWidth || src.width, ih = src.naturalHeight || src.height;
+          var sc = Math.max(gr * 2 / iw, gr * 2 / ih) * pvZoom;
+          var dw = iw * sc, dh = ih * sc;
+          ctx.drawImage(src, gx - dw/2 + pvOx * gr, gy - dh/2 + pvOy * gr, dw, dh);
+          pvApplyOverlays(ctx, {x:0, y:0, w:100, h:100, shape:"circle"}, gr * 2, gr * 2);
+        } else {
+          ctx.fillStyle = "#DCEAF5"; ctx.fillRect(gx - gr, gy - gr, gr * 2, gr * 2);
+          certSnowflake(ctx, gx, gy - 8, 16, "#ffffff", 0.9);
+          ctx.fillStyle = "#5a6b7a"; ctx.font = "italic 13px Georgia, serif";
+          ctx.fillText("your photo here", gx, gy + 26);
+        }
+        ctx.restore();
+        ctx.strokeStyle = "#D4AF37"; ctx.lineWidth = 5;
+        ctx.beginPath(); ctx.arc(gx, gy, gr, 0, Math.PI * 2); ctx.stroke();
+        ctx.fillStyle = "#A8842A";
+        ctx.beginPath(); ctx.roundRect(gx - 34, gy + gr - 4, 68, 14, 5); ctx.fill();
+        /* candy canes flanking the title */
+        certCandyCane(ctx, 128, 138, 34, -0.35);
+        certCandyCane(ctx, W - 128, 138, 34, 0.35);
+        /* body text, right of the globe */
+        ctx.fillStyle = "#0E2E1B"; ctx.textAlign = "left";
+        ctx.font = "15px Georgia, serif";
+        var tx = 300;
+        ctx.fillText("has officially made Santa's", tx, 392);
+        ctx.fillText("Nice List for being kind, brave", tx, 414);
+        ctx.fillText("and full of Christmas cheer.", tx, 436);
+        ctx.font = "italic 13.5px Georgia, serif";
+        ctx.fillText("Santa checked the list twice —", tx, 466);
+        ctx.fillText("and this name sparkles at the top!", tx, 486);
+        /* bottom row: reindeer, signature, seal, date */
+        certReindeer(ctx, 66, 545, 1.0);
+        ctx.textAlign = "center";
+        ctx.fillStyle = "#07180F";
+        ctx.font = "italic 700 24px 'Playfair Display', Georgia, serif";
+        ctx.fillText("Santa Claus", 300, 540);
+        ctx.strokeStyle = "#A8842A"; ctx.lineWidth = 1;
+        ctx.beginPath(); ctx.moveTo(222, 550); ctx.lineTo(378, 550); ctx.stroke();
+        ctx.fillStyle = "#A8842A"; ctx.font = "600 9.5px Jost, sans-serif";
+        ctx.fillText("SANTA CLAUS  •  NORTH POLE", 300, 566);
+        certSeal(ctx, 470, 538, 36);
+        ctx.fillStyle = "#07180F";
+        ctx.font = "700 16px 'Playfair Display', Georgia, serif";
+        ctx.fillText("Christmas 2026", 640, 540);
+        ctx.strokeStyle = "#A8842A";
+        ctx.beginPath(); ctx.moveTo(566, 550); ctx.lineTo(714, 550); ctx.stroke();
+        ctx.fillStyle = "#A8842A"; ctx.font = "600 9.5px Jost, sans-serif";
+        ctx.fillText("25 DECEMBER  •  THE NORTH POLE", 640, 566);
+        /* footer line */
+        ctx.fillStyle = "#A8842A"; ctx.font = "italic 11px Georgia, serif";
+        ctx.fillText("Keep this somewhere magical — Santa checks the Nice List every Christmas Eve.", W/2, 600);
+        /* watermark: diagonal PREVIEW, low alpha — the print version is crisp and watermark-free */
+        ctx.save();
+        ctx.translate(W/2, H/2); ctx.rotate(-0.42);
+        ctx.fillStyle = "rgba(168,132,42,0.13)";
+        ctx.font = "700 58px Jost, sans-serif";
+        ctx.fillText("P R E V I E W", 0, -46);
+        ctx.fillText("P R E V I E W", 0, 34);
+        ctx.fillText("P R E V I E W", 0, 114);
+        ctx.restore();
+      }
+      /* --- My Nice List Portrait — 10th tile: photo hero + certificate below, in one golden frame --- */
+      function pvDrawNiceListWindow(cv, win, baseImg, graded){
+        var ctx = cv.getContext("2d");
+        var natW = baseImg && baseImg.naturalWidth ? baseImg.naturalWidth : 0;
+        var natH = baseImg && baseImg.naturalHeight ? baseImg.naturalHeight : 0;
+        var aspect = (natW && natH) ? (win.h/100*natH) / (win.w/100*natW) : (win.h / win.w);
+        cv.width = 440; cv.height = Math.max(40, Math.round(440 * aspect));
+        var W = cv.width, H = cv.height;
+        ctx.clearRect(0, 0, W, H);
+        var ph = pvActivePhoto();
+        if(!ph || !ph.img.naturalWidth) return;
+        var src = graded === false ? ph.img : pvGradedPhoto();
+        if(!src) return;
+        var name = certKidName();
+        var heroH = Math.round(H * 0.60), certH = H - heroH;
+        /* hero photo, top */
+        var tmp = document.createElement("canvas"); tmp.width = W; tmp.height = heroH;
+        var t = tmp.getContext("2d");
+        var iw = src.naturalWidth || src.width, ih = src.naturalHeight || src.height;
+        var scale = Math.max(W/iw, heroH/ih) * pvZoom;
+        var dw = iw*scale, dh = ih*scale;
+        t.drawImage(src, (W - dw)/2 + pvOx * W, (heroH - dh)/2 + pvOy * heroH, dw, dh);
+        if(graded !== false) pvApplyOverlays(t, {x:0, y:0, w:100, h:100, shape:"rect"}, W, heroH);
+        ctx.drawImage(tmp, 0, 0);
+        pvApplyShading(ctx, {shading:"inner"}, W, heroH);
+        /* mini certificate, bottom */
+        var cy = heroH;
+        ctx.fillStyle = "#FDF8EC"; ctx.fillRect(0, cy, W, certH);
+        ctx.strokeStyle = "#D4AF37"; ctx.lineWidth = 2;
+        ctx.strokeRect(4, cy + 4, W - 8, certH - 8);
+        ctx.lineWidth = 1; ctx.strokeRect(8, cy + 8, W - 16, certH - 16);
+        /* tiny snow globe with the photo, left */
+        var gr = Math.min(30, certH * 0.30);
+        var gx = 34 + gr, gy = cy + certH/2;
+        ctx.save();
+        ctx.beginPath(); ctx.arc(gx, gy, gr, 0, Math.PI * 2); ctx.clip();
+        var sc2 = Math.max(gr * 2 / iw, gr * 2 / ih);
+        ctx.drawImage(src, gx - iw*sc2/2, gy - ih*sc2/2, iw*sc2, ih*sc2);
+        ctx.restore();
+        ctx.strokeStyle = "#D4AF37"; ctx.lineWidth = 3;
+        ctx.beginPath(); ctx.arc(gx, gy, gr, 0, Math.PI * 2); ctx.stroke();
+        /* name + stars, right of the globe */
+        var tx = gx + gr + 16;
+        ctx.textAlign = "left";
+        ctx.fillStyle = "#07180F";
+        ctx.font = "700 " + Math.max(11, Math.round(W * 0.032)) + "px 'Playfair Display', Georgia, serif";
+        ctx.fillText("Nice List Certificate", tx, cy + certH * 0.30);
+        ctx.fillStyle = "#A8842A";
+        ctx.font = "italic 700 " + Math.max(15, Math.round(W * 0.045)) + "px 'Playfair Display', Georgia, serif";
+        ctx.fillText(name, tx, cy + certH * 0.58);
+        for(var s = 0; s < 5; s++){
+          certStar(ctx, tx + 10 + s * 20, cy + certH * 0.80, 7, "#D4AF37");
+        }
+        /* gold frame + print outline */
+        ctx.strokeStyle = "#D4AF37"; ctx.lineWidth = Math.max(3, W * 0.014);
+        ctx.strokeRect(ctx.lineWidth, ctx.lineWidth, W - ctx.lineWidth * 2, H - ctx.lineWidth * 2);
+        pvPrintOutline(ctx, win, W, H);
+      }
+      /* --- certificate personalizer wiring --- */
+      (function(){
+        var nameInp = document.getElementById("certKidName");
+        if(nameInp){
+          nameInp.addEventListener("input", function(){ pvRenderAll(); });
+        }
+        var upBtn = document.getElementById("certUploadBtn");
+        if(upBtn && pvFile){ upBtn.addEventListener("click", function(){ pvFile.click(); }); }
+        var useBtn = document.getElementById("certUseStudioBtn");
+        if(useBtn){
+          useBtn.addEventListener("click", function(){
+            document.getElementById("preview-studio").scrollIntoView({ behavior:"smooth" });
+            if(!pvPhotos.length){ toast("Upload a photo in the Preview Studio first"); }
+          });
+        }
+        certPaint();
+      })();
 
       /* --- My Designs (localStorage, guest) --- */
       var PV_LS = "cps_designs_v1";
