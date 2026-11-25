@@ -468,20 +468,31 @@ async function callGemini(apiKey, imageB64, mime, style) {
             ],
           },
         ],
-        generationConfig: { responseModalities: ["TEXT", "IMAGE"] },
-        // All nine master prompts are written for 3:4 portrait. The model
-        // must be told the ratio in the API call, not just in the prompt.
-        imageConfig: { aspectRatio: "3:4" },
+        generationConfig: {
+          responseModalities: ["TEXT", "IMAGE"],
+          // All nine master prompts are written for 3:4 portrait. The model
+          // must be told the ratio in the API call, not just in the prompt.
+          // NOTE: imageConfig MUST live inside generationConfig. A top-level
+          // imageConfig is rejected by the API with HTTP 400
+          // "Unknown name imageConfig: Cannot find field" (verified 2026-11-24).
+          imageConfig: { aspectRatio: "3:4" },
+        },
       }),
       signal: controller.signal,
     });
 
     if (!res.ok) {
+      const status = res.status;
       // Map provider failures to clean errors. Never forward the
-      // raw model payload (it can contain request echoes / keys).
+      // raw model payload to the client (it can contain request echoes).
+      // Log the provider's own error text (truncated) to the Worker log
+      // so a future failure can be diagnosed from Cloudflare logs.
+      try {
+        const errText = await res.clone().text();
+        console.log("gemini_error", status, errText.slice(0, 300));
+      } catch { /* logging must never break the error path */ }
       // NO retry loop here: on a 429 we return the model's
       // Retry-After and let the client retry ONCE manually.
-      const status = res.status;
       if (status === 429) {
         const ra = res.headers.get("retry-after");
         const secs = parseRetryAfter(ra);
