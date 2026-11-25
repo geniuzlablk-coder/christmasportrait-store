@@ -413,21 +413,13 @@
         <h2>Three steps. One photo. Christmas handled.</h2>
         <div class="grid grid-3" style="margin-top:22px">
           <div class="card"><div class="step-num">1</div><h3>Step 1 of 3 — Add your photo</h3><p class="soft" style="margin:0">Any clear family photo. Phone photos are perfect.</p></div>
-          <div class="card"><div class="step-num">2</div><h3>Step 2 of 3 — Pick a style</h3><p class="soft" style="margin:0">Choose one of the 7 looks below. Same faces, new Christmas scene.</p></div>
+          <div class="card"><div class="step-num">2</div><h3>Step 2 of 3 — Pick a style</h3><p class="soft" style="margin:0">Choose a look below. Same faces, new Christmas scene.</p></div>
           <div class="card"><div class="step-num">3</div><h3>Step 3 of 3 — Choose what to buy</h3><p class="soft" style="margin:0">See it on a mug, canvas, card or gift. Add it to your order.</p></div>
         </div>
 
-        <p class="kicker" style="margin-top:44px">Seven Signature Styles</p>
-        <h2>Pick the Christmas you want to live in</h2>
-        <div class="style-grid" style="margin-top:22px">
-          <div class="style-card" data-style="Classic Santa Snow"><div class="style-art"><img src="https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/29159649/c37783b5-b945-449c-bcf3-30405e0e64c0" alt="Classic Santa Snow style example — a family in Santa hats laughing in falling snow" loading="lazy" /></div><div class="style-body"><h3>01 · Classic Santa Snow</h3><p>Snowfall, Santa hats, deep red and pine green. The timeless family-card look.</p><span class="style-example">Your family in this look</span></div></div>
-          <div class="style-card" data-style="Golden Christmas Movie Poster"><div class="style-art"><img src="https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/29159649/3178fe7a-559f-4fb0-9814-4b8256bd3756" alt="Golden Movie Poster style example — a family posed like a cinematic Christmas film poster in golden light" loading="lazy" /></div><div class="style-body"><h3>02 · Golden Movie Poster</h3><p>Cinematic gold light. Like a Christmas film poster.</p><span class="style-example">Your family in this look</span></div></div>
-          <div class="style-card" data-style="Cozy Fireplace"><div class="style-art"><img src="https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/29159649/2849d8ab-100f-46ae-ad86-f05fe42aaea5" alt="Cozy Fireplace style example — a family gathered by a glowing fireplace with cocoa and blankets" loading="lazy" /></div><div class="style-body"><h3>03 · Cozy Fireplace</h3><p>Warm firelight, knit blankets, cocoa in hand.</p><span class="style-example">Your family in this look</span></div></div>
-          <div class="style-card" data-style="Snow Globe"><div class="style-art"><img src="https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/29159649/d4a9e7ac-8b88-45f4-bc5b-b5b3201c0ae3" alt="Snow Globe style example — a family inside a magical snow globe scene" loading="lazy" /></div><div class="style-body"><h3>04 · Snow Globe</h3><p>Your family inside a magical snow globe.</p><span class="style-example">Your family in this look</span></div></div>
-          <div class="style-card" data-style="Colombo Christmas"><div class="style-art"><img src="https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/29159649/6f3badf2-d062-42d0-a216-970f9447bf49" alt="Colombo Christmas style example — a Sri Lankan family celebrating under Galle Face lights and palms" loading="lazy" /></div><div class="style-body"><h3>05 · Colombo Christmas</h3><p>Galle Face lights, tropical December warmth, Sri Lankan Christmas soul.</p><span class="style-example">Your family in this look</span></div></div>
-          <div class="style-card" data-style="Winter Royal"><div class="style-art"><img src="https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/29159649/4354480c-966b-4d65-9e2c-cc0955b148f7" alt="Winter Royal style example — a family in velvet and crowns in an elegant snowy palace setting" loading="lazy" /></div><div class="style-body"><h3>06 · Winter Royal</h3><p>Velvet and palace snow. A formal portrait for the wall.</p><span class="style-example">Your family in this look</span></div></div>
-          <div class="style-card" data-style="Name in Lights"><div class="style-art"><img src="https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/29159649/3178fe7a-559f-4fb0-9814-4b8256bd3756" alt="Name in Lights style example — a family in warm golden light with fairy lights glowing behind them" loading="lazy" /></div><div class="style-body"><h3>07 · Name in Lights <span class="style-new">New</span></h3><p>Your family name, woven into the lights.</p><span class="style-example">Your family in this look</span></div></div>
-        </div>
+        <p class="kicker" id="pvStylesKicker" style="margin-top:44px">Eighteen Family Christmas Styles</p>
+        <h2 id="pvStylesHeading">Pick the Christmas you want to live in</h2>
+        <div class="style-grid" id="pvStyleGrid" style="margin-top:22px"></div>
       </div>
     </section>
     <!-- ============ 4b · LIVE PREVIEW STUDIO ============ -->
@@ -795,7 +787,7 @@
           <nav class="foot-col" aria-label="Shop">
             <h3>Shop</h3>
             <ul>
-              <li><a href="#styles">Seven Signature Styles</a></li>
+              <li><a href="#styles">Christmas Styles</a></li>
               <li><a href="#preview-studio">Your photo</a></li>
               <li><a href="#cards">Christmas Cards</a></li>
               <li><a href="#packs">Packs</a></li>
@@ -1464,15 +1456,455 @@
       });
 
       /* ---------- Order form ---------- */
-      var STYLES = [
-        {name:"Classic Santa Snow", img:IMG+"c37783b5-b945-449c-bcf3-30405e0e64c0"},
-        {name:"Golden Christmas Movie Poster", img:IMG+"3178fe7a-559f-4fb0-9814-4b8256bd3756"},
-        {name:"Cozy Fireplace", img:IMG+"2849d8ab-100f-46ae-ad86-f05fe42aaea5"},
-        {name:"Snow Globe", img:IMG+"d4a9e7ac-8b88-45f4-bc5b-b5b3201c0ae3"},
-        {name:"Colombo Christmas", img:IMG+"6f3badf2-d062-42d0-a216-970f9447bf49"},
-        {name:"Winter Royal", img:IMG+"4354480c-966b-4d65-9e2c-cc0955b148f7"},
-        {name:"Name in Lights", img:IMG+"3178fe7a-559f-4fb0-9814-4b8256bd3756"}
-      ];
+var PV_STYLE_SETS = {
+  "child": [
+    {
+      "name": "Santa's Workshop",
+      "blurb": "In Santa's workshop, among the wooden toys.",
+      "img": "https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/29159649/fe4894f4-b292-42dd-9d70-d7b5e7bdd566"
+    },
+    {
+      "name": "Christmas Village",
+      "blurb": "A snowy village square, all lit up for Christmas.",
+      "img": "https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/29159649/5f5341d3-feb4-495e-bc8e-47f41e1a8455"
+    },
+    {
+      "name": "Midnight Sleigh Ride",
+      "blurb": "A sleigh ride under the stars on Christmas night.",
+      "img": "https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/29159649/19828aeb-b5db-4fe0-861f-73c99061c7cb"
+    },
+    {
+      "name": "Northern Lights",
+      "blurb": "Under green ribbons of light in the night sky.",
+      "img": "https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/29159649/7aa708ad-ad52-4b27-ad94-8647c4935f31"
+    },
+    {
+      "name": "Reindeer Flight",
+      "blurb": "Flying high with the reindeer on Christmas Eve.",
+      "img": null
+    },
+    {
+      "name": "Gingerbread House",
+      "blurb": "Beside a gingerbread house, warm from the oven.",
+      "img": "https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/29159649/4a987c5c-8c58-4101-bec8-ed6022e8c6bc"
+    },
+    {
+      "name": "Snow Globe World",
+      "blurb": "Inside a snow globe, snow falling all around.",
+      "img": "https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/29159649/3eb5e2a5-4e06-430a-9118-bbdf8e481db0"
+    },
+    {
+      "name": "Elf Workshop",
+      "blurb": "Painting toys at a little bench in the elf workshop.",
+      "img": "https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/29159649/b6c0c567-0a2a-49ac-a41a-1447232b791f"
+    },
+    {
+      "name": "Toy Train",
+      "blurb": "Riding a little toy train through the snow.",
+      "img": null
+    },
+    {
+      "name": "Candy Cane Forest",
+      "blurb": "A forest where the trees are candy canes.",
+      "img": null
+    },
+    {
+      "name": "Ice Palace",
+      "blurb": "A palace of ice, shining blue and silver.",
+      "img": null
+    },
+    {
+      "name": "Nutcracker Kingdom",
+      "blurb": "A grand hall, guarded by toy soldiers.",
+      "img": "https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/29159649/07895855-5e11-4bc3-b60f-571c63db55a4"
+    },
+    {
+      "name": "Cocoa Cabin",
+      "blurb": "Hot cocoa by the fire in a little log cabin.",
+      "img": null
+    },
+    {
+      "name": "Reindeer School",
+      "blurb": "Learning to fly at reindeer school.",
+      "img": null
+    },
+    {
+      "name": "Starry Stable",
+      "blurb": "A quiet stable, lit by one bright star.",
+      "img": null
+    },
+    {
+      "name": "Penguin Parade",
+      "blurb": "Marching along with a parade of penguins.",
+      "img": null
+    },
+    {
+      "name": "Sugar Plum Ballet",
+      "blurb": "On stage in a sugar plum ballet.",
+      "img": null
+    },
+    {
+      "name": "Frosty Forest",
+      "blurb": "A quiet walk through a forest of frost.",
+      "img": null
+    },
+    {
+      "name": "Lantern Walk",
+      "blurb": "A walk through the snow with a glowing lantern.",
+      "img": null
+    },
+    {
+      "name": "Carol Singers",
+      "blurb": "Singing carols in the snowy evening.",
+      "img": null
+    },
+    {
+      "name": "Mistletoe Garden",
+      "blurb": "A garden full of mistletoe and winter roses.",
+      "img": null
+    },
+    {
+      "name": "North Pole Post Office",
+      "blurb": "Posting a letter to Santa at the North Pole.",
+      "img": null
+    },
+    {
+      "name": "Snowman Friend",
+      "blurb": "Building a snowman, the best kind of friend.",
+      "img": null
+    },
+    {
+      "name": "Christmas Bakery",
+      "blurb": "Baking mince pies in a warm Christmas bakery.",
+      "img": null
+    },
+    {
+      "name": "Twinkle Star Meadow",
+      "blurb": "A meadow where the stars have come down to play.",
+      "img": null
+    },
+    {
+      "name": "Polar Bear Picnic",
+      "blurb": "A snowy picnic with a very friendly polar bear.",
+      "img": null
+    },
+    {
+      "name": "Snowy Wishing Well",
+      "blurb": "A wish dropped into a snowy wishing well.",
+      "img": null
+    },
+    {
+      "name": "Holly Berry Wood",
+      "blurb": "A wood full of holly, berries, and birdsong.",
+      "img": null
+    },
+    {
+      "name": "Angel Choir",
+      "blurb": "Singing with the angels in soft golden light.",
+      "img": null
+    },
+    {
+      "name": "Winter Fair",
+      "blurb": "A winter fair, all lights and laughter.",
+      "img": null
+    },
+    {
+      "name": "Candlelight Chapel",
+      "blurb": "A little chapel, glowing with candles.",
+      "img": null
+    },
+    {
+      "name": "Snowflake Castle",
+      "blurb": "A castle built from giant snowflakes.",
+      "img": null
+    },
+    {
+      "name": "Peppermint Lane",
+      "blurb": "A little lane of peppermint shops and snow.",
+      "img": null
+    },
+    {
+      "name": "Robin's Garden",
+      "blurb": "A garden where a robin sings for Christmas.",
+      "img": null
+    },
+    {
+      "name": "Moonlit Toboggan",
+      "blurb": "A toboggan ride down a moonlit hill.",
+      "img": null
+    },
+    {
+      "name": "Christmas Library",
+      "blurb": "Story time in a library full of Christmas books.",
+      "img": null
+    },
+    {
+      "name": "Woodland Friends",
+      "blurb": "Christmas with the animals of the wood.",
+      "img": null
+    },
+    {
+      "name": "Festival of Lights",
+      "blurb": "A whole town glowing for the festival of lights.",
+      "img": null
+    },
+    {
+      "name": "Toy Soldier Parade",
+      "blurb": "Marching along in the toy soldier parade.",
+      "img": null
+    },
+    {
+      "name": "Frosty Pond Skating",
+      "blurb": "Skating on a frosty pond at sunset.",
+      "img": null
+    },
+    {
+      "name": "Christmas Tree Farm",
+      "blurb": "Picking the perfect tree at the tree farm.",
+      "img": null
+    },
+    {
+      "name": "Sweet Shop",
+      "blurb": "A little sweet shop, full of Christmas treats.",
+      "img": null
+    },
+    {
+      "name": "Snowy Lighthouse",
+      "blurb": "A lighthouse shining out over a snowy sea.",
+      "img": null
+    },
+    {
+      "name": "Arctic Fox Den",
+      "blurb": "A cosy den with a little arctic fox.",
+      "img": null
+    },
+    {
+      "name": "Christmas Eve Window",
+      "blurb": "Watching for Santa from the window on Christmas Eve.",
+      "img": null
+    },
+    {
+      "name": "Night Train to the North Pole",
+      "blurb": "A night train, steaming towards the North Pole.",
+      "img": null
+    },
+    {
+      "name": "Snowy Owl's Hollow",
+      "blurb": "A snowy hollow, watched over by a wise owl.",
+      "img": null
+    },
+    {
+      "name": "Snowy Picnic",
+      "blurb": "A picnic in the snow, with cocoa and biscuits.",
+      "img": null
+    },
+    {
+      "name": "Christmas Merry-Go-Round",
+      "blurb": "Riding a golden merry-go-round at Christmas.",
+      "img": null
+    },
+    {
+      "name": "Fireside Story Time",
+      "blurb": "Story time by the fire, with a book and a blanket.",
+      "img": null
+    }
+  ],
+  "family": [
+    {
+      "name": "Classic Santa Snow",
+      "blurb": "Snowfall, Santa hats, deep red and pine green. The timeless family-card look.",
+      "img": "https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/29159649/c37783b5-b945-449c-bcf3-30405e0e64c0"
+    },
+    {
+      "name": "Golden Christmas Movie Poster",
+      "blurb": "Cinematic gold light. Like a Christmas film poster.",
+      "img": "https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/29159649/3178fe7a-559f-4fb0-9814-4b8256bd3756"
+    },
+    {
+      "name": "Cozy Fireplace",
+      "blurb": "Warm firelight, knit blankets, cocoa in hand.",
+      "img": "https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/29159649/2849d8ab-100f-46ae-ad86-f05fe42aaea5"
+    },
+    {
+      "name": "Snow Globe",
+      "blurb": "Your family inside a magical snow globe.",
+      "img": "https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/29159649/d4a9e7ac-8b88-45f4-bc5b-b5b3201c0ae3"
+    },
+    {
+      "name": "Colombo Christmas",
+      "blurb": "Galle Face lights, tropical December warmth, Sri Lankan Christmas soul.",
+      "img": "https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/29159649/6f3badf2-d062-42d0-a216-970f9447bf49"
+    },
+    {
+      "name": "Winter Royal",
+      "blurb": "Velvet and palace snow. A formal portrait for the wall.",
+      "img": "https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/29159649/4354480c-966b-4d65-9e2c-cc0955b148f7"
+    },
+    {
+      "name": "Name in Lights",
+      "blurb": "Your family name, woven into the lights.",
+      "img": "https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/29159649/3178fe7a-559f-4fb0-9814-4b8256bd3756"
+    },
+    {
+      "name": "Christmas Morning",
+      "blurb": "Presents under the tree, hot chocolate, and the whole family still in their jumpers.",
+      "img": "https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/29159649/d17893dc-c6c7-45cb-8e49-c7edbe280de0"
+    },
+    {
+      "name": "Snowy Cabin",
+      "blurb": "The family on a log-cabin porch, snow falling, a warm window glowing behind them.",
+      "img": "https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/29159649/f448d195-b743-40d2-9c94-aa30a9d08de4"
+    },
+    {
+      "name": "Victorian Christmas",
+      "blurb": "A candlelit parlour in the old style, with a tree dressed in candles and dried oranges.",
+      "img": "https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/29159649/00494e5d-ed5d-48c2-8369-b4b8eaea64da"
+    },
+    {
+      "name": "Rustic Farmhouse",
+      "blurb": "Plaid shirts and chunky knits in a warm farmhouse kitchen, with a simple pine tree.",
+      "img": "https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/29159649/ca7187fa-616f-4bed-a20a-23041a076da7"
+    },
+    {
+      "name": "Tropical Christmas",
+      "blurb": "Christmas on a warm beach at sunset, with a palm tree dressed in fairy lights.",
+      "img": "https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/29159649/58e7c8c0-44a5-4590-a946-75157b1eb12c"
+    },
+    {
+      "name": "Midnight Church",
+      "blurb": "The family together in a candlelit church at midnight, snow falling outside.",
+      "img": "https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/29159649/837c4fa9-a19f-4fc1-888f-9d013e4a64ba"
+    },
+    {
+      "name": "Golden Hour Snow",
+      "blurb": "The family in open snow at sunset, the low sun turning everything gold.",
+      "img": "https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/29159649/458763e9-9af4-43f5-8500-897d42a2d1e3"
+    },
+    {
+      "name": "Aurora Night",
+      "blurb": "The family under green and violet lights in the night sky, snow sparkling at their feet.",
+      "img": "https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/29159649/594d8195-1289-4362-a13e-7bd11d7a37c6"
+    },
+    {
+      "name": "Christmas Market",
+      "blurb": "Wooden stalls, warm lanterns, and the smell of roasted chestnuts on a cold evening.",
+      "img": null
+    },
+    {
+      "name": "Frozen Pond",
+      "blurb": "Skates on, scarves flying, the whole family on the ice at dusk.",
+      "img": null
+    },
+    {
+      "name": "Christmas Kitchen",
+      "blurb": "Flour on hands and cookies in the oven, the family baking together.",
+      "img": null
+    }
+  ],
+  "pet": [
+    {
+      "name": "Santa's Little Helper",
+      "blurb": "Your dog in a little Santa suit, by the tree in the snow.",
+      "img": "https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/29159649/03d87287-c8f1-4d3e-b4ea-e0822687fdd3"
+    },
+    {
+      "name": "Reindeer Pup",
+      "blurb": "Your pup with soft antlers and a little bell, in a snowy forest.",
+      "img": "https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/29159649/e30ab8bb-1b88-47eb-9843-8512f0f5f8af"
+    },
+    {
+      "name": "Elf Cat",
+      "blurb": "Your cat in a little green elf hat, by the tree and the fire.",
+      "img": "https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/29159649/acf9c73c-5f5f-472a-8872-7055db318403"
+    },
+    {
+      "name": "Snowman Dog",
+      "blurb": "Your dog in a red scarf, sitting in the snow beside a snowman.",
+      "img": "https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/29159649/83ed4613-1dc4-4360-8b56-49cc2d434e6f"
+    },
+    {
+      "name": "Christmas Pudding Pup",
+      "blurb": "Your pup in a warm pudding-brown jumper, by the Christmas table.",
+      "img": null
+    },
+    {
+      "name": "Mistletoe Kitty",
+      "blurb": "Your cat in a deep green velvet collar, under the mistletoe.",
+      "img": null
+    },
+    {
+      "name": "Snowflake Spaniel",
+      "blurb": "Your spaniel in a cream winter coat, in soft falling snow.",
+      "img": null
+    },
+    {
+      "name": "Gingerbread Cat",
+      "blurb": "Your cat in a gingerbread-brown jumper, by the baking tray.",
+      "img": "https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/29159649/b0847fee-8002-4f29-af2d-211a1f5f6999"
+    },
+    {
+      "name": "Sleigh Dog",
+      "blurb": "Your dog in a smart red harness, ready by the sleigh at dusk.",
+      "img": null
+    },
+    {
+      "name": "Starlight Tabby",
+      "blurb": "Your tabby in a midnight-blue collar, under a starry winter sky.",
+      "img": null
+    },
+    {
+      "name": "Candy Cane Kitten",
+      "blurb": "Your kitten with a little striped bow tie, beside the candy canes.",
+      "img": "https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/29159649/c181460e-8fd4-48df-b056-1aa84c03e9e7"
+    },
+    {
+      "name": "Fireplace Hound",
+      "blurb": "Your hound in a warm rust jumper, curled up by the fire.",
+      "img": "https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/29159649/41d8979e-896e-4f91-8eda-7626f487458b"
+    },
+    {
+      "name": "Carol Singer Cat",
+      "blurb": "Your cat in a cream coat with a red bow, singing in the square.",
+      "img": null
+    },
+    {
+      "name": "Nutcracker Dog",
+      "blurb": "Your dog in a smart red soldier's jacket, guarding the tree.",
+      "img": null
+    },
+    {
+      "name": "Holly Jolly Pup",
+      "blurb": "Your pup in a green jumper with a holly sprig, out in the snow.",
+      "img": null
+    },
+    {
+      "name": "Northern Lights Husky",
+      "blurb": "Your husky in a red knitted scarf, under the green northern lights.",
+      "img": "https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/29159649/1f4ffe17-08cf-4867-b017-e42ce10d13b8"
+    },
+    {
+      "name": "Cracker Cat",
+      "blurb": "Your cat in a gold party crown, beside the Christmas crackers.",
+      "img": null
+    },
+    {
+      "name": "Bauble Beagle",
+      "blurb": "Your beagle in a cream shirt, by a tropical tree with gold baubles.",
+      "img": null
+    },
+    {
+      "name": "Chimney Cat",
+      "blurb": "Your cat in a soot-soft grey scarf, waiting by the fireplace.",
+      "img": null
+    },
+    {
+      "name": "Wreath Whippet",
+      "blurb": "Your whippet in a green velvet collar, framed by a Christmas wreath.",
+      "img": null
+    }
+  ]
+};
+      var STYLES = PV_STYLE_SETS.family;
       var stylePick = document.getElementById("stylePick");
       STYLES.forEach(function(s, i){
         var l = document.createElement("label");
@@ -1629,7 +2061,7 @@
  *   - not_configured: no GEMINI_API_KEY on the Worker yet. Show the
  *                   real example assets + this exact line:
  *                   "Your AI portrait is made by our studio team —
- *                   the seven style examples above show what yours
+ *                   the style examples above show what yours
  *                   will look like." Do NOT show a broken button.
  *
  * WATERMARKING — READ THIS:
@@ -2111,7 +2543,7 @@
         var famInp = document.getElementById("pvFamilyName");
         if(famInp) famInp.addEventListener("input", function(){ pvSyncTransformBtn(); });
         function setStatus(t){ if(statusEl) statusEl.textContent = t; }
-        var NOT_CONFIGURED = "Your AI portrait is made by our studio team \u2014 the seven style examples above show what yours will look like.";
+        var NOT_CONFIGURED = "Your AI portrait is made by our studio team \u2014 the style examples above show what yours will look like.";
         CPSRestyle.onState(function(s){
           lastStateName = s.state;
           /* While a 3-version proof set is running, its own callbacks
@@ -2216,7 +2648,7 @@
         btn.addEventListener("click", function(){
           if(!endpointLive){
             setStatus(NOT_CONFIGURED);
-            toast("Your AI portrait is made by our studio team — the seven style examples above show what yours will look like");
+            toast("Your AI portrait is made by our studio team — the style examples above show what yours will look like");
             document.getElementById("styles").scrollIntoView({behavior:"smooth"});
             return;
           }
@@ -2257,7 +2689,7 @@
         document.getElementById("aiRerollBtn").addEventListener("click", function(){
           if(!endpointLive){
             setStatus(NOT_CONFIGURED);
-            toast("Your AI portrait is made by our studio team — the seven style examples above show what yours will look like");
+            toast("Your AI portrait is made by our studio team — the style examples above show what yours will look like");
             return;
           }
           /* A proof set still making versions, or a version already
@@ -2359,6 +2791,92 @@
         "Winter Royal":{temp:-4, tint:2, bright:6, contrast:20, sat:1.0, wash:"rgba(200,210,235,0.12)", wash2:"rgba(212,175,55,0.30)", vig:"rgba(12,16,40,0.44)", glow:null, flakes:0, sparkle:26, sparkleSize:2.0, sparkleColor:"#FFD98A", bokeh:0, royal:true},
         "Name in Lights":{temp:14, tint:0, bright:8, contrast:14, sat:1.12, wash:"rgba(255,190,80,0.14)", vig:"rgba(60,40,10,0.30)", glow:{x:0.5, y:0.30, r:0.9, color:"rgba(255,200,90,0.30)"}, flakes:0, sparkle:12, bokeh:30}
       };
+      /* New style library: each new style reuses one of the 7 grades
+         above, by display name. */
+      var PV_STYLE_GRADE_MAP = {
+  "Santa's Workshop": "Cozy Fireplace",
+  "Christmas Village": "Classic Santa Snow",
+  "Midnight Sleigh Ride": "Snow Globe",
+  "Northern Lights": "Snow Globe",
+  "Reindeer Flight": "Golden Christmas Movie Poster",
+  "Gingerbread House": "Cozy Fireplace",
+  "Snow Globe World": "Snow Globe",
+  "Elf Workshop": "Cozy Fireplace",
+  "Toy Train": "Classic Santa Snow",
+  "Candy Cane Forest": "Snow Globe",
+  "Ice Palace": "Winter Royal",
+  "Nutcracker Kingdom": "Winter Royal",
+  "Cocoa Cabin": "Cozy Fireplace",
+  "Reindeer School": "Golden Christmas Movie Poster",
+  "Starry Stable": "Colombo Christmas",
+  "Penguin Parade": "Classic Santa Snow",
+  "Sugar Plum Ballet": "Winter Royal",
+  "Frosty Forest": "Classic Santa Snow",
+  "Lantern Walk": "Name in Lights",
+  "Carol Singers": "Golden Christmas Movie Poster",
+  "Mistletoe Garden": "Colombo Christmas",
+  "North Pole Post Office": "Cozy Fireplace",
+  "Snowman Friend": "Classic Santa Snow",
+  "Christmas Bakery": "Cozy Fireplace",
+  "Twinkle Star Meadow": "Snow Globe",
+  "Polar Bear Picnic": "Classic Santa Snow",
+  "Snowy Wishing Well": "Snow Globe",
+  "Holly Berry Wood": "Colombo Christmas",
+  "Angel Choir": "Golden Christmas Movie Poster",
+  "Winter Fair": "Golden Christmas Movie Poster",
+  "Candlelight Chapel": "Cozy Fireplace",
+  "Snowflake Castle": "Winter Royal",
+  "Peppermint Lane": "Snow Globe",
+  "Robin's Garden": "Colombo Christmas",
+  "Moonlit Toboggan": "Snow Globe",
+  "Christmas Library": "Cozy Fireplace",
+  "Woodland Friends": "Classic Santa Snow",
+  "Festival of Lights": "Name in Lights",
+  "Toy Soldier Parade": "Golden Christmas Movie Poster",
+  "Frosty Pond Skating": "Classic Santa Snow",
+  "Christmas Tree Farm": "Classic Santa Snow",
+  "Sweet Shop": "Cozy Fireplace",
+  "Snowy Lighthouse": "Snow Globe",
+  "Arctic Fox Den": "Classic Santa Snow",
+  "Christmas Eve Window": "Cozy Fireplace",
+  "Night Train to the North Pole": "Golden Christmas Movie Poster",
+  "Snowy Owl's Hollow": "Snow Globe",
+  "Snowy Picnic": "Classic Santa Snow",
+  "Christmas Merry-Go-Round": "Golden Christmas Movie Poster",
+  "Fireside Story Time": "Cozy Fireplace",
+  "Christmas Morning": "Cozy Fireplace",
+  "Snowy Cabin": "Classic Santa Snow",
+  "Victorian Christmas": "Winter Royal",
+  "Rustic Farmhouse": "Cozy Fireplace",
+  "Tropical Christmas": "Colombo Christmas",
+  "Midnight Church": "Winter Royal",
+  "Golden Hour Snow": "Golden Christmas Movie Poster",
+  "Aurora Night": "Snow Globe",
+  "Christmas Market": "Golden Christmas Movie Poster",
+  "Frozen Pond": "Classic Santa Snow",
+  "Christmas Kitchen": "Cozy Fireplace",
+  "Santa's Little Helper": "Classic Santa Snow",
+  "Reindeer Pup": "Golden Christmas Movie Poster",
+  "Elf Cat": "Cozy Fireplace",
+  "Snowman Dog": "Snow Globe",
+  "Christmas Pudding Pup": "Cozy Fireplace",
+  "Mistletoe Kitty": "Winter Royal",
+  "Snowflake Spaniel": "Snow Globe",
+  "Gingerbread Cat": "Cozy Fireplace",
+  "Sleigh Dog": "Golden Christmas Movie Poster",
+  "Starlight Tabby": "Winter Royal",
+  "Candy Cane Kitten": "Classic Santa Snow",
+  "Fireplace Hound": "Cozy Fireplace",
+  "Carol Singer Cat": "Golden Christmas Movie Poster",
+  "Nutcracker Dog": "Winter Royal",
+  "Holly Jolly Pup": "Classic Santa Snow",
+  "Northern Lights Husky": "Snow Globe",
+  "Cracker Cat": "Golden Christmas Movie Poster",
+  "Bauble Beagle": "Colombo Christmas",
+  "Chimney Cat": "Name in Lights",
+  "Wreath Whippet": "Colombo Christmas"
+};
+      Object.keys(PV_STYLE_GRADE_MAP).forEach(function(n){ PV_STYLE_GRADE[n] = PV_STYLE_GRADE[PV_STYLE_GRADE_MAP[n]]; });
       function pvGradeDef(styleName){ return PV_STYLE_GRADE[styleName || pvStyle] || PV_STYLE_GRADE["Classic Santa Snow"]; }
       function pvSeededRand(seed){ var s = seed % 2147483647; if(s <= 0) s += 2147483646; return function(){ s = s * 16807 % 2147483647; return (s - 1) / 2147483646; }; }
       function pvHashStr(str){ var h = 7; for(var i = 0; i < str.length; i++){ h = (h * 31 + str.charCodeAt(i)) % 2147483647; } return h; }
@@ -2564,7 +3082,7 @@
           if(!ph || !ph.img.naturalWidth || (typeof pvMode === "string" && pvMode === "drawing")){
             img.src = img.getAttribute("data-example");
             card.classList.remove("pv-your-photo");
-            if(tag) tag.textContent = "Your family in this look";
+            if(tag) tag.textContent = card.hasAttribute("data-no-example") ? "Upload your photo to see this look" : "Your family in this look";
             return;
           }
           card.classList.add("pv-your-photo");
@@ -2624,6 +3142,69 @@
         var inp = document.getElementById("pvFamilyName");
         return inp ? inp.value.trim() : "";
       }
+
+      var PV_STYLE_PLACEHOLDER_IMG = "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%27480%27%20height%3D%27640%27%3E%3Crect%20width%3D%27480%27%20height%3D%27640%27%20fill%3D%27%2307180F%27%2F%3E%3Ccircle%20cx%3D%27240%27%20cy%3D%27260%27%20r%3D%2752%27%20fill%3D%27none%27%20stroke%3D%27%23D4AF37%27%20stroke-width%3D%273%27%2F%3E%3Ccircle%20cx%3D%27240%27%20cy%3D%27260%27%20r%3D%278%27%20fill%3D%27%23D4AF37%27%2F%3E%3Ctext%20x%3D%27240%27%20y%3D%27380%27%20font-family%3D%27Georgia%2C%20serif%27%20font-size%3D%2727%27%20fill%3D%27%23D4AF37%27%20text-anchor%3D%27middle%27%3EUpload%20your%20photo%3C%2Ftext%3E%3Ctext%20x%3D%27240%27%20y%3D%27420%27%20font-family%3D%27Georgia%2C%20serif%27%20font-size%3D%2727%27%20fill%3D%27%23D4AF37%27%20text-anchor%3D%27middle%27%3Eto%20see%20this%20look%3C%2Ftext%3E%3C%2Fsvg%3E";
+      var PV_ORIGINAL_SIX = ["Classic Santa Snow", "Golden Christmas Movie Poster", "Cozy Fireplace", "Snow Globe", "Colombo Christmas", "Winter Royal"];
+      /* Which style list the tiles show: the mode's own set; Drawing and
+         Photo as-is keep the family styles as examples, as before. */
+      function pvStyleTileList(){
+        if(pvMode === "child") return PV_STYLE_SETS.child;
+        if(pvMode === "pet") return PV_STYLE_SETS.pet;
+        return PV_STYLE_SETS.family;
+      }
+      function pvRenderStyleTiles(){
+        var grid = document.getElementById("pvStyleGrid");
+        if(!grid) return;
+        var list = pvStyleTileList();
+        grid.innerHTML = "";
+        list.forEach(function(s, i){
+          var n = String(i + 1); if(n.length < 2) n = "0" + n;
+          var card = document.createElement("div");
+          card.className = "style-card"; card.setAttribute("data-style", s.name);
+          if(!s.img) card.setAttribute("data-no-example", "1");
+          var img = s.img || PV_STYLE_PLACEHOLDER_IMG;
+          var badge = PV_ORIGINAL_SIX.indexOf(s.name) === -1 ? ' <span class="style-new">New</span>' : "";
+          card.innerHTML = '<div class="style-art"><img src="' + img + '" alt="' + s.name.replace(/"/g, "&quot;") + ' style example \u2014 ' + s.blurb.replace(/"/g, "&quot;") + '" loading="lazy" /></div><div class="style-body"><h3>' + n + ' \u00b7 ' + s.name + badge + '</h3><p>' + s.blurb + '</p><span class="style-example">' + (s.img ? "Your family in this look" : "Upload your photo to see this look") + '</span></div>';
+          grid.appendChild(card);
+        });
+        if(typeof pvPaintStyleTiles === "function") pvPaintStyleTiles();
+      }
+      function pvSyncStyleHeading(){
+        var k = document.getElementById("pvStylesKicker"), hd = document.getElementById("pvStylesHeading");
+        if(!k || !hd) return;
+        if(pvMode === "child"){ k.textContent = "Fifty Kids\u2019 Christmas Worlds"; hd.textContent = "Pick a world for your little one"; }
+        else if(pvMode === "pet"){ k.textContent = "Twenty Pet Christmas Personas"; hd.textContent = "Pick your pet\u2019s Christmas character"; }
+        else { k.textContent = "Eighteen Family Christmas Styles"; hd.textContent = "Pick the Christmas you want to live in"; }
+      }
+      /* Rebuild the Step 2 chips and the order-form style picker from the
+         current mode's set (chips omit the image for looks without an
+         example yet; radios check the currently selected style). */
+      function pvRebuildStylePickers(){
+        var list = (typeof PV_STYLE_SETS === "object" && PV_STYLE_SETS[pvMode]) || STYLES;
+        var chipsBox = document.getElementById("pvChips");
+        if(chipsBox){
+          chipsBox.innerHTML = "";
+          list.forEach(function(s){
+            var b = document.createElement("button");
+            b.type = "button"; b.className = "pv-chip"; b.setAttribute("data-style", s.name);
+            b.innerHTML = (s.img ? '<img src="' + s.img + '" alt="" loading="lazy" />' : "") + '<span>' + s.name + '</span>';
+            b.addEventListener("click", function(){ pvSetStyle(s.name, true); });
+            chipsBox.appendChild(b);
+          });
+        }
+        var pick = document.getElementById("stylePick");
+        if(pick){
+          pick.innerHTML = "";
+          list.forEach(function(s){
+            var l = document.createElement("label");
+            l.className = "pick";
+            l.innerHTML = '<input type="radio" name="style" value="' + s.name + '"' + (s.name === pvStyle ? " checked" : "") + ' />' + (s.img ? '<img src="' + s.img + '" alt="" loading="lazy" />' : "") + '<span><b>' + s.name + '</b><span>Style example \u2014 3 portraits in this look</span></span>';
+            pick.appendChild(l);
+          });
+        }
+        if(typeof pvPaintChips === "function") pvPaintChips();
+        if(typeof syncSummary === "function") syncSummary();
+      }
       function pvSetMode(mode, fromUser){
         if(["child","family","pet","drawing","photo"].indexOf(mode) === -1) mode = "family";
         var changed = (mode !== pvMode);
@@ -2642,6 +3223,13 @@
         if(pickWrap) pickWrap.style.display = (pvMode === "drawing" || pvMode === "photo") ? "none" : "";
         var aiBox = document.getElementById("pvAiBox");
         if(aiBox) aiBox.style.display = pvMode === "photo" ? "none" : "";
+        if(changed){
+          var _first = (typeof PV_STYLE_SETS === "object" && PV_STYLE_SETS[pvMode] && PV_STYLE_SETS[pvMode][0]) ? PV_STYLE_SETS[pvMode][0].name : null;
+          if(_first) pvStyle = _first; /* a new mode starts on its first look */
+        }
+        if(typeof pvRebuildStylePickers === "function") pvRebuildStylePickers();
+        if(typeof pvRenderStyleTiles === "function") pvRenderStyleTiles();
+        if(typeof pvSyncStyleHeading === "function") pvSyncStyleHeading();
         if(fromUser && changed && window.CPSRestyle) CPSRestyle.clear(); /* AI result + approval belong to the old mode */
         pvPaintStyleTiles();
         pvRenderAll();
@@ -2650,6 +3238,9 @@
       document.querySelectorAll("#pvModes .pv-mode-btn").forEach(function(b){
         b.addEventListener("click", function(){ pvSetMode(b.getAttribute("data-pv-mode"), true); });
       });
+      /* Style library first paint: tiles + heading for the default Family mode. */
+      if(typeof pvRenderStyleTiles === "function") pvRenderStyleTiles();
+      if(typeof pvSyncStyleHeading === "function") pvSyncStyleHeading();
       var pvFamInp = document.getElementById("pvFamilyName");
       if(pvFamInp) pvFamInp.addEventListener("input", function(){ pvRenderAll(); }); /* the ornament back updates as you type */
       function pvProd(id){ for(var i=0;i<PV_PRODUCTS.length;i++) if(PV_PRODUCTS[i].id===id) return PV_PRODUCTS[i]; return null; }
