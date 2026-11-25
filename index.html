@@ -1634,6 +1634,44 @@
     previewDataURL = null;
   }
 
+  // ---- 512px copy for the free Workers AI model ----
+  // klein-4b rejects input images >= 512x512, so the upload carries a
+  // second, downscaled copy (image_small). Built from the same photo
+  // the customer uploaded (File or data URL). Never fails the upload:
+  // on any error it resolves null and the form goes out without it.
+  function smallPhotoBlob(fileOrDataUrl) {
+    return new Promise(function (resolve) {
+      var img = new Image();
+      var done = function (blob) { resolve(blob || null); };
+      img.onload = function () {
+        try {
+          var sc = Math.min(1, 512 / Math.max(img.naturalWidth, img.naturalHeight));
+          var c = document.createElement("canvas");
+          c.width = Math.max(1, Math.round(img.naturalWidth * sc));
+          c.height = Math.max(1, Math.round(img.naturalHeight * sc));
+          c.getContext("2d").drawImage(img, 0, 0, c.width, c.height);
+          var parts = c.toDataURL("image/jpeg", 0.82).split(",");
+          var bin = atob(parts[1] || "");
+          var bytes = new Uint8Array(bin.length);
+          for (var i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+          done(new Blob([bytes], { type: "image/jpeg" }));
+        } catch (e) { done(null); }
+      };
+      img.onerror = function () { done(null); };
+      if (typeof fileOrDataUrl === "string") {
+        img.src = fileOrDataUrl;
+      } else if (fileOrDataUrl instanceof Blob) {
+        var url = URL.createObjectURL(fileOrDataUrl);
+        var revoke = function () { try { URL.revokeObjectURL(url); } catch (e) {} };
+        img.addEventListener("load", revoke);
+        img.addEventListener("error", revoke);
+        img.src = url;
+      } else {
+        done(null);
+      }
+    });
+  }
+
   // ---- API call ----
   // Accepts a File/Blob (from #pvFile) or a data URL string.
   // Returns a Promise resolving to the state object.
@@ -1647,7 +1685,6 @@
 
     var form = new FormData();
     form.append("style", style);
-    var bodyPromise;
     if (typeof fileOrDataUrl === "string") {
       // Data URL -> Blob, so the upload stays multipart like a file.
       var parts = fileOrDataUrl.split(",");
@@ -1656,11 +1693,18 @@
       var bytes = new Uint8Array(bin.length);
       for (var i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
       form.append("image", new Blob([bytes], { type: mime }), "photo.jpg");
-      bodyPromise = Promise.resolve(form);
     } else {
       form.append("image", fileOrDataUrl);
-      bodyPromise = Promise.resolve(form);
     }
+    // The free Workers AI model only accepts images under 512x512, so
+    // the upload also carries a 512px copy (image_small). Gemini keeps
+    // using the full-size image. If the small copy cannot be made, the
+    // upload still goes out without it — the Worker will say so
+    // honestly if the free path is the only one left.
+    var bodyPromise = smallPhotoBlob(fileOrDataUrl).then(function (small) {
+      if (small) form.append("image_small", small, "photo-small.jpg");
+      return form;
+    });
 
     setState({ state: "uploading", style: style, message: "Uploading your photo…", retryable: false });
 

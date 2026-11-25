@@ -1,7 +1,9 @@
 /**
  * Christmas Portrait Studio — AI Restyle Worker
  * ============================================================
- * POST /api/restyle — image-to-image Christmas restyle via Gemini.
+ * POST /api/restyle — image-to-image Christmas restyle via Gemini
+ * (quality path) with a free Cloudflare Workers AI fallback
+ * (FLUX.2 klein-4b, $0) when Gemini fails or is not configured.
  *
  * DEPLOYMENT — READ FIRST:
  * The store today is static-only (Workers Static Assets, see
@@ -16,6 +18,10 @@
  *     wrangler deploy worker.js --name christmasportrait-restyle
  *   then route api.christmasportrait.store -> this worker, and set
  *     wrangler secret put GEMINI_API_KEY
+ *   then bind Workers AI in the Worker dashboard (Settings ->
+ *   Bindings -> Add binding -> Workers AI, variable name "AI") so
+ *   the free fallback works. The repo's wrangler.jsonc belongs to
+ *   the STATIC site (assets only) — it does not configure this worker.
  *   The client snippet posts to the API origin configured in
  *   restyle-client-snippet.js (default "/api/restyle" for Option B).
  *
@@ -29,12 +35,14 @@
  *   lands in request logs).
  *
  * PRIVACY (also stated in the architecture doc — keep in sync):
- * - An uploaded photo is sent ONLY to the Gemini model API to
- *   perform the restyle. It is never used for model training
- *   (paid-tier API: content is not used to improve Google's
- *   products — see Google's pricing page), never shared with any
- *   other third party, and no face-recognition database or
- *   biometric template is ever built from it.
+ * - An uploaded photo is sent ONLY to the image model that performs
+ *   the restyle: the Gemini model API first, or Cloudflare Workers AI
+ *   (FLUX.2 klein-4b — listed as zero data retention on Cloudflare's
+ *   model page) when Gemini is unavailable. It is never used for
+ *   model training (paid-tier Gemini API: content is not used to
+ *   improve Google's products — see Google's pricing page), never
+ *   shared with any other third party, and no face-recognition
+ *   database or biometric template is ever built from it.
  * - If the customer does not order, the original and the restyle
  *   are deleted after 7 days. If they order, both are kept only
  *   for fulfilment + a 30-day reprint window, then deleted.
@@ -68,13 +76,29 @@
  *   migrate to gemini-3.1-flash-image — it is itself deprecated in
  *   favour of 2.1. Re-check Google's deprecations page that week.
  *
- * GEMINI STATUS — LIVE, 2026-11-24: the studio key is VERIFIED
- * (list-models returns real models incl. gemini-2.5-flash-image),
- * BUT the first image-edit call hit HTTP 429 from the image model:
- * the key is valid, the image endpoint is rate-limited on this key
- * (free-tier quota). That is the binding limit right now — not a
- * code bug. Raising the quota / enabling billing in Google AI
- * Studio lifts it. This worker therefore NEVER retries the model
+ * GEMINI STATUS — FREE TIER IS ZERO, 2026-11-25: the studio key is
+ * VERIFIED (list-models returns real models incl. gemini-2.5-flash-image),
+ * BUT Google's official pricing lists the Free Tier for image models
+ * as "Not available": every image call returns HTTP 429, and the quota
+ * did NOT come back at the daily reset (verified 02:11 CST 2026-11-25,
+ * still 429). A second key in the same Google Cloud project shares the
+ * same zero quota, so a fallback key does NOT help — the dashboard-only
+ * GEMINI_API_KEY1 fallback is dropped by this version (it was never in
+ * the repo; re-pasting this file overwrites it, which is intended).
+ * Gemini only works with billing enabled in Google AI Studio.
+ *
+ * WORKERS AI FALLBACK (free, $0): when Gemini fails (429 or any model
+ * error) — or is not configured at all — the Worker falls back to
+ * Cloudflare Workers AI, @cf/black-forest-labs/flux-2-klein-4b, via the
+ * env.AI binding. Free tier: 10,000 Neurons/day, resets 00:00 UTC;
+ * ~109.6 Neurons per 1024x1024 image + 1 input, so ~91 images/day —
+ * this Worker caps the path at 80/day for margin. HONEST LIMIT:
+ * klein-4b is a 4-step distilled model; it drifts faces more than
+ * Gemini — do not claim Gemini-grade face preservation for it. It also
+ * needs input images < 512x512, so the client sends a 512px copy
+ * (image_small / image_b64_small) alongside the full photo. Over the
+ * free tier, Workers AI calls fail with HTTP 429 (error 3036) — treated
+ * like model_rate_limited. This worker therefore NEVER retries the model
  * in a loop and never hammers it: on a model 429 it returns 429
  * with the model's Retry-After (or 60s) and a plain message, and
  * the client may retry ONCE manually after the delay. The "queue"
@@ -85,7 +109,10 @@
  * does NOT count against the visitor's 5 free transforms.
  *
  * COST MATH: at $0.039/image, MAX_TRANSFORMS_PER_DAY = 200 caps
- * spend at ~$7.80/day worst case (+ tiny input-token cost).
+ * Gemini spend at ~$7.80/day worst case (+ tiny input-token cost).
+ * The Workers AI path costs $0 while under its free tier
+ * (10,000 Neurons/day); MAX_WORKERS_AI_TRANSFORMS_PER_DAY = 80
+ * keeps it inside the tier with margin.
  */
 
 // ------------------------------------------------------------------
@@ -104,6 +131,18 @@ const GEMINI_URL =
 const FREE_PER_VISITOR_PER_DAY = 5;
 /** Hard global cap: paid model calls per UTC day. 429 beyond this. */
 const MAX_TRANSFORMS_PER_DAY = 200;
+/** Workers AI image model (free tier) — the $0 fallback when Gemini fails. */
+const WORKERS_AI_MODEL = "@cf/black-forest-labs/flux-2-klein-4b";
+/** Hard global cap: Workers AI calls per UTC day. Free tier is 10,000
+ *  Neurons/day (resets 00:00 UTC); klein-4b costs ~109.6 Neurons per
+ *  1024x1024 image + 1 input, so ~91/day — 80 keeps a margin. This is
+ *  an estimate: verify the real Neuron cost in the Cloudflare
+ *  dashboard after ~10 images and adjust if it is higher. */
+const MAX_WORKERS_AI_TRANSFORMS_PER_DAY = 80;
+/** klein-4b output size: 3:4 portrait, matching the master prompts.
+ *  (Range 256–1920; steps are fixed at 4 and cannot be adjusted.) */
+const KLEIN_WIDTH = 768;
+const KLEIN_HEIGHT = 1024;
 /** Max upload size: 10 MB. */
 const MAX_IMAGE_BYTES = 10 * 1024 * 1024;
 /** Allowed upload MIME types. */
@@ -204,6 +243,8 @@ const memoryCache = new Map();
 const visitorCounts = new Map();
 /** "YYYY-MM-DD" -> count of PAID transforms today (this isolate). */
 const dailyCounts = new Map();
+/** "YYYY-MM-DD" -> count of Workers AI transforms today (this isolate). */
+const dailyWorkersAiCounts = new Map();
 
 // ------------------------------------------------------------------
 // Helpers
@@ -291,9 +332,10 @@ function bytesToBase64(bytes) {
 
 /**
  * Parse the request body.
- * Accepts multipart/form-data (fields: image + style) or
- * JSON { image_b64, style, mime_type? }.
- * Returns { bytes, mime, style } or { error, status }.
+ * Accepts multipart/form-data (fields: image + style, plus the optional
+ * 512px copy "image_small" for the Workers AI fallback) or
+ * JSON { image_b64, style, mime_type?, image_b64_small? }.
+ * Returns { bytes, mime, style, smallBytes, smallMime } or { error, status }.
  */
 async function parseInput(request) {
   const contentType = request.headers.get("content-type") || "";
@@ -312,7 +354,10 @@ async function parseInput(request) {
       return { error: "missing_image", status: 400 };
     }
     const bytes = new Uint8Array(await file.arrayBuffer());
-    return validateBytes(bytes, file.type || "", style);
+    const main = validateBytes(bytes, file.type || "", style);
+    if (main.error) return main;
+    const small = await parseSmallFile(form.get("image_small"));
+    return { ...main, smallBytes: small.bytes, smallMime: small.mime };
   }
 
   if (contentType.includes("application/json")) {
@@ -333,19 +378,66 @@ async function parseInput(request) {
     }
     const bytes = base64ToBytes(body.image_b64);
     if (!bytes) return { error: "invalid_image", status: 400 };
-    return validateBytes(bytes, body.mime_type || "", style);
+    const main = validateBytes(bytes, body.mime_type || "", style);
+    if (main.error) return main;
+    const small = parseSmallB64(body.image_b64_small);
+    return { ...main, smallBytes: small.bytes, smallMime: small.mime };
   }
 
   return { error: "unsupported_media_type", status: 415 };
 }
 
-function validateBytes(bytes, declaredMime, style) {
+/**
+ * Decode the optional 512px copy for the Workers AI fallback
+ * (klein-4b rejects inputs >= 512x512). Invalid or absent ->
+ * { bytes: null, mime: null } — it NEVER fails the request, because
+ * the main image may still work through Gemini. The fallback path
+ * reports the missing small image honestly if it is needed.
+ */
+async function parseSmallFile(file) {
+  if (!file || typeof file === "string" || !file.arrayBuffer) {
+    return { bytes: null, mime: null };
+  }
+  try {
+    const v = validateImageBytes(new Uint8Array(await file.arrayBuffer()), file.type || "");
+    if (v.error) {
+      console.log("restyle small_image_invalid", v.error);
+      return { bytes: null, mime: null };
+    }
+    return { bytes: v.bytes, mime: v.mime };
+  } catch {
+    return { bytes: null, mime: null };
+  }
+}
+
+function parseSmallB64(b64) {
+  if (typeof b64 !== "string" || !b64) return { bytes: null, mime: null };
+  if (b64.length > Math.ceil((MAX_IMAGE_BYTES * 4) / 3) + 16) {
+    return { bytes: null, mime: null };
+  }
+  const bytes = base64ToBytes(b64);
+  if (!bytes) return { bytes: null, mime: null };
+  const v = validateImageBytes(bytes, "");
+  if (v.error) {
+    console.log("restyle small_image_invalid", v.error);
+    return { bytes: null, mime: null };
+  }
+  return { bytes: v.bytes, mime: v.mime };
+}
+
+function validateImageBytes(bytes, declaredMime) {
   if (bytes.length === 0) return { error: "missing_image", status: 400 };
   if (bytes.length > MAX_IMAGE_BYTES) return { error: "image_too_large", status: 413 };
   const sniffed = sniffMime(bytes);
   const mime = sniffed || (ALLOWED_MIME.has(declaredMime) ? declaredMime : null);
   if (!mime || !ALLOWED_MIME.has(mime)) return { error: "invalid_image", status: 400 };
-  return { bytes, mime, style };
+  return { bytes, mime };
+}
+
+function validateBytes(bytes, declaredMime, style) {
+  const v = validateImageBytes(bytes, declaredMime);
+  if (v.error) return v;
+  return { bytes: v.bytes, mime: v.mime, style };
 }
 
 // ------------------------------------------------------------------
@@ -379,6 +471,7 @@ async function cacheGet(env, cacheKey) {
         b64: bytesToBase64(bytes),
         mime: obj.customMetadata?.mime || "image/png",
         style: obj.customMetadata?.style || "",
+        provider: obj.customMetadata?.provider || "gemini",
         createdAt,
       };
     } catch (e) {
@@ -395,12 +488,12 @@ async function cacheGet(env, cacheKey) {
   return hit;
 }
 
-async function cachePut(env, cacheKey, b64, mime, style) {
-  const entry = { b64, mime, style, createdAt: Date.now() };
+async function cachePut(env, cacheKey, b64, mime, style, provider) {
+  const entry = { b64, mime, style, provider: provider || "gemini", createdAt: Date.now() };
   if (env.RESTYLE_CACHE) {
     try {
       await env.RESTYLE_CACHE.put(r2Key(cacheKey), base64ToBytes(b64), {
-        customMetadata: { mime, style, createdAt: String(entry.createdAt) },
+        customMetadata: { mime, style, provider: entry.provider, createdAt: String(entry.createdAt) },
       });
       return;
     } catch (e) {
@@ -534,23 +627,120 @@ async function callGemini(apiKey, imageB64, mime, style) {
 }
 
 // ------------------------------------------------------------------
+// Workers AI fallback (free, $0) — FLUX.2 klein-4b
+// ------------------------------------------------------------------
+
+/** Race a promise against a timeout (env.AI.run takes no AbortSignal). */
+function withTimeout(promise, ms) {
+  let timer;
+  const timeout = new Promise((_, reject) => {
+    timer = setTimeout(() => reject(new Error("workers_ai_timeout")), ms);
+  });
+  return Promise.race([promise, timeout]).finally(() => clearTimeout(timer));
+}
+
+/**
+ * Prompt for klein-4b. The master prompts were written for Gemini;
+ * they are reused verbatim, with an explicit image-0 edit instruction
+ * on top — FLUX.2 models address their inputs by index ("image 0"),
+ * so the prompt must name it. Honest scope: klein-4b is a 4-step
+ * distilled model and drifts faces more than Gemini.
+ */
+function kleinPrompt(style) {
+  return (
+    "Edit image 0. Keep the exact same faces, people, poses, clothing and grouping of the people in image 0 — do not change any face, do not add or remove any person. Only restyle the scene, clothes and lighting as follows. The result is a photorealistic family Christmas portrait, portrait orientation 3:4. Do not add any text or letters anywhere in the image.\n\n" +
+    STYLE_PROMPTS[style]
+  );
+}
+
+async function callWorkersAI(env, smallBytes, smallMime, style) {
+  // klein-4b takes multipart form-data (even for prompt-only calls)
+  // with fields: prompt (required), input_image_0..3 (binary, each
+  // < 512x512), width, height. Steps are fixed at 4 and cannot be
+  // adjusted. Verified against the official model page + changelog,
+  // 2026-11-25.
+  // NOTE the field name: "input_image_0" — "input_image" alone is
+  // ignored and the model generates from text only.
+  const form = new FormData();
+  form.append("prompt", kleinPrompt(style));
+  form.append("input_image_0", new Blob([smallBytes], { type: smallMime }), "input.jpg");
+  form.append("width", String(KLEIN_WIDTH));
+  form.append("height", String(KLEIN_HEIGHT));
+  // FormData does not expose its serialized body or boundary. Passing
+  // it through a Response serializes it and sets the Content-Type
+  // header with the boundary, which the server needs to parse it.
+  const formResponse = new Response(form);
+  const body = formResponse.body;
+  const contentType = formResponse.headers.get("content-type");
+
+  try {
+    const out = await withTimeout(
+      env.AI.run(WORKERS_AI_MODEL, { multipart: { body, contentType } }),
+      MODEL_TIMEOUT_MS
+    );
+    // The binding returns the model output directly ({ image: base64 });
+    // the REST API wraps it in { result: { image } }. Accept both.
+    const b64 = out && (out.image || (out.result && out.result.image));
+    if (!b64 || typeof b64 !== "string") {
+      console.log("workers_ai_error", "no_image_in_response");
+      return { error: "model_no_image", status: 502 };
+    }
+    // Sniff the output bytes' MIME from the first bytes of the base64.
+    // (Workers AI image output is a base64 string; the docs do not
+    // guarantee its format, so never trust a hardcoded MIME.)
+    let mime = "image/png";
+    try {
+      const head = base64ToBytes(b64.slice(0, 24));
+      if (head) mime = sniffMime(head) || "image/png";
+    } catch { /* keep the default */ }
+    return { b64, mime };
+  } catch (e) {
+    const msg = String((e && e.message) || e || "");
+    console.log("workers_ai_error", msg.slice(0, 300));
+    if (msg === "workers_ai_timeout" || (e && e.name === "AbortError")) {
+      return { error: "model_timeout", status: 504, retryable: true };
+    }
+    // Over the free tier Workers AI fails with HTTP 429, error 3036.
+    // The free tier resets 00:00 UTC, so the honest wait is until then.
+    if (/3036/.test(msg) || /429/.test(msg) || /rate limit/i.test(msg)) {
+      const secs = secondsUntilUtcMidnight();
+      return {
+        error: "model_rate_limited",
+        status: 429,
+        retryable: true,
+        retry_after_seconds: secs,
+        message:
+          "The studio's free AI allowance is used up for today — please try again tomorrow. " +
+          "Enabling billing in Google AI Studio brings back the higher-quality portrait path.",
+      };
+    }
+    if (/400|422/.test(msg)) return { error: "model_rejected", status: 400 };
+    return { error: "model_unavailable", status: 502, retryable: true };
+  }
+}
+
+// ------------------------------------------------------------------
 // Handlers
 // ------------------------------------------------------------------
 
 async function handleRestyle(request, env) {
-  // 1. No key yet -> graceful degradation. The client shows the real
-  //    example assets + "AI Transform opens the moment the studio
-  //    key is added". This is the expected state until setup.
-  if (!env.GEMINI_API_KEY) {
+  // 1. Neither provider configured -> graceful degradation. The client
+  //    shows the real example assets + the honest not-configured line.
+  //    Gemini needs its secret; Workers AI needs the "AI" binding.
+  const hasGemini = Boolean(env.GEMINI_API_KEY);
+  const hasWorkersAI = Boolean(env.AI);
+  if (!hasGemini && !hasWorkersAI) {
     return errorJson("not_configured", 503, {
       message: "AI Transform opens the moment the studio key is added.",
     });
   }
 
   // 2. Validate input (style + image, <10 MB, JPEG/PNG/WebP).
+  //    Also accepts the optional 512px copy (image_small /
+  //    image_b64_small) the client sends for the Workers AI path.
   const input = await parseInput(request);
   if (input.error) return errorJson(input.error, input.status);
-  const { bytes, mime, style } = input;
+  const { bytes, mime, style, smallBytes, smallMime } = input;
 
   // 3. Idempotency: same photo + style -> cached result, free.
   //    Checked BEFORE rate limiting so repeats cost nothing.
@@ -567,6 +757,7 @@ async function handleRestyle(request, env) {
       mime_type: cached.mime,
       style,
       cached: true,
+      provider: cached.provider || "gemini",
       transforms_remaining: Math.max(0, FREE_PER_VISITOR_PER_DAY - usedToday),
       cache_key: cacheKey,
     });
@@ -581,50 +772,100 @@ async function handleRestyle(request, env) {
     });
   }
 
-  // 5. Global cost cap: MAX_TRANSFORMS_PER_DAY paid calls / day.
-  const dayCount = dailyCounts.get(day) || 0;
-  if (dayCount >= MAX_TRANSFORMS_PER_DAY) {
-    console.log(`restyle daily_cap_reached day=${day} count=${dayCount}`);
-    return errorJson("daily_cap", 429, {
-      transforms_remaining: Math.max(0, FREE_PER_VISITOR_PER_DAY - usedToday),
-      retry_after_seconds: secondsUntilUtcMidnight(),
-      message: "The studio has reached today's transform limit. Please try again tomorrow.",
-    });
-  }
+  // 5. Try providers in order: Gemini first (best quality), Workers AI
+  //    (free, $0) when Gemini fails or is not configured. A model 429
+  //    from either provider never counts against the visitor's 5 free.
+  const remaining = () => Math.max(0, FREE_PER_VISITOR_PER_DAY - usedToday);
+  let result = null;
+  let provider = null;
+  let geminiError = null;
 
-  // 6. Call the model.
-  const result = await callGemini(env.GEMINI_API_KEY, bytesToBase64(bytes), mime, style);
-  if (result.error) {
-    console.log(`restyle model_error error=${result.error} style=${style}`);
-    // Model 429: surface Retry-After as a header AND in the body, so the
-    // client can offer exactly one manual retry after the delay.
-    // A model 429 never counts against the visitor's 5 free transforms.
-    if (result.error === "model_rate_limited") {
-      return json(
-        {
-          error: result.error,
-          message: result.message,
-          retryable: true,
-          retry_after_seconds: result.retry_after_seconds,
-          transforms_remaining: Math.max(0, FREE_PER_VISITOR_PER_DAY - usedToday),
-        },
-        429,
-        { "retry-after": String(result.retry_after_seconds) }
-      );
+  if (hasGemini) {
+    // 5a. Gemini global cost cap: MAX_TRANSFORMS_PER_DAY paid calls / day.
+    const dayCount = dailyCounts.get(day) || 0;
+    if (dayCount >= MAX_TRANSFORMS_PER_DAY) {
+      console.log(`restyle gemini_daily_cap_reached day=${day} count=${dayCount}`);
+      geminiError = { error: "daily_cap", status: 429 };
+    } else {
+      result = await callGemini(env.GEMINI_API_KEY, bytesToBase64(bytes), mime, style);
+      if (result.error) {
+        geminiError = result;
+        console.log(`restyle gemini_failed error=${result.error} style=${style}`);
+        result = null;
+      } else {
+        provider = "gemini";
+      }
     }
-    return errorJson(result.error, result.status, {
-      retryable: !!result.retryable,
-      transforms_remaining: Math.max(0, FREE_PER_VISITOR_PER_DAY - usedToday),
+  }
+
+  if (!result && hasWorkersAI) {
+    // 5b. Workers AI free-tier cap: MAX_WORKERS_AI_TRANSFORMS_PER_DAY / day.
+    const aiCount = dailyWorkersAiCounts.get(day) || 0;
+    if (aiCount >= MAX_WORKERS_AI_TRANSFORMS_PER_DAY) {
+      console.log(`restyle workers_ai_daily_cap_reached day=${day} count=${aiCount}`);
+      return errorJson("daily_cap", 429, {
+        transforms_remaining: remaining(),
+        retry_after_seconds: secondsUntilUtcMidnight(),
+        message: "The studio has reached today's free transform limit. Please try again tomorrow.",
+      });
+    }
+    if (!smallBytes) {
+      return errorJson("missing_small_image", 400, {
+        transforms_remaining: remaining(),
+        message: "This photo could not be prepared for the free studio — please upload it again and try once more.",
+      });
+    }
+    result = await callWorkersAI(env, smallBytes, smallMime, style);
+    if (result.error) {
+      console.log(`restyle workers_ai_failed error=${result.error} style=${style}`);
+      if (result.error === "model_rate_limited") {
+        return modelRateLimitedResponse(result, remaining());
+      }
+      // Workers AI failed for another reason: report the Gemini failure
+      // if there was one (the quality path failed first), else this one.
+      const err = geminiError || result;
+      return errorJson(err.error, err.status || 502, {
+        retryable: !!err.retryable,
+        transforms_remaining: remaining(),
+      });
+    }
+    provider = "workers-ai";
+  }
+
+  if (!result) {
+    // No provider produced an image: Gemini failed and there is no
+    // Workers AI binding. (Step 1 guards the both-unconfigured case,
+    // so this is the Gemini-failed-alone path.)
+    const err = geminiError || { error: "model_unavailable", status: 502, retryable: true };
+    if (err.error === "model_rate_limited") {
+      return modelRateLimitedResponse(err, remaining());
+    }
+    if (err.error === "daily_cap") {
+      return errorJson("daily_cap", 429, {
+        transforms_remaining: remaining(),
+        retry_after_seconds: secondsUntilUtcMidnight(),
+        message: "The studio has reached today's transform limit. Please try again tomorrow.",
+      });
+    }
+    return errorJson(err.error, err.status || 502, {
+      retryable: !!err.retryable,
+      transforms_remaining: remaining(),
     });
   }
 
-  // 7. Record usage (only paid calls count) and cache the result.
+  // 6. Record usage (only successful calls count) and cache the result.
   visitorCounts.set(visitorKey, usedToday + 1);
-  dailyCounts.set(day, dayCount + 1);
+  if (provider === "gemini") {
+    dailyCounts.set(day, (dailyCounts.get(day) || 0) + 1);
+  } else {
+    dailyWorkersAiCounts.set(day, (dailyWorkersAiCounts.get(day) || 0) + 1);
+  }
   console.log(
-    `restyle success style=${style} day_count=${dayCount + 1}/${MAX_TRANSFORMS_PER_DAY}`
+    `restyle success provider=${provider} style=${style} ` +
+    `gemini_day=${dailyCounts.get(day) || 0}/${MAX_TRANSFORMS_PER_DAY} ` +
+    `workers_ai_day=${dailyWorkersAiCounts.get(day) || 0}/${MAX_WORKERS_AI_TRANSFORMS_PER_DAY}`
   );
-  await cachePut(env, cacheKey, result.b64, result.mime, style);
+  await cachePut(env, cacheKey, result.b64, result.mime, style, provider);
 
   // NOTE: the returned image is the model's full output. The client
   // downscales it to max 800 px and draws the diagonal PREVIEW
@@ -635,9 +876,28 @@ async function handleRestyle(request, env) {
     mime_type: result.mime,
     style,
     cached: false,
+    provider,
     transforms_remaining: Math.max(0, FREE_PER_VISITOR_PER_DAY - (usedToday + 1)),
     cache_key: cacheKey,
   });
+}
+
+/** Shared 429 body for a model at its quota: Retry-After as a header
+ *  AND in the body, so the client can offer exactly one manual retry
+ *  after the delay. A model 429 never counts against the visitor's
+ *  5 free transforms. */
+function modelRateLimitedResponse(result, transformsRemaining) {
+  return json(
+    {
+      error: "model_rate_limited",
+      message: result.message,
+      retryable: true,
+      retry_after_seconds: result.retry_after_seconds,
+      transforms_remaining: transformsRemaining,
+    },
+    429,
+    { "retry-after": String(result.retry_after_seconds) }
+  );
 }
 
 function secondsUntilUtcMidnight() {
@@ -692,11 +952,15 @@ export default {
       // the boolean the client already needs for its UI.
       return json({
         status: "ok",
-        configured: Boolean(env.GEMINI_API_KEY),
+        configured: Boolean(env.GEMINI_API_KEY) || Boolean(env.AI),
+        gemini_configured: Boolean(env.GEMINI_API_KEY),
+        workers_ai_bound: Boolean(env.AI),
         model: MODEL,
+        workers_ai_model: WORKERS_AI_MODEL,
         styles: STYLE_IDS,
         free_per_visitor_per_day: FREE_PER_VISITOR_PER_DAY,
         max_transforms_per_day: MAX_TRANSFORMS_PER_DAY,
+        max_workers_ai_transforms_per_day: MAX_WORKERS_AI_TRANSFORMS_PER_DAY,
         cache: env.RESTYLE_CACHE ? "r2" : "memory",
       });
     }
