@@ -40,8 +40,6 @@
       .btn-green{ background:var(--green3); color:var(--cream); }
       .btn-small{ padding:.5rem 1rem; min-height:48px; font-size:.95rem; }
       /* Announcement + nav */
-      .announce{ background:var(--red); color:#FFF3E2; text-align:center; padding:.55rem 14px; font-size:.95rem; font-weight:600; }
-      .announce b{ color:#FFE9A8; }
       nav.top{ position:sticky; top:0; z-index:50; background:var(--green); color:var(--cream); box-shadow:0 4px 18px rgba(0,0,0,.25); }
       nav.top .wrap{ display:flex; align-items:center; gap:14px; padding-top:10px; padding-bottom:10px; flex-wrap:wrap; }
       .brand{ display:flex; align-items:center; gap:11px; text-decoration:none; }
@@ -65,8 +63,7 @@
       .hero-price .big{ font-family:"Playfair Display",serif; font-size:3rem; font-weight:800; color:var(--gold); }
       .chips{ display:flex; flex-wrap:wrap; gap:8px; margin:16px 0; }
       .chip{ border:1px solid rgba(212,175,55,.55); color:#F1E7C8; border-radius:999px; padding:.35rem .8rem; font-size:.88rem; background:rgba(212,175,55,.08); }
-      .cd-duo{ display:grid; grid-template-columns:1fr 1fr; gap:14px; margin:20px 0 4px; }
-      @media (max-width:560px){ .cd-duo{ grid-template-columns:1fr; } }
+      .cd-duo{ display:grid; grid-template-columns:1fr; gap:14px; margin:20px 0 4px; }
       .cd-box{ background:rgba(255,255,255,.05); border:1px solid rgba(212,175,55,.4); border-radius:14px; padding:12px 14px; }
       .cd-box .cd-label{ font-size:.8rem; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:#FFE9A8; margin:0 0 8px; }
       .cd-box .cd-label span{ color:#D9CEA6; font-weight:500; text-transform:none; letter-spacing:0; }
@@ -188,12 +185,6 @@
       details.faq{ background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:6px 18px; margin-bottom:10px; }
       details.faq summary{ cursor:pointer; font-weight:700; padding:.7rem 0; font-size:1.02rem; }
       details.faq p{ color:var(--ink-soft); padding-bottom:.8rem; }
-      .badge-row{ display:grid; grid-template-columns:repeat(4,1fr); gap:14px; }
-      @media (max-width:880px){ .badge-row{ grid-template-columns:repeat(2,1fr); } }
-      .badge{ text-align:center; background:var(--surface); border:1px solid var(--line); border-radius:var(--radius); padding:18px 12px; }
-      .badge svg{ width:36px; height:36px; margin-bottom:6px; }
-      .badge b{ display:block; font-size:.98rem; }
-      .badge span{ font-size:.85rem; color:var(--ink-soft); }
       .cert{ background:#FFFDF7; color:#23180A; border:3px double #D4AF37; border-radius:12px; padding:24px; text-align:center; margin-top:16px; display:none; }
       .cert.show{ display:block; }
       .cert h3{ color:#B3271E; font-size:1.6rem; }
@@ -252,10 +243,8 @@
       @keyframes gfall{ to{ transform:translateY(105vh) translateX(24px);} }
       @media (prefers-reduced-motion: reduce){ #globalSnow i, .lights i{ animation:none; } }
       /* Jingle player */
-      .jingle{ position:fixed; right:16px; bottom:16px; z-index:85; display:flex; flex-direction:column; align-items:flex-end; gap:8px; }
-      .jingle-hint{ background:var(--green); color:var(--cream); border:1px solid var(--gold); font-size:.85rem; font-weight:600; padding:.4rem .8rem; border-radius:999px; box-shadow:var(--shadow); animation:bob 2.2s ease-in-out infinite; }
-      @keyframes bob{ 0%,100%{ transform:translateY(0);} 50%{ transform:translateY(-4px);} }
-      @media (prefers-reduced-motion: reduce){ .jingle-hint{ animation:none; } }
+      .jingle{ display:flex; flex-direction:column; align-items:flex-start; gap:8px; margin-top:18px; }
+      .jingle-hint{ color:var(--cream); font-size:.85rem; font-weight:600; }
       .jingle-bar{ display:flex; align-items:center; gap:10px; background:var(--green); border:1px solid var(--gold); border-radius:999px; padding:.45rem .6rem .45rem .45rem; box-shadow:var(--shadow); }
       .jingle-btn{ background:linear-gradient(135deg,var(--red-bright),var(--red)); color:#FFF6EA; border:0; border-radius:999px; font-family:inherit; font-weight:700; font-size:.95rem; padding:.6rem 1.1rem; cursor:pointer; min-height:44px; }
       .jingle-bar label{ color:#DCD2B2; font-size:.8rem; font-weight:600; }
@@ -314,12 +303,12 @@
       .pv-toggle{ display:flex; gap:8px; align-items:center; flex-wrap:wrap; margin:0 0 12px; }
       .pv-toggle-btn{ border:1.5px solid var(--line); background:var(--surface); color:var(--ink); border-radius:999px; padding:.45rem 1rem; font-family:inherit; font-weight:700; cursor:pointer; font-size:.92rem; min-height:40px; }
       .pv-toggle-btn.active{ background:var(--green); color:var(--gold); border-color:var(--green); }
-      .pv-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin-top:20px; }
+      .pv-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:20px; }
       @media (max-width:880px){ .pv-grid{ grid-template-columns:repeat(2,1fr); } }
       @media (max-width:520px){ .pv-grid{ grid-template-columns:1fr; } }
       .pv-tile{ background:var(--surface); border:1px solid var(--line); border-radius:var(--radius); overflow:hidden; display:flex; flex-direction:column; }
       .pv-tile .pv-stage{ border:0; border-radius:0; }
-      .pv-tile-body{ padding:14px 16px 16px; display:flex; flex-direction:column; gap:8px; flex:1; }
+      .pv-tile-body{ padding:12px 14px 14px; display:flex; flex-direction:column; gap:6px; flex:1; }
       .pv-tile-head{ display:flex; align-items:flex-start; justify-content:space-between; gap:10px; }
       .pv-tile-head h3{ font-size:1.05rem; line-height:1.25; margin:0; }
       .pv-heart{ flex:none; width:42px; height:42px; border-radius:50%; border:1.5px solid var(--line); background:var(--surface); cursor:pointer; display:flex; align-items:center; justify-content:center; padding:0; }
@@ -340,7 +329,6 @@
     </style>
   </head>
   <body>
-    <div class="announce">Order by <b>Dec 20</b> for printed-gift Christmas delivery &nbsp;·&nbsp; Digital portraits in <b>24 hours</b> &nbsp;·&nbsp; <b>FREE Santa Letter</b> with every portrait</div>
     <div class="lights" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
     <div id="globalSnow" aria-hidden="true"></div>
 
@@ -379,20 +367,12 @@
           </div>
           <div class="cd-duo">
             <div class="cd-box">
-              <p class="cd-label">Order by Dec 20</p>
+              <p class="cd-label">Order by Dec 20 <span>· printed gifts in time for Christmas</span></p>
               <div class="countdown" role="timer" aria-label="Countdown to December 20 2026 printed-gift order cutoff">
                 <div class="cd-cell"><b id="cdD">–</b><span>Days</span></div>
                 <div class="cd-cell"><b id="cdH">–</b><span>Hours</span></div>
                 <div class="cd-cell"><b id="cdM">–</b><span>Mins</span></div>
                 <div class="cd-cell"><b id="cdS">–</b><span>Secs</span></div>
-              </div>
-            </div>
-            <div class="cd-box">
-              <p class="cd-label">Ready until Dec 25</p>
-              <div class="countdown" role="timer" aria-label="Countdown to Christmas Day, December 25 2026">
-                <div class="cd-cell"><b id="c25D">–</b><span>Days</span></div>
-                <div class="cd-cell"><b id="c25H">–</b><span>Hours</span></div>
-                <div class="cd-cell"><b id="c25M">–</b><span>Mins</span></div>
               </div>
             </div>
           </div>
@@ -501,9 +481,9 @@
 
         <div class="pv-switcher" id="pvSwitcher" role="group" aria-label="Featured preview product"></div>
         <div class="pv-toggle" role="group" aria-label="Featured preview look">
-          <button type="button" id="pvToggleSeason" class="pv-toggle-btn active">Season look</button>
-          <button type="button" id="pvToggleOriginal" class="pv-toggle-btn">Original</button>
-          <span class="soft" id="pvToggleNote" style="font-size:.9rem">Season look — Classic Santa Snow grade preview. The finished portrait is art-directed in this style.</span>
+          <button type="button" id="pvToggleSeason" class="pv-toggle-btn active">Christmas warmth</button>
+          <button type="button" id="pvToggleOriginal" class="pv-toggle-btn">Your photo as-is</button>
+          <span class="soft" id="pvToggleNote" style="font-size:.9rem">Christmas warmth — a warm Christmas glow on your photo. The finished portrait is art-directed in the style you pick.</span>
         </div>
         <div class="pv-stage pv-featured-stage" id="pvFeatStage">
           <img class="pv-base fit-contain" id="pvFeatImg" alt="Featured gift preview" />
@@ -698,17 +678,10 @@
     <!-- ============ 7 · GUARANTEE + FAQ ============ -->
     <section id="faq" style="padding-top:0">
       <div class="wrap">
-        <div class="badge-row">
-          <div class="badge"><svg viewBox="0 0 24 24" fill="none" stroke="#A8842A" stroke-width="1.7"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg><b>24-Hour Delivery</b><span>Digital portraits in your inbox within a day</span></div>
-          <div class="badge"><svg viewBox="0 0 24 24" fill="none" stroke="#A8842A" stroke-width="1.7"><path d="M12 3l7 3v5c0 5-3.5 8-7 10-3.5-2-7-5-7-10V6z"/><path d="M9 12l2 2 4-4"/></svg><b>Love-It Guarantee</b><span>Free re-make in a new style, or a refund</span></div>
-          <div class="badge"><svg viewBox="0 0 24 24" fill="none" stroke="#A8842A" stroke-width="1.7"><path d="M12 3l7 3v5c0 5-3.5 8-7 10-3.5-2-7-5-7-10V6z"/><path d="M9 12l2 2 4-4"/></svg><b>Checked by a real person</b><span>Every portrait checked before it is sent</span></div>
-          <div class="badge"><svg viewBox="0 0 24 24" fill="none" stroke="#A8842A" stroke-width="1.7"><path d="M4 6h16v12H4z"/><path d="M4 8l8 6 8-6"/></svg><b>Free Santa Letter</b><span>With every portrait, all season</span></div>
-        </div>
-
         <div class="card" style="margin-top:22px">
           <p class="kicker">The Love-It Guarantee</p>
           <h2 style="font-size:1.6rem">Love your portraits — or we make it right</h2>
-          <p class="soft" style="max-width:46rem;margin:0">If you don't love your portraits, tell us within 14 days and we re-make them in a different style free, or refund you in full. Anything that arrives damaged or misprinted is replaced free.</p>
+          <p class="soft" style="max-width:46rem;margin:0">Don't love your portraits? Tell us within 14 days — we re-make them in a different style free, or refund you in full. Damaged or misprinted items are replaced free.</p>
         </div>
 
         <div class="grid grid-2 hidden-for-now" style="margin-top:22px">
@@ -720,11 +693,11 @@
           <p class="kicker">Questions</p>
           <h2>Before you order</h2>
           <div style="margin-top:20px">
-            <details class="faq" id="faq-speed"><summary>How fast will I get my portraits?</summary><p>Digital portraits are delivered by email within 24 hours of your photo upload. Printed gifts (mugs, canvas, hoodies, stockings) are produced per order — order by Dec 20 to guarantee Christmas delivery.</p></details>
-            <details class="faq" id="faq-photo"><summary>What kind of photo works best?</summary><p>A clear photo where faces are visible and reasonably well lit. Phone photos are perfect. Group shots up to 4 people fit the Family Pack; pets can join any portrait — just mention them in the order notes.</p></details>
-            <details class="faq" id="faq-guarantee"><summary>What if I don't love my portrait?</summary><p>That's what the Love-It Guarantee is for: tell us within 14 days and we re-make your portraits in a different style free, or refund you in full. No forms, no interrogation.</p></details>
+            <details class="faq" id="faq-speed"><summary>How fast will I get my portraits?</summary><p>Digital portraits arrive by email within 24 hours. Printed gifts are made to order — order by Dec 20 for Christmas delivery.</p></details>
+            <details class="faq" id="faq-photo"><summary>What kind of photo works best?</summary><p>A clear, well-lit photo with faces visible. Phone photos are perfect. Up to 4 people fit the Family Pack; pets can join too.</p></details>
+            <details class="faq" id="faq-guarantee"><summary>What if I don't love my portrait?</summary><p>Tell us within 14 days and we re-make your portraits in a different style free, or refund you in full. No forms, no fuss.</p></details>
             <details class="faq hidden-for-now"><summary>Can I print the portraits myself?</summary><p>Yes — files are print-ready at 300 DPI, sized for Christmas cards, canvas, and framed prints. Or skip the printer run and add the mug, canvas, or stocking from the gift shop and we handle production.</p></details>
-            <details class="faq" id="faq-cutoff"><summary>What is the Dec 20 cutoff?</summary><p>December 20, 2026 is the last day to order printed gifts with Christmas delivery. Digital portraits are ready in 24 hours, right up to Dec 25.</p></details>
+            <details class="faq" id="faq-cutoff"><summary>What is the Dec 20 cutoff?</summary><p>Dec 20, 2026 is the last day for printed gifts with Christmas delivery. Digital portraits are ready in 24 hours, right up to Dec 25.</p></details>
             <details class="faq hidden-for-now" id="faq-shipping"><summary>Do you ship internationally?</summary><p>Digital portraits and downloads go anywhere instantly. Printed gifts are produced at facilities close to the recipient in 32 countries, which keeps international delivery fast and affordable.</p></details>
           </div>
         </div>
@@ -776,6 +749,15 @@
           <div><h3>Privacy</h3><p>Your photo is used only to make your portrait. It is never shared, never sold, and never used for anything else. Your email is used only to deliver your order and reply to it.</p></div>
         </div>
         <p style="font-size:.88rem;margin:22px 0 0">© 2026 Christmas Portrait Studio · christmasportrait.store</p>
+        <!-- Jingle Bells — small opt-in control in the footer; starts only on tap, never pinned over content -->
+        <div class="jingle" id="jingleBox">
+          <div class="jingle-hint" id="jingleHint">Tap ♪ for Christmas music</div>
+          <div class="jingle-bar">
+            <button class="jingle-btn" id="jingleBtn" type="button" aria-pressed="false">♪ Jingle Bells</button>
+            <label for="jingleVol">Vol</label>
+            <input type="range" id="jingleVol" min="0" max="100" value="55" aria-label="Music volume" />
+          </div>
+        </div>
       </div>
     </footer>
     <!-- ============ ORDER FORM (hidden in the rebuild — code kept intact) ============ -->
@@ -1039,16 +1021,6 @@
     </aside>
     <div class="toast" id="toast" role="status"></div>
 
-    <!-- ============ JINGLE PLAYER ============ -->
-    <div class="jingle" id="jingleBox">
-      <div class="jingle-hint" id="jingleHint">Tap ♪ for Christmas music</div>
-      <div class="jingle-bar">
-        <button class="jingle-btn" id="jingleBtn" type="button" aria-pressed="false">♪ Jingle Bells</button>
-        <label for="jingleVol">Vol</label>
-        <input type="range" id="jingleVol" min="0" max="100" value="55" aria-label="Music volume" />
-      </div>
-    </div>
-
     <script>
       /* ---------- Data ---------- */
       var IMG = "https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/29159649/";
@@ -1080,7 +1052,7 @@
         "hoodie2xl-heather":{name:"Christmas Portrait Hoodie — Dark Heather (2XL)", price:57},
         tote:{name:"Christmas Tote", price:24},
         santaset:{name:"Santa Letter + Portrait Gift Set", price:49},
-        pettee:{name:"Pet Christmas Portrait Tee", price:29},
+        pettee:{name:"Christmas Portrait Tee", price:29},
         phonecase:{name:"Christmas Phone Case", price:24},
         nicelist:{name:"My Nice List Portrait — Canvas", price:49},
         nicelistportrait:{name:"My Nice List Portrait — Digital Portrait", price:39},
@@ -1124,7 +1096,7 @@
           img:IMG+"328e0b89-7923-4020-b227-c63aae640402", alt:"A Christmas tote bag printed with a family portrait"},
         {id:"santaset", name:"Santa Letter + Portrait Gift Set", price:49, fit:"cover", best:"Kids 4–9 — the Christmas-morning moment", cutoff:"Dec 13", cats:["kids"], note:"A portrait of them in Snow Globe style plus a personal letter from Santa. The Christmas-morning moment, handled.",
           img:IMG+"25bc2b2d-9646-409a-bc6d-e4cb1c0e63a4", alt:"Santa letter and portrait gift set with a certificate and festive packaging"},
-        {id:"pettee", name:"Pet Christmas Portrait Tee", price:29, fit:"cover", best:"Pet parents — dogs and cats in Santa hats", cutoff:"Dec 15", cats:["pets"], note:"Your photo — pet, family, whoever runs the house — printed large on the chest of a deep-green tee.",
+        {id:"pettee", name:"Christmas Portrait Tee", price:29, fit:"cover", best:"Your photo on a tee — family, kids, or the pet who runs the house", cutoff:"Dec 15", cats:["her","him","kids","pets"], note:"Your photo — pet, family, whoever runs the house — printed large on the chest of a deep-green tee.",
           img:IMG+"512bd95c-5e81-4995-b165-ad7326715faa", alt:"A folded deep-green tee with a family Christmas portrait printed on the chest"},
         {id:"phonecase", name:"Christmas Phone Case", price:24, fit:"cover", best:"Teens, stocking stuffers, last-minute gifts", cutoff:"Dec 16", cats:["her","him","kids"], note:"Your portrait on a protective phone case — a stocking stuffer they'll actually use every day.",
           img:IMG+"3bd2e3a2-3ba8-46ce-88ab-f9e8bdd98480", alt:"A phone case printed with a family Christmas portrait"}
@@ -1431,9 +1403,8 @@
         document.getElementById("baDivider").style.left = this.value + "%";
       });
 
-      /* ---------- Countdowns: Dec 20 (printed) + Dec 25 (digital) ---------- */
+      /* ---------- Countdown: Dec 20 printed-gift order cutoff ---------- */
       var cutoff20 = new Date("2026-12-20T23:59:59");
-      var cutoff25 = new Date("2026-12-25T00:00:00");
       function pad(n){ return String(n).padStart(2,"0"); }
       function tick(){
         var diff = cutoff20 - new Date(); if(diff < 0) diff = 0;
@@ -1441,10 +1412,6 @@
         document.getElementById("cdH").textContent = pad(Math.floor(diff/3600000)%24);
         document.getElementById("cdM").textContent = pad(Math.floor(diff/60000)%60);
         document.getElementById("cdS").textContent = pad(Math.floor(diff/1000)%60);
-        var d25 = cutoff25 - new Date(); if(d25 < 0) d25 = 0;
-        document.getElementById("c25D").textContent = Math.floor(d25/86400000);
-        document.getElementById("c25H").textContent = pad(Math.floor(d25/3600000)%24);
-        document.getElementById("c25M").textContent = pad(Math.floor(d25/60000)%60);
       }
       tick(); setInterval(tick, 1000);
 
@@ -1534,8 +1501,9 @@
  *                   is true for overload/timeout (safe to retry).
  *   - not_configured: no GEMINI_API_KEY on the Worker yet. Show the
  *                   real example assets + this exact line:
- *                   "AI Transform opens the moment the studio key
- *                   is added." Do NOT show a broken button.
+ *                   "Your AI portrait is made by our studio team —
+ *                   the six style examples above show what yours
+ *                   will look like." Do NOT show a broken button.
  *
  * WATERMARKING — READ THIS:
  * The Worker does NOT watermark. THIS file does. The model image
@@ -1698,13 +1666,13 @@
       })
       .then(function (res) {
         if (requestId !== currentRequest) return state;
-        // The Worker answers 503 not_configured until the studio key lands.
+        // The Worker answers 503 not_configured until it is deployed and configured.
         if (res.status === 503) {
           return res.json().catch(function () { return {}; }).then(function (data) {
             if (data && data.error === "not_configured") {
               setState({
                 state: "not_configured",
-                message: "AI Transform opens the moment the studio key is added.",
+                message: "Your AI portrait is made by our studio team — the six styles above show what yours will look like.",
                 retryable: false,
               });
             } else {
@@ -1800,13 +1768,13 @@
       hidePreview();
       setState({ state: "idle", style: null, message: "", retryable: false, cached: false, cacheKey: null });
     },
-    /** Ask the Worker whether the studio key is configured (GET probe). */
+    /** Ask the Worker whether it is configured (GET probe). */
     probe: function () {
       return fetch(ENDPOINT, { method: "GET" })
         .then(function (res) { return res.json(); })
         .then(function (data) {
           if (data && data.configured === false) {
-            setState({ state: "not_configured", message: "AI Transform opens the moment the studio key is added.", retryable: false });
+            setState({ state: "not_configured", message: "Your AI portrait is made by our studio team — the six styles above show what yours will look like.", retryable: false });
           }
           return data;
         })
@@ -1836,7 +1804,7 @@
           return name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
         }
         function setStatus(t){ if(statusEl) statusEl.textContent = t; }
-        var NOT_CONFIGURED = "AI Transform opens the moment the studio key is added \u2014 the six style examples above are real AI transformations of a family photo.";
+        var NOT_CONFIGURED = "Your AI portrait is made by our studio team \u2014 the six style examples above show what yours will look like.";
         CPSRestyle.onState(function(s){
           if(s.state === "uploading" || s.state === "transforming"){
             btn.disabled = true; btn.textContent = "Transforming\u2026";
@@ -1862,7 +1830,7 @@
         btn.addEventListener("click", function(){
           if(!endpointLive){
             setStatus(NOT_CONFIGURED);
-            toast("AI Transform opens the moment the studio key is added — the six style examples above are real AI transformations of a family photo");
+            toast("Your AI portrait is made by our studio team — the six style examples above show what yours will look like");
             document.getElementById("styles").scrollIntoView({behavior:"smooth"});
             return;
           }
@@ -1888,7 +1856,7 @@
       })();
 
       /* ---------- Live Preview Studio (Phase 1 — client-side only) ---------- */
-      /* --- Season look: two-layer grade. Layer 1 is a manual per-pixel grade
+      /* --- Christmas warmth: two-layer grade. Layer 1 is a manual per-pixel grade
          (temperature / tint / brightness / contrast / saturation) applied on an
          offscreen canvas — it works in every browser and never depends on
          the canvas filter property (older Safari/Chrome silently ignore it on canvas).
@@ -1959,7 +1927,7 @@
         {id:"stocking", name:"Christmas Portrait Stocking", price:34.99, fit:"contain", base:STOCK + "1530/christmas-portrait-stocking-personalized-family-portrait.jpg?camera_label=front", alt:"Soft white plush Christmas stocking printed with a family portrait in a gold oval frame", wins:[{x:26,y:24,w:47,h:28,shape:"ellipse",frame:"oval",shading:"radial"}]},
         {id:"canvas", name:"Christmas Portrait Canvas", price:49, fit:"cover", base:IMG + "eea881b6-90fd-4485-aeef-f507eba96989", alt:"A Christmas portrait printed on a gallery canvas hanging above a sofa", wins:[{x:28,y:5,w:47,h:52,shape:"rect",frame:"none",shading:"inner"}]},
         {id:"ornament", name:"Personalized Ornament", price:24, fit:"cover", base:IMG + "aa89a37e-3415-4d9e-a242-5067327454d9", alt:"A personalized Christmas ornament with a family portrait hanging on a tree", wins:[{x:35.2,y:33.8,w:31.7,h:47.5,shape:"circle",frame:"ring",shading:"screen"}]},
-        {id:"pettee", name:"Pet Christmas Portrait Tee", price:29, fit:"cover", base:IMG + "512bd95c-5e81-4995-b165-ad7326715faa", alt:"A folded deep-green tee with your photo printed large on the chest", wins:[{x:16,y:46,w:44,h:38,shape:"rect",frame:"rect",shading:"folds"}]},
+        {id:"pettee", name:"Christmas Portrait Tee", price:29, fit:"cover", base:IMG + "512bd95c-5e81-4995-b165-ad7326715faa", alt:"A folded deep-green tee with your photo printed large on the chest", wins:[{x:16,y:46,w:44,h:38,shape:"rect",frame:"rect",shading:"folds"}]},
         {id:"tote", name:"Christmas Tote", price:24, fit:"cover", base:IMG + "328e0b89-7923-4020-b227-c63aae640402", alt:"A Christmas tote bag printed with a family portrait", wins:[{x:28,y:38,w:39,h:50,shape:"rect",frame:"rect",shading:"folds"}]},
         {id:"santaset", name:"Santa Letter + Portrait Gift Set", price:49, fit:"cover", base:IMG + "25bc2b2d-9646-409a-bc6d-e4cb1c0e63a4", alt:"Santa letter and portrait gift set with a certificate and festive packaging", wins:[{x:19,y:43,w:29,h:45,shape:"arc",frame:"none",shading:"cylinder"},{x:59,y:33,w:21,h:30,shape:"rect",frame:"rect",shading:"radial"}]},
         {id:"phonecase", name:"Christmas Phone Case", price:24, fit:"cover", base:IMG + "3bd2e3a2-3ba8-46ce-88ab-f9e8bdd98480", alt:"A phone case printed with a family Christmas portrait", wins:[{x:29,y:30,w:34,h:58,shape:"ellipse",frame:"oval",shading:"gloss",rot:-8}]},
@@ -2262,8 +2230,8 @@
         document.getElementById("pvToggleSeason").classList.toggle("active", !pvFeatOriginal);
         document.getElementById("pvToggleOriginal").classList.toggle("active", pvFeatOriginal);
         document.getElementById("pvToggleNote").textContent = pvFeatOriginal
-          ? "Original photo — no season grade. Switch back to see the season look."
-          : "Season look — " + pvStyle + " grade preview. The finished portrait is art-directed in this style.";
+          ? "Your photo as-is — no Christmas glow. Switch back to see the Christmas warmth."
+          : "Christmas warmth — " + pvStyle + " glow on your photo. The finished portrait is art-directed in this style.";
       }
       document.getElementById("pvToggleSeason").addEventListener("click", function(){ pvFeatOriginal = false; pvPaintToggle(); pvRenderFeatured(); });
       document.getElementById("pvToggleOriginal").addEventListener("click", function(){ pvFeatOriginal = true; pvPaintToggle(); pvRenderFeatured(); });
@@ -3467,7 +3435,6 @@
           '<div class="pv-tile-body"><div class="pv-tile-head"><h3>' + p.name + '</h3>' +
           '<button class="pv-heart" type="button" data-pv-fav="' + p.id + '" aria-label="Favourite ' + p.name + '"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20.7C6.4 17 3 13.6 3 9.9 3 7.2 5 5 7.6 5c1.7 0 3.4.9 4.4 2.4C13 5.9 14.7 5 16.4 5 19 5 21 7.2 21 9.9c0 3.7-3.4 7.1-9 10.8z"/></svg></button></div>' +
           '<div><span class="serif" style="font-size:1.45rem;font-weight:800" data-pv-price>' + money(p.price) + '</span></div>' + extra +
-          '<p class="pv-note soft" style="margin:0">Print preview — gold outline shows the print area</p>' +
           '<button class="btn btn-green" type="button" data-pv-add="' + p.id + '">Add to Cart — ' + money(p.price) + '</button></div>';
         pvGallery.appendChild(tile);
         var img = tile.querySelector(".pv-base"), winsBox = tile.querySelector(".pv-wins");
@@ -3520,7 +3487,7 @@
         if(typeof pvRenderScene === "function") pvRenderScene();
         if(typeof certPaint === "function") certPaint();
       }
-      /* order-form thumbnail: same season grade as the Studio, so the two never contradict */
+      /* order-form thumbnail: same Christmas warmth grade as the Studio, so the two never contradict */
       function pvPaintOrderThumb(){
         var prev = document.getElementById("photoPreview"), note = document.getElementById("photoPreviewNote");
         var ph = pvActivePhoto();
