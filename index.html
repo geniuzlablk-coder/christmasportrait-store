@@ -299,6 +299,15 @@
       .pv-sticker-tools .pv-tool-btn{ border:1.5px solid var(--line); background:var(--surface); color:var(--ink); border-radius:999px; padding:.4rem .9rem; font-family:inherit; font-weight:600; cursor:pointer; font-size:.88rem; min-height:38px; }
       .pv-sticker-tools .pv-tool-btn:hover{ border-color:var(--gold); }
       .pv-note{ font-size:.85rem; margin:.45rem 0 0; }
+      /* #aiStatus sits beside the Transform button in a wrapping flex
+         row. At phone widths the button took most of the row and the
+         span was squeezed until its text cut off ("2 free transform…"
+         at 390px). flex-basis 12rem lets it sit beside the button on
+         wide screens and drop to its own full-width line — wrapping,
+         never clipped — on a phone. min-width:0 lets the text wrap
+         inside its flex width instead of overflowing it. Copy and
+         the 5-free numbers are unchanged. */
+      #aiStatus{ flex:1 1 12rem; min-width:0; }
       .hidden-for-now{ display:none !important; }
       .card-design img{ width:100%; height:auto; display:block; border-radius:10px; }
       .card-design .pack-btns{ display:grid; gap:8px; margin-top:12px; }
@@ -2512,7 +2521,7 @@ var PV_STYLE_SETS = {
   // one previewDataURL), so parallel calls would cancel each other
   // and only the last version would survive. Sequential calls reuse
   // the same state machine untouched, and each version is captured
-  // from getPreviewDataURL() before the next call starts.
+  // from the closure variable previewDataURL before the next call starts.
   // QUOTA MATH: 5 free transforms per visitor per day. The set costs
   // 3, so after it the customer has 2 left — exactly enough for two
   // single-version re-rolls (3 + 1 + 1 = 5). A re-roll replaces ONE
@@ -2528,6 +2537,30 @@ var PV_STYLE_SETS = {
   // listener must ignore the per-version ready/error states (the
   // set's own callbacks own the UI until onDone). clear() cancels a
   // running set via proofSetToken.
+  /* Seed-derived visible-variation hint (Bug 3, 2026-11-25): the seed
+     is honoured end to end, but klein-4b's seed-only variation is
+     uncontrolled — one draw can land close to the previous version, so
+     "another version" was not guaranteed to look different. Each
+     version therefore also sends one small visible-change hint through
+     the existing `change` channel (same channel the customer's own
+     "Anything to change?" words use; the Worker appends it to the
+     prompt and includes it in the cache key). Deterministic from the
+     seed (seed % 4), so the same seed reproduces the same version.
+     SMALL visible changes only — sweater/hat/scarf colours, smiles,
+     framing — NEVER faces, NEVER the scene, NEVER any text. Each
+     variant is plain text under 120 chars. Customer text always wins:
+     callers pass changeText || variationHint(seed), never both. */
+  var VARIATION_HINTS = [
+    "Deep red Christmas sweaters for everyone",
+    "Forest-green Christmas sweaters and red scarves for everyone",
+    "Everyone with a slightly bigger, warmer smile",
+    "Red Santa hats for everyone and a slightly closer framing"
+  ];
+  function variationHint(seed) {
+    var n = (typeof seed === "number" && isFinite(seed)) ? Math.floor(seed) : 0;
+    return VARIATION_HINTS[((n % 4) + 4) % 4];
+  }
+
   var proofSetActive = false;
   var proofSetToken = 0;
   /* count (optional): how many versions this set makes — 3 for the full
@@ -2548,10 +2581,20 @@ var PV_STYLE_SETS = {
           if (token !== proofSetToken) return; // superseded / cleared
           if (cbs.onProgress) cbs.onProgress(idx, total, "Making version " + (idx + 1) + " of " + total + "…");
           var seed = Math.floor(Math.random() * 2147483647);
-          return transform(fileOrDataUrl, styleId, seed, name).then(function (st) {
+          /* Bug 3: every proof version carries its seed-derived hint,
+             so no two versions of the set can land looking identical.
+             Drawing mode is the exception: the drawing lock owns the
+             child's colours, so no hint — the seed alone varies it. */
+          return transform(fileOrDataUrl, styleId, seed, name, styleId === "drawing" ? undefined : variationHint(seed)).then(function (st) {
             if (token !== proofSetToken) return;
             if (st && st.state === "ready") {
-              var url = getPreviewDataURL();
+              /* BUG 1 FIX (2026-11-25): this used to call bare
+                 getPreviewDataURL(), which does not exist — only the
+                 CPSRestyle.getPreviewDataURL method does. The bare call
+                 threw ReferenceError inside this chain step, the set's
+                 .catch swallowed it, and no proof ever appeared.
+                 previewDataURL is the closure variable the step needs. */
+              var url = previewDataURL;
               if (url) {
                 versions.push({ seed: seed, dataURL: url });
                 if (cbs.onVersion) cbs.onVersion(idx, url, seed);
@@ -2569,10 +2612,13 @@ var PV_STYLE_SETS = {
       proofSetActive = false;
       if (cbs.onDone) cbs.onDone(versions, failures, lastError);
       return { versions: versions, failures: failures };
-    }).catch(function () {
+    }).catch(function (err) {
       /* A synchronous throw inside a chain callback must never freeze the
          proof set: end it loudly so the button comes back and the error
-         shows in plain words, keeping any versions that already arrived. */
+         shows in plain words, keeping any versions that already arrived.
+         Log the real error too — a silent generic note hid Bug 1
+         (a ReferenceError) for a whole live test. */
+      if (typeof console !== "undefined" && console.error) console.error("[CPSRestyle] proof set failed:", err);
       if (token !== proofSetToken) return { versions: versions, failures: failures, superseded: true };
       proofSetActive = false;
       if (cbs.onDone) cbs.onDone(versions, failures + 1, "Something went wrong \u2014 please try again.");
@@ -2620,6 +2666,10 @@ var PV_STYLE_SETS = {
         onVersion(index, dataURL, seed), onDone(versions, failures,
         lastError). Card styles use transform() instead. */
     transformSet: transformSet,
+    /** Seed-derived visible-variation hint (see VARIATION_HINTS above).
+        The re-roll handler uses the same helper so one seed always
+        means one version, wherever it is made. */
+    variationHint: variationHint,
     /** True while a proof set is running — the wiring listener uses
         this to ignore the per-version ready/error states mid-set. */
     isProofSetRunning: function () { return proofSetActive; },
@@ -2811,6 +2861,11 @@ var PV_STYLE_SETS = {
             setStatus(lastError || "We couldn't make your portrait — please try again.");
             return;
           }
+          /* HARDENING (Bug 1, 2026-11-25): versions exist, so the proof
+             must be visible — a failed extra version (or a hidden wrap
+             from the Transform-button click) must never hide a proof
+             that already arrived. */
+          if(wrap) wrap.style.display = "";
           var remaining = (typeof CPSRestyle.getTransformsRemaining === "function") ? CPSRestyle.getTransformsRemaining() : null;
           var leftTxt = (typeof remaining === "number") ? " " + remaining + " free portrait makes left today." : "";
           if(shown === 1){
@@ -3084,8 +3139,14 @@ var PV_STYLE_SETS = {
              day, so each re-roll is 1 more (3 + 1 + 1 = 5). A fresh
              random seed makes it a genuinely new version, not a copy
              of one already shown. The ready handler replaces the
-             selected slot (proof set) or the single portrait (cards). */
-          CPSRestyle.transform(ph.file, styleSlug(), Math.floor(Math.random() * 2147483647), pvFamilyNameValue(), changeText || undefined);
+             selected slot (proof set) or the single portrait (cards).
+             Bug 3: when the customer left the change box empty, the
+             seed-derived variation hint goes instead — customer text
+             always wins, the hint is only the fallback — so a re-roll
+             is guaranteed a small visible difference. */
+          var rerollSeed = Math.floor(Math.random() * 2147483647);
+          var rerollHint = (typeof CPSRestyle.variationHint === "function") ? CPSRestyle.variationHint(rerollSeed) : undefined;
+          CPSRestyle.transform(ph.file, styleSlug(), rerollSeed, pvFamilyNameValue(), changeText || rerollHint);
         });
         document.getElementById("aiMugRailBtn").addEventListener("click", function(){ if(addToCart("mug")) openCart(); });
         function syncOrnQty(){
@@ -3756,6 +3817,24 @@ var PV_STYLE_SETS = {
       });
       function pvPaintChips(){ pvChipsBox.querySelectorAll(".pv-chip").forEach(function(c){ c.classList.toggle("active", c.getAttribute("data-style") === pvStyle); }); }
       function pvSetStyle(name, fromChip){
+        /* BUG 2 FIX (2026-11-25): a Step 2 chip used to only SELECT the
+           style (grade preview + CPSRestyle.clear()) and never
+           transform — the tap did nothing visible. The chips' only
+           callers are the two chip builders (pvRebuildStylePickers and
+           the initial STYLES build), so the fix lives here: when a
+           photo is uploaded and the mode is one that transforms
+           (child/family/pet — NOT drawing, NOT photo-as-is), a chip
+           tap is a tile tap — same handler the large gallery tiles use
+           (pvTapStyleTile: sets the style itself, honours the name
+           gate / busy guard / 5-free budget / per-style cache). With
+           no photo uploaded yet, keep the old select-only behaviour
+           so the chips still work as a style picker before upload. */
+        if(fromChip && typeof window.pvTapStyleTile === "function"
+          && typeof pvMode === "string" && (pvMode === "child" || pvMode === "family" || pvMode === "pet")
+          && typeof pvActivePhoto === "function" && pvActivePhoto() && pvActivePhoto().file){
+          window.pvTapStyleTile(name);
+          return;
+        }
         pvStyle = name; pvPaintChips(); pvRenderAll(); pvPaintOrderThumb(); pvPaintToggle();
         if(window.CPSRestyle) CPSRestyle.clear(); /* AI preview belongs to the old style */
         if(fromChip){
