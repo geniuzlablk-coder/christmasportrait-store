@@ -633,7 +633,7 @@ function secondsUntilUtcMidnight() {
   const now = new Date();
   const midnight = new Date(now);
   midnight.setUTCHours(24, 0, 0, 0);
-  return Math.max(0, Math.floor((midnight - now) / 1000));
+  return Math.max(0, Math.floor((midnight.getTime() - now.getTime()) / 1000));
 }
 
 async function handleDelete(request, env) {

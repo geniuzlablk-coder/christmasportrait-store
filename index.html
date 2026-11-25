@@ -1846,6 +1846,9 @@
         document.getElementById("aiUsePortrait").addEventListener("click", function(){ addToCart("portrait", true); openCart(); });
         document.getElementById("aiUseCanvas").addEventListener("click", function(){ addToCart("canvas", true); openCart(); });
         document.getElementById("aiUseMug").addEventListener("click", function(){ addToCart("mug", true); openCart(); });
+        /* Restyle Worker is live (deployed 2026-11-24): point the client at the
+           separate worker on its custom domain. */
+        CPSRestyle.configure({ endpoint: "https://api.christmasportrait.store/api/restyle" });
         /* Probe on load: if the endpoint is not deployed/configured yet,
            the button degrades to the honest not-configured line. */
         CPSRestyle.probe().then(function(data){
