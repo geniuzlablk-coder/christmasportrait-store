@@ -99,7 +99,9 @@
       .style-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
       @media (max-width:880px){ .style-grid{ grid-template-columns:repeat(2,1fr); } }
       @media (max-width:520px){ .style-grid{ grid-template-columns:1fr; } }
-      .style-card{ border-radius:var(--radius); overflow:hidden; border:1px solid var(--line); background:var(--surface); }
+      .style-card{ border-radius:var(--radius); overflow:hidden; border:1px solid var(--line); background:var(--surface); cursor:pointer; }
+      .style-card.pv-making{ outline:2px dashed var(--gold); outline-offset:-2px; }
+      .style-card:focus-visible{ outline:2px solid var(--gold); outline-offset:2px; }
       .style-card.pv-your-photo{ outline:2px solid var(--gold); outline-offset:-2px; }
       .style-new{ display:inline-block; background:var(--gold); color:#23180A; font-size:.72rem; font-weight:800; letter-spacing:.12em; text-transform:uppercase; padding:.25rem .6rem; border-radius:999px; margin-left:6px; vertical-align:middle; }
       .pv-modes{ display:flex; gap:8px; flex-wrap:wrap; }
@@ -1788,17 +1790,17 @@ var PV_STYLE_SETS = {
     {
       "name": "Christmas Market",
       "blurb": "Wooden stalls, warm lanterns, and the smell of roasted chestnuts on a cold evening.",
-      "img": null
+      "img": "https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/29159649/97b1aaaf-b803-4013-b7ac-9f124a019dc4"
     },
     {
       "name": "Frozen Pond",
       "blurb": "Skates on, scarves flying, the whole family on the ice at dusk.",
-      "img": null
+      "img": "https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/29159649/2e5bda8f-983d-4156-9cbc-32bf99b4d30d"
     },
     {
       "name": "Christmas Kitchen",
       "blurb": "Flour on hands and cookies in the oven, the family baking together.",
-      "img": null
+      "img": "https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/29159649/bea9b58e-0b3a-4c9b-9476-07f56d4c457a"
     }
   ],
   "pet": [
@@ -1909,7 +1911,7 @@ var PV_STYLE_SETS = {
       STYLES.forEach(function(s, i){
         var l = document.createElement("label");
         l.className = "pick";
-        l.innerHTML = '<input type="radio" name="style" value="' + s.name + '"' + (i===0 ? " checked" : "") + ' /><img src="' + s.img + '" alt="" loading="lazy" /><span><b>' + s.name + '</b><span>Style example — 3 portraits in this look</span></span>';
+        l.innerHTML = '<input type="radio" name="style" value="' + s.name + '"' + (i===0 ? " checked" : "") + ' />' + (s.img ? '<img src="' + s.img + '" alt="" loading="lazy" />' : "") + ' <span><b>' + s.name + '</b><span>Style example — 3 portraits in this look</span></span>';
         stylePick.appendChild(l);
       });
       var PACKS = { portrait:{label:"Single", count:"3 portraits"}, family:{label:"Family Pack", count:"6 portraits + canvas mockup"}, giftpack:{label:"Gift Pack", count:"3 portraits + printed mug"} };
@@ -2088,6 +2090,9 @@ var PV_STYLE_SETS = {
   var ENDPOINT = "/api/restyle"; // Option B default. Option A: "https://api.christmasportrait.store/api/restyle"
   var MAX_PREVIEW_PX = 800; // longest side of the displayed preview
   var PREVIEW_WATERMARK = "PREVIEW";
+  var TRANSFORM_TIMEOUT_MS = 120000; // 120s: a transform that has not answered by then has failed — fail loudly, never freeze the button
+  var PREVIEW_LOAD_TIMEOUT_MS = 20000; // 20s: the returned image must actually load into a preview
+  var SMALL_PHOTO_TIMEOUT_MS = 10000; // 10s: the 512px copy for the free model must build
 
   var STYLE_IDS = [
     "classic-santa-snow",
@@ -2096,8 +2101,92 @@ var PV_STYLE_SETS = {
     "snow-globe",
     "colombo-christmas",
     "winter-royal",
+    "card-classic-red-gold",
+    "card-snow-globe-flat",
+    "card-golden-movie-poster",
     "name-in-lights",
     "drawing",
+    "santa-s-workshop",
+    "christmas-village",
+    "midnight-sleigh-ride",
+    "northern-lights",
+    "reindeer-flight",
+    "gingerbread-house",
+    "snow-globe-world",
+    "elf-workshop",
+    "toy-train",
+    "candy-cane-forest",
+    "ice-palace",
+    "nutcracker-kingdom",
+    "cocoa-cabin",
+    "reindeer-school",
+    "starry-stable",
+    "penguin-parade",
+    "sugar-plum-ballet",
+    "frosty-forest",
+    "lantern-walk",
+    "carol-singers",
+    "mistletoe-garden",
+    "north-pole-post-office",
+    "snowman-friend",
+    "christmas-bakery",
+    "twinkle-star-meadow",
+    "polar-bear-picnic",
+    "snowy-wishing-well",
+    "holly-berry-wood",
+    "angel-choir",
+    "winter-fair",
+    "candlelight-chapel",
+    "snowflake-castle",
+    "peppermint-lane",
+    "robin-s-garden",
+    "moonlit-toboggan",
+    "christmas-library",
+    "woodland-friends",
+    "festival-of-lights",
+    "toy-soldier-parade",
+    "frosty-pond-skating",
+    "christmas-tree-farm",
+    "sweet-shop",
+    "snowy-lighthouse",
+    "arctic-fox-den",
+    "christmas-eve-window",
+    "night-train-to-the-north-pole",
+    "snowy-owl-s-hollow",
+    "snowy-picnic",
+    "christmas-merry-go-round",
+    "fireside-story-time",
+    "christmas-morning",
+    "snowy-cabin",
+    "victorian-christmas",
+    "rustic-farmhouse",
+    "tropical-christmas",
+    "midnight-church",
+    "golden-hour-snow",
+    "aurora-night",
+    "christmas-market",
+    "frozen-pond",
+    "christmas-kitchen",
+    "santa-s-little-helper",
+    "reindeer-pup",
+    "elf-cat",
+    "snowman-dog",
+    "christmas-pudding-pup",
+    "mistletoe-kitty",
+    "snowflake-spaniel",
+    "gingerbread-cat",
+    "sleigh-dog",
+    "starlight-tabby",
+    "candy-cane-kitten",
+    "fireplace-hound",
+    "carol-singer-cat",
+    "nutcracker-dog",
+    "holly-jolly-pup",
+    "northern-lights-husky",
+    "cracker-cat",
+    "bauble-beagle",
+    "chimney-cat",
+    "wreath-whippet",
   ];
 
   // ---- state ----
@@ -2128,7 +2217,16 @@ var PV_STYLE_SETS = {
   function drawWatermarkedPreview(imgSrc) {
     return new Promise(function (resolve, reject) {
       var img = new Image();
+      /* The returned image must actually load: if its onload never fires
+         (corrupt data, stalled decode), fail loudly instead of hanging
+         the transform — and the proof set — forever. */
+      var settled = false;
+      var loadTimer = setTimeout(function () {
+        if (settled) return; settled = true;
+        reject(new Error("The portrait came back but the preview could not be shown"));
+      }, PREVIEW_LOAD_TIMEOUT_MS);
       img.onload = function () {
+        if (settled) return; settled = true; clearTimeout(loadTimer);
         try {
           var scale = Math.min(1, MAX_PREVIEW_PX / Math.max(img.naturalWidth, img.naturalHeight));
           var w = Math.max(1, Math.round(img.naturalWidth * scale));
@@ -2178,7 +2276,7 @@ var PV_STYLE_SETS = {
           reject(e);
         }
       };
-      img.onerror = function () { reject(new Error("Could not load the restyled preview")); };
+      img.onerror = function () { if (settled) return; settled = true; clearTimeout(loadTimer); reject(new Error("Could not load the restyled preview")); };
       img.src = imgSrc;
     });
   }
@@ -2197,7 +2295,12 @@ var PV_STYLE_SETS = {
   function smallPhotoBlob(fileOrDataUrl) {
     return new Promise(function (resolve) {
       var img = new Image();
-      var done = function (blob) { resolve(blob || null); };
+      /* Never fails the upload: on any error — or if the image never
+         loads at all — it resolves null within 10s and the form goes
+         out without the small copy. */
+      var settled = false;
+      var smallTimer = setTimeout(function () { if (!settled) { settled = true; resolve(null); } }, SMALL_PHOTO_TIMEOUT_MS);
+      var done = function (blob) { if (settled) return; settled = true; clearTimeout(smallTimer); resolve(blob || null); };
       img.onload = function () {
         try {
           var sc = Math.min(1, 512 / Math.max(img.naturalWidth, img.naturalHeight));
@@ -2278,17 +2381,40 @@ var PV_STYLE_SETS = {
 
     setState({ state: "uploading", style: style, message: "Uploading your photo…", retryable: false });
 
+    /* REAL TIMEOUT (2026-11-25): fetch() never times out on its own,
+       and a hung model call froze the live button on "Transforming…"
+       for 4+ minutes with no error at all. 120 seconds, then abort and
+       fail LOUDLY in plain words — the button comes back, the customer
+       is told what happened, and a late answer can never overwrite the
+       timeout (every handler below checks fetchTimedOut). */
+    var fetchController = (typeof AbortController !== "undefined") ? new AbortController() : null;
+    var fetchTimedOut = false;
+    var fetchTimer = null;
+    function armFetchTimeout() {
+      fetchTimer = setTimeout(function () {
+        fetchTimedOut = true;
+        if (fetchController) { try { fetchController.abort(); } catch (e) {} }
+        setState({ state: "error", message: "Sorry — that took too long, please try again.", retryable: true });
+      }, TRANSFORM_TIMEOUT_MS);
+    }
+
     return bodyPromise
       .then(function (body) {
         if (requestId !== currentRequest) return state; // superseded
+        if (fetchTimedOut) return state; // the timeout already reported the error
         setState({ state: "transforming", message: "Transforming with AI — this takes a few seconds…" });
-        return fetch(ENDPOINT, { method: "POST", body: body });
+        armFetchTimeout();
+        var fetchOpts = { method: "POST", body: body };
+        if (fetchController) fetchOpts.signal = fetchController.signal;
+        return fetch(ENDPOINT, fetchOpts);
       })
       .then(function (res) {
-        if (requestId !== currentRequest) return state;
+        clearTimeout(fetchTimer);
+        if (fetchTimedOut || requestId !== currentRequest) return state;
         // The Worker answers 503 not_configured until it is deployed and configured.
         if (res.status === 503) {
           return res.json().catch(function () { return {}; }).then(function (data) {
+            if (fetchTimedOut || requestId !== currentRequest) return state;
             if (data && data.error === "not_configured") {
               setState({
                 state: "not_configured",
@@ -2302,6 +2428,7 @@ var PV_STYLE_SETS = {
           });
         }
         return res.json().catch(function () { return null; }).then(function (data) {
+          if (fetchTimedOut || requestId !== currentRequest) return state;
           if (!data) {
             setState({ state: "error", message: "The AI studio did not answer — please try again.", retryable: true });
             return state;
@@ -2347,6 +2474,7 @@ var PV_STYLE_SETS = {
           var mimeType = data.mime_type || "image/png";
           return drawWatermarkedPreview("data:" + mimeType + ";base64," + data.image_b64)
             .then(function () {
+              if (fetchTimedOut || requestId !== currentRequest) return state;
               setState({
                 state: "ready",
                 style: style,
@@ -2359,13 +2487,15 @@ var PV_STYLE_SETS = {
               return state;
             })
             .catch(function () {
+              if (fetchTimedOut || requestId !== currentRequest) return state;
               setState({ state: "error", message: "The transform finished but the preview could not be shown.", retryable: true });
               return state;
             });
         });
       })
       .catch(function (err) {
-        if (requestId !== currentRequest) return state;
+        clearTimeout(fetchTimer);
+        if (fetchTimedOut || requestId !== currentRequest) return state;
         // Network failure (Worker down / offline) — not a model error.
         setState({ state: "error", message: "Could not reach the AI studio — check your connection and try again.", retryable: true });
         return state;
@@ -2400,11 +2530,14 @@ var PV_STYLE_SETS = {
   // running set via proofSetToken.
   var proofSetActive = false;
   var proofSetToken = 0;
-  function transformSet(fileOrDataUrl, styleId, name, callbacks) {
+  /* count (optional): how many versions this set makes — 3 for the full
+     proof, 2 when a tile tap already made version 1 (see
+     startExtraVersions in the wiring below). */
+  function transformSet(fileOrDataUrl, styleId, name, callbacks, count) {
     var cbs = callbacks || {};
     var token = ++proofSetToken;
     proofSetActive = true;
-    var total = 3;
+    var total = (typeof count === "number" && count > 0) ? Math.floor(count) : 3;
     var versions = []; // [{ seed, dataURL }] — in arrival order
     var failures = 0;
     var lastError = "";
@@ -2436,6 +2569,22 @@ var PV_STYLE_SETS = {
       proofSetActive = false;
       if (cbs.onDone) cbs.onDone(versions, failures, lastError);
       return { versions: versions, failures: failures };
+    }).catch(function () {
+      /* A synchronous throw inside a chain callback must never freeze the
+         proof set: end it loudly so the button comes back and the error
+         shows in plain words, keeping any versions that already arrived. */
+      if (token !== proofSetToken) return { versions: versions, failures: failures, superseded: true };
+      proofSetActive = false;
+      if (cbs.onDone) cbs.onDone(versions, failures + 1, "Something went wrong \u2014 please try again.");
+      return { versions: versions, failures: failures + 1 };
+    });
+  }
+
+  /* A promise rejection nobody catches must never freeze the UI silently:
+     surface it as a plain-words error so the button comes back. */
+  if (typeof window !== "undefined" && window.addEventListener) {
+    window.addEventListener("unhandledrejection", function () {
+      setState({ state: "error", message: "Something went wrong \u2014 please try again.", retryable: true });
     });
   }
 
@@ -2518,6 +2667,14 @@ var PV_STYLE_SETS = {
         if(!btn || !window.CPSRestyle) return;
         var endpointLive = false;
         var lastStateName = "idle";
+        var pvTileTransformStyle = null; // style name of a tile-tap transform in flight — the shared listener below treats it as one single version, never a proof re-roll
+        /* A preview that cannot be shown must never sit there as a
+           broken-image icon: hide the panel and say so in plain words.
+           (img.src is only ever set to a real portrait data URL.) */
+        if(img) img.addEventListener("error", function(){
+          if(wrap) wrap.style.display = "none";
+          setStatus("Sorry — the portrait finished but the preview couldn't be shown. Please try again.");
+        });
         function pvFamilyNameValue(){
           var inp = document.getElementById("pvFamilyName");
           return inp ? inp.value.trim() : "";
@@ -2543,6 +2700,14 @@ var PV_STYLE_SETS = {
         var famInp = document.getElementById("pvFamilyName");
         if(famInp) famInp.addEventListener("input", function(){ pvSyncTransformBtn(); });
         function setStatus(t){ if(statusEl) statusEl.textContent = t; }
+        /* A tile transform that ends without a ready/error state (stopped
+           mid-call by a style, photo or mode change) must not leave its
+           tile stuck on "Making…". */
+        function pvClearTileFlight(){
+          pvTileTransformStyle = null;
+          pvTileBusy = null;
+          if(typeof pvPaintStyleTiles === "function") pvPaintStyleTiles();
+        }
         var NOT_CONFIGURED = "Your AI portrait is made by our studio team \u2014 the style examples above show what yours will look like.";
         CPSRestyle.onState(function(s){
           lastStateName = s.state;
@@ -2559,7 +2724,7 @@ var PV_STYLE_SETS = {
           if(s.state === "uploading" || s.state === "transforming"){
             btn.disabled = true; btn.textContent = "Transforming\u2026";
             if(rerollBtn) rerollBtn.disabled = true;
-            setStatus(s.message || "Transforming with AI \u2014 this takes a few seconds\u2026");
+            setStatus(pvTileTransformStyle ? "Making your portrait in this world\u2026" : (s.message || "Transforming with AI \u2014 this takes a few seconds\u2026"));
           } else if(s.state === "ready"){
             btn.disabled = false; btn.textContent = "Transform with AI";
             if(rerollBtn) rerollBtn.disabled = false;
@@ -2570,30 +2735,57 @@ var PV_STYLE_SETS = {
                photo everywhere — every product mockup, the style tile for
                this style, and the certificate medallion (via pvRenderAll).
                The original photo is never shown as the AI result. */
+            var tileDone = false, tileStyleName = "";
+            if(pvTileTransformStyle){
+              /* Tap-to-transform: one call, one version. It becomes the
+                 portrait everywhere (pvSetAiResult below), and the
+                 "Transform with AI" button can still make the other two
+                 versions of the proof for this style (pvTileSingle). */
+              tileDone = true; tileStyleName = pvTileTransformStyle;
+              pvTileTransformStyle = null;
+              pvTileBusy = null;
+              if(typeof pvAiCacheKey === "function") pvTileError[pvAiCacheKey(tileStyleName)] = "";
+              pvTileSingle = true;
+            }
             /* Three-version proof: when a proof set exists, a ready
                state is one re-rolled version replacing the selected
                slot — never a fresh single portrait. (The set's own
                versions arrive through onVersion, not through here.) */
-            if(url && typeof pvVersions !== "undefined" && pvVersions && pvVersions.length && typeof pvReplaceProofVersion === "function"){
+            if(url && !tileDone && typeof pvVersions !== "undefined" && pvVersions && pvVersions.length && typeof pvReplaceProofVersion === "function"){
               pvReplaceProofVersion(typeof pvSelectedVersion === "number" ? pvSelectedVersion : 0, url);
             } else if(url && typeof pvSetAiResult === "function") pvSetAiResult(pvStyle, url);
             /* Approve-before-you-pay: a fresh portrait waits for the
                customer's yes before anything portrait-based can be added. */
             pvAiPendingApproval = true;
             if(typeof pvSetApproval === "function") pvSetApproval(false);
-            setStatus((s.message || "Preview ready.") + (typeof s.transformsRemaining === "number" ? " " + s.transformsRemaining + " free transforms left today." : ""));
+            if(tileDone){
+              setStatus("Your portrait is ready in " + tileStyleName + " — tap Transform with AI below to see two more versions, or approve it to put it on gifts." + (typeof s.transformsRemaining === "number" ? " " + s.transformsRemaining + " free portrait makes left today." : ""));
+            } else {
+              setStatus((s.message || "Preview ready.") + (typeof s.transformsRemaining === "number" ? " " + s.transformsRemaining + " free transforms left today." : ""));
+            }
             toast("Your AI portrait preview is ready \u2014 watermarked preview, full-res on order");
           } else if(s.state === "not_configured"){
             btn.disabled = false; btn.textContent = "Transform with AI";
             if(rerollBtn) rerollBtn.disabled = false;
+            if(pvTileTransformStyle) pvClearTileFlight();
             setStatus(NOT_CONFIGURED);
           } else if(s.state === "error"){
             btn.disabled = false; btn.textContent = "Transform with AI";
             if(rerollBtn) rerollBtn.disabled = false;
+            if(pvTileTransformStyle){
+              /* The tile keeps its honest pre-tap state — the original
+                 photo is never shown as if it were the result. The tile
+                 tag says plainly it didn't work, and the status line
+                 says why, with the real reason. */
+              var _tileErrStyle = pvTileTransformStyle;
+              if(typeof pvAiCacheKey === "function") pvTileError[pvAiCacheKey(_tileErrStyle)] = s.message || "Something went wrong — please try again.";
+              pvClearTileFlight();
+            }
             setStatus(s.message || "Something went wrong \u2014 please try again.");
           } else {
             btn.disabled = false; btn.textContent = "Transform with AI";
             if(rerollBtn) rerollBtn.disabled = false;
+            if(pvTileTransformStyle) pvClearTileFlight();
             if(s.transformsRemaining != null) setStatus(s.transformsRemaining + " free transforms left today.");
           }
           pvSyncTransformBtn();
@@ -2603,48 +2795,215 @@ var PV_STYLE_SETS = {
            arrive so the customer can pick a favourite. The set's own
            callbacks own the UI until onDone — the onState listener
            ignores the per-version states while it runs. */
+        /* Proof-set finish, shared by the full 3-version set and the
+           2 extra versions after a tile tap. shown counts the versions
+           that actually arrived (alreadyHave = 1 when a tile version is
+           already on screen). A set that arrives empty hides the preview
+           and says honestly what happened — never a dead panel. */
+        function proofSetDone(versions, failures, lastError, alreadyHave){
+          lastStateName = "ready";
+          btn.disabled = false; btn.textContent = "Transform with AI";
+          if(rerollBtn) rerollBtn.disabled = false;
+          pvSyncTransformBtn();
+          var shown = (alreadyHave || 0) + versions.length;
+          if(!shown){
+            if(wrap) wrap.style.display = "none";
+            setStatus(lastError || "We couldn't make your portrait — please try again.");
+            return;
+          }
+          var remaining = (typeof CPSRestyle.getTransformsRemaining === "function") ? CPSRestyle.getTransformsRemaining() : null;
+          var leftTxt = (typeof remaining === "number") ? " " + remaining + " free portrait makes left today." : "";
+          if(shown === 1){
+            setStatus("Your portrait is ready." + leftTxt);
+          } else {
+            setStatus("Pick your favourite of the " + shown + " versions below." + leftTxt);
+          }
+          if(failures){
+            /* Partial set, said plainly. The cap line only when
+               the count really is used up — never guessed. */
+            var capNote = (remaining === 0)
+              ? "Only " + shown + " of 3 versions arrived — you have used today's 5 free portrait makes. Try again tomorrow; the versions above are yours to pick from."
+              : "Only " + shown + " of 3 versions arrived — please try again for the missing one.";
+            if(typeof pvSetProofNote === "function") pvSetProofNote(capNote);
+          }
+          toast(shown === 1 ? "Your portrait is ready" : "Your portrait is ready in " + shown + " versions — pick your favourite");
+        }
         function startProofSet(file, slug){
           btn.disabled = true; btn.textContent = "Transforming\u2026";
           if(rerollBtn) rerollBtn.disabled = true;
+          pvTileSingle = false; /* a full proof replaces any single tile version */
           setStatus("Making version 1 of 3…");
-          if(wrap) wrap.style.display = "";
+          /* The preview panel stays hidden until a real version exists —
+             showing it first is what left a broken-image icon on screen. */
           if(typeof pvClearProofVersions === "function") pvClearProofVersions();
           CPSRestyle.transformSet(file, slug, pvFamilyNameValue(), {
             onProgress: function(done, total, msg){ setStatus(msg); },
             onVersion: function(idx, url, seed){
               if(typeof pvAddProofVersion === "function") pvAddProofVersion(idx, url, seed);
-              if(idx === 0 && img) img.src = url;
-              if(wrap) wrap.style.display = "";
+              if(url){
+                if(idx === 0 && img) img.src = url;
+                if(wrap) wrap.style.display = "";
+              }
               /* A version on screen waits for the customer's yes. */
               pvAiPendingApproval = true;
               if(typeof pvSetApproval === "function") pvSetApproval(false);
             },
-            onDone: function(versions, failures, lastError){
-              lastStateName = "ready";
-              btn.disabled = false; btn.textContent = "Transform with AI";
-              if(rerollBtn) rerollBtn.disabled = false;
-              pvSyncTransformBtn();
-              if(!versions.length){
-                /* No version arrived at all — no dead panel: hide the
-                   preview and say honestly what happened. */
-                if(wrap) wrap.style.display = "none";
-                setStatus(lastError || "We couldn't make your portrait — please try again.");
-                return;
-              }
-              var remaining = (typeof CPSRestyle.getTransformsRemaining === "function") ? CPSRestyle.getTransformsRemaining() : null;
-              setStatus("Pick your favourite of the " + versions.length + " versions below." + (typeof remaining === "number" ? " " + remaining + " free transforms left today." : ""));
-              if(failures){
-                /* Partial set, said plainly. The cap line only when
-                   the count really is used up — never guessed. */
-                var capNote = (remaining === 0)
-                  ? "Only " + versions.length + " of 3 versions arrived — you have used today's 5 free portrait makes. Try again tomorrow; the versions above are yours to pick from."
-                  : "Only " + versions.length + " of 3 versions arrived — please try again for the missing one.";
-                if(typeof pvSetProofNote === "function") pvSetProofNote(capNote);
-              }
-              toast("Your portrait is ready in " + versions.length + " versions — pick your favourite");
+            onDone: function(versions, failures, lastError){ proofSetDone(versions, failures, lastError, 0); }
+          });
+        }
+        /* Tap-to-transform, second half (2026-11-25): the portrait on
+           screen came from ONE tile tap — one version. The full proof is
+           still three versions to pick from, so this makes the other two
+           (2 calls, not 3) and joins them to the tile version as
+           versions 2 and 3. */
+        function startExtraVersions(file, slug){
+          btn.disabled = true; btn.textContent = "Transforming\u2026";
+          if(rerollBtn) rerollBtn.disabled = true;
+          /* The tile version becomes version 1 of the proof. */
+          if(typeof pvAddProofVersion === "function" && pvAi && pvAi.dataURL) pvAddProofVersion(0, pvAi.dataURL, null);
+          pvTileSingle = false;
+          setStatus("Making version 2 of 3…");
+          CPSRestyle.transformSet(file, slug, pvFamilyNameValue(), {
+            onProgress: function(done, total, msg){ setStatus("Making version " + (done + 2) + " of 3…"); },
+            onVersion: function(idx, url, seed){
+              if(typeof pvAddProofVersion === "function") pvAddProofVersion(idx + 1, url, seed);
+              if(url && wrap) wrap.style.display = "";
+              pvAiPendingApproval = true;
+              if(typeof pvSetApproval === "function") pvSetApproval(false);
+            },
+            onDone: function(versions, failures, lastError){ proofSetDone(versions, failures, lastError, 1); }
+          }, 2);
+        }
+        /* --- Tap a style tile: make the real portrait (2026-11-25) ---
+           The tiles used to show the photo with a colour grade and call it
+           "your photo in this look" — it wasn't. Now tapping a tile runs ONE
+           real AI call for that style and swaps the tile, the preview and
+           every gift to the real portrait. One call, one version; the other
+           two versions of the proof come from "Transform with AI" below.
+           No auto-transform anywhere: nothing runs on load or on upload,
+           so the 5 free portrait makes a day are only spent on taps. */
+        function pvTileSlug(name){
+          if(typeof pvMode === "string" && pvMode === "drawing") return "drawing";
+          return String(name || "Classic Santa Snow").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+        }
+        /* Pick a style from a tile tap without wiping the AI result (the
+           chip path clears it — here the portrait is the point). */
+        function pvApplyTileStyle(name){
+          pvStyle = name;
+          if(typeof pvPaintChips === "function") pvPaintChips();
+          var r = document.querySelector('input[name="style"][value="' + name + '"]');
+          if(r && !r.checked){ r.checked = true; if(typeof syncSummary === "function") syncSummary(); }
+          if(typeof pvPaintToggle === "function") pvPaintToggle();
+          if(typeof pvRenderAll === "function") pvRenderAll();
+          if(typeof pvPaintOrderThumb === "function") pvPaintOrderThumb();
+        }
+        /* Show a portrait already made for this photo+style (tile tap #2+):
+           no new call — the cached portrait becomes the portrait
+           everywhere, approval included. */
+        function pvShowCachedTile(name, key){
+          var cached = pvAiByStyle[key];
+          if(!cached || !cached.img) return;
+          pvApplyTileStyle(name);
+          if(typeof pvClearProofVersions === "function") pvClearProofVersions();
+          pvTileSingle = true;
+          pvAi = { style: name, img: cached.img, dataURL: cached.dataURL };
+          pvAiPendingApproval = !cached.approved;
+          if(typeof pvSetApproval === "function") pvSetApproval(!!cached.approved);
+          if(img && cached.dataURL) img.src = cached.dataURL;
+          if(wrap) wrap.style.display = cached.dataURL ? "" : "none";
+          /* The featured-stage canvas still shows the last portrait made —
+             redraw it from the cached watermarked preview so it matches. */
+          var canvas = document.getElementById("pvAiCanvas");
+          if(canvas && cached.dataURL){
+            var pic = new Image();
+            pic.onload = function(){
+              try {
+                canvas.width = pic.naturalWidth; canvas.height = pic.naturalHeight;
+                canvas.getContext("2d").drawImage(pic, 0, 0);
+                canvas.style.display = "block";
+              } catch(e){}
+            };
+            pic.src = cached.dataURL;
+          }
+          if(typeof pvRenderAll === "function") pvRenderAll();
+          if(typeof pvPaintStyleTiles === "function") pvPaintStyleTiles();
+          if(typeof pvPaintOrderThumb === "function") pvPaintOrderThumb();
+          setStatus("Your portrait in " + name + " is ready — tap Transform with AI below to see two more versions, or approve it to put it on gifts.");
+        }
+        function pvTapStyleTile(name){
+          if(!name) return;
+          if(typeof pvMode === "string" && pvMode === "drawing"){
+            setStatus("Drawings don't use style tiles — upload your drawing and tap Transform with AI.");
+            toast("Drawings don't use style tiles");
+            return;
+          }
+          if(typeof pvMode === "string" && pvMode === "photo"){
+            setStatus("Your photo goes on the gifts just as it is — no style to pick.");
+            toast("Photo as-is — no style to pick");
+            return;
+          }
+          if(!endpointLive){
+            setStatus(NOT_CONFIGURED);
+            toast("Your AI portrait is made by our studio team — the style examples above show what yours will look like");
+            return;
+          }
+          var ph = (typeof pvActivePhoto === "function") ? pvActivePhoto() : null;
+          if(!ph || !ph.file){
+            setStatus("Upload your photo first — that is Step 1.");
+            toast("Upload your photo first");
+            return;
+          }
+          /* One portrait at a time — a proof set or another tile
+             transform already running wins; the tap waits. */
+          if(pvTileBusy || lastStateName === "uploading" || lastStateName === "transforming" || (window.CPSRestyle.isProofSetRunning && CPSRestyle.isProofSetRunning())){
+            setStatus("Already making a portrait — one moment.");
+            return;
+          }
+          var slug = pvTileSlug(name);
+          if(slug === "name-in-lights" && !pvFamilyNameValue()){
+            setStatus("Type your family name first — the Name in Lights style needs it.");
+            toast("Type your family name first");
+            return;
+          }
+          /* The 5 free portrait makes a day are the budget: once they are
+             spent, say so plainly and stop — never fail silently, and never
+             show the original photo as if it were the result. (Unknown until
+             the first call — null means "not known yet", so the first tap
+             always goes through.) */
+          var remaining = (typeof CPSRestyle.getTransformsRemaining === "function") ? CPSRestyle.getTransformsRemaining() : null;
+          if(remaining === 0){
+            setStatus("You've used today's 5 free portrait makes — try again tomorrow. The portraits you already made are still here.");
+            toast("Today's 5 free portrait makes are used up");
+            return;
+          }
+          var key = (typeof pvAiCacheKey === "function") ? pvAiCacheKey(name) : name;
+          var cached = (typeof pvAiByStyle !== "undefined" && pvAiByStyle) ? pvAiByStyle[key] : null;
+          if(cached && cached.img){
+            /* Already made for this photo and style — show it, no new call. */
+            pvShowCachedTile(name, key);
+            return;
+          }
+          /* This style becomes the selected one, so the portrait lands on
+             the preview and every gift. (No CPSRestyle.clear() here — the
+             old portrait stays until this one arrives.) */
+          pvApplyTileStyle(name);
+          pvTileBusy = key;
+          pvTileTransformStyle = name;
+          if(typeof pvPaintStyleTiles === "function") pvPaintStyleTiles();
+          setStatus("Making your portrait in this world…");
+          CPSRestyle.transform(ph.file, slug, undefined, pvFamilyNameValue()).then(function(st){
+            /* Safety net: the shared listener above owns ready/error and
+               clears the tile flags. If it didn't run (the call was
+               stopped — style, photo or mode changed mid-call), clear
+               them here so the tile never sticks on "Making…". */
+            if(pvTileTransformStyle){
+              pvTileTransformStyle = null;
+              pvTileBusy = null;
+              if(typeof pvPaintStyleTiles === "function") pvPaintStyleTiles();
             }
           });
         }
+        window.pvTapStyleTile = pvTapStyleTile;
         btn.addEventListener("click", function(){
           if(!endpointLive){
             setStatus(NOT_CONFIGURED);
@@ -2672,6 +3031,10 @@ var PV_STYLE_SETS = {
                style today; this is the scope boundary if one is ever
                wired to this button.) */
             CPSRestyle.transform(ph.file, slug, undefined, pvFamilyNameValue());
+          } else if(typeof pvTileSingle !== "undefined" && pvTileSingle && typeof pvAi !== "undefined" && pvAi && pvAi.style === pvStyle && !(typeof pvVersions !== "undefined" && pvVersions && pvVersions.length)){
+            /* One tile-tap version is on screen — make the other two
+               versions of the proof (2 calls), not a fresh set of 3. */
+            startExtraVersions(ph.file, slug);
           } else {
             /* Main portrait (including Drawing and Name in Lights):
                three versions, pick a favourite. */
@@ -2932,6 +3295,39 @@ var PV_STYLE_SETS = {
       var pvAi = null; // {style, img, dataURL} — watermarked preview, max 800px
       var pvApproved = false; // the customer said yes to the current portrait
       var pvAiPendingApproval = false; // a fresh portrait is waiting for yes/no
+      /* --- One real portrait per photo+style (tap-to-transform, 2026-11-25) ---
+         Tapping a style tile makes ONE real AI portrait for that style.
+         It is kept here so tapping the tile again — or tapping back to
+         it after trying another style — shows it with NO new call, and
+         the 5 free portrait makes a day are not burned twice. approved
+         rides along, so an approved portrait stays approved. */
+      var pvAiByStyle = {}; // cache key -> {img, dataURL, approved}
+      var pvTileBusy = null; // cache key of the tile portrait being made right now, or null
+      var pvTileError = {}; // cache key -> plain-words reason the last tap for it failed
+      var pvTileSingle = false; // the portrait on screen came from one tile tap (1 version) — "Transform with AI" can still make the other 2
+      /* Cache key for a made portrait: mode + photo + style. The photo is
+         part of the key, so switching photos (or tabs) never shows one
+         photo's portrait as another's. A restored photo's "file" is a
+         data URL string, a fresh upload's is a File — both are keyed. */
+      function pvAiCacheKey(name){
+        var ph = (typeof pvActivePhoto === "function") ? pvActivePhoto() : null;
+        var f = ph && ph.file ? ph.file : null;
+        var fid = "nophoto";
+        if(f){
+          if(typeof f === "string"){ fid = "url" + f.length + "|" + pvHashStr(f); }
+          else { fid = (f.name || "?") + "|" + (f.size || 0) + "|" + (f.lastModified || 0); }
+        }
+        return (typeof pvMode === "string" ? pvMode : "family") + "|" + fid + "|" + name;
+      }
+      function pvCacheAi(styleName, imgEl, dataURL, approved){
+        if(!styleName || !imgEl || !dataURL || typeof pvAiCacheKey !== "function") return;
+        var key = pvAiCacheKey(styleName);
+        pvAiByStyle[key] = { img: imgEl, dataURL: dataURL, approved: !!approved };
+        /* Bound the cache — 12 portraits is plenty for one visit, and
+           each watermarked preview is ~100 KB. Oldest goes first. */
+        var keys = Object.keys(pvAiByStyle);
+        while(keys.length > 12){ delete pvAiByStyle[keys.shift()]; }
+      }
       /* --- Three-version proof (2026-11-25) ---
          The first portrait for a photo+style arrives as THREE versions
          (three different seeds — three genuinely different portraits,
@@ -2980,7 +3376,7 @@ var PV_STYLE_SETS = {
             for(var i = 0; i < pvVersions.length; i++){ if(pvVersions[i]){ first = i; break; } }
             if(first !== -1) pvSelectedVersion = first;
           }
-          if(idx === pvSelectedVersion){ pvAi = { style: pvStyle, img: im, dataURL: dataURL }; }
+          if(idx === pvSelectedVersion){ pvAi = { style: pvStyle, img: im, dataURL: dataURL }; pvCacheAi(pvStyle, im, dataURL, false); }
           pvPaintProofRow(); pvRenderAll(); pvPaintStyleTiles();
         };
         /* A version that cannot be shown is dropped — the set still
@@ -2994,6 +3390,7 @@ var PV_STYLE_SETS = {
         pvAi = { style: pvStyle, img: pvVersions[i].img, dataURL: pvVersions[i].dataURL };
         /* Picking another version is a fresh portrait awaiting yes. */
         pvAiPendingApproval = true;
+        pvCacheAi(pvStyle, pvVersions[i].img, pvVersions[i].dataURL, false);
         pvSetApproval(false);
         var img = document.getElementById("aiPreviewImg");
         if(img) img.src = pvVersions[i].dataURL;
@@ -3006,7 +3403,7 @@ var PV_STYLE_SETS = {
         var im = new Image();
         im.onload = function(){
           pvVersions[i] = { seed: null, dataURL: dataURL, img: im };
-          if(i === pvSelectedVersion){ pvAi = { style: pvStyle, img: im, dataURL: dataURL }; }
+          if(i === pvSelectedVersion){ pvAi = { style: pvStyle, img: im, dataURL: dataURL }; pvCacheAi(pvStyle, im, dataURL, false); }
           pvPaintProofRow(); pvRenderAll(); pvPaintStyleTiles();
         };
         im.onerror = function(){};
@@ -3017,6 +3414,12 @@ var PV_STYLE_SETS = {
          customer taps "Yes, this is the one". */
       function pvSetApproval(approved){
         pvApproved = !!approved;
+        /* An approved portrait stays approved when the customer taps back
+           to its tile — the approval rides in the per-style cache. */
+        if(approved && pvAi && typeof pvAiCacheKey === "function"){
+          var _apprKey = pvAiCacheKey(pvAi.style);
+          if(pvAiByStyle[_apprKey]) pvAiByStyle[_apprKey].approved = true;
+        }
         var panel = document.getElementById("aiApprovePanel");
         var note = document.getElementById("aiApproveNote");
         var rail = document.getElementById("aiMugRail");
@@ -3046,7 +3449,7 @@ var PV_STYLE_SETS = {
         /* Single-version flow (card styles): no proof set exists. */
         pvClearProofVersions();
         var im = new Image();
-        im.onload = function(){ pvAi = { style: styleName, img: im, dataURL: dataURL }; pvRenderAll(); pvPaintStyleTiles(); };
+        im.onload = function(){ pvAi = { style: styleName, img: im, dataURL: dataURL }; pvCacheAi(styleName, im, dataURL, false); pvRenderAll(); pvPaintStyleTiles(); };
         im.onerror = function(){ pvAi = null; };
         im.src = dataURL;
       }
@@ -3055,16 +3458,22 @@ var PV_STYLE_SETS = {
            starts unapproved, and the panel and mug rail go away with it. */
         pvClearApproval();
         pvClearProofVersions();
+        pvTileSingle = false;
+        pvTileBusy = null; /* a stopped tile transform is stopped — its tile repaints below */
         if(!pvAi) return;
         pvAi = null;
         if(typeof pvRenderAll === "function") pvRenderAll();
         if(typeof pvPaintStyleTiles === "function") pvPaintStyleTiles();
       }
-      /* --- Style tiles show YOUR photo (R3, final round 2026-11-25) ---
+      /* --- Style tiles: tap to make the real portrait (R4, 2026-11-25) ---
          Once a photo is uploaded, every style tile in #styles shows that
          photo graded in its own style (per-pixel grade + seasonal
-         treatment) — never one AI call per style. When a transform
-         succeeds for a style, that tile shows the real AI result instead.
+         treatment) — never one AI call per style — with the honest label
+         "Tap to see your photo in this world". Tapping a tile runs ONE
+         real AI call for that style (see pvTapStyleTile in the AI wiring
+         below): the tile, the preview and every gift then show the real
+         portrait. A tile whose portrait is already made shows it, and
+         says so. A tile being made says so. A tile that failed says so.
          No photo: the original example images come back. */
       var PV_STYLE_NAMES = ["Classic Santa Snow", "Golden Christmas Movie Poster", "Cozy Fireplace", "Snow Globe", "Colombo Christmas", "Winter Royal", "Name in Lights"];
       function pvPaintStyleTiles(){
@@ -3082,12 +3491,33 @@ var PV_STYLE_SETS = {
           if(!ph || !ph.img.naturalWidth || (typeof pvMode === "string" && pvMode === "drawing")){
             img.src = img.getAttribute("data-example");
             card.classList.remove("pv-your-photo");
-            if(tag) tag.textContent = card.hasAttribute("data-no-example") ? "Upload your photo to see this look" : "Your family in this look";
+            card.classList.remove("pv-making");
+            if(tag) tag.textContent = "Upload your photo to see this look";
             return;
           }
           card.classList.add("pv-your-photo");
-          if(tag) tag.textContent = "Your photo in this look";
-          if(pvAi && pvAi.style === name && pvAi.img){ img.src = pvAi.dataURL; return; }
+          var key = (typeof pvAiCacheKey === "function") ? pvAiCacheKey(name) : name;
+          var cached = (typeof pvAiByStyle !== "undefined" && pvAiByStyle) ? pvAiByStyle[key] : null;
+          if(cached && cached.img){
+            /* The real portrait for this style — made by a tap, not a grade. */
+            img.src = cached.dataURL;
+            card.classList.remove("pv-making");
+            if(tag) tag.textContent = "Your portrait is ready — tap to see it";
+            return;
+          }
+          var making = (typeof pvTileBusy !== "undefined" && pvTileBusy && pvTileBusy === key);
+          card.classList.toggle("pv-making", !!making);
+          if(making){
+            /* Keep the graded image underneath while it makes — the tag
+               says plainly that the portrait is still being made. */
+            if(tag) tag.textContent = "Making your portrait in this world…";
+            return;
+          }
+          if(pvTileError && pvTileError[key]){
+            if(tag) tag.textContent = "Couldn't make it — tap to try again";
+          } else if(tag){
+            tag.textContent = "Tap to see your photo in this world";
+          }
           try {
             var g = PV_STYLE_GRADE[name] || PV_STYLE_GRADE["Classic Santa Snow"];
             var graded = pvGradeImage(ph.img, g, 480);
@@ -3164,7 +3594,17 @@ var PV_STYLE_SETS = {
           if(!s.img) card.setAttribute("data-no-example", "1");
           var img = s.img || PV_STYLE_PLACEHOLDER_IMG;
           var badge = PV_ORIGINAL_SIX.indexOf(s.name) === -1 ? ' <span class="style-new">New</span>' : "";
-          card.innerHTML = '<div class="style-art"><img src="' + img + '" alt="' + s.name.replace(/"/g, "&quot;") + ' style example \u2014 ' + s.blurb.replace(/"/g, "&quot;") + '" loading="lazy" /></div><div class="style-body"><h3>' + n + ' \u00b7 ' + s.name + badge + '</h3><p>' + s.blurb + '</p><span class="style-example">' + (s.img ? "Your family in this look" : "Upload your photo to see this look") + '</span></div>';
+          card.innerHTML = '<div class="style-art"><img src="' + img + '" alt="' + s.name.replace(/"/g, "&quot;") + ' style example \u2014 ' + s.blurb.replace(/"/g, "&quot;") + '" loading="lazy" /></div><div class="style-body"><h3>' + n + ' \u00b7 ' + s.name + badge + '</h3><p>' + s.blurb + '</p><span class="style-example">Upload your photo to see this look</span></div>';
+          /* Tap the tile, make the real portrait (2026-11-25): one AI call
+             for this style — see pvTapStyleTile in the AI wiring below.
+             Keyboard users get the same tap with Enter or Space. */
+          card.setAttribute("tabindex", "0");
+          card.setAttribute("role", "button");
+          card.setAttribute("aria-label", "See your photo in " + s.name);
+          card.addEventListener("click", function(){ if(typeof window.pvTapStyleTile === "function") window.pvTapStyleTile(s.name); });
+          card.addEventListener("keydown", function(ev){
+            if(ev.key === "Enter" || ev.key === " "){ ev.preventDefault(); if(typeof window.pvTapStyleTile === "function") window.pvTapStyleTile(s.name); }
+          });
           grid.appendChild(card);
         });
         if(typeof pvPaintStyleTiles === "function") pvPaintStyleTiles();
