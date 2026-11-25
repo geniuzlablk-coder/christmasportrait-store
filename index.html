@@ -1747,7 +1747,12 @@
                  the Worker's real wait time (retry_after_seconds). */
               var wait = "a minute";
               if (typeof data.retry_after_seconds === "number" && data.retry_after_seconds > 0) {
-                wait = data.retry_after_seconds < 90 ? data.retry_after_seconds + " seconds" : Math.round(data.retry_after_seconds / 60) + " minutes";
+                /* The free Workers AI path reports seconds until its
+                   midnight-UTC reset, which can be hours — never show
+                   "840 minutes" to a customer. */
+                if (data.retry_after_seconds < 90) wait = data.retry_after_seconds + " seconds";
+                else if (data.retry_after_seconds < 3600) wait = Math.round(data.retry_after_seconds / 60) + " minutes";
+                else { var hrs = Math.round(data.retry_after_seconds / 3600); wait = hrs + (hrs === 1 ? " hour" : " hours"); }
               }
               msg = "The AI studio is busy right now — please wait about " + wait + " and try again.";
             } else if (data.error === "invalid_style") msg = "That style is not available — pick another.";
