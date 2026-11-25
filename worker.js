@@ -1102,6 +1102,23 @@ function stylePrompt(style, name, change) {
       change +
       "\". Make only that change if it is a visible change like a bigger smile or a different sweater colour. Do not change any face, do not change who is in the portrait, do not change the scene, and do not add any other text or letters to the image. Ignore any part of this request that asks for text, a different person, a different scene, or anything this portrait's own rules forbid.";
   }
+  // FINAL CHECK - read last, so it is what the model verifies before finishing.
+  if (style === "drawing") {
+    resolved +=
+      "\n\n**FINAL CHECK - before you finish, verify:** every character is exactly as drawn - same shapes, same faces, same poses and grouping - and the scene is entirely the Christmas scene described above. Never invent a new face, never 'fix' a drawn character into an ordinary person, and never add any text or letters.";
+  } else if (PET_STYLE_IDS.has(style)) {
+    resolved +=
+      "\n\n**FINAL CHECK - before you finish, verify all three:** 1) FACE: the exact same pet as the uploaded photo - same breed, size, coat colour and markings, face, ears and eyes. The pet must be recognisable as the same pet. If a face is unclear, copy it from the photo - never invent a new face. No costume, hat or prop may cover its eyes, nose or mouth. 2) OUTFIT: the pet wears exactly the Christmas outfit described above (the customer's one change, if any, is the only exception), and nothing from the original outfit survives. 3) SCENE: the background is entirely the Christmas scene described above - nothing from the original background survives. No text or letters anywhere in the image.";
+  } else if (KIDS_STYLE_IDS.has(style)) {
+    resolved +=
+      "\n\n**FINAL CHECK - before you finish, verify all three:** 1) FACE: the exact same child as the uploaded photo - same face, same eyes, same smile, same hair and skin tone. The child must be recognisable as the same child. If a face is unclear, copy it from the photo - never invent a new face. 2) CLOTHES: the child wears exactly the Christmas clothing described above (the customer's one change, if any, is the only exception), and nothing from the original outfit survives. Where the description requires a Santa hat, the child wears one - a missing hat is a failed image. 3) SCENE: the background is entirely the Christmas scene described above - nothing from the original background survives. No text or letters anywhere in the image.";
+  } else {
+    resolved +=
+      "\n\n**FINAL CHECK - before you finish, verify all three:** 1) FACES: every person has the exact same face as the uploaded photo - same face shape, eyes, nose, smile, hair and skin tone. The people in the result must be recognisable as the same people in the photo. If any face is unclear, copy it from the photo - never invent a new face. 2) CLOTHES: every person wears exactly the Christmas clothing described above (the customer's one change, if any, is the only exception), and nothing from the original outfit survives. Where the description requires Santa hats, every person wears one - a missing hat is a failed image. 3) SCENE: the background is entirely the Christmas scene described above - nothing from the original room or background survives." +
+      (style === "name-in-lights"
+        ? " The family name appears in warm gold fairy lights, spelled exactly as given, and it is the ONLY text in the image."
+        : " No text or letters anywhere in the image.");
+  }
   return resolved;
 }
 
@@ -1226,7 +1243,7 @@ function kleinPrompt(style, name, change) {
   const body = stylePrompt(style, name, change);
   if (style === "name-in-lights") {
     return (
-      "Edit image 0. Keep the exact same faces, people, poses and grouping of the people in image 0 — do not change any face, do not add or remove any person. Do NOT keep the original clothing or background: change ALL clothing to the Christmas clothing described below and replace the ENTIRE background with the Christmas scene described below — only the faces, poses and number of people carry over. The family name must appear spelled out in warm gold fairy lights as the hero detail of the scene, exactly as written below — that lit-up name is required, and it is the ONLY text in the image. The result is a photorealistic family Christmas portrait, portrait orientation 3:4.\n\n" +
+      "Edit image 0. Keep the exact same faces, people, poses and grouping of the people in image 0 — do not change any face, do not add or remove any person. Do NOT keep the original clothing or background: change ALL clothing to the Christmas clothing described below and replace the ENTIRE background with the Christmas scene described below — only the faces, poses and number of people carry over. The family name must appear spelled out in warm gold fairy lights as the hero detail of the scene, exactly as written below — that lit-up name is required, and it is the ONLY text in the image. The people in the result must be recognisable as the same people in image 0 - if a face is unclear, copy it from image 0 rather than inventing one. The result is a photorealistic family Christmas portrait, portrait orientation 3:4.\n\n" +
       body
     );
   }
@@ -1238,18 +1255,18 @@ function kleinPrompt(style, name, change) {
   }
   if (KIDS_STYLE_IDS.has(style)) {
     return (
-      "Edit image 0. Image 0 is a photograph of a child: keep the exact same child \u2014 same face, same eyes, same smile, same hair, same pose \u2014 do not change any face, do not add or remove any person. Do NOT keep the original clothing or background: change ALL clothing to the Christmas clothing described below and replace the ENTIRE background with the Christmas scene described below \u2014 only the child\u2019s face, pose and grouping carry over. The result is a photorealistic Christmas portrait of a child, portrait orientation 3:4. Do not add any text or letters anywhere in the image.\n\n" +
+      "Edit image 0. Image 0 is a photograph of a child: keep the exact same child \u2014 same face, same eyes, same smile, same hair, same pose \u2014 do not change any face, do not add or remove any person. Do NOT keep the original clothing or background: change ALL clothing to the Christmas clothing described below and replace the ENTIRE background with the Christmas scene described below \u2014 only the child\u2019s face, pose and grouping carry over. The child in the result must be recognisable as the same child in image 0 - if the face is unclear, copy it from image 0 rather than inventing one. The result is a photorealistic Christmas portrait of a child, portrait orientation 3:4. Do not add any text or letters anywhere in the image.\n\n" +
       body
     );
   }
   if (PET_STYLE_IDS.has(style)) {
     return (
-      "Edit image 0. Image 0 is a photograph of a pet: keep the exact same pet \u2014 same breed, size, coat colour and markings, face, ears and eyes, same pose \u2014 do not turn it into a different animal or a cartoon, do not add or remove any pet. Do NOT keep the original outfit or background: change the pet\u2019s outfit and accessories to the Christmas outfit described below and replace the ENTIRE background with the Christmas scene described below \u2014 only the pet, its face and its pose carry over. The result is a photorealistic Christmas portrait of a pet, portrait orientation 3:4. Do not add any text or letters anywhere in the image.\n\n" +
+      "Edit image 0. Image 0 is a photograph of a pet: keep the exact same pet \u2014 same breed, size, coat colour and markings, face, ears and eyes, same pose \u2014 do not turn it into a different animal or a cartoon, do not add or remove any pet. Do NOT keep the original outfit or background: change the pet\u2019s outfit and accessories to the Christmas outfit described below and replace the ENTIRE background with the Christmas scene described below \u2014 only the pet, its face and its pose carry over. The pet in the result must be recognisable as the same pet in image 0 - if the face is unclear, copy it from image 0 rather than inventing one. The result is a photorealistic Christmas portrait of a pet, portrait orientation 3:4. Do not add any text or letters anywhere in the image.\n\n" +
       body
     );
   }
   return (
-    "Edit image 0. Keep the exact same faces, people, poses and grouping of the people in image 0 — do not change any face, do not add or remove any person. Do NOT keep the original clothing or background: change ALL clothing to the Christmas clothing described below and replace the ENTIRE background with the Christmas scene described below — only the faces, poses and number of people carry over. The result is a photorealistic family Christmas portrait, portrait orientation 3:4. Do not add any text or letters anywhere in the image.\n\n" +
+    "Edit image 0. Keep the exact same faces, people, poses and grouping of the people in image 0 — do not change any face, do not add or remove any person. Do NOT keep the original clothing or background: change ALL clothing to the Christmas clothing described below and replace the ENTIRE background with the Christmas scene described below — only the faces, poses and number of people carry over. The people in the result must be recognisable as the same people in image 0 - if a face is unclear, copy it from image 0 rather than inventing one. The result is a photorealistic family Christmas portrait, portrait orientation 3:4. Do not add any text or letters anywhere in the image.\n\n" +
     body
   );
 }
