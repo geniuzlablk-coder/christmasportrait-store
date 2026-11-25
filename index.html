@@ -98,6 +98,7 @@
       @media (max-width:880px){ .style-grid{ grid-template-columns:repeat(2,1fr); } }
       @media (max-width:520px){ .style-grid{ grid-template-columns:1fr; } }
       .style-card{ border-radius:var(--radius); overflow:hidden; border:1px solid var(--line); background:var(--surface); }
+      .style-card.pv-your-photo{ outline:2px solid var(--gold); outline-offset:-2px; }
       .style-art{ height:210px; position:relative; }
       .style-art img{ width:100%; height:100%; object-fit:cover; object-position:center 25%; display:block; }
       .style-body{ padding:14px 16px 16px; }
@@ -409,12 +410,12 @@
         <p class="kicker" style="margin-top:44px">Six Signature Styles</p>
         <h2>Pick the Christmas you want to live in</h2>
         <div class="style-grid" style="margin-top:22px">
-          <div class="style-card"><div class="style-art"><img src="https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/29159649/c37783b5-b945-449c-bcf3-30405e0e64c0" alt="Classic Santa Snow style example — a family in Santa hats laughing in falling snow" loading="lazy" /></div><div class="style-body"><h3>01 · Classic Santa Snow</h3><p>Snowfall, Santa hats, deep red and pine green. The timeless family-card look.</p><span class="style-example">Your family in this look</span></div></div>
-          <div class="style-card"><div class="style-art"><img src="https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/29159649/3178fe7a-559f-4fb0-9814-4b8256bd3756" alt="Golden Movie Poster style example — a family posed like a cinematic Christmas film poster in golden light" loading="lazy" /></div><div class="style-body"><h3>02 · Golden Movie Poster</h3><p>Cinematic gold light. Like a Christmas film poster.</p><span class="style-example">Your family in this look</span></div></div>
-          <div class="style-card"><div class="style-art"><img src="https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/29159649/2849d8ab-100f-46ae-ad86-f05fe42aaea5" alt="Cozy Fireplace style example — a family gathered by a glowing fireplace with cocoa and blankets" loading="lazy" /></div><div class="style-body"><h3>03 · Cozy Fireplace</h3><p>Warm firelight, knit blankets, cocoa in hand.</p><span class="style-example">Your family in this look</span></div></div>
-          <div class="style-card"><div class="style-art"><img src="https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/29159649/d4a9e7ac-8b88-45f4-bc5b-b5b3201c0ae3" alt="Snow Globe style example — a family inside a magical snow globe scene" loading="lazy" /></div><div class="style-body"><h3>04 · Snow Globe</h3><p>Your family inside a magical snow globe.</p><span class="style-example">Your family in this look</span></div></div>
-          <div class="style-card"><div class="style-art"><img src="https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/29159649/6f3badf2-d062-42d0-a216-970f9447bf49" alt="Colombo Christmas style example — a Sri Lankan family celebrating under Galle Face lights and palms" loading="lazy" /></div><div class="style-body"><h3>05 · Colombo Christmas</h3><p>Galle Face lights, tropical December warmth, Sri Lankan Christmas soul.</p><span class="style-example">Your family in this look</span></div></div>
-          <div class="style-card"><div class="style-art"><img src="https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/29159649/4354480c-966b-4d65-9e2c-cc0955b148f7" alt="Winter Royal style example — a family in velvet and crowns in an elegant snowy palace setting" loading="lazy" /></div><div class="style-body"><h3>06 · Winter Royal</h3><p>Velvet and palace snow. A formal portrait for the wall.</p><span class="style-example">Your family in this look</span></div></div>
+          <div class="style-card" data-style="Classic Santa Snow"><div class="style-art"><img src="https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/29159649/c37783b5-b945-449c-bcf3-30405e0e64c0" alt="Classic Santa Snow style example — a family in Santa hats laughing in falling snow" loading="lazy" /></div><div class="style-body"><h3>01 · Classic Santa Snow</h3><p>Snowfall, Santa hats, deep red and pine green. The timeless family-card look.</p><span class="style-example">Your family in this look</span></div></div>
+          <div class="style-card" data-style="Golden Christmas Movie Poster"><div class="style-art"><img src="https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/29159649/3178fe7a-559f-4fb0-9814-4b8256bd3756" alt="Golden Movie Poster style example — a family posed like a cinematic Christmas film poster in golden light" loading="lazy" /></div><div class="style-body"><h3>02 · Golden Movie Poster</h3><p>Cinematic gold light. Like a Christmas film poster.</p><span class="style-example">Your family in this look</span></div></div>
+          <div class="style-card" data-style="Cozy Fireplace"><div class="style-art"><img src="https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/29159649/2849d8ab-100f-46ae-ad86-f05fe42aaea5" alt="Cozy Fireplace style example — a family gathered by a glowing fireplace with cocoa and blankets" loading="lazy" /></div><div class="style-body"><h3>03 · Cozy Fireplace</h3><p>Warm firelight, knit blankets, cocoa in hand.</p><span class="style-example">Your family in this look</span></div></div>
+          <div class="style-card" data-style="Snow Globe"><div class="style-art"><img src="https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/29159649/d4a9e7ac-8b88-45f4-bc5b-b5b3201c0ae3" alt="Snow Globe style example — a family inside a magical snow globe scene" loading="lazy" /></div><div class="style-body"><h3>04 · Snow Globe</h3><p>Your family inside a magical snow globe.</p><span class="style-example">Your family in this look</span></div></div>
+          <div class="style-card" data-style="Colombo Christmas"><div class="style-art"><img src="https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/29159649/6f3badf2-d062-42d0-a216-970f9447bf49" alt="Colombo Christmas style example — a Sri Lankan family celebrating under Galle Face lights and palms" loading="lazy" /></div><div class="style-body"><h3>05 · Colombo Christmas</h3><p>Galle Face lights, tropical December warmth, Sri Lankan Christmas soul.</p><span class="style-example">Your family in this look</span></div></div>
+          <div class="style-card" data-style="Winter Royal"><div class="style-art"><img src="https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/29159649/4354480c-966b-4d65-9e2c-cc0955b148f7" alt="Winter Royal style example — a family in velvet and crowns in an elegant snowy palace setting" loading="lazy" /></div><div class="style-body"><h3>06 · Winter Royal</h3><p>Velvet and palace snow. A formal portrait for the wall.</p><span class="style-example">Your family in this look</span></div></div>
         </div>
       </div>
     </section>
@@ -442,7 +443,7 @@
           </div>
           <div class="pv-ai" style="border:2px solid var(--gold);border-radius:12px;padding:16px;margin-top:14px;background:linear-gradient(180deg,#FFFDF7,#F7EFDA)">
             <p class="lbl" style="margin:0 0 6px">See your photo as a Christmas portrait</p>
-            <p class="soft" style="margin:0 0 12px;font-size:.92rem">Tap the button below. You will see a preview with a watermark on it. The portrait you buy is clear, with no watermark, and ready in 24 hours.</p>
+            <p class="soft" style="margin:0 0 12px;font-size:.92rem">Tap the button below. You will see a preview with a watermark on it. The portrait you buy is clear, with no watermark, and ready in 24 hours. Your new portrait appears on every gift below.</p>
             <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
               <button class="btn btn-gold" type="button" id="aiTransformBtn">Transform with AI</button>
               <span class="soft" style="font-size:.9rem" id="aiStatus">Your photo is only used to make your portrait. We never share it.</span>
@@ -460,9 +461,10 @@
           <div class="pv-zoom">
             <label class="lbl" for="pvZoom">Zoom</label>
             <input type="range" id="pvZoom" min="1" max="2" step="0.01" value="1" aria-label="Preview zoom" />
-            <span class="soft" style="font-size:.92rem">Drag the big preview to reposition your photo</span>
+            <span class="soft" style="font-size:.92rem">Zoom to crop your photo on the gifts</span>
           </div>
-          <div style="margin-top:14px">
+          <!-- PARKED 2026-11-25 (final round): stickers and scenes draw on the hidden featured stage below, so this button is hidden until the stage returns. Code intact; stickers stay manual-drag-only — never re-enable auto-placement. -->
+          <div style="margin-top:14px" class="hidden-for-now">
             <button class="btn btn-ghost" type="button" id="pvFunToggle" aria-expanded="false" aria-controls="pvFunBox">Add some fun — stickers and scenes</button>
           </div>
           <div id="pvFunBox" class="hidden-for-now">
@@ -479,13 +481,14 @@
           </div>
         </div>
 
-        <div class="pv-switcher" id="pvSwitcher" role="group" aria-label="Featured preview product"></div>
+        <!-- FINAL ROUND 2026-11-25: the big separate print preview is hidden — the product grid below IS the main preview now. The featured stage stays in the page (hidden) so the AI preview canvas, saved-design thumbnails and sticker/scene code keep working; the warmth toggle below still controls how the gifts look. -->
+        <div class="pv-switcher hidden-for-now" id="pvSwitcher" role="group" aria-label="Featured preview product"></div>
         <div class="pv-toggle" role="group" aria-label="Featured preview look">
           <button type="button" id="pvToggleSeason" class="pv-toggle-btn active">Christmas warmth</button>
           <button type="button" id="pvToggleOriginal" class="pv-toggle-btn">Your photo as-is</button>
           <span class="soft" id="pvToggleNote" style="font-size:.9rem">Christmas warmth — a warm Christmas glow on your photo. The finished portrait is art-directed in the style you pick.</span>
         </div>
-        <div class="pv-stage pv-featured-stage" id="pvFeatStage">
+        <div class="pv-stage pv-featured-stage hidden-for-now" id="pvFeatStage">
           <img class="pv-base fit-contain" id="pvFeatImg" alt="Featured gift preview" />
           <div class="pv-wins" id="pvFeatWins"></div>
           <canvas class="pv-scene-canvas" id="pvSceneCanvas" aria-label="Magic scene preview"></canvas>
@@ -495,14 +498,14 @@
           <span class="pv-badge">Print Preview</span>
           <div class="pv-empty" id="pvFeatEmpty">Upload a photo to see it here</div>
         </div>
-        <p class="pv-note"><b>Your photo on the gift</b> <span class="soft">· The gold outline shows the print area — it is not part of the print.</span></p>
+        <p class="pv-note hidden-for-now"><b>Your photo on the gift</b> <span class="soft">· The gold outline shows the print area — it is not part of the print.</span></p>
         <div class="pv-sticker-tools hidden-for-now" id="pvStickerTools">
           <span class="soft" style="font-size:.9rem" id="pvStickerHint">No sticker selected — tap a sticker above to add one, then drag it where you want it.</span>
           <button class="pv-tool-btn" type="button" id="pvStickerDelete">Remove selected sticker</button>
           <button class="pv-tool-btn" type="button" id="pvStickerClear">Clear all stickers</button>
           <button class="pv-tool-btn" type="button" id="pvLiveToggle" aria-pressed="false">Pause snowfall</button>
         </div>
-        <p class="pv-note"><b>Stickers and scenes are just for fun</b> <span class="soft">· They are drawn over your photo in your browser, to show the idea. The finished portrait is made properly and checked by a real person.</span></p>
+        <p class="pv-note hidden-for-now"><b>Stickers and scenes are just for fun</b> <span class="soft">· They are drawn over your photo in your browser, to show the idea. The finished portrait is made properly and checked by a real person.</span></p>
 
         <div class="pv-favbar">
           <b id="pvFavCount">Favourites: 0/3</b>
@@ -636,8 +639,9 @@
               <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:12px">
                 <button class="btn btn-gold" type="button" id="certUploadBtn">Upload their photo</button>
                 <button class="btn btn-ghost" type="button" id="certUseStudioBtn">Use my Studio photo</button>
+                <input type="file" id="certFile" accept="image/*" style="display:none" />
               </div>
-              <p class="soft" style="font-size:.9rem;margin-top:12px">Their photo stays in your browser until you order — we never share or sell it. Delete it anytime from the Preview Studio.</p>
+              <p class="soft" style="font-size:.9rem;margin-top:12px">Their photo stays in your browser until you order — we never share or sell it.</p>
               <h3 style="margin-top:20px">What your child gets</h3>
               <ul class="value-stack">
                 <li><span>Personalized certificate — their name in gold, their photo in the snow globe</span><b>Live preview</b></li>
@@ -1676,7 +1680,7 @@
                 retryable: false,
               });
             } else {
-              setState({ state: "error", message: "The AI studio is busy — please try again.", retryable: true });
+              setState({ state: "error", message: (data && data.message) ? data.message : "The AI studio is busy — please try again.", retryable: true });
             }
             return state;
           });
@@ -1691,16 +1695,23 @@
             if (data.error === "rate_limited" || data.error === "daily_cap") {
               msg = data.message || "You have used today's free AI transforms. Try again tomorrow.";
             } else if (data.error === "model_rate_limited") {
-              // Gemini image model at its free-tier quota (verified live
-              // 2026-11-24). The Worker already waited out nothing and
-              // did NOT retry in a loop — this is the one manual retry.
-              msg = data.message || "The AI studio is busy right now — please wait a minute and try again.";
+              /* The Worker sends its own retry text, but it names the
+                 free-tier quota and Google AI Studio — studio language,
+                 not customer language. Say the same thing plainly, with
+                 the Worker's real wait time (retry_after_seconds). */
+              var wait = "a minute";
               if (typeof data.retry_after_seconds === "number" && data.retry_after_seconds > 0) {
-                msg += " (about " + (data.retry_after_seconds < 90 ? data.retry_after_seconds + " seconds" : Math.round(data.retry_after_seconds / 60) + " minutes") + ")";
+                wait = data.retry_after_seconds < 90 ? data.retry_after_seconds + " seconds" : Math.round(data.retry_after_seconds / 60) + " minutes";
               }
+              msg = "The AI studio is busy right now — please wait about " + wait + " and try again.";
             } else if (data.error === "invalid_style") msg = "That style is not available — pick another.";
             else if (data.error === "image_too_large") msg = "That photo is over 10 MB — try a smaller one.";
             else if (data.error === "invalid_image" || data.error === "missing_image") msg = "That file is not a photo (JPEG, PNG or WebP).";
+            else if (data.error === "model_rejected") msg = "That photo couldn't be made into this style — try a different photo, or a different style.";
+            else if (data.error === "model_config_error") msg = "The AI studio isn't set up yet — please try again later.";
+            else if (data.error === "model_unavailable" || data.error === "model_timeout") msg = "The AI studio is having a busy moment — please try again in a minute.";
+            else if (data.error === "model_no_image") msg = "The portrait didn't come back — please try again.";
+            else if (data.message && typeof data.message === "string" && data.message) msg = data.message;
             if (typeof data.transforms_remaining === "number") {
               setState({ transformsRemaining: data.transforms_remaining });
             }
@@ -1766,6 +1777,9 @@
     clear: function () {
       currentRequest++; // cancel any in-flight transform
       hidePreview();
+      /* The finished AI portrait belongs to the old photo/style too —
+         drop it from the products, style tiles and certificate. */
+      if (typeof pvClearAiResult === "function") pvClearAiResult();
       setState({ state: "idle", style: null, message: "", retryable: false, cached: false, cacheKey: null });
     },
     /** Ask the Worker whether it is configured (GET probe). */
@@ -1814,6 +1828,11 @@
             var url = CPSRestyle.getPreviewDataURL();
             if(url && img){ img.src = url; }
             if(wrap) wrap.style.display = "";
+            /* FINAL ROUND 2026-11-25: the finished portrait now BECOMES the
+               photo everywhere — every product mockup, the style tile for
+               this style, and the certificate medallion (via pvRenderAll).
+               The original photo is never shown as the AI result. */
+            if(url && typeof pvSetAiResult === "function") pvSetAiResult(pvStyle, url);
             setStatus((s.message || "Preview ready.") + (typeof s.transformsRemaining === "number" ? " " + s.transformsRemaining + " free transforms left today." : ""));
             toast("Your AI portrait preview is ready \u2014 watermarked preview, full-res on order");
           } else if(s.state === "not_configured"){
@@ -1890,20 +1909,21 @@
         "Colombo Christmas":{temp:10, tint:6, bright:7, contrast:10, sat:1.30, wash:"rgba(255,180,90,0.10)", wash2:"rgba(90,160,80,0.10)", vig:"rgba(60,20,60,0.16)", glow:null, flakes:0, sparkle:6, bokeh:26},
         "Winter Royal":{temp:-4, tint:2, bright:6, contrast:20, sat:1.0, wash:"rgba(200,210,235,0.12)", wash2:"rgba(212,175,55,0.30)", vig:"rgba(12,16,40,0.44)", glow:null, flakes:0, sparkle:26, sparkleSize:2.0, sparkleColor:"#FFD98A", bokeh:0, royal:true}
       };
-      function pvGradeDef(){ return PV_STYLE_GRADE[pvStyle] || PV_STYLE_GRADE["Classic Santa Snow"]; }
+      function pvGradeDef(styleName){ return PV_STYLE_GRADE[styleName || pvStyle] || PV_STYLE_GRADE["Classic Santa Snow"]; }
       function pvSeededRand(seed){ var s = seed % 2147483647; if(s <= 0) s += 2147483646; return function(){ s = s * 16807 % 2147483647; return (s - 1) / 2147483646; }; }
       function pvHashStr(str){ var h = 7; for(var i = 0; i < str.length; i++){ h = (h * 31 + str.charCodeAt(i)) % 2147483647; } return h; }
       var pvGradeCache = { key:"", canvas:null };
-      function pvGradedPhoto(){
-        var ph = pvActivePhoto(); if(!ph || !ph.img.naturalWidth) return null;
-        var key = pvStyle + "|" + ph.img.src;
-        if(pvGradeCache.key === key && pvGradeCache.canvas) return pvGradeCache.canvas;
-        var g = pvGradeDef();
-        var iw = ph.img.naturalWidth, ih = ph.img.naturalHeight, sc = Math.min(1, 880 / Math.max(iw, ih));
+      /* Shared per-pixel grade (Layer 1): temperature / tint / brightness /
+         contrast / saturation on an offscreen canvas. img may be an <img>
+         or a canvas; returns a canvas (or the source unchanged on failure). */
+      function pvGradeImage(img, g, maxPx){
+        var iw = img.naturalWidth || img.width, ih = img.naturalHeight || img.height;
+        if(!iw || !ih) return img;
+        var sc = Math.min(1, maxPx / Math.max(iw, ih));
         var c = document.createElement("canvas"); c.width = Math.max(2, Math.round(iw * sc)); c.height = Math.max(2, Math.round(ih * sc));
-        var x = c.getContext("2d"); x.drawImage(ph.img, 0, 0, c.width, c.height);
+        var x = c.getContext("2d"); x.drawImage(img, 0, 0, c.width, c.height);
         var id, d;
-        try { id = x.getImageData(0, 0, c.width, c.height); } catch(e){ return ph.img; }
+        try { id = x.getImageData(0, 0, c.width, c.height); } catch(e){ return img; }
         d = id.data;
         var cf = 1 + g.contrast / 100, sat = g.sat;
         for(var i = 0; i < d.length; i += 4){
@@ -1918,8 +1938,79 @@
           d[i+2] = b < 0 ? 0 : (b > 255 ? 255 : b);
         }
         x.putImageData(id, 0, 0);
+        return c;
+      }
+      /* Graded photo for the current style (cached — the product tiles
+         call this on every render). img / styleName are optional overrides
+         (used by the style tiles and the certificate medallion). */
+      function pvGradedPhoto(img, styleName){
+        var srcImg = img || (pvActivePhoto() && pvActivePhoto().img);
+        if(!srcImg || !(srcImg.naturalWidth || srcImg.width)) return null;
+        var st = styleName || pvStyle;
+        var key = st + "|" + srcImg.src;
+        if(pvGradeCache.key === key && pvGradeCache.canvas) return pvGradeCache.canvas;
+        var c = pvGradeImage(srcImg, pvGradeDef(st), 880);
         pvGradeCache = { key:key, canvas:c };
         return c;
+      }
+      /* --- Finished AI portrait (R1, final round 2026-11-25) ---
+         Once a transform succeeds, the AI portrait BECOMES the photo
+         everywhere: product mockups (pvDrawWindow), the style tile for
+         that style (pvPaintStyleTiles), the certificate medallion
+         (certPaint) and the order thumbnail (pvPaintOrderThumb). It is
+         tied to the style it was made in — pick another style and the
+         graded photo comes back. Cleared when the photo or style
+         changes (CPSRestyle.clear calls pvClearAiResult). */
+      var pvAi = null; // {style, img, dataURL} — watermarked preview, max 800px
+      function pvSetAiResult(styleName, dataURL){
+        var im = new Image();
+        im.onload = function(){ pvAi = { style: styleName, img: im, dataURL: dataURL }; pvRenderAll(); pvPaintStyleTiles(); };
+        im.onerror = function(){ pvAi = null; };
+        im.src = dataURL;
+      }
+      function pvClearAiResult(){
+        if(!pvAi) return;
+        pvAi = null;
+        if(typeof pvRenderAll === "function") pvRenderAll();
+        if(typeof pvPaintStyleTiles === "function") pvPaintStyleTiles();
+      }
+      /* --- Style tiles show YOUR photo (R3, final round 2026-11-25) ---
+         Once a photo is uploaded, every style tile in #styles shows that
+         photo graded in its own style (per-pixel grade + seasonal
+         treatment) — never one AI call per style. When a transform
+         succeeds for a style, that tile shows the real AI result instead.
+         No photo: the original example images come back. */
+      var PV_STYLE_NAMES = ["Classic Santa Snow", "Golden Christmas Movie Poster", "Cozy Fireplace", "Snow Globe", "Colombo Christmas", "Winter Royal"];
+      function pvPaintStyleTiles(){
+        var cards = document.querySelectorAll("#styles .style-card");
+        if(!cards.length) return;
+        var ph = pvActivePhoto();
+        cards.forEach(function(card, i){
+          var img = card.querySelector(".style-art img");
+          if(!img) return;
+          if(!img.getAttribute("data-example")) img.setAttribute("data-example", img.getAttribute("src"));
+          var name = card.getAttribute("data-style") || PV_STYLE_NAMES[i] || "";
+          var tag = card.querySelector(".style-example");
+          if(!ph || !ph.img.naturalWidth){
+            img.src = img.getAttribute("data-example");
+            card.classList.remove("pv-your-photo");
+            if(tag) tag.textContent = "Your family in this look";
+            return;
+          }
+          card.classList.add("pv-your-photo");
+          if(tag) tag.textContent = "Your photo in this look";
+          if(pvAi && pvAi.style === name && pvAi.img){ img.src = pvAi.dataURL; return; }
+          try {
+            var g = PV_STYLE_GRADE[name] || PV_STYLE_GRADE["Classic Santa Snow"];
+            var graded = pvGradeImage(ph.img, g, 480);
+            var iw = graded.naturalWidth || graded.width, ih = graded.naturalHeight || graded.height;
+            var c = document.createElement("canvas"); c.width = iw; c.height = ih;
+            var x = c.getContext("2d");
+            x.drawImage(graded, 0, 0, iw, ih);
+            pvApplyOverlays(x, {x:0, y:0, w:100, h:100, shape:"rect"}, iw, ih, g, name);
+            img.src = c.toDataURL("image/jpeg", 0.85);
+          } catch(e){ /* keep the example image */ }
+        });
       }
       var HOOD_GREEN = HOOD + "33419/98424/christmas-portrait-hoodie-personalized-family-portrait.jpg?camera_label=front";
       var HOOD_BLACK = HOOD + "32920/98424/christmas-portrait-hoodie-personalized-family-portrait.jpg?camera_label=front";
@@ -1951,7 +2042,7 @@
           var entry = { img:im, url:url, file:f, fileName:f.name, label: PV_LABELS[Math.min(pvPhotos.length,2)] };
           if(pvPhotos.length >= 3){ pvPhotos[pvActive < 0 ? 0 : pvActive] = entry; pvActive = pvActive < 0 ? 0 : pvActive; toast("Photo replaced — you can keep up to 3 photos"); }
           else { pvPhotos.push(entry); pvActive = pvPhotos.length - 1; }
-          pvRenderTabs(); pvRenderAll(); pvPaintOrderThumb();
+          pvRenderTabs(); pvRenderAll(); pvPaintOrderThumb(); pvPaintStyleTiles();
           if(window.CPSRestyle) CPSRestyle.clear(); /* AI preview belongs to the old photo */
         };
         im.src = url;
@@ -1975,7 +2066,7 @@
         if(pvActive < 0) return;
         pvPhotos.splice(pvActive, 1);
         pvActive = pvPhotos.length ? 0 : -1;
-        pvRenderTabs(); pvRenderAll();
+        pvRenderTabs(); pvRenderAll(); pvPaintStyleTiles();
         if(window.CPSRestyle) CPSRestyle.clear();
         toast("Photo removed from this browser");
       });
@@ -1993,7 +2084,7 @@
           var inp = document.createElement("input");
           inp.type = "text"; inp.value = p.label; inp.setAttribute("aria-label", "Label for photo " + (i+1));
           inp.addEventListener("input", function(){ p.label = inp.value; });
-          tab.querySelector("button").addEventListener("click", function(){ pvActive = i; pvRenderTabs(); pvRenderAll(); pvPaintOrderThumb(); });
+          tab.querySelector("button").addEventListener("click", function(){ pvActive = i; pvRenderTabs(); pvRenderAll(); pvPaintOrderThumb(); pvPaintStyleTiles(); });
           tab.appendChild(inp);
           box.appendChild(tab);
         });
@@ -2028,8 +2119,9 @@
 
       /* --- render engine --- */
       /* --- season overlays + print shading + mug warp (drawn on canvas, no canvas filter property) --- */
-      function pvApplyOverlays(t, win, W, H){
-        var g = pvGradeDef();
+      function pvApplyOverlays(t, win, W, H, gIn, styleName){
+        var g = gIn || pvGradeDef();
+        var sname = styleName || pvStyle;
         if(g.wash){ t.fillStyle = g.wash; t.fillRect(0, 0, W, H); }
         if(g.wash2){ t.fillStyle = g.wash2; t.fillRect(0, 0, W, H); }
         if(g.glow){
@@ -2045,7 +2137,7 @@
           vg.addColorStop(0, "rgba(0,0,0,0)"); vg.addColorStop(1, g.vig);
           t.fillStyle = vg; t.fillRect(0, 0, W, H);
         }
-        var seed = pvHashStr(pvStyle + "|" + win.x + "|" + win.y + "|" + win.w + "|" + win.h);
+        var seed = pvHashStr(sname + "|" + win.x + "|" + win.y + "|" + win.w + "|" + win.h);
         var rnd = pvSeededRand(seed), k, px, py, pr, pa;
         if(g.flakes){
           for(k = 0; k < g.flakes; k++){
@@ -2183,7 +2275,12 @@
         var ph = pvActivePhoto();
         if(!ph || !ph.img.naturalWidth) return;
         if(graded === undefined) graded = true;
-        var src = graded ? pvGradedPhoto() : ph.img;
+        /* FINAL ROUND 2026-11-25: once a transform succeeds, the finished
+           AI portrait IS the photo on every product (for this style). It
+           is already a finished Christmas scene — no grade or seasonal
+           treatment on top of it. */
+        var useAi = graded && pvAi && pvAi.style === pvStyle && pvAi.img;
+        var src = useAi ? pvAi.img : (graded ? pvGradedPhoto() : ph.img);
         if(!src) return;
         /* render photo + season treatment into an offscreen window first */
         var tmp = document.createElement("canvas"); tmp.width = W; tmp.height = H;
@@ -2195,7 +2292,7 @@
         var dw = iw*scale, dh = ih*scale;
         var dx = (W - dw)/2 + pvOx * W, dy = (H - dh)/2 + pvOy * H;
         t.drawImage(src, dx, dy, dw, dh);
-        if(graded) pvApplyOverlays(t, win, W, H);
+        if(graded && !useAi) pvApplyOverlays(t, win, W, H);
         t.restore();
         /* composite onto the product: real cylindrical warp for arc windows */
         ctx.save();
@@ -2236,8 +2333,8 @@
           ? "Your photo as-is — no Christmas glow. Switch back to see the Christmas warmth."
           : "Christmas warmth — " + pvStyle + " glow on your photo. The finished portrait is art-directed in this style.";
       }
-      document.getElementById("pvToggleSeason").addEventListener("click", function(){ pvFeatOriginal = false; pvPaintToggle(); pvRenderFeatured(); });
-      document.getElementById("pvToggleOriginal").addEventListener("click", function(){ pvFeatOriginal = true; pvPaintToggle(); pvRenderFeatured(); });
+      document.getElementById("pvToggleSeason").addEventListener("click", function(){ pvFeatOriginal = false; pvPaintToggle(); pvRenderAll(); });
+      document.getElementById("pvToggleOriginal").addEventListener("click", function(){ pvFeatOriginal = true; pvPaintToggle(); pvRenderAll(); });
       var pvSwitcher = document.getElementById("pvSwitcher");
       PV_PRODUCTS.forEach(function(p){
         var b = document.createElement("button");
@@ -3483,7 +3580,10 @@
         Object.keys(pvTileState).forEach(function(id){
           var st = pvTileState[id];
           st.empty.style.display = pvPhotos.length ? "none" : "";
-          pvBuildWins(st.winsBox, st.prod, st.img, true);
+          /* FINAL ROUND 2026-11-25: the grid IS the main preview now, so
+             the warmth / as-is toggle controls the tiles, not the hidden
+             featured stage. */
+          pvBuildWins(st.winsBox, st.prod, st.img, !pvFeatOriginal);
         });
         document.getElementById("pvFeatEmpty").style.display = pvPhotos.length ? "none" : "";
         pvFeatList = pvBuildWins(pvFeatWins, pvProd(pvFeatured), pvFeatImg, !pvFeatOriginal);
@@ -3496,12 +3596,13 @@
         var ph = pvActivePhoto();
         if(!prev || !ph) return;
         try {
-          var src = pvGradedPhoto(); if(!src) return;
+          var useAi = pvAi && pvAi.style === pvStyle && pvAi.img;
+          var src = useAi ? pvAi.img : pvGradedPhoto(); if(!src) return;
           var iw = src.naturalWidth || src.width, ih = src.naturalHeight || src.height;
           var c = document.createElement("canvas"); c.width = 440; c.height = Math.max(40, Math.round(440 * ih / iw));
           var x = c.getContext("2d");
           x.drawImage(src, 0, 0, c.width, c.height);
-          pvApplyOverlays(x, {x:0, y:0, w:100, h:100, shape:"rect"}, c.width, c.height);
+          if(!useAi) pvApplyOverlays(x, {x:0, y:0, w:100, h:100, shape:"rect"}, c.width, c.height);
           prev.src = c.toDataURL("image/jpeg", 0.85);
           prev.style.display = "block";
           if(note) note.style.display = "block";
@@ -3603,119 +3704,306 @@
         ctx.fillText("NORTH POLE", x, y - r * 0.30);
         ctx.restore();
       }
+      /* --- MAGIC certificate helpers (v3, final round 2026-11-25) ---
+         The live preview now matches the MAGIC certificate: red header,
+         big waving Santa, snow globe with the kid's photo, huge gold
+         name, 5 stars, Santa's personal message, official red stamp. */
+      function certWrapText(ctx, text, maxW){
+        var words = text.split(" "), lines = [], line = "";
+        words.forEach(function(w){
+          var test = line ? line + " " + w : w;
+          if(ctx.measureText(test).width > maxW && line){ lines.push(line); line = w; }
+          else { line = test; }
+        });
+        if(line) lines.push(line);
+        return lines;
+      }
+      function certSanta(ctx, cx, cy, s){
+        ctx.save();
+        ctx.translate(cx, cy); ctx.scale(s, s);
+        ctx.lineCap = "round"; ctx.lineJoin = "round";
+        /* sack over the left shoulder, toys peeking out */
+        ctx.fillStyle = "#C89B6A";
+        ctx.beginPath(); ctx.ellipse(-108, 42, 34, 44, 0.25, 0, Math.PI * 2); ctx.fill();
+        ctx.fillStyle = "#8B5A2B";
+        ctx.beginPath(); ctx.ellipse(-100, 2, 14, 8, 0.25, 0, Math.PI * 2); ctx.fill();
+        ctx.fillStyle = "#C0392B";
+        ctx.beginPath(); ctx.arc(-118, -6, 9, 0, Math.PI * 2); ctx.fill();
+        ctx.fillStyle = "#2E7D32";
+        ctx.fillRect(-104, -18, 18, 16);
+        ctx.strokeStyle = "#D4AF37"; ctx.lineWidth = 2;
+        ctx.beginPath(); ctx.moveTo(-95, -18); ctx.lineTo(-95, -2); ctx.moveTo(-113, -10); ctx.lineTo(-86, -10); ctx.stroke();
+        /* legs + boots */
+        ctx.fillStyle = "#B01E24";
+        ctx.fillRect(-38, 52, 24, 42); ctx.fillRect(14, 52, 24, 42);
+        ctx.fillStyle = "#1a1a1a";
+        ctx.beginPath(); ctx.roundRect(-42, 88, 32, 16, 6); ctx.fill();
+        ctx.beginPath(); ctx.roundRect(10, 88, 32, 16, 6); ctx.fill();
+        /* waving arm (Santa's left, up high) */
+        ctx.strokeStyle = "#B01E24"; ctx.lineWidth = 22;
+        ctx.beginPath(); ctx.moveTo(46, -6); ctx.lineTo(88, -76); ctx.stroke();
+        ctx.fillStyle = "#ffffff";
+        ctx.beginPath(); ctx.arc(88, -76, 12, 0, Math.PI * 2); ctx.fill();
+        ctx.fillStyle = "#F3D9B8";
+        ctx.beginPath(); ctx.arc(94, -90, 11, 0, Math.PI * 2); ctx.fill();
+        /* left arm down to the sack */
+        ctx.strokeStyle = "#B01E24"; ctx.lineWidth = 20;
+        ctx.beginPath(); ctx.moveTo(-46, -2); ctx.lineTo(-80, 32); ctx.stroke();
+        ctx.fillStyle = "#ffffff";
+        ctx.beginPath(); ctx.arc(-80, 32, 11, 0, Math.PI * 2); ctx.fill();
+        ctx.fillStyle = "#F3D9B8";
+        ctx.beginPath(); ctx.arc(-84, 42, 10, 0, Math.PI * 2); ctx.fill();
+        /* big red belly + white trim + belt */
+        ctx.fillStyle = "#B01E24";
+        ctx.beginPath(); ctx.ellipse(0, 18, 62, 58, 0, 0, Math.PI * 2); ctx.fill();
+        ctx.fillStyle = "#ffffff";
+        ctx.beginPath(); ctx.ellipse(0, 66, 56, 13, 0, 0, Math.PI * 2); ctx.fill();
+        ctx.fillStyle = "#1a1a1a";
+        ctx.fillRect(-62, 8, 124, 16);
+        ctx.strokeStyle = "#D4AF37"; ctx.lineWidth = 3;
+        ctx.strokeRect(-14, 6, 28, 20);
+        ctx.fillStyle = "#ffffff";
+        ctx.beginPath(); ctx.arc(0, 2, 4, 0, Math.PI * 2); ctx.fill();
+        /* head + beard + face */
+        ctx.fillStyle = "#ffffff";
+        ctx.beginPath(); ctx.ellipse(0, -30, 37, 32, 0, 0, Math.PI * 2); ctx.fill();
+        ctx.fillStyle = "#F3D9B8";
+        ctx.beginPath(); ctx.arc(0, -62, 31, 0, Math.PI * 2); ctx.fill();
+        /* moustache */
+        ctx.fillStyle = "#ffffff";
+        ctx.beginPath(); ctx.ellipse(-13, -42, 12, 6, -0.3, 0, Math.PI * 2); ctx.fill();
+        ctx.beginPath(); ctx.ellipse(13, -42, 12, 6, 0.3, 0, Math.PI * 2); ctx.fill();
+        /* nose, eyes, cheeks, smile */
+        ctx.fillStyle = "#F2A594";
+        ctx.beginPath(); ctx.arc(0, -54, 6, 0, Math.PI * 2); ctx.fill();
+        ctx.fillStyle = "#1a1a1a";
+        ctx.beginPath(); ctx.arc(-12, -66, 3, 0, Math.PI * 2); ctx.fill();
+        ctx.beginPath(); ctx.arc(12, -66, 3, 0, Math.PI * 2); ctx.fill();
+        ctx.fillStyle = "rgba(242,120,120,0.55)";
+        ctx.beginPath(); ctx.arc(-22, -54, 5, 0, Math.PI * 2); ctx.fill();
+        ctx.beginPath(); ctx.arc(22, -54, 5, 0, Math.PI * 2); ctx.fill();
+        ctx.strokeStyle = "#7a4a2a"; ctx.lineWidth = 2;
+        ctx.beginPath(); ctx.arc(0, -38, 7, 0.15 * Math.PI, 0.85 * Math.PI); ctx.stroke();
+        /* hat: floppy red cap + white trim + pompom */
+        ctx.fillStyle = "#B01E24";
+        ctx.beginPath();
+        ctx.moveTo(-32, -84);
+        ctx.quadraticCurveTo(-10, -112, 26, -104);
+        ctx.quadraticCurveTo(34, -96, 30, -86);
+        ctx.lineTo(-30, -82);
+        ctx.closePath(); ctx.fill();
+        ctx.fillStyle = "#ffffff";
+        ctx.beginPath(); ctx.roundRect(-36, -92, 70, 12, 6); ctx.fill();
+        ctx.beginPath(); ctx.arc(34, -102, 9, 0, Math.PI * 2); ctx.fill();
+        ctx.restore();
+      }
+      function certRedSeal(ctx, x, y, r){
+        ctx.save();
+        ctx.fillStyle = "#B01E24"; ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI * 2); ctx.fill();
+        ctx.strokeStyle = "#D4AF37"; ctx.lineWidth = 2.5;
+        ctx.beginPath(); ctx.arc(x, y, r * 0.82, 0, Math.PI * 2); ctx.stroke();
+        certStar(ctx, x, y - r * 0.52, r * 0.14, "#E9C767");
+        ctx.fillStyle = "#ffffff"; ctx.textAlign = "center";
+        ctx.font = "700 " + Math.round(r * 0.20) + "px Jost, sans-serif";
+        ctx.fillText("OFFICIAL", x, y - r * 0.14);
+        ctx.fillText("SANTA", x, y + r * 0.14);
+        ctx.fillText("STAMP", x, y + r * 0.42);
+        ctx.restore();
+      }
+      function certStarburst(ctx, x, y, r, lines){
+        ctx.save();
+        ctx.beginPath();
+        var spikes = 14;
+        for(var i = 0; i < spikes * 2; i++){
+          var a = i * Math.PI / spikes - Math.PI / 2;
+          var rr = i % 2 === 0 ? r : r * 0.72;
+          var px = x + Math.cos(a) * rr, py = y + Math.sin(a) * rr;
+          if(i === 0) ctx.moveTo(px, py); else ctx.lineTo(px, py);
+        }
+        ctx.closePath();
+        ctx.fillStyle = "#D81E26"; ctx.fill();
+        ctx.strokeStyle = "#D4AF37"; ctx.lineWidth = 2.5; ctx.stroke();
+        ctx.fillStyle = "#ffffff"; ctx.textAlign = "center";
+        ctx.font = "700 " + Math.round(r * 0.24) + "px Jost, sans-serif";
+        var n = lines.length;
+        lines.forEach(function(line, i){
+          ctx.fillText(line, x, y + (i - (n - 1) / 2) * Math.round(r * 0.30) + Math.round(r * 0.08));
+        });
+        ctx.restore();
+      }
+      function certHoofprint(ctx, x, y, s, rot){
+        ctx.save();
+        ctx.translate(x, y); ctx.rotate(rot || 0); ctx.scale(s, s);
+        ctx.fillStyle = "#6B4226";
+        ctx.beginPath(); ctx.ellipse(-5, -6, 3.5, 5.5, -0.25, 0, Math.PI * 2); ctx.fill();
+        ctx.beginPath(); ctx.ellipse(5, -6, 3.5, 5.5, 0.25, 0, Math.PI * 2); ctx.fill();
+        ctx.beginPath(); ctx.ellipse(0, 4, 6.5, 5, 0, 0, Math.PI * 2); ctx.fill();
+        ctx.restore();
+      }
+      function certElf(ctx, x, y, s){
+        ctx.save();
+        ctx.translate(x, y); ctx.scale(s, s);
+        /* green pointed hat, flopping left + red pompom */
+        ctx.fillStyle = "#2E7D32";
+        ctx.beginPath();
+        ctx.moveTo(-14, -8);
+        ctx.quadraticCurveTo(-26, -34, -6, -30);
+        ctx.quadraticCurveTo(2, -28, 10, -10);
+        ctx.closePath(); ctx.fill();
+        ctx.fillStyle = "#C0392B";
+        ctx.beginPath(); ctx.arc(-8, -30, 4, 0, Math.PI * 2); ctx.fill();
+        /* face + ears */
+        ctx.fillStyle = "#F3D9B8";
+        ctx.beginPath(); ctx.arc(0, 0, 15, 0, Math.PI * 2); ctx.fill();
+        ctx.beginPath(); ctx.ellipse(-15, 0, 5, 3, 0, 0, Math.PI * 2); ctx.fill();
+        ctx.beginPath(); ctx.ellipse(15, 0, 5, 3, 0, 0, Math.PI * 2); ctx.fill();
+        ctx.fillStyle = "#1a1a1a";
+        ctx.beginPath(); ctx.arc(-5, -2, 1.8, 0, Math.PI * 2); ctx.fill();
+        ctx.beginPath(); ctx.arc(5, -2, 1.8, 0, Math.PI * 2); ctx.fill();
+        ctx.strokeStyle = "#7a4a2a"; ctx.lineWidth = 1.6;
+        ctx.beginPath(); ctx.arc(0, 3, 6, 0.15 * Math.PI, 0.85 * Math.PI); ctx.stroke();
+        /* green collar */
+        ctx.fillStyle = "#2E7D32";
+        ctx.beginPath(); ctx.moveTo(-12, 14); ctx.lineTo(0, 26); ctx.lineTo(12, 14); ctx.closePath(); ctx.fill();
+        ctx.restore();
+      }
+      /* The kid's own photo, uploaded in the Certificate Studio. Null
+         means "use the Studio photo" (the active Preview Studio photo). */
+      var certPhotoImg = null;
       function certPaint(){
         var cv = document.getElementById("certCanvas");
         if(!cv) return;
         var ctx = cv.getContext("2d");
         var W = cv.width, H = cv.height;
         var name = certKidName();
+        /* --- which photo goes in the snow globe: the kid's own photo if
+           one was uploaded here, else the Studio photo — or the finished
+           AI portrait, when one exists for the current style. --- */
         var ph = pvActivePhoto();
-        var src = ph ? pvGradedPhoto() : null;
+        var kidImg = certPhotoImg || (ph && ph.img);
+        var src = null;
+        if(kidImg){
+          if(!certPhotoImg && pvAi && pvAi.style === pvStyle && pvAi.img) src = pvAi.img;
+          else src = pvGradedPhoto(kidImg);
+        }
         ctx.clearRect(0, 0, W, H);
-        /* ivory background + soft gold glow */
-        ctx.fillStyle = "#FDF8EC"; ctx.fillRect(0, 0, W, H);
-        var glow = ctx.createRadialGradient(W/2, H*0.42, 40, W/2, H*0.42, 420);
-        glow.addColorStop(0, "rgba(212,175,55,0.14)"); glow.addColorStop(1, "rgba(212,175,55,0)");
-        ctx.fillStyle = glow; ctx.fillRect(0, 0, W, H);
+        /* warm cream centre */
+        ctx.fillStyle = "#FDF6E3"; ctx.fillRect(0, 0, W, H);
         /* faint gold snowflakes, seeded so they don't jump */
         var seed = pvHashStr("cert|" + name + "|" + pvStyle);
         var rnd = pvSeededRand(seed);
-        for(var i = 0; i < 22; i++){
-          certSnowflake(ctx, 40 + rnd() * (W - 80), 90 + rnd() * (H - 180), 5 + rnd() * 7, "#D4AF37", 0.14 + rnd() * 0.12);
+        for(var i = 0; i < 26; i++){
+          certSnowflake(ctx, 30 + rnd() * (W - 60), 80 + rnd() * (H - 160), 4 + rnd() * 7, "#D4AF37", 0.12 + rnd() * 0.12);
         }
-        /* green header band */
-        ctx.fillStyle = "#07180F"; ctx.fillRect(0, 0, W, 64);
-        ctx.fillStyle = "#D4AF37"; ctx.fillRect(0, 64, W, 2);
-        ctx.fillStyle = "#E9C767"; ctx.textAlign = "center";
-        ctx.font = "600 13px Jost, sans-serif";
-        ctx.fillText("N O R T H   P O L E   •   O F F I C I A L   D O C U M E N T", W/2, 28);
-        ctx.fillStyle = "#ffffff";
-        ctx.font = "italic 13px Georgia, serif";
-        ctx.fillText("Checked twice, sealed with snow — and delivered by reindeer", W/2, 50);
-        /* double gold border */
-        ctx.strokeStyle = "#D4AF37"; ctx.lineWidth = 3;
-        ctx.strokeRect(14, 14, W - 28, H - 28);
-        ctx.lineWidth = 1; ctx.strokeRect(22, 22, W - 44, H - 44);
-        /* title */
-        ctx.fillStyle = "#07180F"; ctx.textAlign = "center";
-        ctx.font = "700 42px 'Playfair Display', Georgia, serif";
-        ctx.fillText("Nice List Certificate", W/2, 132);
-        /* divider */
-        ctx.strokeStyle = "#D4AF37"; ctx.lineWidth = 1.2;
-        ctx.beginPath(); ctx.moveTo(W/2 - 150, 152); ctx.lineTo(W/2 - 26, 152); ctx.stroke();
-        ctx.beginPath(); ctx.moveTo(W/2 + 26, 152); ctx.lineTo(W/2 + 150, 152); ctx.stroke();
-        certStar(ctx, W/2, 152, 9, "#D4AF37");
-        /* awarded to + hero name */
-        ctx.fillStyle = "#0E2E1B"; ctx.font = "italic 15px Georgia, serif";
-        ctx.fillText("This certificate is proudly awarded to", W/2, 188);
-        ctx.fillStyle = "#A8842A";
-        ctx.font = "italic 700 54px 'Playfair Display', Georgia, serif";
-        ctx.fillText(name, W/2, 246);
-        var nw = ctx.measureText(name).width;
-        ctx.strokeStyle = "#D4AF37"; ctx.lineWidth = 1.6;
-        ctx.beginPath(); ctx.moveTo(W/2 - nw/2 - 16, 258); ctx.lineTo(W/2 + nw/2 + 16, 258); ctx.stroke();
-        certStar(ctx, W/2, 258, 5, "#D4AF37");
-        /* Nice List Score — 5 gold stars */
-        ctx.fillStyle = "#A8842A"; ctx.font = "600 11px Jost, sans-serif";
-        ctx.fillText("N I C E   L I S T   S C O R E", W/2, 288);
-        for(var s = 0; s < 5; s++){
-          certStar(ctx, W/2 + (s - 2) * 36, 310, 13, "#D4AF37");
-        }
-        /* snow globe with the kid's photo */
-        var gx = 185, gy = 425, gr = 72;
+        /* red frame + gold inner line */
+        ctx.strokeStyle = "#B01E24"; ctx.lineWidth = 5;
+        ctx.strokeRect(7, 7, W - 14, H - 14);
+        ctx.strokeStyle = "#D4AF37"; ctx.lineWidth = 1.5;
+        ctx.strokeRect(15, 15, W - 30, H - 30);
+        /* bold red header band + gold scalloped hem */
+        ctx.fillStyle = "#B01E24"; ctx.fillRect(0, 0, W, 66);
+        ctx.fillStyle = "#D4AF37";
+        for(var dx = 16; dx < W - 8; dx += 22){ ctx.beginPath(); ctx.arc(dx, 66, 4.5, 0, Math.PI * 2); ctx.fill(); }
+        ctx.fillStyle = "#ffffff"; ctx.textAlign = "center";
+        ctx.font = "700 30px 'Playfair Display', Georgia, serif";
+        ctx.fillText("SANTA'S NICE LIST", W/2, 32);
+        ctx.fillStyle = "#E9C767";
+        ctx.font = "600 9.5px Jost, sans-serif";
+        ctx.fillText("O F F I C I A L   C E R T I F I C A T E   •   F R O M   T H E   N O R T H   P O L E", W/2, 52);
+        /* BIG Santa, left side, waving */
+        ctx.fillStyle = "#B01E24";
+        ctx.font = "italic 700 20px 'Playfair Display', Georgia, serif";
+        ctx.fillText("HO HO HO!", 150, 92);
+        certSanta(ctx, 150, 205, 0.9);
+        /* snow globe with the kid's photo, top right */
+        var gx = 580, gy = 148, gr = 52;
         ctx.save();
         ctx.beginPath(); ctx.arc(gx, gy, gr, 0, Math.PI * 2); ctx.clip();
-        if(src && src.naturalWidth){
+        if(src){
           var iw = src.naturalWidth || src.width, ih = src.naturalHeight || src.height;
-          var sc = Math.max(gr * 2 / iw, gr * 2 / ih) * pvZoom;
+          var sc = Math.max(gr * 2 / iw, gr * 2 / ih);
           var dw = iw * sc, dh = ih * sc;
-          ctx.drawImage(src, gx - dw/2 + pvOx * gr, gy - dh/2 + pvOy * gr, dw, dh);
-          pvApplyOverlays(ctx, {x:0, y:0, w:100, h:100, shape:"circle"}, gr * 2, gr * 2);
+          ctx.drawImage(src, gx - dw/2, gy - dh/2, dw, dh);
         } else {
           ctx.fillStyle = "#DCEAF5"; ctx.fillRect(gx - gr, gy - gr, gr * 2, gr * 2);
-          certSnowflake(ctx, gx, gy - 8, 16, "#ffffff", 0.9);
-          ctx.fillStyle = "#5a6b7a"; ctx.font = "italic 13px Georgia, serif";
-          ctx.fillText("your photo here", gx, gy + 26);
+          certSnowflake(ctx, gx, gy - 6, 14, "#ffffff", 0.9);
+          ctx.fillStyle = "#5a6b7a"; ctx.font = "italic 12px Georgia, serif";
+          ctx.fillText("your photo here", gx, gy + 22);
         }
         ctx.restore();
-        ctx.strokeStyle = "#D4AF37"; ctx.lineWidth = 5;
+        ctx.strokeStyle = "#D4AF37"; ctx.lineWidth = 4;
         ctx.beginPath(); ctx.arc(gx, gy, gr, 0, Math.PI * 2); ctx.stroke();
         ctx.fillStyle = "#A8842A";
-        ctx.beginPath(); ctx.roundRect(gx - 34, gy + gr - 4, 68, 14, 5); ctx.fill();
-        /* candy canes flanking the title */
-        certCandyCane(ctx, 128, 138, 34, -0.35);
-        certCandyCane(ctx, W - 128, 138, 34, 0.35);
-        /* body text, right of the globe */
-        ctx.fillStyle = "#0E2E1B"; ctx.textAlign = "left";
-        ctx.font = "15px Georgia, serif";
-        var tx = 300;
-        ctx.fillText("has officially made Santa's", tx, 392);
-        ctx.fillText("Nice List for being kind, brave", tx, 414);
-        ctx.fillText("and full of Christmas cheer.", tx, 436);
-        ctx.font = "italic 13.5px Georgia, serif";
-        ctx.fillText("Santa checked the list twice —", tx, 466);
-        ctx.fillText("and this name sparkles at the top!", tx, 486);
-        /* bottom row: reindeer, signature, seal, date */
-        certReindeer(ctx, 66, 545, 1.0);
+        ctx.beginPath(); ctx.roundRect(gx - 26, gy + gr - 3, 52, 11, 4); ctx.fill();
+        /* candy canes flanking the globe */
+        certCandyCane(ctx, 470, 150, 30, -0.35);
+        certCandyCane(ctx, 690, 150, 30, 0.35);
+        /* awarded to + HUGE gold name */
+        ctx.fillStyle = "#0E2E1B"; ctx.textAlign = "center";
+        ctx.font = "italic 15px Georgia, serif";
+        ctx.fillText("This certificate is proudly awarded to", 580, 238);
+        var nameSize = 46;
+        ctx.font = "italic 700 " + nameSize + "px 'Playfair Display', Georgia, serif";
+        while(ctx.measureText(name).width > 300 && nameSize > 22){
+          nameSize -= 2;
+          ctx.font = "italic 700 " + nameSize + "px 'Playfair Display', Georgia, serif";
+        }
+        ctx.fillStyle = "#A8842A";
+        ctx.fillText(name, 580, 290);
+        var nw = ctx.measureText(name).width;
+        ctx.strokeStyle = "#D4AF37"; ctx.lineWidth = 1.6;
+        ctx.beginPath(); ctx.moveTo(580 - nw/2 - 14, 302); ctx.lineTo(580 + nw/2 + 14, 302); ctx.stroke();
+        certStar(ctx, 580, 302, 5, "#D4AF37");
+        /* Nice List Score — 5 BIG gold stars */
+        ctx.fillStyle = "#A8842A"; ctx.font = "600 11px Jost, sans-serif";
+        ctx.fillText("N I C E   L I S T   S C O R E", 580, 330);
+        for(var s = 0; s < 5; s++){
+          certStar(ctx, 580 + (s - 2) * 34, 352, 13, "#D4AF37");
+        }
+        /* personal message from Santa, in a red-bordered card */
+        ctx.fillStyle = "#ffffff";
+        ctx.strokeStyle = "#B01E24"; ctx.lineWidth = 2;
+        ctx.beginPath(); ctx.roundRect(300, 382, 560, 116, 12); ctx.fill(); ctx.stroke();
+        ctx.strokeStyle = "#D4AF37"; ctx.lineWidth = 0.8;
+        ctx.beginPath(); ctx.roundRect(304, 386, 552, 108, 9); ctx.stroke();
+        var msg = "Dear " + name + ", I saw you being kind when you shared your toys, and brave when the thunder came. Keep shining — I am so proud of you!";
+        ctx.fillStyle = "#0E2E1B";
+        ctx.font = "italic 13px Georgia, serif";
+        var lines = certWrapText(ctx, msg, 520);
+        var ly = 410;
+        lines.forEach(function(line){ ctx.fillText(line, 580, ly); ly += 18; });
+        ctx.fillStyle = "#B01E24";
+        ctx.font = "italic 700 13px 'Playfair Display', Georgia, serif";
+        ctx.fillText("— Love, Santa —", 580, ly + 8);
+        /* footer row: signature | date | OFFICIAL SANTA STAMP */
         ctx.textAlign = "center";
         ctx.fillStyle = "#07180F";
-        ctx.font = "italic 700 24px 'Playfair Display', Georgia, serif";
-        ctx.fillText("Santa Claus", 300, 540);
+        ctx.font = "italic 700 22px 'Playfair Display', Georgia, serif";
+        ctx.fillText("Santa Claus", 400, 545);
         ctx.strokeStyle = "#A8842A"; ctx.lineWidth = 1;
-        ctx.beginPath(); ctx.moveTo(222, 550); ctx.lineTo(378, 550); ctx.stroke();
-        ctx.fillStyle = "#A8842A"; ctx.font = "600 9.5px Jost, sans-serif";
-        ctx.fillText("SANTA CLAUS  •  NORTH POLE", 300, 566);
-        certSeal(ctx, 470, 538, 36);
+        ctx.beginPath(); ctx.moveTo(330, 554); ctx.lineTo(470, 554); ctx.stroke();
+        ctx.fillStyle = "#A8842A"; ctx.font = "600 9px Jost, sans-serif";
+        ctx.fillText("SANTA CLAUS  •  NORTH POLE", 400, 568);
         ctx.fillStyle = "#07180F";
-        ctx.font = "700 16px 'Playfair Display', Georgia, serif";
-        ctx.fillText("Christmas 2026", 640, 540);
+        ctx.font = "700 15px 'Playfair Display', Georgia, serif";
+        ctx.fillText("Christmas 2026", 560, 545);
         ctx.strokeStyle = "#A8842A";
-        ctx.beginPath(); ctx.moveTo(566, 550); ctx.lineTo(714, 550); ctx.stroke();
-        ctx.fillStyle = "#A8842A"; ctx.font = "600 9.5px Jost, sans-serif";
-        ctx.fillText("25 DECEMBER  •  THE NORTH POLE", 640, 566);
+        ctx.beginPath(); ctx.moveTo(498, 554); ctx.lineTo(622, 554); ctx.stroke();
+        ctx.fillStyle = "#A8842A"; ctx.font = "600 9px Jost, sans-serif";
+        ctx.fillText("25 DECEMBER  •  THE NORTH POLE", 560, 568);
+        certRedSeal(ctx, 690, 545, 30);
+        /* reindeer hoofprint trail beside the signature */
+        certHoofprint(ctx, 300, 552, 0.8, -0.2);
+        certHoofprint(ctx, 316, 540, 0.8, 0.18);
+        /* reindeer friend, bottom-right */
+        certReindeer(ctx, 810, 555, 0.85);
+        /* elf peeking in from the right edge */
+        certElf(ctx, 874, 300, 1.0);
+        /* "SHOW YOUR FRIENDS!" starburst, top-right */
+        certStarburst(ctx, 800, 112, 36, ["SHOW", "YOUR", "FRIENDS!"]);
         /* footer line */
         ctx.fillStyle = "#A8842A"; ctx.font = "italic 11px Georgia, serif";
-        ctx.fillText("Keep this somewhere magical — Santa checks the Nice List every Christmas Eve.", W/2, 600);
+        ctx.fillText("Keep this somewhere magical — Santa checks the Nice List every Christmas Eve.", W/2, 602);
         /* watermark: diagonal PREVIEW, low alpha — the print version is crisp and watermark-free */
         ctx.save();
         ctx.translate(W/2, H/2); ctx.rotate(-0.42);
@@ -3737,7 +4025,8 @@
         ctx.clearRect(0, 0, W, H);
         var ph = pvActivePhoto();
         if(!ph || !ph.img.naturalWidth) return;
-        var src = graded === false ? ph.img : pvGradedPhoto();
+        var useAi = graded !== false && pvAi && pvAi.style === pvStyle && pvAi.img;
+        var src = useAi ? pvAi.img : (graded === false ? ph.img : pvGradedPhoto());
         if(!src) return;
         var name = certKidName();
         var heroH = Math.round(H * 0.60), certH = H - heroH;
@@ -3748,7 +4037,7 @@
         var scale = Math.max(W/iw, heroH/ih) * pvZoom;
         var dw = iw*scale, dh = ih*scale;
         t.drawImage(src, (W - dw)/2 + pvOx * W, (heroH - dh)/2 + pvOy * heroH, dw, dh);
-        if(graded !== false) pvApplyOverlays(t, {x:0, y:0, w:100, h:100, shape:"rect"}, W, heroH);
+        if(graded !== false && !useAi) pvApplyOverlays(t, {x:0, y:0, w:100, h:100, shape:"rect"}, W, heroH);
         ctx.drawImage(tmp, 0, 0);
         pvApplyShading(ctx, {shading:"inner"}, W, heroH);
         /* mini certificate, bottom */
@@ -3790,11 +4079,25 @@
         if(nameInp){
           nameInp.addEventListener("input", function(){ pvRenderAll(); });
         }
+        /* The kid's photo has its own upload — it goes in the snow globe
+           only, and never becomes a Studio photo. */
+        var certFile = document.getElementById("certFile");
         var upBtn = document.getElementById("certUploadBtn");
-        if(upBtn && pvFile){ upBtn.addEventListener("click", function(){ pvFile.click(); }); }
+        if(upBtn && certFile){ upBtn.addEventListener("click", function(){ certFile.click(); }); }
+        if(certFile){
+          certFile.addEventListener("change", function(){
+            if(!this.files || !this.files[0]) return;
+            var url = URL.createObjectURL(this.files[0]);
+            var im = new Image();
+            im.onload = function(){ certPhotoImg = im; certPaint(); toast("Their photo is in the snow globe"); };
+            im.src = url;
+            this.value = "";
+          });
+        }
         var useBtn = document.getElementById("certUseStudioBtn");
         if(useBtn){
           useBtn.addEventListener("click", function(){
+            certPhotoImg = null; certPaint();
             document.getElementById("preview-studio").scrollIntoView({ behavior:"smooth" });
             if(!pvPhotos.length){ toast("Upload a photo in the Preview Studio first"); }
           });
@@ -3913,7 +4216,7 @@
           im.src = d.photo;
         }
       }
-      pvRenderTabs(); pvRenderDesigns(); pvRenderFeatured(); pvRenderAll(); pvPaintFavs(); pvPaintToggle();
+      pvRenderTabs(); pvRenderDesigns(); pvRenderFeatured(); pvRenderAll(); pvPaintFavs(); pvPaintToggle(); pvPaintStyleTiles();
       if(photoInput.files && photoInput.files[0]) pvHandleFile(photoInput.files[0]);
 
       /* ---------- Jingle Bells — Web Audio bell synth (public-domain melody), starts only on tap ---------- */
