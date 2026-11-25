@@ -40,6 +40,8 @@
       .btn-green{ background:var(--green3); color:var(--cream); }
       .btn-small{ padding:.5rem 1rem; min-height:48px; font-size:.95rem; }
       /* Announcement + nav */
+      /* Anchor jumps must clear the sticky header (about 60px on desktop, taller when the links wrap on a phone). */
+      html{ scroll-padding-top:100px; }
       nav.top{ position:sticky; top:0; z-index:50; background:var(--green); color:var(--cream); box-shadow:0 4px 18px rgba(0,0,0,.25); }
       nav.top .wrap{ display:flex; align-items:center; gap:14px; padding-top:10px; padding-bottom:10px; flex-wrap:wrap; }
       .brand{ display:flex; align-items:center; gap:11px; text-decoration:none; }
@@ -2043,6 +2045,7 @@
           if(pvPhotos.length >= 3){ pvPhotos[pvActive < 0 ? 0 : pvActive] = entry; pvActive = pvActive < 0 ? 0 : pvActive; toast("Photo replaced — you can keep up to 3 photos"); }
           else { pvPhotos.push(entry); pvActive = pvPhotos.length - 1; }
           pvRenderTabs(); pvRenderAll(); pvPaintOrderThumb(); pvPaintStyleTiles();
+          pvPersistPhotos(); /* the photo stays in this browser across reloads */
           if(window.CPSRestyle) CPSRestyle.clear(); /* AI preview belongs to the old photo */
         };
         im.src = url;
@@ -2067,6 +2070,7 @@
         pvPhotos.splice(pvActive, 1);
         pvActive = pvPhotos.length ? 0 : -1;
         pvRenderTabs(); pvRenderAll(); pvPaintStyleTiles();
+        pvPersistPhotos(); /* forget the removed photo on the next visit too */
         if(window.CPSRestyle) CPSRestyle.clear();
         toast("Photo removed from this browser");
       });
@@ -4098,8 +4102,12 @@
         if(useBtn){
           useBtn.addEventListener("click", function(){
             certPhotoImg = null; certPaint();
-            document.getElementById("preview-studio").scrollIntoView({ behavior:"smooth" });
-            if(!pvPhotos.length){ toast("Upload a photo in the Preview Studio first"); }
+            /* Stay in the certificate section when a Studio photo exists —
+               only scroll up to the Studio when there is no photo to use. */
+            if(!pvPhotos.length){
+              document.getElementById("preview-studio").scrollIntoView({ behavior:"smooth" });
+              toast("Upload a photo in the Preview Studio first");
+            }
           });
         }
         certPaint();
@@ -4115,6 +4123,45 @@
         var c = document.createElement("canvas"); c.width = Math.round(iw*sc); c.height = Math.round(ih*sc);
         c.getContext("2d").drawImage(ph.img, 0, 0, c.width, c.height);
         return c.toDataURL("image/jpeg", 0.82);
+      }
+      /* --- Keep the uploaded photo in this browser across reloads ---
+         The page promises "Your photo stays in your browser until you
+         order" — until now the photo lived only in memory and a reload
+         lost it. Photos are stored as downscaled JPEGs (max 1200px,
+         ~100-300KB each), never sent anywhere. Removing a photo clears
+         it here too. If storage is full or unavailable, the photo still
+         works for the visit — persistence is best-effort. */
+      var PV_PHOTOS_LS = "cps_photos_v1";
+      function pvDataURLForPhoto(ph){
+        var iw = ph.img.naturalWidth, ih = ph.img.naturalHeight, sc = Math.min(1, 1200 / Math.max(iw, ih));
+        var c = document.createElement("canvas"); c.width = Math.round(iw*sc); c.height = Math.round(ih*sc);
+        c.getContext("2d").drawImage(ph.img, 0, 0, c.width, c.height);
+        return c.toDataURL("image/jpeg", 0.82);
+      }
+      function pvPersistPhotos(){
+        try {
+          var list = pvPhotos.map(function(p){ return { dataURL: pvDataURLForPhoto(p), fileName: p.fileName, label: p.label }; });
+          localStorage.setItem(PV_PHOTOS_LS, JSON.stringify(list));
+        } catch(e){ /* storage full or unavailable — photo still works this visit */ }
+      }
+      function pvRestorePhotos(){
+        var list;
+        try { list = JSON.parse(localStorage.getItem(PV_PHOTOS_LS) || "[]"); } catch(e){ return; }
+        if(!list || !list.length) return;
+        list.slice(0, 3).forEach(function(stored, idx){
+          if(!stored || !stored.dataURL) return;
+          var im = new Image();
+          im.onload = function(){
+            if(pvPhotos.length >= 3) return;
+            /* file is the data URL itself — CPSRestyle.transform accepts a
+               data-URL string, so a restored photo transforms like a fresh one. */
+            var entry = { img: im, url: stored.dataURL, file: stored.dataURL, fileName: stored.fileName || "photo.jpg", label: stored.label || PV_LABELS[Math.min(idx, 2)] };
+            pvPhotos.push(entry);
+            if(pvActive < 0) pvActive = 0;
+            pvRenderTabs(); pvRenderAll(); pvPaintOrderThumb(); pvPaintStyleTiles();
+          };
+          im.src = stored.dataURL;
+        });
       }
       function pvThumbURL(){
         var sc = document.getElementById("pvSceneCanvas");
@@ -4202,6 +4249,7 @@
             if(r){ r.checked = true; syncSummary(); }
             pvStyle = d.style; pvScene = d.scene || "";
             pvPaintChips(); pvPaintFavs(); pvRenderTabs(); pvRenderAll(); pvPaintOrderThumb(); pvPaintToggle();
+            pvPersistPhotos(); /* the opened design's photo stays in this browser too */
             /* migrate old stage-fraction stickers through the rect of the
                design's own scene (pvRenderAll above already painted it and
                recorded its photo rect) — new-format stickers pass through */
@@ -4216,6 +4264,7 @@
           im.src = d.photo;
         }
       }
+      pvRestorePhotos(); /* bring back the photo saved in this browser, if any */
       pvRenderTabs(); pvRenderDesigns(); pvRenderFeatured(); pvRenderAll(); pvPaintFavs(); pvPaintToggle(); pvPaintStyleTiles();
       if(photoInput.files && photoInput.files[0]) pvHandleFile(photoInput.files[0]);
 
