@@ -101,6 +101,10 @@
       @media (max-width:520px){ .style-grid{ grid-template-columns:1fr; } }
       .style-card{ border-radius:var(--radius); overflow:hidden; border:1px solid var(--line); background:var(--surface); }
       .style-card.pv-your-photo{ outline:2px solid var(--gold); outline-offset:-2px; }
+      .style-new{ display:inline-block; background:var(--gold); color:#23180A; font-size:.72rem; font-weight:800; letter-spacing:.12em; text-transform:uppercase; padding:.25rem .6rem; border-radius:999px; margin-left:6px; vertical-align:middle; }
+      .pv-modes{ display:flex; gap:8px; flex-wrap:wrap; }
+      .pv-mode-btn{ border:1.5px solid var(--line); background:var(--surface); color:var(--ink); border-radius:999px; padding:.55rem 1.1rem; font-family:inherit; font-weight:700; cursor:pointer; font-size:.95rem; min-height:44px; }
+      .pv-mode-btn.active{ background:var(--green); color:var(--gold); border-color:var(--green); }
       .style-art{ height:210px; position:relative; }
       .style-art img{ width:100%; height:100%; object-fit:cover; object-position:center 25%; display:block; }
       .style-body{ padding:14px 16px 16px; }
@@ -319,6 +323,10 @@
       .pv-heart.on{ border-color:var(--red); background:#FDECEA; }
       .pv-heart.on svg{ fill:var(--red); }
       .pv-tile select{ padding:.45rem .6rem; border:1.5px solid var(--line); border-radius:9px; background:var(--surface); color:var(--ink); font-family:inherit; font-size:.93rem; }
+      .pv-proof-btn{ border:2px solid var(--line); border-radius:10px; padding:6px; background:#fff; cursor:pointer; width:31%; max-width:180px; font-family:inherit; color:var(--ink); }
+      .pv-proof-btn.selected{ border-color:var(--gold); }
+      .pv-proof-btn img{ width:100%; height:auto; display:block; border-radius:6px; }
+      .pv-proof-btn span{ display:block; margin-top:6px; font-weight:700; font-size:.92rem; }
       .pv-favbar{ display:flex; flex-wrap:wrap; gap:10px; align-items:center; justify-content:space-between; margin-top:18px; background:var(--surface2); border:1px solid var(--line); border-radius:var(--radius); padding:12px 16px; }
       .pv-designs{ display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:12px; }
       @media (max-width:880px){ .pv-designs{ grid-template-columns:repeat(2,1fr); } }
@@ -405,11 +413,11 @@
         <h2>Three steps. One photo. Christmas handled.</h2>
         <div class="grid grid-3" style="margin-top:22px">
           <div class="card"><div class="step-num">1</div><h3>Step 1 of 3 — Add your photo</h3><p class="soft" style="margin:0">Any clear family photo. Phone photos are perfect.</p></div>
-          <div class="card"><div class="step-num">2</div><h3>Step 2 of 3 — Pick a style</h3><p class="soft" style="margin:0">Choose one of the 6 looks below. Same faces, new Christmas scene.</p></div>
+          <div class="card"><div class="step-num">2</div><h3>Step 2 of 3 — Pick a style</h3><p class="soft" style="margin:0">Choose one of the 7 looks below. Same faces, new Christmas scene.</p></div>
           <div class="card"><div class="step-num">3</div><h3>Step 3 of 3 — Choose what to buy</h3><p class="soft" style="margin:0">See it on a mug, canvas, card or gift. Add it to your order.</p></div>
         </div>
 
-        <p class="kicker" style="margin-top:44px">Six Signature Styles</p>
+        <p class="kicker" style="margin-top:44px">Seven Signature Styles</p>
         <h2>Pick the Christmas you want to live in</h2>
         <div class="style-grid" style="margin-top:22px">
           <div class="style-card" data-style="Classic Santa Snow"><div class="style-art"><img src="https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/29159649/c37783b5-b945-449c-bcf3-30405e0e64c0" alt="Classic Santa Snow style example — a family in Santa hats laughing in falling snow" loading="lazy" /></div><div class="style-body"><h3>01 · Classic Santa Snow</h3><p>Snowfall, Santa hats, deep red and pine green. The timeless family-card look.</p><span class="style-example">Your family in this look</span></div></div>
@@ -418,6 +426,7 @@
           <div class="style-card" data-style="Snow Globe"><div class="style-art"><img src="https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/29159649/d4a9e7ac-8b88-45f4-bc5b-b5b3201c0ae3" alt="Snow Globe style example — a family inside a magical snow globe scene" loading="lazy" /></div><div class="style-body"><h3>04 · Snow Globe</h3><p>Your family inside a magical snow globe.</p><span class="style-example">Your family in this look</span></div></div>
           <div class="style-card" data-style="Colombo Christmas"><div class="style-art"><img src="https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/29159649/6f3badf2-d062-42d0-a216-970f9447bf49" alt="Colombo Christmas style example — a Sri Lankan family celebrating under Galle Face lights and palms" loading="lazy" /></div><div class="style-body"><h3>05 · Colombo Christmas</h3><p>Galle Face lights, tropical December warmth, Sri Lankan Christmas soul.</p><span class="style-example">Your family in this look</span></div></div>
           <div class="style-card" data-style="Winter Royal"><div class="style-art"><img src="https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/29159649/4354480c-966b-4d65-9e2c-cc0955b148f7" alt="Winter Royal style example — a family in velvet and crowns in an elegant snowy palace setting" loading="lazy" /></div><div class="style-body"><h3>06 · Winter Royal</h3><p>Velvet and palace snow. A formal portrait for the wall.</p><span class="style-example">Your family in this look</span></div></div>
+          <div class="style-card" data-style="Name in Lights"><div class="style-art"><img src="https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/29159649/3178fe7a-559f-4fb0-9814-4b8256bd3756" alt="Name in Lights style example — a family in warm golden light with fairy lights glowing behind them" loading="lazy" /></div><div class="style-body"><h3>07 · Name in Lights <span class="style-new">New</span></h3><p>Your family name, woven into the lights.</p><span class="style-example">Your family in this look</span></div></div>
         </div>
       </div>
     </section>
@@ -427,7 +436,7 @@
         <p class="kicker">Step 1 of 3 — Add your photo</p>
         <h2>Your photo, on every gift</h2>
         <p class="soft" style="max-width:46rem">Add your photo below. Pick a style. See it on a mug, canvas, tee, stocking, ornament and card — right here, before you pay anything. A clear, well-lit photo works best — faces facing the camera.</p>
-        <p class="soft" style="max-width:46rem">Your photo stays in your browser until you order — we never share or sell it.</p>
+        <p class="soft" style="max-width:46rem">Your photo is private. Your original photo is never stored on our servers — it is only sent to make your portrait. It is never used to train AI, and your name is never sent to make your portrait. Your finished portrait is kept for up to 30 days so you can order it again. We never share or sell your photo.</p>
 
         <div class="card pv-controls" style="margin-top:20px">
           <div class="pv-row">
@@ -435,15 +444,30 @@
             <button class="btn btn-ghost" type="button" id="pvAddBtn">Add another photo</button>
             <button class="btn btn-ghost" type="button" id="pvRemoveBtn" style="display:none">Remove photo</button>
             <input type="file" id="pvFile" accept="image/*" style="display:none" />
-            <span class="soft" style="font-size:.9rem">Up to 3 photos — family, kids, pets.</span>
+            <span class="soft" style="font-size:.9rem" id="pvUploadHint">Up to 3 photos — family, kids, pets.</span>
+          </div>
+          <div style="margin-top:14px">
+            <p class="lbl" style="margin:0 0 8px">Step 1 of 3 — What are we making?</p>
+            <div class="pv-modes" id="pvModes" role="group" aria-label="What are we making">
+              <button class="pv-mode-btn" type="button" data-pv-mode="child">Child</button>
+              <button class="pv-mode-btn active" type="button" data-pv-mode="family">Family</button>
+              <button class="pv-mode-btn" type="button" data-pv-mode="pet">Pet</button>
+              <button class="pv-mode-btn" type="button" data-pv-mode="drawing">Drawing</button>
+              <button class="pv-mode-btn" type="button" data-pv-mode="photo">Photo as-is</button>
+            </div>
+            <p class="soft" id="pvModeNote" style="font-size:.92rem;margin:10px 0 0">The whole family — pick a style below.</p>
+          </div>
+          <div class="field" style="margin-top:14px;margin-bottom:0">
+            <label for="pvFamilyName">Family name — for your ornament back and the Name in Lights style</label>
+            <input type="text" id="pvFamilyName" maxlength="24" placeholder="e.g. The Johnsons" autocomplete="off" />
           </div>
           <div class="pv-tabs" id="pvTabs" aria-label="Your photos"></div>
-          <div>
+          <div id="pvStylePickWrap">
             <p class="lbl" style="margin:0 0 8px">Step 2 of 3 — Pick a style</p>
             <div class="pv-chips" id="pvChips" role="group" aria-label="Preview style"></div>
             <p class="pv-note soft">This is a quick preview. The finished portrait is checked by a real person and ready in 24 hours.</p>
           </div>
-          <div class="pv-ai" style="border:2px solid var(--gold);border-radius:12px;padding:16px;margin-top:14px;background:linear-gradient(180deg,#FFFDF7,#F7EFDA)">
+          <div class="pv-ai" id="pvAiBox" style="border:2px solid var(--gold);border-radius:12px;padding:16px;margin-top:14px;background:linear-gradient(180deg,#FFFDF7,#F7EFDA)">
             <p class="lbl" style="margin:0 0 6px">See your photo as a Christmas portrait</p>
             <p class="soft" style="margin:0 0 12px;font-size:.92rem">Tap the button below. You will see a preview with a watermark on it. The portrait you buy is clear, with no watermark, and ready in 24 hours. Your new portrait appears on every gift below.</p>
             <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
@@ -453,10 +477,46 @@
             <div id="aiPreviewWrap" style="display:none;margin-top:14px">
               <img id="aiPreviewImg" alt="Your AI-transformed Christmas portrait preview" style="width:100%;height:auto;display:block;border-radius:10px" />
               <p class="soft" style="font-size:.9rem;margin:8px 0 0">Preview — watermarked, so it cannot be printed from the screen. The portrait you buy is clear, with no watermark.</p>
+              <div id="aiProofRow" style="display:none;margin-top:12px">
+                <p style="margin:0 0 8px;font-weight:700">Version 1, 2, 3 — pick your favourite</p>
+                <div id="aiProofThumbs" style="display:flex;gap:10px;flex-wrap:wrap" role="group" aria-label="Pick your favourite version"></div>
+                <p class="soft" id="aiProofNote" style="font-size:.9rem;margin:8px 0 0"></p>
+              </div>
               <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:10px">
                 <button class="btn btn-green btn-small" type="button" id="aiUsePortrait">Use this portrait — $39</button>
                 <button class="btn btn-gold btn-small" type="button" id="aiUseCanvas">Put it on canvas — $49</button>
                 <button class="btn btn-ghost btn-small" type="button" id="aiUseMug">Put it on a mug — $29</button>
+              </div>
+              <div id="aiApprovePanel" style="display:none;margin-top:14px;border-top:1px solid var(--line);padding-top:14px">
+                <p style="margin:0 0 10px;font-weight:700">This is your portrait — approve it before you pay. Nothing is made until you say yes.</p>
+                <div style="display:flex;gap:10px;flex-wrap:wrap">
+                  <button class="btn btn-green" type="button" id="aiApproveBtn">Yes, this is the one</button>
+                  <button class="btn btn-ghost" type="button" id="aiRerollBtn">Try another version</button>
+                </div>
+                <div style="margin-top:12px">
+                  <label for="aiChangeInput" style="font-weight:600;display:block;margin-bottom:6px">Anything to change?</label>
+                  <input type="text" id="aiChangeInput" maxlength="120" placeholder="e.g. bigger smile, red sweater" autocomplete="off" style="width:100%;padding:10px 12px;border:1.5px solid var(--line);border-radius:9px;font-family:inherit;font-size:1rem" />
+                  <p class="soft" style="font-size:.85rem;margin:6px 0 0">This goes with your next try only — it changes one thing, never the faces.</p>
+                </div>
+                <p class="soft" id="aiApproveNote" style="font-size:.9rem;margin:10px 0 0">Your portrait is only made into gifts once you approve it.</p>
+              </div>
+              <p class="soft" style="font-size:.92rem;margin:14px 0 0">Your finished portrait includes the digital file free with any printed gift.</p>
+              <div id="aiMugRail" style="display:none;margin-top:14px;border:1px solid var(--gold);border-radius:12px;padding:14px;background:#FFFDF7">
+                <p style="margin:0 0 10px"><b>Your portrait on a mug — $29</b> <span class="soft">· the portrait you just approved, on a mug.</span></p>
+                <button class="btn btn-green btn-small" type="button" id="aiMugRailBtn">Add the mug — $29</button>
+              </div>
+              <div style="margin-top:14px;border-top:1px solid var(--line);padding-top:14px">
+                <p style="margin:0 0 8px;font-weight:700">One for each grandparent?</p>
+                <p class="soft" style="margin:0 0 10px;font-size:.92rem">The first ornament is $29, every extra one is $19 — the same portrait on each, up to 10.</p>
+                <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
+                  <button class="btn btn-ghost btn-small" type="button" id="ornQtyDec" aria-label="One fewer ornament">−</button>
+                  <b id="ornQtyVal" style="min-width:6.5rem;text-align:center">1 ornament</b>
+                  <button class="btn btn-ghost btn-small" type="button" id="ornQtyInc" aria-label="One more ornament">+</button>
+                  <b class="serif" id="ornQtyTotal" style="font-size:1.3rem">$29</b>
+                  <button class="btn btn-green btn-small" type="button" id="ornQtyAdd">Add ornaments — $29</button>
+                </div>
+                <p class="soft" style="font-size:.9rem;margin:12px 0 0">Digital portraits arrive in 24 hours. Printed gifts: order by Dec 20 for Christmas.</p>
+                <p class="soft" style="font-size:.9rem;margin:8px 0 0">If it arrives damaged, or it doesn't match the portrait you approved, tell us within 14 days — we remake and reship it free, and there's nothing to send back.</p>
               </div>
             </div>
           </div>
@@ -517,6 +577,7 @@
           </div>
         </div>
 
+        <p id="pvApprovedLine" style="display:none;margin:0 0 4px"><b>Your portrait on every gift below</b> <span class="soft">· the portrait you approved, on each gift.</span></p>
         <div class="pv-grid" id="pvGallery"></div>
 
         <div class="card" style="margin-top:22px">
@@ -562,6 +623,16 @@
               <button class="btn btn-green" type="button" data-add="card10-poster">Add 10 cards — $49</button>
               <button class="btn btn-gold" type="button" data-add="card25-poster">Add 25 cards — $89</button>
               <button class="btn btn-green" type="button" data-add="card50-poster">Add 50 cards — $149</button>
+            </div>
+          </div>
+          <div class="card card-design">
+            <img src="https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/29159649/aa89a37e-3415-4d9e-a242-5067327454d9" alt="Ornament Card — a Christmas card with a punch-out ornament shape, your family portrait on the front" loading="lazy" />
+            <h3 style="margin-top:12px">Ornament Card — the card that becomes a tree ornament</h3>
+            <p class="soft" style="margin:0">A card with a punch-out ornament shape. Your portrait on the front, your message and your name with the year on the back, and a ribbon hole so it hangs on the tree. Envelope included. Same packs as the other cards.</p>
+            <div class="pack-btns">
+              <button class="btn btn-green" type="button" data-add="card10-ornament">Add 10 cards — $49</button>
+              <button class="btn btn-gold" type="button" data-add="card25-ornament">Add 25 cards — $89</button>
+              <button class="btn btn-green" type="button" data-add="card50-ornament">Add 50 cards — $149</button>
             </div>
           </div>
         </div>
@@ -724,7 +795,7 @@
           <nav class="foot-col" aria-label="Shop">
             <h3>Shop</h3>
             <ul>
-              <li><a href="#styles">Six Signature Styles</a></li>
+              <li><a href="#styles">Seven Signature Styles</a></li>
               <li><a href="#preview-studio">Your photo</a></li>
               <li><a href="#cards">Christmas Cards</a></li>
               <li><a href="#packs">Packs</a></li>
@@ -1043,11 +1114,14 @@
         "card10-poster":{name:"Christmas Cards — Golden Movie Poster, 10-pack (5x7 flat, envelopes included)", price:49},
         "card25-poster":{name:"Christmas Cards — Golden Movie Poster, 25-pack (5x7 flat, envelopes included)", price:89},
         "card50-poster":{name:"Christmas Cards — Golden Movie Poster, 50-pack (5x7 flat, envelopes included)", price:149},
+        "card10-ornament":{name:"Ornament Cards — 10-pack (5x7, punch-out ornament, envelopes included)", price:49},
+        "card25-ornament":{name:"Ornament Cards — 25-pack (5x7, punch-out ornament, envelopes included)", price:89},
+        "card50-ornament":{name:"Ornament Cards — 50-pack (5x7, punch-out ornament, envelopes included)", price:149},
         everything:{name:"Everything Bundle — Portrait + Canvas + 25 Christmas Cards", price:149},
         mug:{name:"Christmas Portrait Mug 11oz", price:29},
         canvas:{name:"Christmas Portrait Canvas", price:49},
         stocking:{name:"Christmas Portrait Stocking", price:34.99},
-        ornament:{name:"Personalized Ornament", price:24},
+        ornament:{name:"Personalized Ornament", price:29},
         hoodie:{name:"Christmas Portrait Hoodie (S–XL)", price:54},
         hoodie2xl:{name:"Christmas Portrait Hoodie (2XL)", price:57},
         "hoodie-green":{name:"Christmas Portrait Hoodie — Forest Green (S–XL)", price:54},
@@ -1093,7 +1167,7 @@
         {id:"stocking", name:"Christmas Portrait Stocking", price:34.99, fit:"contain", best:"New babies, newlyweds, the fireplace", cutoff:"Dec 15", cats:["kids","home"], note:"A soft white plush stocking with your portrait in a gold oval frame on the front — front print only, plush cuff and hanging loop.",
           gallery:[{src:STOCK+"1530/christmas-portrait-stocking-personalized-family-portrait.jpg?camera_label=front", label:"Front"},{src:STOCK+"3346/christmas-portrait-stocking-personalized-family-portrait.jpg?camera_label=hanging", label:"Hanging"}],
           alt:"Soft white plush Christmas stocking printed with a family portrait in a gold oval frame"},
-        {id:"ornament", name:"Personalized Ornament", price:24, fit:"cover", best:"First Christmas, teachers, tree gifts", cutoff:"Dec 16", cats:["kids","home"], note:"Your portrait on a keepsake ornament — the one that goes on the tree every year from now on.",
+        {id:"ornament", name:"Personalized Ornament", price:29, fit:"cover", best:"First Christmas, teachers, tree gifts", cutoff:"Dec 20", cats:["kids","home"], note:"Your portrait on a keepsake ornament — the one that goes on the tree every year from now on.",
           img:IMG+"aa89a37e-3415-4d9e-a242-5067327454d9", alt:"A personalized Christmas ornament with a family portrait hanging on a tree"},
         {id:"hoodie", name:"Christmas Portrait Hoodie", price:54, fit:"contain", best:"Partner, teens, cold December nights", cutoff:"Dec 14", cats:["her","him"], note:"Your portrait as a designed gold-frame chest print — not a pasted photo. Three colours, sizes S–2XL. $54 for S–XL, $57 for 2XL.", sizes:true,
           gallery:[{src:HOOD+"33419/98424/christmas-portrait-hoodie-personalized-family-portrait.jpg?camera_label=front", label:"Forest Green"},{src:HOOD+"32920/98424/christmas-portrait-hoodie-personalized-family-portrait.jpg?camera_label=front", label:"Black"},{src:HOOD+"32880/98424/christmas-portrait-hoodie-personalized-family-portrait.jpg?camera_label=front", label:"Dark Heather"}],
@@ -1246,9 +1320,40 @@
 
       /* ---------- Cart ---------- */
       var cart = {};
+      /* Ornaments: first $29, each extra $19, up to 10, same portrait. */
+      var ORNAMENT_FIRST = 29, ORNAMENT_EXTRA = 19, ORNAMENT_MAX = 10;
+      var ornamentQty = 1; // chosen with the stepper in the proof area
+      function ornamentTotal(qty){
+        qty = Math.max(1, Math.min(ORNAMENT_MAX, qty || 1));
+        return ORNAMENT_FIRST + ORNAMENT_EXTRA * (qty - 1);
+      }
+      /* Line total for one cart row. Only ornaments are tiered — every
+         other product is its listed price times quantity. */
+      function cartLineTotal(id){
+        return id === "ornament" ? ornamentTotal(cart[id]) : PRODUCTS[id].price * cart[id];
+      }
+      /* Approve-before-you-pay gate: while a finished portrait is on
+         screen waiting for the customer's yes, portrait packs and
+         portrait products cannot go in the cart. The gate only fires
+         when such a portrait exists — buying with the uploaded photo
+         as-is (no finished portrait) is unchanged. pvApproved /
+         pvAiPendingApproval live with the Studio state below. */
+      var AI_GATED_IDS = ["portrait","family","giftpack","everything",
+        "card10-classic","card25-classic","card50-classic",
+        "card10-globe","card25-globe","card50-globe",
+        "card10-poster","card25-poster","card50-poster",
+        "card10-ornament","card25-ornament","card50-ornament",
+        "mug","canvas","stocking","ornament",
+        "hoodie","hoodie2xl","hoodie-green","hoodie-black","hoodie-heather",
+        "hoodie2xl-green","hoodie2xl-black","hoodie2xl-heather",
+        "tote","pettee","phonecase","santaset","nicelist","nicelistportrait","ultimate"];
+      function aiGateBlocks(id){
+        if(AI_GATED_IDS.indexOf(id) === -1) return false;
+        return (typeof pvAiPendingApproval !== "undefined" && pvAiPendingApproval) && !pvApproved;
+      }
       function cartTotals(){
         var sub = 0, count = 0;
-        Object.keys(cart).forEach(function(id){ sub += PRODUCTS[id].price * cart[id]; count += cart[id]; });
+        Object.keys(cart).forEach(function(id){ sub += cartLineTotal(id); count += cart[id]; });
         var pairs1 = Math.min(cart.portrait||0, cart.mug||0);
         var pairs2 = Math.min(cart.portrait||0, cart.canvas||0);
         var trio = Math.floor((cart.portrait||0) / 3);
@@ -1270,9 +1375,10 @@
         ids.forEach(function(id){
           var row = document.createElement("div");
           row.className = "cart-item";
-          row.innerHTML = '<div class="grow"><b>' + PRODUCTS[id].name + '</b><br /><span class="soft">' + money(PRODUCTS[id].price) + ' each</span></div>' +
+          var eachLabel = id === "ornament" ? "$29 first, $19 each extra" : money(PRODUCTS[id].price) + " each";
+          row.innerHTML = '<div class="grow"><b>' + PRODUCTS[id].name + '</b><br /><span class="soft">' + eachLabel + '</span></div>' +
             '<span class="qty"><button type="button" data-dec="' + id + '" aria-label="Decrease quantity">−</button><b>' + cart[id] + '</b><button type="button" data-inc="' + id + '" aria-label="Increase quantity">+</button></span>' +
-            '<b>' + money(PRODUCTS[id].price * cart[id]) + '</b>';
+            '<b>' + money(cartLineTotal(id)) + '</b>';
           box.appendChild(row);
         });
         box.querySelectorAll("[data-inc]").forEach(function(b){ b.addEventListener("click", function(){ cart[b.getAttribute("data-inc")]++; renderCart(); }); });
@@ -1285,10 +1391,16 @@
         clearTimeout(toastTimer);
         toastTimer = setTimeout(function(){ t.classList.remove("show"); }, 2600);
       }
-      function addToCart(id, silent){
-        cart[id] = (cart[id]||0) + 1;
+      /* Returns false when the add was refused (unknown product, or the
+         portrait is still waiting for approval) so callers do not show
+         a success message for an add that never happened. */
+      function addToCart(id, silent, qty){
+        if(!PRODUCTS[id]) return false;
+        if(aiGateBlocks(id)){ toast("Approve your portrait first — it only takes a second."); return false; }
+        cart[id] = (cart[id]||0) + (qty || 1);
         renderCart();
         if(!silent) toast("Added: " + PRODUCTS[id].name);
+        return true;
       }
       /* Delegated add-to-cart for every static button on the page */
       document.addEventListener("click", function(e){
@@ -1296,7 +1408,9 @@
         if(b && !b.closest("#shopGrid")) addToCart(b.getAttribute("data-add"));
         var bd = e.target.closest("[data-bundle]");
         if(bd){
-          bd.getAttribute("data-bundle").split(",").forEach(function(id){ addToCart(id, true); });
+          var bundleAdded = 0;
+          bd.getAttribute("data-bundle").split(",").forEach(function(id){ if(addToCart(id, true)) bundleAdded++; });
+          if(!bundleAdded) return;
           toast("Bundle added — savings applied in your cart");
           openCart();
         }
@@ -1342,7 +1456,9 @@
       document.getElementById("builderAdd").addEventListener("click", function(){
         var ids = builderCalc();
         if(!ids.length){ toast("Tick at least one item to build your bundle"); return; }
-        ids.forEach(function(id){ addToCart(id, true); });
+        var built = 0;
+        ids.forEach(function(id){ if(addToCart(id, true)) built++; });
+        if(!built) return;
         toast("Your bundle is in the cart — savings applied");
         openCart();
       });
@@ -1354,7 +1470,8 @@
         {name:"Cozy Fireplace", img:IMG+"2849d8ab-100f-46ae-ad86-f05fe42aaea5"},
         {name:"Snow Globe", img:IMG+"d4a9e7ac-8b88-45f4-bc5b-b5b3201c0ae3"},
         {name:"Colombo Christmas", img:IMG+"6f3badf2-d062-42d0-a216-970f9447bf49"},
-        {name:"Winter Royal", img:IMG+"4354480c-966b-4d65-9e2c-cc0955b148f7"}
+        {name:"Winter Royal", img:IMG+"4354480c-966b-4d65-9e2c-cc0955b148f7"},
+        {name:"Name in Lights", img:IMG+"3178fe7a-559f-4fb0-9814-4b8256bd3756"}
       ];
       var stylePick = document.getElementById("stylePick");
       STYLES.forEach(function(s, i){
@@ -1394,7 +1511,7 @@
         var box = document.getElementById("orderSuccess");
         if(!photoInput.files || !photoInput.files.length){ toast("Add your photo first — that's Step 1"); box.classList.remove("show"); return; }
         if(!name || !email){ toast("Add your name and delivery email so we can send your portraits"); box.classList.remove("show"); return; }
-        addToCart(pack, true);
+        if(!addToCart(pack, true)) return;
         box.innerHTML = "<b>Order preview created, " + name.split(" ")[0] + ".</b><br />" +
           PACKS[pack].label + " · " + style + " · " + money(PRODUCTS[pack].price) + " — added to your cart.<br />" +
           "Your portraits would be delivered to <b>" + email + "</b> within 24 hours, with your free Santa Letter.";
@@ -1462,7 +1579,7 @@
         dad:[["portrait","Single Portrait (Movie Poster) — $39"],["partygames","Party Games Mega Pack — $16"],["tvart","Frame TV Art Pack — $12"]],
         kids:[["milo","Milo and the Lost Star — $9"],["santakit","Santa Letter Kit — $12"],["cozycolor","Cozy Coloring — $7"]],
         partner:[["giftpack","Gift Pack Portrait + Mug — $89"],["ultimate","Ultimate Bundle — $79"],["newyear","New Year Reset Workbook — $14"]],
-        pet:[["pettee","Pet Portrait Tee — $29"],["portrait","Portrait incl. your pet — $39"],["ornament","Personalized Ornament — $24"]],
+        pet:[["pettee","Pet Portrait Tee — $29"],["portrait","Portrait incl. your pet — $39"],["ornament","Personalized Ornament — $29"]],
         self:[["mandalas","Magical Mandalas — $7"],["newyear","New Year Reset — $14"],["portrait","Your Own Portrait — $39"]]
       };
       var fb = document.getElementById("finderBtns");
@@ -1490,8 +1607,12 @@
  *      "/api/restyle" (same origin) is correct — change nothing.
  *   2. Wire the "Transform with AI" button to:
  *         CPSRestyle.transform(fileOrDataUrl, selectedStyleId)
- *      where selectedStyleId is one of the six ids in STYLE_IDS
+ *      where selectedStyleId is one of the ids in STYLE_IDS
  *      (or "01"–"06" — the Worker accepts both).
+ *      For the main portrait, use transformSet() instead: it makes
+ *      THREE versions (three different seeds, one call each) and
+ *      reports them as they arrive — the customer picks a favourite.
+ *      Card styles keep the single-version transform() flow.
  *   3. Listen for state changes to update the button / progress UI:
  *         CPSRestyle.onState(function (s) { ... s.state ... });
  *   4. On "ready", the watermarked low-res preview is already drawn
@@ -1508,7 +1629,7 @@
  *   - not_configured: no GEMINI_API_KEY on the Worker yet. Show the
  *                   real example assets + this exact line:
  *                   "Your AI portrait is made by our studio team —
- *                   the six style examples above show what yours
+ *                   the seven style examples above show what yours
  *                   will look like." Do NOT show a broken button.
  *
  * WATERMARKING — READ THIS:
@@ -1543,6 +1664,8 @@
     "snow-globe",
     "colombo-christmas",
     "winter-royal",
+    "name-in-lights",
+    "drawing",
   ];
 
   // ---- state ----
@@ -1675,7 +1798,13 @@
   // ---- API call ----
   // Accepts a File/Blob (from #pvFile) or a data URL string.
   // Returns a Promise resolving to the state object.
-  function transform(fileOrDataUrl, styleId) {
+  // change (optional): the customer's own words for a re-roll
+  // ("bigger smile"). Sent only when non-empty; the Worker sanitizes
+  // it (plain text, max 120 chars) and appends it to the prompt as one
+  // small visible change — it can never override the identity lock or
+  // the no-text rule. The client clears the box after sending, so the
+  // words go with the next re-roll only.
+  function transform(fileOrDataUrl, styleId, seed, name, change) {
     var requestId = ++currentRequest;
     var style = (styleId || "").trim().toLowerCase();
     if (STYLE_IDS.indexOf(style) === -1 && !/^[0-6]{2}$/.test(style)) {
@@ -1685,6 +1814,15 @@
 
     var form = new FormData();
     form.append("style", style);
+    /* The family name only goes with Name in Lights — for every other
+       style it is not sent at all. The Worker answers invalid_name if
+       Name in Lights arrives without one. */
+    if (style === "name-in-lights" && typeof name === "string" && name.trim()) form.append("name", name.trim());
+    /* Optional seed: a fresh random integer makes the next version a
+       new one. Sent only when given; the Worker ignores fields it does
+       not know yet, so sending it before the Worker learns "seed" is safe. */
+    if(typeof seed === "number" && isFinite(seed)) form.append("seed", String(Math.floor(seed)));
+    if (typeof change === "string" && change.trim()) form.append("change", change.trim().slice(0, 120));
     if (typeof fileOrDataUrl === "string") {
       // Data URL -> Blob, so the upload stays multipart like a file.
       var parts = fileOrDataUrl.split(",");
@@ -1722,7 +1860,7 @@
             if (data && data.error === "not_configured") {
               setState({
                 state: "not_configured",
-                message: "Your AI portrait is made by our studio team — the six styles above show what yours will look like.",
+                message: "Your AI portrait is made by our studio team — the seven styles above show what yours will look like.",
                 retryable: false,
               });
             } else {
@@ -1756,6 +1894,7 @@
               }
               msg = "The AI studio is busy right now — please wait about " + wait + " and try again.";
             } else if (data.error === "invalid_style") msg = "That style is not available — pick another.";
+            else if (data.error === "invalid_name") msg = "Type your family name first — the Name in Lights style needs it.";
             else if (data.error === "image_too_large") msg = "That photo is over 10 MB — try a smaller one.";
             else if (data.error === "invalid_image" || data.error === "missing_image") msg = "That file is not a photo (JPEG, PNG or WebP).";
             else if (data.error === "model_rejected") msg = "That photo couldn't be made into this style — try a different photo, or a different style.";
@@ -1801,6 +1940,73 @@
       });
   }
 
+  // ---- three-version proof set ----
+  // The first portrait for a photo+style is THREE versions, not one:
+  // three sequential transform() calls, each with its own fresh random
+  // seed, so each version is a genuinely different portrait — never
+  // crops or grades of one image presented as different versions.
+  // SEQUENTIAL, not parallel: transform() is single-flight (its
+  // currentRequest guard supersedes overlapping calls and they share
+  // one previewDataURL), so parallel calls would cancel each other
+  // and only the last version would survive. Sequential calls reuse
+  // the same state machine untouched, and each version is captured
+  // from getPreviewDataURL() before the next call starts.
+  // QUOTA MATH: 5 free transforms per visitor per day. The set costs
+  // 3, so after it the customer has 2 left — exactly enough for two
+  // single-version re-rolls (3 + 1 + 1 = 5). A re-roll replaces ONE
+  // version, never all three, for exactly this reason. Cached repeats
+  // cost nothing and a model 429 never counts, so a set that hits the
+  // cache or a busy model may cost fewer than 3.
+  // PARTIAL SETS: if a call in the set fails (daily cap reached,
+  // model error), the versions that arrived are still shown, with a
+  // plain-words line saying how many arrived and why — never a dead
+  // panel. If none arrives, onDone gets an empty list + the last
+  // error message, and the caller shows that honestly instead.
+  // While a set is running, proofSetActive is true and the wiring
+  // listener must ignore the per-version ready/error states (the
+  // set's own callbacks own the UI until onDone). clear() cancels a
+  // running set via proofSetToken.
+  var proofSetActive = false;
+  var proofSetToken = 0;
+  function transformSet(fileOrDataUrl, styleId, name, callbacks) {
+    var cbs = callbacks || {};
+    var token = ++proofSetToken;
+    proofSetActive = true;
+    var total = 3;
+    var versions = []; // [{ seed, dataURL }] — in arrival order
+    var failures = 0;
+    var lastError = "";
+    var chain = Promise.resolve();
+    for (var i = 0; i < total; i++) {
+      (function (idx) {
+        chain = chain.then(function () {
+          if (token !== proofSetToken) return; // superseded / cleared
+          if (cbs.onProgress) cbs.onProgress(idx, total, "Making version " + (idx + 1) + " of " + total + "…");
+          var seed = Math.floor(Math.random() * 2147483647);
+          return transform(fileOrDataUrl, styleId, seed, name).then(function (st) {
+            if (token !== proofSetToken) return;
+            if (st && st.state === "ready") {
+              var url = getPreviewDataURL();
+              if (url) {
+                versions.push({ seed: seed, dataURL: url });
+                if (cbs.onVersion) cbs.onVersion(idx, url, seed);
+              } else { failures++; lastError = "The portrait finished but the preview could not be shown."; }
+            } else {
+              failures++;
+              lastError = (st && st.message) ? st.message : "Something went wrong — please try again.";
+            }
+          });
+        });
+      })(i);
+    }
+    return chain.then(function () {
+      if (token !== proofSetToken) return { versions: versions, failures: failures, superseded: true };
+      proofSetActive = false;
+      if (cbs.onDone) cbs.onDone(versions, failures, lastError);
+      return { versions: versions, failures: failures };
+    });
+  }
+
   // ---- public API ----
   window.CPSRestyle = {
     STYLE_IDS: STYLE_IDS,
@@ -1822,11 +2028,25 @@
     configure: function (opts) {
       if (opts && typeof opts.endpoint === "string" && opts.endpoint) ENDPOINT = opts.endpoint;
     },
-    /** Run a transform. fileOrDataUrl: File/Blob or data-URL string. */
+    /** Run a transform. fileOrDataUrl: File/Blob or data-URL string.
+        seed (optional): integer — a fresh random seed asks for a new
+        version of the same portrait (the "Try another version" button).
+        change (optional): the customer's own words for that re-roll
+        ("bigger smile") — sent with this re-roll only. */
     transform: transform,
+    /** Make the three-version proof set (three sequential transforms,
+        three different seeds). callbacks: onProgress(done, total, msg),
+        onVersion(index, dataURL, seed), onDone(versions, failures,
+        lastError). Card styles use transform() instead. */
+    transformSet: transformSet,
+    /** True while a proof set is running — the wiring listener uses
+        this to ignore the per-version ready/error states mid-set. */
+    isProofSetRunning: function () { return proofSetActive; },
     /** Hide the AI preview and return to idle (e.g. style changed, photo removed). */
     clear: function () {
       currentRequest++; // cancel any in-flight transform
+      proofSetToken++; // cancel any running proof set
+      proofSetActive = false;
       hidePreview();
       /* The finished AI portrait belongs to the old photo/style too —
          drop it from the products, style tiles and certificate. */
@@ -1839,7 +2059,7 @@
         .then(function (res) { return res.json(); })
         .then(function (data) {
           if (data && data.configured === false) {
-            setState({ state: "not_configured", message: "Your AI portrait is made by our studio team — the six styles above show what yours will look like.", retryable: false });
+            setState({ state: "not_configured", message: "Your AI portrait is made by our studio team — the seven styles above show what yours will look like.", retryable: false });
           }
           return data;
         })
@@ -1862,20 +2082,55 @@
         var statusEl = document.getElementById("aiStatus");
         var wrap = document.getElementById("aiPreviewWrap");
         var img = document.getElementById("aiPreviewImg");
+        var rerollBtn = document.getElementById("aiRerollBtn");
         if(!btn || !window.CPSRestyle) return;
         var endpointLive = false;
+        var lastStateName = "idle";
+        function pvFamilyNameValue(){
+          var inp = document.getElementById("pvFamilyName");
+          return inp ? inp.value.trim() : "";
+        }
         function styleSlug(){
+          /* Drawing mode: the drawing is the style — the style tiles
+             are not used, and the upload is a child's drawing. */
+          if(typeof pvMode === "string" && pvMode === "drawing") return "drawing";
           var name = (typeof pvStyle === "string" && pvStyle) ? pvStyle : "Classic Santa Snow";
           return name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
         }
+        function pvNeedsName(){ return styleSlug() === "name-in-lights" && !pvFamilyNameValue(); }
+        /* The button says plainly what is missing instead of calling the
+           endpoint with no name. Never overrides it while a transform
+           is running. */
+        function pvSyncTransformBtn(){
+          if(!btn) return;
+          if(lastStateName === "uploading" || lastStateName === "transforming") return;
+          btn.disabled = false;
+          btn.textContent = pvNeedsName() ? "Type your family name first" : "Transform with AI";
+        }
+        window.pvSyncTransformBtn = pvSyncTransformBtn;
+        var famInp = document.getElementById("pvFamilyName");
+        if(famInp) famInp.addEventListener("input", function(){ pvSyncTransformBtn(); });
         function setStatus(t){ if(statusEl) statusEl.textContent = t; }
-        var NOT_CONFIGURED = "Your AI portrait is made by our studio team \u2014 the six style examples above show what yours will look like.";
+        var NOT_CONFIGURED = "Your AI portrait is made by our studio team \u2014 the seven style examples above show what yours will look like.";
         CPSRestyle.onState(function(s){
+          lastStateName = s.state;
+          /* While a 3-version proof set is running, its own callbacks
+             own the UI — the per-version ready/error states must not
+             flash the single-version handling (approval panel, mockups)
+             mid-set. Keep both buttons disabled until onDone. */
+          if(window.CPSRestyle.isProofSetRunning && CPSRestyle.isProofSetRunning()){
+            lastStateName = "transforming";
+            btn.disabled = true; btn.textContent = "Transforming\u2026";
+            if(rerollBtn) rerollBtn.disabled = true;
+            return;
+          }
           if(s.state === "uploading" || s.state === "transforming"){
             btn.disabled = true; btn.textContent = "Transforming\u2026";
+            if(rerollBtn) rerollBtn.disabled = true;
             setStatus(s.message || "Transforming with AI \u2014 this takes a few seconds\u2026");
           } else if(s.state === "ready"){
             btn.disabled = false; btn.textContent = "Transform with AI";
+            if(rerollBtn) rerollBtn.disabled = false;
             var url = CPSRestyle.getPreviewDataURL();
             if(url && img){ img.src = url; }
             if(wrap) wrap.style.display = "";
@@ -1883,39 +2138,180 @@
                photo everywhere — every product mockup, the style tile for
                this style, and the certificate medallion (via pvRenderAll).
                The original photo is never shown as the AI result. */
-            if(url && typeof pvSetAiResult === "function") pvSetAiResult(pvStyle, url);
+            /* Three-version proof: when a proof set exists, a ready
+               state is one re-rolled version replacing the selected
+               slot — never a fresh single portrait. (The set's own
+               versions arrive through onVersion, not through here.) */
+            if(url && typeof pvVersions !== "undefined" && pvVersions && pvVersions.length && typeof pvReplaceProofVersion === "function"){
+              pvReplaceProofVersion(typeof pvSelectedVersion === "number" ? pvSelectedVersion : 0, url);
+            } else if(url && typeof pvSetAiResult === "function") pvSetAiResult(pvStyle, url);
+            /* Approve-before-you-pay: a fresh portrait waits for the
+               customer's yes before anything portrait-based can be added. */
+            pvAiPendingApproval = true;
+            if(typeof pvSetApproval === "function") pvSetApproval(false);
             setStatus((s.message || "Preview ready.") + (typeof s.transformsRemaining === "number" ? " " + s.transformsRemaining + " free transforms left today." : ""));
             toast("Your AI portrait preview is ready \u2014 watermarked preview, full-res on order");
           } else if(s.state === "not_configured"){
             btn.disabled = false; btn.textContent = "Transform with AI";
+            if(rerollBtn) rerollBtn.disabled = false;
             setStatus(NOT_CONFIGURED);
           } else if(s.state === "error"){
             btn.disabled = false; btn.textContent = "Transform with AI";
+            if(rerollBtn) rerollBtn.disabled = false;
             setStatus(s.message || "Something went wrong \u2014 please try again.");
           } else {
             btn.disabled = false; btn.textContent = "Transform with AI";
+            if(rerollBtn) rerollBtn.disabled = false;
             if(s.transformsRemaining != null) setStatus(s.transformsRemaining + " free transforms left today.");
           }
+          pvSyncTransformBtn();
         });
+        /* Three-version proof set (2026-11-25): the first portrait for
+           a photo+style arrives as three versions, shown as they
+           arrive so the customer can pick a favourite. The set's own
+           callbacks own the UI until onDone — the onState listener
+           ignores the per-version states while it runs. */
+        function startProofSet(file, slug){
+          btn.disabled = true; btn.textContent = "Transforming\u2026";
+          if(rerollBtn) rerollBtn.disabled = true;
+          setStatus("Making version 1 of 3…");
+          if(wrap) wrap.style.display = "";
+          if(typeof pvClearProofVersions === "function") pvClearProofVersions();
+          CPSRestyle.transformSet(file, slug, pvFamilyNameValue(), {
+            onProgress: function(done, total, msg){ setStatus(msg); },
+            onVersion: function(idx, url, seed){
+              if(typeof pvAddProofVersion === "function") pvAddProofVersion(idx, url, seed);
+              if(idx === 0 && img) img.src = url;
+              if(wrap) wrap.style.display = "";
+              /* A version on screen waits for the customer's yes. */
+              pvAiPendingApproval = true;
+              if(typeof pvSetApproval === "function") pvSetApproval(false);
+            },
+            onDone: function(versions, failures, lastError){
+              lastStateName = "ready";
+              btn.disabled = false; btn.textContent = "Transform with AI";
+              if(rerollBtn) rerollBtn.disabled = false;
+              pvSyncTransformBtn();
+              if(!versions.length){
+                /* No version arrived at all — no dead panel: hide the
+                   preview and say honestly what happened. */
+                if(wrap) wrap.style.display = "none";
+                setStatus(lastError || "We couldn't make your portrait — please try again.");
+                return;
+              }
+              var remaining = (typeof CPSRestyle.getTransformsRemaining === "function") ? CPSRestyle.getTransformsRemaining() : null;
+              setStatus("Pick your favourite of the " + versions.length + " versions below." + (typeof remaining === "number" ? " " + remaining + " free transforms left today." : ""));
+              if(failures){
+                /* Partial set, said plainly. The cap line only when
+                   the count really is used up — never guessed. */
+                var capNote = (remaining === 0)
+                  ? "Only " + versions.length + " of 3 versions arrived — you have used today's 5 free portrait makes. Try again tomorrow; the versions above are yours to pick from."
+                  : "Only " + versions.length + " of 3 versions arrived — please try again for the missing one.";
+                if(typeof pvSetProofNote === "function") pvSetProofNote(capNote);
+              }
+              toast("Your portrait is ready in " + versions.length + " versions — pick your favourite");
+            }
+          });
+        }
         btn.addEventListener("click", function(){
           if(!endpointLive){
             setStatus(NOT_CONFIGURED);
-            toast("Your AI portrait is made by our studio team — the six style examples above show what yours will look like");
+            toast("Your AI portrait is made by our studio team — the seven style examples above show what yours will look like");
             document.getElementById("styles").scrollIntoView({behavior:"smooth"});
             return;
           }
           var ph = (typeof pvActivePhoto === "function") ? pvActivePhoto() : null;
           if(!ph || !ph.file){
-            setStatus("Upload your photo first \u2014 that is Step 1.");
-            toast("Upload your photo first");
+            var drawingMode = (typeof pvMode === "string" && pvMode === "drawing");
+            setStatus(drawingMode ? "Upload your child\u2019s drawing first \u2014 that is Step 1." : "Upload your photo first \u2014 that is Step 1.");
+            toast(drawingMode ? "Upload your child\u2019s drawing first" : "Upload your photo first");
+            return;
+          }
+          if(pvNeedsName()){
+            setStatus("Type your family name first — the Name in Lights style needs it.");
+            toast("Type your family name first");
             return;
           }
           if(wrap) wrap.style.display = "none";
-          CPSRestyle.transform(ph.file, styleSlug());
+          var slug = styleSlug();
+          if(slug.indexOf("card-") === 0){
+            /* Card styles keep the single-version flow — one portrait,
+               one approval. (The Studio picker never offers a card
+               style today; this is the scope boundary if one is ever
+               wired to this button.) */
+            CPSRestyle.transform(ph.file, slug, undefined, pvFamilyNameValue());
+          } else {
+            /* Main portrait (including Drawing and Name in Lights):
+               three versions, pick a favourite. */
+            startProofSet(ph.file, slug);
+          }
         });
-        document.getElementById("aiUsePortrait").addEventListener("click", function(){ addToCart("portrait", true); openCart(); });
-        document.getElementById("aiUseCanvas").addEventListener("click", function(){ addToCart("canvas", true); openCart(); });
-        document.getElementById("aiUseMug").addEventListener("click", function(){ addToCart("mug", true); openCart(); });
+        document.getElementById("aiUsePortrait").addEventListener("click", function(){ if(addToCart("portrait", true)) openCart(); });
+        document.getElementById("aiUseCanvas").addEventListener("click", function(){ if(addToCart("canvas", true)) openCart(); });
+        document.getElementById("aiUseMug").addEventListener("click", function(){ if(addToCart("mug", true)) openCart(); });
+        /* Approve-before-you-pay panel + ornament stepper + mug rail. */
+        document.getElementById("aiApproveBtn").addEventListener("click", function(){
+          if(typeof pvSetApproval === "function") pvSetApproval(true);
+          toast("Portrait approved — it is ready to go on your gifts");
+        });
+        document.getElementById("aiRerollBtn").addEventListener("click", function(){
+          if(!endpointLive){
+            setStatus(NOT_CONFIGURED);
+            toast("Your AI portrait is made by our studio team — the seven style examples above show what yours will look like");
+            return;
+          }
+          /* A proof set still making versions, or a version already
+             being made — one at a time, never overlapping. */
+          if(window.CPSRestyle.isProofSetRunning && CPSRestyle.isProofSetRunning()) return;
+          if(lastStateName === "uploading" || lastStateName === "transforming") return;
+          var ph = (typeof pvActivePhoto === "function") ? pvActivePhoto() : null;
+          if(!ph || !ph.file){
+            var drawingMode2 = (typeof pvMode === "string" && pvMode === "drawing");
+            setStatus(drawingMode2 ? "Upload your child's drawing first — that is Step 1." : "Upload your photo first — that is Step 1.");
+            toast(drawingMode2 ? "Upload your child's drawing first" : "Upload your photo first");
+            return;
+          }
+          if(pvNeedsName()){
+            setStatus("Type your family name first — the Name in Lights style needs it.");
+            toast("Type your family name first");
+            return;
+          }
+          /* "Tell us what to change": the box's text goes with this
+             re-roll only. Read it, then clear the box, so a later
+             re-roll sends nothing unless the customer writes
+             something new. Empty box = nothing sent. */
+          var changeInput = document.getElementById("aiChangeInput");
+          var changeText = changeInput ? changeInput.value.trim().slice(0, 120) : "";
+          if(changeInput) changeInput.value = "";
+          if(wrap) wrap.style.display = "none";
+          /* ONE new version for the currently selected slot — never
+             all three. The first set used 3 of the 5 free makes a
+             day, so each re-roll is 1 more (3 + 1 + 1 = 5). A fresh
+             random seed makes it a genuinely new version, not a copy
+             of one already shown. The ready handler replaces the
+             selected slot (proof set) or the single portrait (cards). */
+          CPSRestyle.transform(ph.file, styleSlug(), Math.floor(Math.random() * 2147483647), pvFamilyNameValue(), changeText || undefined);
+        });
+        document.getElementById("aiMugRailBtn").addEventListener("click", function(){ if(addToCart("mug")) openCart(); });
+        function syncOrnQty(){
+          var val = document.getElementById("ornQtyVal"), tot = document.getElementById("ornQtyTotal"), add = document.getElementById("ornQtyAdd");
+          if(val) val.textContent = ornamentQty + (ornamentQty === 1 ? " ornament" : " ornaments");
+          if(tot) tot.textContent = money(ornamentTotal(ornamentQty));
+          if(add) add.textContent = "Add ornaments — " + money(ornamentTotal(ornamentQty));
+        }
+        document.getElementById("ornQtyDec").addEventListener("click", function(){ ornamentQty = Math.max(1, ornamentQty - 1); syncOrnQty(); });
+        document.getElementById("ornQtyInc").addEventListener("click", function(){ ornamentQty = Math.min(ORNAMENT_MAX, ornamentQty + 1); syncOrnQty(); });
+        document.getElementById("ornQtyAdd").addEventListener("click", function(){
+          /* The stepper sets how many ornaments the order holds — it does
+             not add on top of what is already in the cart, so the total
+             shown next to the stepper is always the total that lands. */
+          if(aiGateBlocks("ornament")){ toast("Approve your portrait first — it only takes a second."); return; }
+          cart["ornament"] = ornamentQty;
+          renderCart();
+          toast("Added: " + ornamentQty + (ornamentQty === 1 ? " ornament" : " ornaments") + " — " + money(ornamentTotal(ornamentQty)));
+          openCart();
+        });
+        syncOrnQty();
         /* Restyle Worker is live (deployed 2026-11-24): point the client at the
            separate worker on its custom domain. */
         CPSRestyle.configure({ endpoint: "https://api.christmasportrait.store/api/restyle" });
@@ -1950,6 +2346,8 @@
          Colombo Christmas = tropical green-gold tint + dense fairy-light bokeh.
          Winter Royal = near-neutral silver + STRONG gold wash + deep royal
          vignette + royal gold frame + LARGE gold sparkles, no snow at all.
+         Name in Lights = warm gold grade + dense fairy-light bokeh +
+         sparkle, like the name glowing behind the family.
          Honest label: this is a grade preview, not an AI restyle — the full
          AI portrait is the $39 product, art-directed and delivered in 24h. --- */
       var PV_STYLE_GRADE = {
@@ -1958,7 +2356,8 @@
         "Cozy Fireplace":{temp:26, tint:2, bright:4, contrast:10, sat:1.12, wash:"rgba(255,150,60,0.10)", vig:"rgba(120,50,10,0.28)", glow:{x:0.12, y:0.88, r:0.95, color:"rgba(255,150,50,0.36)"}, flakes:0, sparkle:6, bokeh:0},
         "Snow Globe":{temp:-14, tint:5, bright:10, contrast:8, sat:0.95, wash:"rgba(190,220,255,0.20)", vig:"rgba(210,230,255,0.28)", glow:null, flakes:12, sparkle:30, bokeh:0},
         "Colombo Christmas":{temp:10, tint:6, bright:7, contrast:10, sat:1.30, wash:"rgba(255,180,90,0.10)", wash2:"rgba(90,160,80,0.10)", vig:"rgba(60,20,60,0.16)", glow:null, flakes:0, sparkle:6, bokeh:26},
-        "Winter Royal":{temp:-4, tint:2, bright:6, contrast:20, sat:1.0, wash:"rgba(200,210,235,0.12)", wash2:"rgba(212,175,55,0.30)", vig:"rgba(12,16,40,0.44)", glow:null, flakes:0, sparkle:26, sparkleSize:2.0, sparkleColor:"#FFD98A", bokeh:0, royal:true}
+        "Winter Royal":{temp:-4, tint:2, bright:6, contrast:20, sat:1.0, wash:"rgba(200,210,235,0.12)", wash2:"rgba(212,175,55,0.30)", vig:"rgba(12,16,40,0.44)", glow:null, flakes:0, sparkle:26, sparkleSize:2.0, sparkleColor:"#FFD98A", bokeh:0, royal:true},
+        "Name in Lights":{temp:14, tint:0, bright:8, contrast:14, sat:1.12, wash:"rgba(255,190,80,0.14)", vig:"rgba(60,40,10,0.30)", glow:{x:0.5, y:0.30, r:0.9, color:"rgba(255,200,90,0.30)"}, flakes:0, sparkle:12, bokeh:30}
       };
       function pvGradeDef(styleName){ return PV_STYLE_GRADE[styleName || pvStyle] || PV_STYLE_GRADE["Classic Santa Snow"]; }
       function pvSeededRand(seed){ var s = seed % 2147483647; if(s <= 0) s += 2147483646; return function(){ s = s * 16807 % 2147483647; return (s - 1) / 2147483646; }; }
@@ -2013,13 +2412,131 @@
          graded photo comes back. Cleared when the photo or style
          changes (CPSRestyle.clear calls pvClearAiResult). */
       var pvAi = null; // {style, img, dataURL} — watermarked preview, max 800px
+      var pvApproved = false; // the customer said yes to the current portrait
+      var pvAiPendingApproval = false; // a fresh portrait is waiting for yes/no
+      /* --- Three-version proof (2026-11-25) ---
+         The first portrait for a photo+style arrives as THREE versions
+         (three different seeds — three genuinely different portraits,
+         never crops or grades of one image). pvVersions holds them;
+         pvAi is ALWAYS the selected one, so every mockup, style tile,
+         certificate medallion and order thumbnail that already reads
+         pvAi needs no change. Card styles keep the single-version
+         flow: pvVersions stays empty and pvSetAiResult is the only
+         writer. A re-roll replaces one slot (see pvReplaceProofVersion). */
+      var pvVersions = []; // [{seed, dataURL, img}] — watermarked previews, max 800px
+      var pvSelectedVersion = 0;
+      function pvPaintProofRow(){
+        var row = document.getElementById("aiProofRow");
+        var thumbs = document.getElementById("aiProofThumbs");
+        if(!row || !thumbs) return;
+        if(!pvVersions.length){ row.style.display = "none"; return; }
+        row.style.display = "";
+        thumbs.innerHTML = "";
+        pvVersions.forEach(function(v, i){
+          if(!v || !v.img) return;
+          var b = document.createElement("button");
+          b.type = "button";
+          b.className = "pv-proof-btn" + (i === pvSelectedVersion ? " selected" : "");
+          b.setAttribute("aria-pressed", i === pvSelectedVersion ? "true" : "false");
+          b.innerHTML = '<img src="' + v.dataURL + '" alt="Version ' + (i + 1) + ' of your portrait" /><span>Version ' + (i + 1) + (i === pvSelectedVersion ? " — picked" : "") + '</span>';
+          b.addEventListener("click", function(){ pvSelectVersion(i); });
+          thumbs.appendChild(b);
+        });
+      }
+      function pvSetProofNote(t){ var n = document.getElementById("aiProofNote"); if(n) n.textContent = t || ""; }
+      function pvClearProofVersions(){
+        pvVersions = [];
+        pvSelectedVersion = 0;
+        pvSetProofNote("");
+        pvPaintProofRow();
+      }
+      function pvAddProofVersion(idx, dataURL, seed){
+        /* Versions arrive one at a time (sequential calls); idx is the
+           version number. The first version to arrive that can be
+           shown becomes the selected one. */
+        var im = new Image();
+        im.onload = function(){
+          pvVersions[idx] = { seed: (typeof seed === "number" ? seed : null), dataURL: dataURL, img: im };
+          if(!pvVersions[pvSelectedVersion]){
+            var first = -1;
+            for(var i = 0; i < pvVersions.length; i++){ if(pvVersions[i]){ first = i; break; } }
+            if(first !== -1) pvSelectedVersion = first;
+          }
+          if(idx === pvSelectedVersion){ pvAi = { style: pvStyle, img: im, dataURL: dataURL }; }
+          pvPaintProofRow(); pvRenderAll(); pvPaintStyleTiles();
+        };
+        /* A version that cannot be shown is dropped — the set still
+           stands on the versions that arrived. */
+        im.onerror = function(){};
+        im.src = dataURL;
+      }
+      function pvSelectVersion(i){
+        if(!pvVersions[i] || !pvVersions[i].img) return;
+        pvSelectedVersion = i;
+        pvAi = { style: pvStyle, img: pvVersions[i].img, dataURL: pvVersions[i].dataURL };
+        /* Picking another version is a fresh portrait awaiting yes. */
+        pvAiPendingApproval = true;
+        pvSetApproval(false);
+        var img = document.getElementById("aiPreviewImg");
+        if(img) img.src = pvVersions[i].dataURL;
+        pvPaintProofRow(); pvRenderAll(); pvPaintStyleTiles();
+      }
+      function pvReplaceProofVersion(i, dataURL){
+        /* Re-roll: one new version for slot i (the selected one).
+           The old version stays in the slot if the new image cannot
+           be shown, so the customer never loses a version they had. */
+        var im = new Image();
+        im.onload = function(){
+          pvVersions[i] = { seed: null, dataURL: dataURL, img: im };
+          if(i === pvSelectedVersion){ pvAi = { style: pvStyle, img: im, dataURL: dataURL }; }
+          pvPaintProofRow(); pvRenderAll(); pvPaintStyleTiles();
+        };
+        im.onerror = function(){};
+        im.src = dataURL;
+      }
+      /* Show or hide the approval panel and the post-approval mug rail.
+         Called with false for every fresh portrait, true when the
+         customer taps "Yes, this is the one". */
+      function pvSetApproval(approved){
+        pvApproved = !!approved;
+        var panel = document.getElementById("aiApprovePanel");
+        var note = document.getElementById("aiApproveNote");
+        var rail = document.getElementById("aiMugRail");
+        var btn = document.getElementById("aiApproveBtn");
+        var line = document.getElementById("pvApprovedLine");
+        if(panel) panel.style.display = "";
+        if(btn){ btn.disabled = pvApproved; btn.textContent = pvApproved ? "Approved — this is the one" : "Yes, this is the one"; }
+        if(note) note.textContent = pvApproved ? "Approved — your portrait is ready to go on gifts." : "Your portrait is only made into gifts once you approve it.";
+        if(rail) rail.style.display = pvApproved ? "" : "none";
+        /* The line above the product grid names the approved portrait
+           once it is approved — the grid already shows it on every gift. */
+        if(line) line.style.display = pvApproved ? "" : "none";
+      }
+      function pvClearApproval(){
+        pvApproved = false;
+        pvAiPendingApproval = false;
+        var panel = document.getElementById("aiApprovePanel");
+        var rail = document.getElementById("aiMugRail");
+        var btn = document.getElementById("aiApproveBtn");
+        var line = document.getElementById("pvApprovedLine");
+        if(panel) panel.style.display = "none";
+        if(rail) rail.style.display = "none";
+        if(line) line.style.display = "none";
+        if(btn){ btn.disabled = false; btn.textContent = "Yes, this is the one"; }
+      }
       function pvSetAiResult(styleName, dataURL){
+        /* Single-version flow (card styles): no proof set exists. */
+        pvClearProofVersions();
         var im = new Image();
         im.onload = function(){ pvAi = { style: styleName, img: im, dataURL: dataURL }; pvRenderAll(); pvPaintStyleTiles(); };
         im.onerror = function(){ pvAi = null; };
         im.src = dataURL;
       }
       function pvClearAiResult(){
+        /* Approval belongs to the old portrait too — a new photo or style
+           starts unapproved, and the panel and mug rail go away with it. */
+        pvClearApproval();
+        pvClearProofVersions();
         if(!pvAi) return;
         pvAi = null;
         if(typeof pvRenderAll === "function") pvRenderAll();
@@ -2031,7 +2548,7 @@
          treatment) — never one AI call per style. When a transform
          succeeds for a style, that tile shows the real AI result instead.
          No photo: the original example images come back. */
-      var PV_STYLE_NAMES = ["Classic Santa Snow", "Golden Christmas Movie Poster", "Cozy Fireplace", "Snow Globe", "Colombo Christmas", "Winter Royal"];
+      var PV_STYLE_NAMES = ["Classic Santa Snow", "Golden Christmas Movie Poster", "Cozy Fireplace", "Snow Globe", "Colombo Christmas", "Winter Royal", "Name in Lights"];
       function pvPaintStyleTiles(){
         var cards = document.querySelectorAll("#styles .style-card");
         if(!cards.length) return;
@@ -2042,7 +2559,9 @@
           if(!img.getAttribute("data-example")) img.setAttribute("data-example", img.getAttribute("src"));
           var name = card.getAttribute("data-style") || PV_STYLE_NAMES[i] || "";
           var tag = card.querySelector(".style-example");
-          if(!ph || !ph.img.naturalWidth){
+          /* Drawing mode: the style tiles are not used — the drawing is
+             the style — so the original example images come back. */
+          if(!ph || !ph.img.naturalWidth || (typeof pvMode === "string" && pvMode === "drawing")){
             img.src = img.getAttribute("data-example");
             card.classList.remove("pv-your-photo");
             if(tag) tag.textContent = "Your family in this look";
@@ -2071,7 +2590,7 @@
         {id:"hoodie", name:"Christmas Portrait Hoodie", price:54, fit:"contain", base:HOOD_GREEN, alt:"Hoodie with a family Christmas portrait in a gold circular frame printed on the chest", wins:[{x:39.5,y:28.5,w:23,h:23,shape:"circle",frame:"ring",shading:"folds"}]},
         {id:"stocking", name:"Christmas Portrait Stocking", price:34.99, fit:"contain", base:STOCK + "1530/christmas-portrait-stocking-personalized-family-portrait.jpg?camera_label=front", alt:"Soft white plush Christmas stocking printed with a family portrait in a gold oval frame", wins:[{x:26,y:24,w:47,h:28,shape:"ellipse",frame:"oval",shading:"radial"}]},
         {id:"canvas", name:"Christmas Portrait Canvas", price:49, fit:"cover", base:IMG + "eea881b6-90fd-4485-aeef-f507eba96989", alt:"A Christmas portrait printed on a gallery canvas hanging above a sofa", wins:[{x:28,y:5,w:47,h:52,shape:"rect",frame:"none",shading:"inner"}]},
-        {id:"ornament", name:"Personalized Ornament", price:24, fit:"cover", base:IMG + "aa89a37e-3415-4d9e-a242-5067327454d9", alt:"A personalized Christmas ornament with a family portrait hanging on a tree", wins:[{x:35.2,y:33.8,w:31.7,h:47.5,shape:"circle",frame:"ring",shading:"screen"}]},
+        {id:"ornament", name:"Personalized Ornament", price:29, fit:"cover", base:IMG + "aa89a37e-3415-4d9e-a242-5067327454d9", alt:"A personalized Christmas ornament with a family portrait hanging on a tree", wins:[{x:35.2,y:33.8,w:31.7,h:47.5,shape:"circle",frame:"ring",shading:"screen"}]},
         {id:"pettee", name:"Christmas Portrait Tee", price:29, fit:"cover", base:IMG + "512bd95c-5e81-4995-b165-ad7326715faa", alt:"A folded deep-green tee with your photo printed large on the chest", wins:[{x:16,y:46,w:44,h:38,shape:"rect",frame:"rect",shading:"folds"}]},
         {id:"tote", name:"Christmas Tote", price:24, fit:"cover", base:IMG + "328e0b89-7923-4020-b227-c63aae640402", alt:"A Christmas tote bag printed with a family portrait", wins:[{x:28,y:38,w:39,h:50,shape:"rect",frame:"rect",shading:"folds"}]},
         {id:"santaset", name:"Santa Letter + Portrait Gift Set", price:49, fit:"cover", base:IMG + "25bc2b2d-9646-409a-bc6d-e4cb1c0e63a4", alt:"Santa letter and portrait gift set with a certificate and festive packaging", wins:[{x:19,y:43,w:29,h:45,shape:"arc",frame:"none",shading:"cylinder"},{x:59,y:33,w:21,h:30,shape:"rect",frame:"rect",shading:"radial"}]},
@@ -2081,6 +2600,58 @@
       var PV_LABELS = ["Family","Kids","Pet"];
       var pvPhotos = [], pvActive = -1, pvZoom = 1, pvOx = 0, pvOy = 0, pvFeatured = "mug", pvFavs = {};
       var pvStyle = (document.querySelector('input[name="style"]:checked') || {}).value || STYLES[0].name;
+      /* --- Modes up front (Step 1 — the first choice) ---
+         One row of five: Child / Family / Pet / Drawing / Photo as-is.
+         Family is the default and behaves exactly as before. Child and
+         Pet use the same seven styles — the portrait is of a child, or
+         the pet is in the portrait; no child-only or pet-only styles
+         exist. Drawing: the upload is a child's drawing, the transform
+         uses the drawing style, and the style tiles are not used.
+         Photo as-is: no style picker, no transform, no approval — the
+         photo goes straight onto the gifts. Switching modes clears any
+         AI result and approval, exactly like changing style does, and
+         the mode itself survives photo and style changes (nothing in
+         the photo/style clearing paths resets pvMode). */
+      var pvMode = "family";
+      var PV_MODE_NOTES = {
+        child:"This portrait is of a child — pick one of the styles below, just like a family portrait.",
+        family:"The whole family — pick a style below.",
+        pet:"Your pet is in the portrait — pick a style below and they're part of the Christmas scene.",
+        drawing:"Upload your child's drawing — we'll make it real. The style tiles aren't used for drawings.",
+        photo:"Your photo goes straight onto the gifts, just as it is — no AI, no style to pick, nothing to approve."
+      };
+      function pvFamilyName(){
+        var inp = document.getElementById("pvFamilyName");
+        return inp ? inp.value.trim() : "";
+      }
+      function pvSetMode(mode, fromUser){
+        if(["child","family","pet","drawing","photo"].indexOf(mode) === -1) mode = "family";
+        var changed = (mode !== pvMode);
+        pvMode = mode;
+        document.querySelectorAll("#pvModes .pv-mode-btn").forEach(function(b){ b.classList.toggle("active", b.getAttribute("data-pv-mode") === pvMode); });
+        var note = document.getElementById("pvModeNote");
+        if(note) note.textContent = PV_MODE_NOTES[pvMode];
+        var upBtn = document.getElementById("pvUploadBtn");
+        if(upBtn) upBtn.textContent = pvMode === "drawing" ? "Add your child's drawing" : "Add your photo";
+        var hint = document.getElementById("pvUploadHint");
+        if(hint) hint.textContent = pvMode === "drawing" ? "One drawing at a time — crayon, marker, paint, all welcome." : "Up to 3 photos — family, kids, pets.";
+        /* Drawing and Photo as-is have no style picker. Photo as-is has
+           no transform either. The style tiles in the section above stay
+           as examples. */
+        var pickWrap = document.getElementById("pvStylePickWrap");
+        if(pickWrap) pickWrap.style.display = (pvMode === "drawing" || pvMode === "photo") ? "none" : "";
+        var aiBox = document.getElementById("pvAiBox");
+        if(aiBox) aiBox.style.display = pvMode === "photo" ? "none" : "";
+        if(fromUser && changed && window.CPSRestyle) CPSRestyle.clear(); /* AI result + approval belong to the old mode */
+        pvPaintStyleTiles();
+        pvRenderAll();
+        if(typeof window.pvSyncTransformBtn === "function") window.pvSyncTransformBtn();
+      }
+      document.querySelectorAll("#pvModes .pv-mode-btn").forEach(function(b){
+        b.addEventListener("click", function(){ pvSetMode(b.getAttribute("data-pv-mode"), true); });
+      });
+      var pvFamInp = document.getElementById("pvFamilyName");
+      if(pvFamInp) pvFamInp.addEventListener("input", function(){ pvRenderAll(); }); /* the ornament back updates as you type */
       function pvProd(id){ for(var i=0;i<PV_PRODUCTS.length;i++) if(PV_PRODUCTS[i].id===id) return PV_PRODUCTS[i]; return null; }
       function pvActivePhoto(){ return pvActive >= 0 ? pvPhotos[pvActive] : null; }
 
@@ -2317,6 +2888,47 @@
         else if(win.shape === "ellipse"){ ctx.ellipse(W/2, H/2, W/2, H/2, 0, 0, Math.PI*2); }
         else { ctx.rect(0, 0, W, H); }
       }
+      /* --- Ornament back (two-sided ornament) ---
+         Drawn in code, never as generated text: a deep forest green
+         circle, the family name in gold serif, "Christmas 2026" below
+         it. No name typed yet: the year on its own. */
+      var pvOrnBack = false; // the ornament tile shows its back
+      function pvDrawOrnamentBack(cv, win, baseImg){
+        var ctx = cv.getContext("2d");
+        var natW = baseImg && baseImg.naturalWidth ? baseImg.naturalWidth : 0;
+        var natH = baseImg && baseImg.naturalHeight ? baseImg.naturalHeight : 0;
+        var aspect = (natW && natH) ? (win.h/100*natH) / (win.w/100*natW) : (win.h / win.w);
+        cv.width = 440; cv.height = Math.max(40, Math.round(440 * aspect));
+        var W = cv.width, H = cv.height;
+        ctx.clearRect(0, 0, W, H);
+        var cx = W/2, cy = H/2, r = Math.min(W, H)/2;
+        ctx.save();
+        ctx.beginPath(); ctx.arc(cx, cy, r, 0, Math.PI*2); ctx.clip();
+        ctx.fillStyle = "#07180F"; ctx.fillRect(0, 0, W, H);
+        ctx.strokeStyle = "rgba(212,175,55,0.55)"; ctx.lineWidth = Math.max(2, W*0.012);
+        ctx.beginPath(); ctx.arc(cx, cy, r*0.86, 0, Math.PI*2); ctx.stroke();
+        var name = pvFamilyName();
+        ctx.fillStyle = "#D4AF37"; ctx.textAlign = "center"; ctx.textBaseline = "middle";
+        if(name){
+          var nameSize = Math.round(W*0.115);
+          ctx.font = "700 " + nameSize + "px Georgia, 'Times New Roman', serif";
+          while(nameSize > 10 && ctx.measureText(name).width > W*0.72){ nameSize -= 2; ctx.font = "700 " + nameSize + "px Georgia, 'Times New Roman', serif"; }
+          ctx.fillText(name, cx, cy - H*0.06);
+          var rw = Math.min(W*0.4, ctx.measureText(name).width*0.6);
+          ctx.strokeStyle = "#D4AF37"; ctx.lineWidth = Math.max(1.5, W*0.006);
+          ctx.beginPath(); ctx.moveTo(cx - rw/2, cy + H*0.03); ctx.lineTo(cx + rw/2, cy + H*0.03); ctx.stroke();
+          ctx.font = Math.round(W*0.062) + "px Georgia, 'Times New Roman', serif";
+          ctx.fillText("Christmas 2026", cx, cy + H*0.12);
+        } else {
+          ctx.font = "700 " + Math.round(W*0.085) + "px Georgia, 'Times New Roman', serif";
+          ctx.fillText("Christmas 2026", cx, cy);
+        }
+        ctx.restore();
+        /* gold frame + print-area outline, same as the front */
+        ctx.strokeStyle = "#D4AF37"; ctx.lineWidth = Math.max(3, W*0.022);
+        ctx.beginPath(); ctx.arc(cx, cy, r - ctx.lineWidth/2, 0, Math.PI*2); ctx.stroke();
+        pvPrintOutline(ctx, win, W, H);
+      }
       function pvDrawWindow(cv, win, baseImg, graded){
         var ctx = cv.getContext("2d");
         var natW = baseImg && baseImg.naturalWidth ? baseImg.naturalWidth : 0;
@@ -2372,7 +2984,7 @@
           container.appendChild(cv);
           list.push({cv:cv, win:win});
         });
-        list.forEach(function(it){ if(prod.custom === "nicelist"){ pvDrawNiceListWindow(it.cv, it.win, baseImg, graded); } else { pvDrawWindow(it.cv, it.win, baseImg, graded); } });
+        list.forEach(function(it){ if(prod.custom === "nicelist"){ pvDrawNiceListWindow(it.cv, it.win, baseImg, graded); } else if(prod.id === "ornament" && pvOrnBack){ pvDrawOrnamentBack(it.cv, it.win, baseImg); } else { pvDrawWindow(it.cv, it.win, baseImg, graded); } });
         return list;
       }
 
@@ -3580,6 +4192,9 @@
         if(p.id === "nicelist"){
           extra = '<div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center"><span class="soft" style="font-size:.9rem">Their photo on top, their certificate below — name in gold.</span><button class="btn btn-ghost btn-small" type="button" data-pv-add="nicelistportrait">Digital portrait — $39</button></div>';
         }
+        if(p.id === "ornament"){
+          extra = '<div style="margin-top:4px"><p class="soft" style="font-size:.9rem;margin:0 0 8px">Front: your portrait. Back: your family name and the year — so it reads as a keepsake, not a print.</p><button class="btn btn-ghost btn-small" type="button" data-pv-orn-flip>See the back</button></div>';
+        }
         if(p.id === "hoodie"){
           extra = '<div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center"><label style="font-weight:600;font-size:.9rem">Size <select id="pvHoodSize"><option>S</option><option>M</option><option>L</option><option>XL</option><option>2XL</option></select></label>' +
             '<label style="font-weight:600;font-size:.9rem">Colour <select id="pvHoodColour"><option>Forest Green</option><option>Black</option><option>Dark Heather</option></select></label><span class="soft" style="font-size:.85rem">2XL is $57</span></div>';
@@ -3595,6 +4210,13 @@
         img.addEventListener("load", function(){ pvRenderAll(); });
       });
       pvGallery.addEventListener("click", function(e){
+        var flip = e.target.closest("[data-pv-orn-flip]");
+        if(flip){
+          pvOrnBack = !pvOrnBack;
+          flip.textContent = pvOrnBack ? "See the front" : "See the back";
+          pvRenderAll();
+          return;
+        }
         var fav = e.target.closest("[data-pv-fav]");
         if(fav){
           var fid = fav.getAttribute("data-pv-fav");
@@ -3625,7 +4247,9 @@
       document.getElementById("pvFavAdd").addEventListener("click", function(){
         var ids = Object.keys(pvFavs).filter(function(k){ return pvFavs[k]; });
         if(!ids.length){ toast("Tap the heart on up to 3 products first"); return; }
-        ids.forEach(function(id){ addToCart(id === "hoodie" ? pvHoodieId() : id, true); });
+        var favAdded = 0;
+        ids.forEach(function(id){ if(addToCart(id === "hoodie" ? pvHoodieId() : id, true)) favAdded++; });
+        if(!favAdded) return;
         toast("Your favourites are in the cart");
         openCart();
       });
@@ -4281,7 +4905,9 @@
         }
         if(act === "reorder"){
           if(!d.products || !d.products.length){ toast("This design has no favourited products to reorder"); return; }
-          d.products.forEach(function(pid){ if(PRODUCTS[pid]) addToCart(pid, true); });
+          var reAdded = 0;
+          d.products.forEach(function(pid){ if(PRODUCTS[pid] && addToCart(pid, true)) reAdded++; });
+          if(!reAdded) return;
           toast("Design products added to your cart"); openCart(); return;
         }
         if(act === "open"){
