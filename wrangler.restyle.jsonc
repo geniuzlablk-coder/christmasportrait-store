@@ -1,0 +1,1 @@
+{"$schema":"node_modules/wrangler/config-schema.json","ai":{"binding":"AI"},"compatibility_date":"2026-11-24","main":"worker.js","name":"christmasportrait-restyle","r2_buckets":[{"binding":"RESTYLE_CACHE","bucket_name":"christmasportrait-restyles"}]}
