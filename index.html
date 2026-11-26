@@ -2560,6 +2560,44 @@ var PV_STYLE_SETS = {
     var n = (typeof seed === "number" && isFinite(seed)) ? Math.floor(seed) : 0;
     return VARIATION_HINTS[((n % 4) + 4) % 4];
   }
+  /* Styles whose brief mandates a Santa hat (exact list, verified
+     2026-11-25 against worker.js — do NOT extend by grepping "hat":
+     ~17 other styles specify bobble/knitted hats a Santa-hat hint
+     would contradict). Version 1 of these styles always carries the
+     hats hint (VARIATION_HINTS[3]) instead of a random hint, so the
+     first portrait the customer sees has the best chance of hats. */
+  var HAT_STYLE_IDS = {
+    "classic-santa-snow": true, "name-in-lights": true,
+    "santa-s-workshop": true, "cocoa-cabin": true,
+    "starry-stable": true, "christmas-library": true,
+    "christmas-eve-window": true, "fireside-story-time": true,
+    "santa-s-little-helper": true, "bauble-beagle": true
+  };
+  function hatHintFor(styleId) {
+    return HAT_STYLE_IDS[styleId] ? VARIATION_HINTS[3] : undefined;
+  }
+  /* Re-roll seed picker (Bug B, 2026-11-25): a fresh random seed alone
+     does NOT guarantee a visibly different version — the hint is
+     seed % 4, so 1 in 4 fresh seeds repeats the replaced version's
+     hint. Pick a seed whose hint is unlike every live version's hint
+     and whose seed was never used for this photo+style. Deterministic
+     fallback (a seed built with the wanted residue) so the loop can
+     never spin forever when 3 of the 4 hints are already live. */
+  function pickRerollSeed(excludedSeeds, excludedHints) {
+    var usedSeeds = excludedSeeds || [];
+    var usedHints = excludedHints || [];
+    var freeIdx = -1;
+    for (var i = 0; i < VARIATION_HINTS.length; i++) {
+      if (usedHints.indexOf(VARIATION_HINTS[i]) === -1) { freeIdx = i; break; }
+    }
+    var seed, tries = 0;
+    do {
+      if (freeIdx !== -1 && tries >= 20) seed = Math.floor(Math.random() * 536870911) * 4 + freeIdx;
+      else seed = Math.floor(Math.random() * 2147483647);
+      tries++;
+    } while (tries < 40 && (usedSeeds.indexOf(seed) !== -1 || (freeIdx !== -1 && (((seed % 4) + 4) % 4) !== freeIdx)));
+    return { seed: seed, hint: variationHint(seed) };
+  }
 
   var proofSetActive = false;
   var proofSetToken = 0;
@@ -2572,6 +2610,7 @@ var PV_STYLE_SETS = {
     proofSetActive = true;
     var total = (typeof count === "number" && count > 0) ? Math.floor(count) : 3;
     var versions = []; // [{ seed, dataURL }] — in arrival order
+    var setSeeds = [], setHints = []; // Bug B: seeds/hints used so far in this set, so no two versions share a hint
     var failures = 0;
     var lastError = "";
     var chain = Promise.resolve();
@@ -2580,12 +2619,20 @@ var PV_STYLE_SETS = {
         chain = chain.then(function () {
           if (token !== proofSetToken) return; // superseded / cleared
           if (cbs.onProgress) cbs.onProgress(idx, total, "Making version " + (idx + 1) + " of " + total + "…");
-          var seed = Math.floor(Math.random() * 2147483647);
-          /* Bug 3: every proof version carries its seed-derived hint,
-             so no two versions of the set can land looking identical.
-             Drawing mode is the exception: the drawing lock owns the
-             child's colours, so no hint — the seed alone varies it. */
-          return transform(fileOrDataUrl, styleId, seed, name, styleId === "drawing" ? undefined : variationHint(seed)).then(function (st) {
+          /* Bug 3 + Bug B: every proof version carries its seed-derived
+             hint, and no two versions of the set share one (the old
+             code drew independent seeds — a 62.5% chance two of three
+             shared a hint). Drawing mode is the exception: the drawing
+             lock owns the child's colours, so no hint — the seed alone
+             varies it. Issue C: the FIRST version of a hat-requiring
+             style always carries the hats hint instead of a random one. */
+          var setPick = pickRerollSeed(setSeeds, setHints);
+          var seed = setPick.seed;
+          setSeeds.push(seed);
+          var _isFirstVersion = (setSeeds.length === 1);
+          var _hint = (styleId !== "drawing") ? ((_isFirstVersion && hatHintFor(styleId)) || setPick.hint) : undefined;
+          if (styleId !== "drawing") setHints.push(_hint);
+          return transform(fileOrDataUrl, styleId, seed, name, _hint).then(function (st) {
             if (token !== proofSetToken) return;
             if (st && st.state === "ready") {
               /* BUG 1 FIX (2026-11-25): this used to call bare
@@ -2670,6 +2717,13 @@ var PV_STYLE_SETS = {
         The re-roll handler uses the same helper so one seed always
         means one version, wherever it is made. */
     variationHint: variationHint,
+    /** Pick a re-roll seed whose hint differs from every live
+        version's hint (Bug B). pickRerollSeed(excludedSeeds,
+        excludedHints) -> { seed, hint }. */
+    pickRerollSeed: pickRerollSeed,
+    /** Santa-hat hint for the 10 styles whose brief mandates a Santa
+        hat (Issue C). hatHintFor(styleId) -> hint string or undefined. */
+    hatHintFor: hatHintFor,
     /** True while a proof set is running — the wiring listener uses
         this to ignore the per-version ready/error states mid-set. */
     isProofSetRunning: function () { return proofSetActive; },
@@ -2718,6 +2772,7 @@ var PV_STYLE_SETS = {
         var endpointLive = false;
         var lastStateName = "idle";
         var pvTileTransformStyle = null; // style name of a tile-tap transform in flight — the shared listener below treats it as one single version, never a proof re-roll
+        var pvTileSeed = null; // seed of the tile-tap version (Bug B) — so V1's hint is known and a later re-roll can exclude it
         /* A preview that cannot be shown must never sit there as a
            broken-image icon: hide the panel and say so in plain words.
            (img.src is only ever set to a real portrait data URL.) */
@@ -2756,6 +2811,7 @@ var PV_STYLE_SETS = {
         function pvClearTileFlight(){
           pvTileTransformStyle = null;
           pvTileBusy = null;
+          pvTileSeed = null;
           if(typeof pvPaintStyleTiles === "function") pvPaintStyleTiles();
         }
         var NOT_CONFIGURED = "Your AI portrait is made by our studio team \u2014 the style examples above show what yours will look like.";
@@ -2802,7 +2858,13 @@ var PV_STYLE_SETS = {
                slot — never a fresh single portrait. (The set's own
                versions arrive through onVersion, not through here.) */
             if(url && !tileDone && typeof pvVersions !== "undefined" && pvVersions && pvVersions.length && typeof pvReplaceProofVersion === "function"){
-              pvReplaceProofVersion(typeof pvSelectedVersion === "number" ? pvSelectedVersion : 0, url);
+              /* Bug B: replace the slot captured at click time, not
+                 whichever slot is selected when the image arrives, and
+                 record the re-roll's seed so the next re-roll can
+                 exclude this version's hint. */
+              var _rr = (typeof pvPendingReroll !== "undefined" && pvPendingReroll) ? pvPendingReroll : null;
+              if(typeof pvPendingReroll !== "undefined") pvPendingReroll = null;
+              pvReplaceProofVersion(_rr ? _rr.slot : (typeof pvSelectedVersion === "number" ? pvSelectedVersion : 0), url, _rr ? _rr.seed : null);
             } else if(url && typeof pvSetAiResult === "function") pvSetAiResult(pvStyle, url);
             /* Approve-before-you-pay: a fresh portrait waits for the
                customer's yes before anything portrait-based can be added. */
@@ -2820,6 +2882,7 @@ var PV_STYLE_SETS = {
             if(pvTileTransformStyle) pvClearTileFlight();
             setStatus(NOT_CONFIGURED);
           } else if(s.state === "error"){
+            if(typeof pvPendingReroll !== "undefined") pvPendingReroll = null;
             btn.disabled = false; btn.textContent = "Transform with AI";
             if(rerollBtn) rerollBtn.disabled = false;
             if(pvTileTransformStyle){
@@ -2915,7 +2978,8 @@ var PV_STYLE_SETS = {
           btn.disabled = true; btn.textContent = "Transforming\u2026";
           if(rerollBtn) rerollBtn.disabled = true;
           /* The tile version becomes version 1 of the proof. */
-          if(typeof pvAddProofVersion === "function" && pvAi && pvAi.dataURL) pvAddProofVersion(0, pvAi.dataURL, null);
+          if(typeof pvAddProofVersion === "function" && pvAi && pvAi.dataURL) pvAddProofVersion(0, pvAi.dataURL, (typeof pvTileSeed === "number" ? pvTileSeed : null));
+          pvTileSeed = null;
           pvTileSingle = false;
           setStatus("Making version 2 of 3…");
           CPSRestyle.transformSet(file, slug, pvFamilyNameValue(), {
@@ -2961,6 +3025,7 @@ var PV_STYLE_SETS = {
           pvApplyTileStyle(name);
           if(typeof pvClearProofVersions === "function") pvClearProofVersions();
           pvTileSingle = true;
+          pvTileSeed = null;
           pvAi = { style: name, img: cached.img, dataURL: cached.dataURL };
           pvAiPendingApproval = !cached.approved;
           if(typeof pvSetApproval === "function") pvSetApproval(!!cached.approved);
@@ -3046,7 +3111,8 @@ var PV_STYLE_SETS = {
           pvTileTransformStyle = name;
           if(typeof pvPaintStyleTiles === "function") pvPaintStyleTiles();
           setStatus("Making your portrait in this world…");
-          CPSRestyle.transform(ph.file, slug, undefined, pvFamilyNameValue()).then(function(st){
+          pvTileSeed = (typeof CPSRestyle.pickRerollSeed === "function") ? CPSRestyle.pickRerollSeed([], []).seed : Math.floor(Math.random() * 2147483647);
+          CPSRestyle.transform(ph.file, slug, pvTileSeed, pvFamilyNameValue(), slug === "drawing" ? undefined : ((typeof CPSRestyle.hatHintFor === "function" && CPSRestyle.hatHintFor(slug)) || ((typeof CPSRestyle.variationHint === "function") ? CPSRestyle.variationHint(pvTileSeed) : undefined))).then(function(st){
             /* Safety net: the shared listener above owns ready/error and
                clears the tile flags. If it didn't run (the call was
                stopped — style, photo or mode changed mid-call), clear
@@ -3136,17 +3202,38 @@ var PV_STYLE_SETS = {
           if(wrap) wrap.style.display = "none";
           /* ONE new version for the currently selected slot — never
              all three. The first set used 3 of the 5 free makes a
-             day, so each re-roll is 1 more (3 + 1 + 1 = 5). A fresh
-             random seed makes it a genuinely new version, not a copy
+             day, so each re-roll is 1 more (3 + 1 + 1 = 5). A fresh seed whose hint differs from every live version's hint (see pickRerollSeed)
+             makes it a genuinely new version, not a copy
              of one already shown. The ready handler replaces the
              selected slot (proof set) or the single portrait (cards).
              Bug 3: when the customer left the change box empty, the
              seed-derived variation hint goes instead — customer text
              always wins, the hint is only the fallback — so a re-roll
              is guaranteed a small visible difference. */
-          var rerollSeed = Math.floor(Math.random() * 2147483647);
-          var rerollHint = (typeof CPSRestyle.variationHint === "function") ? CPSRestyle.variationHint(rerollSeed) : undefined;
-          CPSRestyle.transform(ph.file, styleSlug(), rerollSeed, pvFamilyNameValue(), changeText || rerollHint);
+          /* Bug B: a fresh random seed is not enough — the hint is
+             seed % 4, so 1 in 4 fresh seeds repeats the replaced
+             version's hint. Exclude every live version's seed and
+             hint, and remember the slot + seed so the ready handler
+             replaces the right slot and records the new seed. */
+          var rerollSlot = (typeof pvSelectedVersion === "number" ? pvSelectedVersion : 0);
+          var excludedSeeds = [], excludedHints = [];
+          if (typeof pvVersions !== "undefined" && pvVersions) {
+            pvVersions.forEach(function (v) {
+              if (!v) return;
+              if (typeof v.seed === "number") {
+                excludedSeeds.push(v.seed);
+                if (typeof CPSRestyle.variationHint === "function") excludedHints.push(CPSRestyle.variationHint(v.seed));
+              }
+            });
+          }
+          /* Drawing mode sends no hint — the drawing lock owns the
+             child's colours (same rule as transformSet). */
+          var isDrawingReroll = (styleSlug() === "drawing");
+          var rerollPick = (typeof CPSRestyle.pickRerollSeed === "function")
+            ? CPSRestyle.pickRerollSeed(excludedSeeds, excludedHints)
+            : { seed: Math.floor(Math.random() * 2147483647), hint: undefined };
+          if (typeof pvPendingReroll !== "undefined") pvPendingReroll = { slot: rerollSlot, seed: rerollPick.seed };
+          CPSRestyle.transform(ph.file, styleSlug(), rerollPick.seed, pvFamilyNameValue(), changeText || (isDrawingReroll ? undefined : rerollPick.hint));
         });
         document.getElementById("aiMugRailBtn").addEventListener("click", function(){ if(addToCart("mug")) openCart(); });
         function syncOrnQty(){
@@ -3400,6 +3487,7 @@ var PV_STYLE_SETS = {
          writer. A re-roll replaces one slot (see pvReplaceProofVersion). */
       var pvVersions = []; // [{seed, dataURL, img}] — watermarked previews, max 800px
       var pvSelectedVersion = 0;
+      var pvPendingReroll = null; // {slot, seed} of the re-roll in flight (Bug B) — consumed by the ready handler, cleared on error
       function pvPaintProofRow(){
         var row = document.getElementById("aiProofRow");
         var thumbs = document.getElementById("aiProofThumbs");
@@ -3457,13 +3545,13 @@ var PV_STYLE_SETS = {
         if(img) img.src = pvVersions[i].dataURL;
         pvPaintProofRow(); pvRenderAll(); pvPaintStyleTiles();
       }
-      function pvReplaceProofVersion(i, dataURL){
+      function pvReplaceProofVersion(i, dataURL, seed){
         /* Re-roll: one new version for slot i (the selected one).
            The old version stays in the slot if the new image cannot
            be shown, so the customer never loses a version they had. */
         var im = new Image();
         im.onload = function(){
-          pvVersions[i] = { seed: null, dataURL: dataURL, img: im };
+          pvVersions[i] = { seed: (typeof seed === "number" ? seed : null), dataURL: dataURL, img: im };
           if(i === pvSelectedVersion){ pvAi = { style: pvStyle, img: im, dataURL: dataURL }; pvCacheAi(pvStyle, im, dataURL, false); }
           pvPaintProofRow(); pvRenderAll(); pvPaintStyleTiles();
         };
@@ -3519,6 +3607,11 @@ var PV_STYLE_SETS = {
            starts unapproved, and the panel and mug rail go away with it. */
         pvClearApproval();
         pvClearProofVersions();
+        /* The large preview is stale the moment the portrait is dropped:
+           hide its wrapper too, or the page shows an AI portrait that no
+           longer exists while the mockups and tiles show the graded photo. */
+        var _wrap = document.getElementById("aiPreviewWrap");
+        if(_wrap) _wrap.style.display = "none";
         pvTileSingle = false;
         pvTileBusy = null; /* a stopped tile transform is stopped — its tile repaints below */
         if(!pvAi) return;
@@ -3617,11 +3710,14 @@ var PV_STYLE_SETS = {
          exist. Drawing: the upload is a child's drawing, the transform
          uses the drawing style, and the style tiles are not used.
          Photo as-is: no style picker, no transform, no approval — the
-         photo goes straight onto the gifts. Switching modes clears any
-         AI result and approval, exactly like changing style does, and
-         the mode itself survives photo and style changes (nothing in
-         the photo/style clearing paths resets pvMode). */
+         photo goes straight onto the gifts. Switching modes clears an
+         UNAPPROVED AI result and approval, exactly like changing style
+         does; an APPROVED portrait is kept (hidden while its mode is
+         not showing) and returns with its proof versions on the way
+         back. The mode itself survives photo and style changes
+         (nothing in the photo/style clearing paths resets pvMode). */
       var pvMode = "family";
+      var pvStyleByMode = {}; /* mode -> last style picked in that mode, so a round-trip returns to the same style */
       var PV_MODE_NOTES = {
         child:"This portrait is of a child — pick one of the styles below, just like a family portrait.",
         family:"The whole family — pick a style below.",
@@ -3709,6 +3805,7 @@ var PV_STYLE_SETS = {
       function pvSetMode(mode, fromUser){
         if(["child","family","pet","drawing","photo"].indexOf(mode) === -1) mode = "family";
         var changed = (mode !== pvMode);
+        var _prevMode = pvMode;
         pvMode = mode;
         document.querySelectorAll("#pvModes .pv-mode-btn").forEach(function(b){ b.classList.toggle("active", b.getAttribute("data-pv-mode") === pvMode); });
         var note = document.getElementById("pvModeNote");
@@ -3725,15 +3822,55 @@ var PV_STYLE_SETS = {
         var aiBox = document.getElementById("pvAiBox");
         if(aiBox) aiBox.style.display = pvMode === "photo" ? "none" : "";
         if(changed){
+          pvStyleByMode[_prevMode] = pvStyle; /* remember where the old mode left off */
           var _first = (typeof PV_STYLE_SETS === "object" && PV_STYLE_SETS[pvMode] && PV_STYLE_SETS[pvMode][0]) ? PV_STYLE_SETS[pvMode][0].name : null;
-          if(_first) pvStyle = _first; /* a new mode starts on its first look */
+          pvStyle = pvStyleByMode[pvMode] || _first; /* back to a visited mode = back to its last style; a new mode starts on its first look */
         }
         if(typeof pvRebuildStylePickers === "function") pvRebuildStylePickers();
         if(typeof pvRenderStyleTiles === "function") pvRenderStyleTiles();
         if(typeof pvSyncStyleHeading === "function") pvSyncStyleHeading();
-        if(fromUser && changed && window.CPSRestyle) CPSRestyle.clear(); /* AI result + approval belong to the old mode */
+        /* An APPROVED portrait survives a mode round-trip: keep pvAi,
+           pvVersions, pvSelectedVersion and pvApproved exactly as they
+           are — no re-transform, no budget spent. An unapproved portrait
+           is still cleared, exactly as before. Never skip the clear
+           while a transform is in flight, or its completion would land
+           in the wrong mode (then the old behaviour applies). */
+        var _keepApproved = (typeof pvApproved !== "undefined" && pvApproved && typeof pvAi !== "undefined" && pvAi && pvAi.img);
+        if(_keepApproved && window.CPSRestyle){
+          var _st = (typeof CPSRestyle.getState === "function") ? CPSRestyle.getState() : null;
+          var _busy = (_st && (_st.state === "uploading" || _st.state === "transforming"))
+            || (typeof CPSRestyle.isProofSetRunning === "function" && CPSRestyle.isProofSetRunning())
+            || (typeof pvTileBusy !== "undefined" && pvTileBusy);
+          if(_busy) _keepApproved = false;
+        }
+        if(fromUser && changed && window.CPSRestyle && !_keepApproved) CPSRestyle.clear(); /* unapproved AI result + approval belong to the old mode */
         pvPaintStyleTiles();
         pvRenderAll();
+        /* While away from the approved portrait's mode, hide its proof UI
+           (the mockups already show the graded photo there, because the
+           pvAi.style === pvStyle gate fails). On return, put it all back:
+           wrap + picked image + proof row + approve panel + mug rail +
+           approved line, with pvStyle pinned to the approved style. */
+        if(typeof _keepApproved !== "undefined" && _keepApproved && pvAi){
+          var _inMode = (pvMode !== "drawing" && pvMode !== "photo")
+            && (typeof pvStyleTileList === "function")
+            && pvStyleTileList().some(function(s){ return s.name === pvAi.style; });
+          var _wrap = document.getElementById("aiPreviewWrap");
+          var _line = document.getElementById("pvApprovedLine");
+          if(_inMode){
+            if(pvStyle !== pvAi.style){ pvStyle = pvAi.style; if(typeof pvRebuildStylePickers === "function") pvRebuildStylePickers(); }
+            var _img = document.getElementById("aiPreviewImg");
+            if(_img && pvAi.dataURL) _img.src = pvAi.dataURL;
+            if(_wrap) _wrap.style.display = "";
+            if(typeof pvPaintProofRow === "function") pvPaintProofRow();
+            if(typeof pvSetApproval === "function") pvSetApproval(true);
+          } else {
+            if(_wrap) _wrap.style.display = "none";
+            if(_line) _line.style.display = "none";
+          }
+          if(typeof pvRenderAll === "function") pvRenderAll();
+          if(typeof pvPaintStyleTiles === "function") pvPaintStyleTiles();
+        }
         if(typeof window.pvSyncTransformBtn === "function") window.pvSyncTransformBtn();
       }
       document.querySelectorAll("#pvModes .pv-mode-btn").forEach(function(b){
